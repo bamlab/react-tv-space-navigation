@@ -6,6 +6,7 @@ import { createRoot } from 'react-dom/client';
 import { Node } from '../../core/src/spatial-navigation/Components/Node';
 import { Root } from '../../core/src/spatial-navigation/Components/Root';
 import { ProgramLayout } from './components/program/ProgramLayout';
+import { Typography } from './components/Typography';
 
 const Program = () => {
   return <Node isFocusable>{({ isFocused }) => <ProgramLayout isFocused={isFocused} />}</Node>;
@@ -39,7 +40,7 @@ const ViewNode = ({
 
 const App = () => (
   <div>
-    <h1 style={{ color: 'white' }}>React Spatial Navigation Example</h1>
+    <Typography>React Spatial Navigation Example</Typography>
     <div />
     <Root>
       <ViewNode direction="horizontal">

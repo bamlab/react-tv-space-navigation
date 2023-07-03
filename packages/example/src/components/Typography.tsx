@@ -8,5 +8,6 @@ const styles = {
   text: {
     fontSize: 30,
     color: 'white',
+    fontFamily: "'Open Sans', sans-serif",
   },
 };
