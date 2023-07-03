@@ -1629,6 +1629,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.uniqueid@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "@types/lodash.uniqueid@npm:4.0.7"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 30e537775e312f1bd559608f03d952bae1b7b46211e47e05e176d99bd1d08a1059f2c91f43ddf9fcf2ad56c2fb30c0b8052a8a68bb5b9df924e4b058191dfeeb
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.14.195
+  resolution: "@types/lodash@npm:4.14.195"
+  checksum: 39b75ca635b3fa943d17d3d3aabc750babe4c8212485a4df166fe0516e39288e14b0c60afc6e21913cc0e5a84734633c71e617e2bd14eaa1cf51b8d7799c432e
+  languageName: node
+  linkType: hard
+
 "@types/mime@npm:*":
   version: 3.0.1
   resolution: "@types/mime@npm:3.0.1"
@@ -3934,6 +3950,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.uniqueid@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "lodash.uniqueid@npm:4.0.1"
+  checksum: f8a66b34c2a8df74aeab22a018c9247c96346dc449506278e6f651030166b74959a4f8e6fae60d392a4c00a40758677547b6e969e4cb6893d8fcd1cb0d2b4ba1
+  languageName: node
+  linkType: hard
+
 "lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
@@ -3990,6 +4013,15 @@ __metadata:
   version: 10.0.0
   resolution: "lru-cache@npm:10.0.0"
   checksum: 18f101675fe283bc09cda0ef1e3cc83781aeb8373b439f086f758d1d91b28730950db785999cd060d3c825a8571c03073e8c14512b6655af2188d623031baf50
+  languageName: node
+  linkType: hard
+
+"lrud@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "lrud@npm:8.0.0"
+  dependencies:
+    mitt: ^1.2.0
+  checksum: 4913e331383a41df56f7da53cc199d32551469438d8e79e26bebc1f31810757ffb31d3096508c022a47d7ac759b18b49b013c57cfe7937a9d121b319d6fa3642
   languageName: node
   linkType: hard
 
@@ -4210,6 +4242,13 @@ __metadata:
     minipass: ^3.0.0
     yallist: ^4.0.0
   checksum: f1fdeac0b07cf8f30fcf12f4b586795b97be856edea22b5e9072707be51fc95d41487faec3f265b42973a304fe3a64acd91a44a3826a963e37b37bafde0212c3
+  languageName: node
+  linkType: hard
+
+"mitt@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "mitt@npm:1.2.0"
+  checksum: 53abb94c6203250e2498e152ae096288c4866c6aab1dc093922084a7414af4aa6cda5a51d480267a8f0bd7908b0e896099bc953317aca8a18672dc67ee7e923d
   languageName: node
   linkType: hard
 
@@ -4741,11 +4780,14 @@ __metadata:
     "@babel/core": ^7.22.5
     "@babel/preset-env": ^7.22.5
     "@babel/preset-react": ^7.22.5
+    "@types/lodash.uniqueid": ^4.0.7
     "@types/react": ^18.2.14
     "@types/react-dom": ^18.2.6
     babel-loader: ^9.1.2
     css-loader: ^6.8.1
     html-webpack-plugin: ^5.5.3
+    lodash.uniqueid: ^4.0.1
+    lrud: ^8.0.0
     react: ^18.2.0
     react-dom: ^18.2.0
     style-loader: ^3.3.3
