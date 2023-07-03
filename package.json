@@ -1,4 +1,28 @@
 {
   "name": "react-spatial-navigation",
-  "packageManager": "yarn@3.5.1"
+  "packageManager": "yarn@3.5.1",
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-react": "^7.22.5",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.8.1",
+    "html-webpack-plugin": "^5.5.3",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "scripts": {
+    "build:lib": "webpack --config webpack.config.js",
+    "start": "webpack serve --config webpack.config.example.js"
+  }
 }
