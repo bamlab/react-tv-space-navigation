@@ -1662,17 +1662,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@react-spatial-navigation/core@workspace:packages/core"
   dependencies:
-    "@react-native-community/eslint-config": ^3.2.0
-    "@typescript-eslint/eslint-plugin": ^5.60.1
-    "@typescript-eslint/parser": ^5.60.1
-    eslint: ^8.44.0
-    eslint-config-prettier: ^8.8.0
-    eslint-define-config: ^1.21.0
-    eslint-plugin-prettier: ^4.2.1
-    eslint-plugin-react: ^7.32.2
-    eslint-plugin-react-hooks: ^4.6.0
-    eslint-plugin-react-native: ^4.0.0
-    prettier: ^2.8.8
     webpack: ^5.88.1
     webpack-cli: ^5.1.4
     webpack-dev-server: ^4.15.1
