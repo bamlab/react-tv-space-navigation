@@ -1,15 +1,15 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 const RABBITS = [
-  require('./rabbit1.png').default,
-  require('./rabbit2.png').default,
-  require('./rabbit3.png').default,
-  require('./rabbit4.png').default,
-  require('./rabbit5.png').default,
-  require('./rabbit6.png').default,
-  require('./rabbit7.png').default,
-  require('./rabbit8.png').default,
-  require('./rabbit9.png').default,
+  require('./rabbit1.png'),
+  require('./rabbit2.png'),
+  require('./rabbit3.png'),
+  require('./rabbit4.png'),
+  require('./rabbit5.png'),
+  require('./rabbit6.png'),
+  require('./rabbit7.png'),
+  require('./rabbit8.png'),
+  require('./rabbit9.png'),
 ];
 
 // Use a global mutated variable to not have duplicate rabbits
@@ -19,18 +19,14 @@ const getGlobalRabbitIndex = () => {
   return globalRabbitIndex;
 };
 
-export const ProgramLayout = ({
-  isFocused = false,
-}: {
-  isFocused?: boolean;
-}) => {
+export const ProgramLayout = ({ isFocused = false }: { isFocused?: boolean }) => {
   const rabbitIndex = useMemo(() => getGlobalRabbitIndex(), []);
 
   return (
     <div style={styles.container}>
       <img
         style={{ ...styles.image, ...(isFocused && styles.focused) }}
-        src={RABBITS[rabbitIndex]}
+        src={RABBITS[rabbitIndex].default}
       />
     </div>
   );

@@ -24,7 +24,6 @@ export default class SpatialNavigator {
     if (!this.lrud.getRootNode()) return;
 
     const direction = mapKeyCode(keycode);
-    if (direction)
-      this.lrud.handleKeyEvent({ direction }, { forceFocus: true });
+    if (direction) this.lrud.handleKeyEvent({ direction }, { forceFocus: true });
   }
 }

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
     library: 'ReactSpatialNavigation',
     libraryTarget: 'umd',
     umdNamedDefine: true,
-    globalObject: 'this'
+    globalObject: 'this',
   },
   mode: 'production',
   module: {
@@ -20,16 +21,15 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   externals: {
-    'react': 'react',
-    'react-dom' : 'react-dom'
-  }
+    react: 'react',
+    'react-dom': 'react-dom',
+  },
 };
-

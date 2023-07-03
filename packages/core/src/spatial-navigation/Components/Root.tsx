@@ -2,7 +2,7 @@ import { SpatialNavigatorContext } from '../Context/SpatialNavigatorContext';
 import { ParentIdContext } from '../Context/ParentIdContext';
 import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useCreateSpatialNavigator } from '../hooks/useCreateSpatialNavigator';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 const ROOT_ID = 'root';
 
@@ -15,9 +15,7 @@ export const Root = ({ children }: { children: ReactNode }) => {
 
   return (
     <SpatialNavigatorContext.Provider value={spatialNavigator}>
-      <ParentIdContext.Provider value={ROOT_ID}>
-        {children}
-      </ParentIdContext.Provider>
+      <ParentIdContext.Provider value={ROOT_ID}>{children}</ParentIdContext.Provider>
     </SpatialNavigatorContext.Provider>
   );
 };

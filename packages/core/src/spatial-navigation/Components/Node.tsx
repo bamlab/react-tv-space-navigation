@@ -1,8 +1,5 @@
 import { useSpatialNavigator } from '../Context/SpatialNavigatorContext';
-import {
-  ParentIdContext,
-  useParentId,
-} from '../Context/ParentIdContext';
+import { ParentIdContext, useParentId } from '../Context/ParentIdContext';
 import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useUniqueId } from '../hooks/useUniqueId';
 import { NodeOrientation } from '../types/orientation';

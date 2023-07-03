@@ -27,9 +27,7 @@ export const useBeforeMountEffect = (
     // The dependencies array is undefined => we need to trigger the cleanup
     !dependencies ||
     // The dependencies array has changed => we need to trigger the cleanup
-    dependencies.some(
-      (value, index) => value !== prevDependencies.current?.[index],
-    )
+    dependencies.some((value, index) => value !== prevDependencies.current?.[index])
   ) {
     cleanupCallback.current?.(); // Run the cleanup of the last effect.
     isMounted.current = false; // Allow to re-run the effect on the next render (with new dependencies).
