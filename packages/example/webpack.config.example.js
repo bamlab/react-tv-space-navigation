@@ -2,15 +2,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './example/index.tsx',
+  entry: './src/index.tsx',
   output: {
-    path: path.resolve(__dirname, 'example/dist'),
+    path: path.resolve(__dirname, 'src/dist'),
     filename: 'bundle.js'
   },
   mode: 'development',
   devServer: {
     static: {
-      directory: path.join(__dirname, 'example/dist'),
+      directory: path.join(__dirname, 'src/dist'),
     },
     port: 9000,
     open: true,  // This will automatically open the dev server in the browser
@@ -35,7 +35,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './example/public/index.html'
+      template: './src/public/index.html'
     })
   ],
 };

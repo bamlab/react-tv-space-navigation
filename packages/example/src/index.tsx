@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { MyComponent } from '../src/index';
-import { Node } from '../src/spatial-navigation/Components/Node'
-import { Root } from '../src/spatial-navigation/Components/Root'
+import { MyComponent } from '../../core/src/index';
+import { Node } from '../../core/src/spatial-navigation/Components/Node'
+import { Root } from '../../core/src/spatial-navigation/Components/Root'
 
 const Element = () => {
   return (

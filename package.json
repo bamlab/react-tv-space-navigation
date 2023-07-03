@@ -1,5 +1,9 @@
 {
-  "name": "react-spatial-navigation",
+  "name": "react-spatial-navigation-monorepo",
+  "workspaces": [
+    "packages/**"
+  ],
+  "private": true,
   "packageManager": "yarn@3.5.1",
   "devDependencies": {
     "@babel/core": "^7.22.5",
@@ -25,7 +29,7 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "build:lib": "webpack --config webpack.config.js",
-    "start": "webpack serve --config webpack.config.example.js"
+    "build:core": "yarn workspace @react-spatial-navigation/core build",
+    "start:example": "yarn workspace @react-spatial-navigation/example start"
   }
 }
