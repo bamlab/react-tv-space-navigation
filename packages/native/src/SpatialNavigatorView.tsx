@@ -1,4 +1,4 @@
-// @ts-ignore
+import { View } from 'react-native';
 import { Node } from '@react-spatial-navigation/core';
 
 export const SpatialNavigatorView = ({
@@ -10,7 +10,8 @@ export const SpatialNavigatorView = ({
 }) => {
   return (
     <Node orientation={direction}>
-      <div
+      <View
+        // eslint-disable-next-line react-native/no-inline-styles
         style={{
           borderStyle: 'solid',
           borderColor: 'grey',
@@ -22,7 +23,7 @@ export const SpatialNavigatorView = ({
         }}
       >
         {children}
-      </div>
+      </View>
     </Node>
   );
 };
