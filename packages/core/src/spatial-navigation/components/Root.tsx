@@ -1,5 +1,5 @@
-import { SpatialNavigatorContext } from '../Context-2/SpatialNavigatorContext';
-import { ParentIdContext } from '../Context-2/ParentIdContext';
+import { SpatialNavigatorContext } from '../context/SpatialNavigatorContext';
+import { ParentIdContext } from '../context/ParentIdContext';
 import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useCreateSpatialNavigator } from '../hooks/useCreateSpatialNavigator';
 import { ReactNode } from 'react';
