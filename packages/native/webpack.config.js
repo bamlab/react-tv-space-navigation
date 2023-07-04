@@ -42,5 +42,6 @@ module.exports = {
     react: 'react',
     'react-dom': 'react-dom',
     'react-native': 'react-native',
+    '@react-spatial-navigation/core': '@react-spatial-navigation/core',
   },
 };
