@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { Node } from '@react-spatial-navigation/core';
+import { Node } from './Node';
 
 export const SpatialNavigatorView = ({
   direction = 'horizontal',
@@ -14,7 +14,7 @@ export const SpatialNavigatorView = ({
         // eslint-disable-next-line react-native/no-inline-styles
         style={{
           borderStyle: 'solid',
-          borderColor: 'grey',
+          borderColor: 'blue',
           borderWidth: 1,
           display: 'flex',
           flexDirection: direction === 'horizontal' ? 'row' : 'column',
