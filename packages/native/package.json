@@ -1,0 +1,13 @@
+{
+  "name": "@react-spatial-navigation/native",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  }
+}
