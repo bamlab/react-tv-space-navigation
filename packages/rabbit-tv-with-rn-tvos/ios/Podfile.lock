@@ -316,6 +316,8 @@ PODS:
   - React-jsinspector (0.71.11-0)
   - React-logger (0.71.11-0):
     - glog
+  - react-native-keyevent (0.3.0):
+    - React
   - react-native-safe-area-context (4.6.4):
     - RCT-Folly
     - RCTRequired
@@ -455,6 +457,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../../../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../../../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../../../node_modules/react-native/ReactCommon/logger`)
+  - react-native-keyevent (from `../../../node_modules/react-native-keyevent`)
   - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../../../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../../../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -532,6 +535,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../../../node_modules/react-native/ReactCommon/logger"
+  react-native-keyevent:
+    :path: "../../../node_modules/react-native-keyevent"
   react-native-safe-area-context:
     :path: "../../../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -597,6 +602,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: b793f65dc6ff505e397286d2776e7a8442747bf3
   React-jsinspector: ec50c66abd5580a08cd8c83bc0b570de3dee90ad
   React-logger: 4d444d0dfbe78901a770e9d942cbcaa0d9cd1fbf
+  react-native-keyevent: 03c7a167d511fb775b90eef5f196f4c5d99e752d
   react-native-safe-area-context: 68b07eabfb0d14547d36f6929c0e98d818064f02
   React-perflogger: a411f62cb204bed2e70aed84a9b08c45fe63fc40
   React-RCTActionSheet: 9868c507bbfee9f72d0929030dad30f3b189ee73

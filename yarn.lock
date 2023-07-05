@@ -3598,6 +3598,7 @@ __metadata:
     metro-react-native-babel-preset: 0.73.10
     react: 18.2.0
     react-native: "npm:react-native-tvos@0.71.11-0"
+    react-native-keyevent: ^0.3.0
     react-native-safe-area-context: ^4.6.3
     react-native-screens: ^3.22.0
     react-test-renderer: 18.2.0
@@ -10509,6 +10510,15 @@ __metadata:
   version: 0.71.19
   resolution: "react-native-gradle-plugin@npm:0.71.19"
   checksum: 2e3ab679f0b81edd81b9fb88a73a16c8b9b6dbef4e7158fd894c42e6dff04ba8d11f1b9663ffa2c30d0d9deee3cd44b033cd280322c010be3c290e4422088a7a
+  languageName: node
+  linkType: hard
+
+"react-native-keyevent@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "react-native-keyevent@npm:0.3.0"
+  peerDependencies:
+    react-native: ">=0.30"
+  checksum: 44c718a69af479fb31d1214d03d0116f9a4e740df55a24fd984c30711c4a55745a8714d9df898ae4ca77d08944c04ab624b4a56195a1f09c35bdf439d3f08fbf
   languageName: node
   linkType: hard
 
