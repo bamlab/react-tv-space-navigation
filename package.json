@@ -39,7 +39,8 @@
     "lodash.uniqueid": "^4.0.1",
     "lrud": "^8.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-native-web": "^0.19.6"
   },
   "scripts": {
     "test:lint": "eslint . --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --max-warnings 0 --cache --cache-strategy content --cache-location .cache/eslint.json",
