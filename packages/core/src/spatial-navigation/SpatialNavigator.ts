@@ -1,5 +1,4 @@
-import { mapKeyCode } from './helpers/mapKeyCode';
-import { Lrud } from 'lrud';
+import { Direction, Lrud } from 'lrud';
 
 export default class SpatialNavigator {
   private lrud: Lrud;
@@ -20,10 +19,9 @@ export default class SpatialNavigator {
     this.lrud.unregisterNode(...params);
   }
 
-  public async handleKeyDown(keycode: string) {
+  public async handleKeyDown(direction: Direction) {
     if (!this.lrud.getRootNode()) return;
 
-    const direction = mapKeyCode(keycode);
     if (direction) this.lrud.handleKeyEvent({ direction }, { forceFocus: true });
   }
 }
