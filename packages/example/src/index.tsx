@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 
+import './configureKeyboard';
+
 import { Node } from '@react-spatial-navigation/core/src/index';
 import { Root } from '@react-spatial-navigation/core/src/index';
 import { ProgramLayout } from './components/program/ProgramLayout';
@@ -38,31 +40,33 @@ const ViewNode = ({
   );
 };
 
-const App = () => (
-  <div>
-    <Typography>React Spatial Navigation Example</Typography>
-    <div />
-    <Root>
-      <ViewNode direction="horizontal">
-        <ViewNode direction="vertical">
-          <Program />
-          <Program />
-          <ViewNode direction="horizontal">
+const App = () => {
+  return (
+    <div>
+      <Typography>React Spatial Navigation Example</Typography>
+      <div />
+      <Root>
+        <ViewNode direction="horizontal">
+          <ViewNode direction="vertical">
             <Program />
             <Program />
+            <ViewNode direction="horizontal">
+              <Program />
+              <Program />
+            </ViewNode>
           </ViewNode>
+          <Program />
+          <Program />
         </ViewNode>
-        <Program />
-        <Program />
-      </ViewNode>
-      <ViewNode direction="horizontal">
-        <Program />
-        <Program />
-        <Program />
-      </ViewNode>
-    </Root>
-  </div>
-);
+        <ViewNode direction="horizontal">
+          <Program />
+          <Program />
+          <Program />
+        </ViewNode>
+      </Root>
+    </div>
+  );
+};
 
 const container = document.getElementById('root');
 const root = createRoot(container);
