@@ -1,10 +1,10 @@
 import {NavigationContainer} from '@react-navigation/native';
-import {SimpleTVOSApp} from './src/components/SimpleTVOSApp';
+import {SimpleRSNApp} from './src/components/SimpleRSNApp';
 
 function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <SimpleTVOSApp />
+      <SimpleRSNApp />
     </NavigationContainer>
   );
 }

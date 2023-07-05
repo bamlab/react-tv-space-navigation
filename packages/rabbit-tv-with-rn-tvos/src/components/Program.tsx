@@ -1,15 +1,27 @@
-import React from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {useRabbitImageSource} from './useRabbitImageSource';
 
-export const Program = () => {
+export const Program = ({
+  isFocused = false,
+  touchable = true,
+}: {
+  touchable?: boolean;
+  isFocused?: boolean;
+}) => {
   const imageSource = useRabbitImageSource();
 
+  const Wrapper = touchable
+    ? TouchableOpacity
+    : ({children}: {children: React.ReactNode}) => <>{children}</>;
+
   return (
-    <TouchableOpacity>
-      <Image style={styles.programImage} source={imageSource} />
-    </TouchableOpacity>
+    <Wrapper>
+      <Image
+        style={[styles.programImage, isFocused && {transform: [{scale: 1.1}]}]}
+        source={imageSource}
+      />
+    </Wrapper>
   );
 };
 
