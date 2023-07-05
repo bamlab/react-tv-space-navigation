@@ -3,7 +3,8 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Node, Root } from '../../core/src';
+import { Node } from '@react-spatial-navigation/core/src/index';
+import { Root } from '@react-spatial-navigation/core/src/index';
 import { ProgramLayout } from './components/program/ProgramLayout';
 import { Typography } from './components/Typography';
 

@@ -28,11 +28,14 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env', '@babel/preset-react'],
+              presets: [
+                'module:metro-react-native-babel-preset',
+                '@babel/preset-env',
+                ['@babel/preset-react', { runtime: 'automatic' }],
+                '@babel/preset-typescript',
+              ],
+              plugins: ['react-native-web'],
             },
-          },
-          {
-            loader: 'ts-loader',
           },
         ],
       },
@@ -56,6 +59,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      'react-native$': 'react-native-web',
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
