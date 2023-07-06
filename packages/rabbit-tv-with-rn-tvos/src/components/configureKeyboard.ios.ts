@@ -14,6 +14,8 @@ configure({
         down: Directions.DOWN,
       };
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore -- TODO fix this later, it'a just an example
       callback(mapping[evt.eventType]);
     });
 

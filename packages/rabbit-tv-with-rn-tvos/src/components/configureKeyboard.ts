@@ -10,6 +10,7 @@ configure({
     };
 
     const eventId = window.addEventListener('keydown', keyEvent => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore TODO fix me, but this is just a demo anyway
       callback(mapping[keyEvent.code]);
     });

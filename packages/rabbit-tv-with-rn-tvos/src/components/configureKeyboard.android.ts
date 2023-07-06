@@ -12,6 +12,7 @@ configure({
         20: Directions.DOWN,
         19: Directions.UP,
       };
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore -- TODO fix this later, it'a just an example
       callback(mappedKeys[keyEvent.keyCode]);
     });
