@@ -1,4 +1,4 @@
-import { Directions, configure } from '@react-spatial-navigation/core/src';
+import { Directions, SpatialNavigation } from '@react-spatial-navigation/core/src';
 
 const KeyMapping: Record<string, Directions> = {
   ArrowLeft: Directions.LEFT,
@@ -10,7 +10,7 @@ const KeyMapping: Record<string, Directions> = {
 
 export const mapKeyCode = (keycode: string) => KeyMapping[keycode];
 
-configure({
+SpatialNavigation.configureKeyboard({
   keyboardSubscriber: (callback) => {
     const mapper = (keycode: KeyboardEvent) => {
       callback(mapKeyCode(keycode.code));

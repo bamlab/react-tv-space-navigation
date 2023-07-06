@@ -1,9 +1,12 @@
 // Did not manage to make this work with TVEventHandler from react-native...
 
 import KeyEvent from 'react-native-keyevent';
-import {Directions, configure} from '@react-spatial-navigation/core/src';
+import {
+  Directions,
+  SpatialNavigation,
+} from '@react-spatial-navigation/core/src';
 
-configure({
+SpatialNavigation.configureKeyboard({
   keyboardSubscriber: callback => {
     KeyEvent.onKeyDownListener((keyEvent: {keyCode: number}) => {
       const mappedKeys = {

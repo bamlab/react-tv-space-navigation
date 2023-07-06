@@ -1,6 +1,9 @@
-import {Directions, configure} from '@react-spatial-navigation/core/src';
+import {
+  Directions,
+  SpatialNavigation,
+} from '@react-spatial-navigation/core/src';
 
-configure({
+SpatialNavigation.configureKeyboard({
   keyboardSubscriber: callback => {
     const mapping = {
       ArrowRight: Directions.RIGHT,

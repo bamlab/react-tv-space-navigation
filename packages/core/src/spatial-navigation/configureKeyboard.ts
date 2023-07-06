@@ -11,7 +11,7 @@ interface KeyboardConfiguration {
 export let keyboardSubscriber: KeyboardConfiguration['keyboardSubscriber'] = undefined;
 export let keyboardUnsubscriber: KeyboardConfiguration['keyboardUnsubscriber'] = undefined;
 
-export const configure = (options: KeyboardConfiguration) => {
+export const configureKeyboard = (options: KeyboardConfiguration) => {
   keyboardSubscriber = options.keyboardSubscriber;
   keyboardUnsubscriber = options.keyboardUnsubscriber;
 };
