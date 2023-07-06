@@ -1,29 +1,33 @@
-import { View } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import { SpatialNavigationNode } from './Node';
 
 export const SpatialNavigationView = ({
   direction = 'horizontal',
   children,
+  style,
 }: {
   children: React.ReactNode;
+  style?: ViewStyle;
   direction: 'horizontal' | 'vertical';
 }) => {
   return (
     <SpatialNavigationNode orientation={direction}>
       <View
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{
-          borderStyle: 'solid',
-          borderColor: 'blue',
-          borderWidth: 1,
-          display: 'flex',
-          flexDirection: direction === 'horizontal' ? 'row' : 'column',
-          gap: 20,
-          margin: 20,
-        }}
+        style={[style, direction === 'horizontal' ? styles.viewHorizontal : styles.viewVertical]}
       >
         {children}
       </View>
     </SpatialNavigationNode>
   );
 };
+
+const styles = StyleSheet.create({
+  viewVertical: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  viewHorizontal: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+});

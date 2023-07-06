@@ -4,6 +4,7 @@ import {
   SpatialNavigationView,
 } from '@react-spatial-navigation/core/src';
 import {Program} from './Program';
+import {StyleSheet} from 'react-native';
 import './configureKeyboard';
 
 const SimpleNode = () => {
@@ -17,14 +18,14 @@ const SimpleNode = () => {
 export const SimpleRSNApp = () => {
   return (
     <SpatialNavigationRoot>
-      <SpatialNavigationView direction="horizontal">
+      <SpatialNavigationView style={styles.container} direction="horizontal">
         <SimpleNode />
         <SimpleNode />
         <SimpleNode />
         <SimpleNode />
         <SimpleNode />
       </SpatialNavigationView>
-      <SpatialNavigationView direction="horizontal">
+      <SpatialNavigationView style={styles.container} direction="horizontal">
         <SimpleNode />
         <SimpleNode />
         <SimpleNode />
@@ -34,3 +35,14 @@ export const SimpleRSNApp = () => {
     </SpatialNavigationRoot>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    margin: 20,
+    gap: 20,
+    backgroundColor: '#444',
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+});
