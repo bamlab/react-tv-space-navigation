@@ -8,6 +8,10 @@ import { scrollToNewlyFocusedElement } from '../helpers/scrollToNewlyfocusedElem
 
 type Props = {
   horizontal?: boolean;
+  /**
+   * Use this offset to prevent the element from sticking too closely to the edges of the screen during scrolling.
+   * This is a margin in pixels.
+   */
   offsetFromStart?: number;
   children: React.ReactNode;
   style?: ViewStyle;

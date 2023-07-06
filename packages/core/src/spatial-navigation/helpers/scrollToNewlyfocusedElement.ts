@@ -19,11 +19,13 @@ export const scrollToNewlyFocusedElement = ({
   if (horizontal) {
     scrollViewRef?.current?.scrollTo({
       x: newlyFocusedElementDistanceToLeftRelativeToLayout - offsetFromStart,
+      // @todo make this a props of the component
       animated: true,
     });
   } else {
     scrollViewRef?.current?.scrollTo({
       y: newlyFocusedElementDistanceToTopRelativeToLayout - offsetFromStart,
+      // @todo make this a props of the component
       animated: true,
     });
   }
