@@ -24,4 +24,12 @@ export default class SpatialNavigator {
 
     if (direction) this.lrud.handleKeyEvent({ direction }, { forceFocus: true });
   }
+
+  public hasOneNodeFocused() {
+    return this.lrud.getCurrentFocusNode() !== undefined;
+  }
+
+  public grabFocus(id: string) {
+    return this.lrud.assignFocus(id);
+  }
 }
