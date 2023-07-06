@@ -2,6 +2,8 @@ import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {useRabbitImageSource} from './useRabbitImageSource';
 
+const Identity = ({children}: {children: React.ReactNode}) => <>{children}</>;
+
 export const Program = ({
   isFocused = false,
   touchable = true,
@@ -11,9 +13,7 @@ export const Program = ({
 }) => {
   const imageSource = useRabbitImageSource();
 
-  const Wrapper = touchable
-    ? TouchableOpacity
-    : ({children}: {children: React.ReactNode}) => <>{children}</>;
+  const Wrapper = touchable ? TouchableOpacity : Identity;
 
   return (
     <Wrapper>
