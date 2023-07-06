@@ -1,9 +1,11 @@
+import { View } from 'react-native';
 import { useSpatialNavigator } from '../context/SpatialNavigatorContext';
 import { ParentIdContext, useParentId } from '../context/ParentIdContext';
 import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useUniqueId } from '../hooks/useUniqueId';
 import { NodeOrientation } from '../types/orientation';
 import React, { useRef, useState } from 'react';
+import { useSpatialNavigatorParentScroll } from '../context/ParentScrollContext';
 
 type FocusableProps = {
   isFocusable: true;
@@ -20,6 +22,37 @@ type DefaultProps = {
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
+const useScrollIfNeeded = (): {
+  scrollToNodeIfNeeded: () => void;
+  bindRefToChild: (child: React.ReactElement) => React.ReactElement;
+} => {
+  const innerReactNodeRef = useRef<View | null>(null);
+  const { scrollToNodeIfNeeded } = useSpatialNavigatorParentScroll();
+
+  const bindRefToChild = (child: React.ReactElement) => {
+    return React.cloneElement(child, {
+      ...child.props,
+      ref: (node: View) => {
+        // We need the reference for our scroll handling
+        innerReactNodeRef.current = node;
+
+        // @ts-expect-error @fixme This works at runtime but we couldn't find how to type it properly.
+        // Let's check if a ref was given (not by us)
+        const { ref } = child;
+        if (typeof ref === 'function') {
+          ref(node);
+        }
+
+        if (ref?.current !== undefined) {
+          ref.current = node;
+        }
+      },
+    });
+  };
+
+  return { scrollToNodeIfNeeded: () => scrollToNodeIfNeeded(innerReactNodeRef), bindRefToChild };
+};
+
 export const SpatialNavigationNode = ({
   onFocus,
   onSelect,
@@ -32,11 +65,22 @@ export const SpatialNavigationNode = ({
   const [isFocused, setIsFocused] = useState(false);
   const id = useUniqueId({ prefix: `${parentId}_node_` });
 
-  // @todo: Simplify for demo
-  const currentOnFocus = useRef<() => void>();
-  currentOnFocus.current = onFocus;
+  const { scrollToNodeIfNeeded, bindRefToChild } = useScrollIfNeeded();
+
+  /*
+   * We don't re-register in LRUD on each render, because LRUD does not allow updating the nodes.
+   * Therefore, the SpatialNavigator Node callbacks are registered at 1st render but can change (ie. if props change) afterwards.
+   * Since we want the functions to always be up to date, we use a reference to them.
+   */
+
   const currentOnSelect = useRef<() => void>();
   currentOnSelect.current = onSelect;
+
+  const currentOnFocus = useRef<() => void>();
+  currentOnFocus.current = () => {
+    onFocus?.();
+    scrollToNodeIfNeeded();
+  };
 
   useBeforeMountEffect(() => {
     spatialNavigator.registerNode(id, {
@@ -58,7 +102,7 @@ export const SpatialNavigationNode = ({
 
   return (
     <ParentIdContext.Provider value={id}>
-      {typeof children === 'function' ? children({ isFocused }) : children}
+      {typeof children === 'function' ? bindRefToChild(children({ isFocused })) : children}
     </ParentIdContext.Provider>
   );
 };

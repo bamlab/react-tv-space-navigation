@@ -47,6 +47,7 @@ module.exports = defineConfig({
     'react-native/no-raw-text': ['off'],
     'react-hooks/exhaustive-deps': 'error',
     'react-native/no-color-literals': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
   },
   settings: {
     react: {
