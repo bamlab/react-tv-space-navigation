@@ -1,36 +1,36 @@
 import {
-  Node,
-  Root,
-  SpatialNavigatorView,
+  SpatialNavigationNode,
+  SpatialNavigationRoot,
+  SpatialNavigationView,
 } from '@react-spatial-navigation/core/src';
 import {Program} from './Program';
 import './configureKeyboard';
 
 const SimpleNode = () => {
   return (
-    <Node isFocusable>
+    <SpatialNavigationNode isFocusable>
       {({isFocused}) => <Program touchable={false} isFocused={isFocused} />}
-    </Node>
+    </SpatialNavigationNode>
   );
 };
 
 export const SimpleRSNApp = () => {
   return (
-    <Root>
-      <SpatialNavigatorView direction="horizontal">
+    <SpatialNavigationRoot>
+      <SpatialNavigationView direction="horizontal">
         <SimpleNode />
         <SimpleNode />
         <SimpleNode />
         <SimpleNode />
         <SimpleNode />
-      </SpatialNavigatorView>
-      <SpatialNavigatorView direction="horizontal">
+      </SpatialNavigationView>
+      <SpatialNavigationView direction="horizontal">
         <SimpleNode />
         <SimpleNode />
         <SimpleNode />
         <SimpleNode />
         <SimpleNode />
-      </SpatialNavigatorView>
-    </Root>
+      </SpatialNavigationView>
+    </SpatialNavigationRoot>
   );
 };

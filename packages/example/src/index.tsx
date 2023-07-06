@@ -5,13 +5,17 @@ import { createRoot } from 'react-dom/client';
 
 import './configureKeyboard';
 
-import { Node } from '@react-spatial-navigation/core/src/index';
-import { Root } from '@react-spatial-navigation/core/src/index';
+import { SpatialNavigationNode } from '@react-spatial-navigation/core/src/index';
+import { SpatialNavigationRoot } from '@react-spatial-navigation/core/src/index';
 import { ProgramLayout } from './components/program/ProgramLayout';
 import { Typography } from './components/Typography';
 
 const Program = () => {
-  return <Node isFocusable>{({ isFocused }) => <ProgramLayout isFocused={isFocused} />}</Node>;
+  return (
+    <SpatialNavigationNode isFocusable>
+      {({ isFocused }) => <ProgramLayout isFocused={isFocused} />}
+    </SpatialNavigationNode>
+  );
 };
 
 const ViewNode = ({
@@ -22,7 +26,7 @@ const ViewNode = ({
   direction: 'horizontal' | 'vertical';
 }) => {
   return (
-    <Node orientation={direction}>
+    <SpatialNavigationNode orientation={direction}>
       <div
         style={{
           borderStyle: 'solid',
@@ -36,7 +40,7 @@ const ViewNode = ({
       >
         {children}
       </div>
-    </Node>
+    </SpatialNavigationNode>
   );
 };
 
@@ -45,7 +49,7 @@ const App = () => {
     <div>
       <Typography>React Spatial Navigation Example</Typography>
       <div />
-      <Root>
+      <SpatialNavigationRoot>
         <ViewNode direction="horizontal">
           <ViewNode direction="vertical">
             <Program />
@@ -63,7 +67,7 @@ const App = () => {
           <Program />
           <Program />
         </ViewNode>
-      </Root>
+      </SpatialNavigationRoot>
     </div>
   );
 };

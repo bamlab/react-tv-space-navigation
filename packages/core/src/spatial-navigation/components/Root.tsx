@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 
 const ROOT_ID = 'root';
 
-export const Root = ({ children }: { children: ReactNode }) => {
+export const SpatialNavigationRoot = ({ children }: { children: ReactNode }) => {
   const spatialNavigator = useCreateSpatialNavigator();
   useBeforeMountEffect(() => {
     spatialNavigator.registerNode(ROOT_ID, { orientation: 'vertical' });

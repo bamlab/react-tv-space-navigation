@@ -1,7 +1,7 @@
 import { View } from 'react-native';
-import { Node } from './Node';
+import { SpatialNavigationNode } from './Node';
 
-export const SpatialNavigatorView = ({
+export const SpatialNavigationView = ({
   direction = 'horizontal',
   children,
 }: {
@@ -9,7 +9,7 @@ export const SpatialNavigatorView = ({
   direction: 'horizontal' | 'vertical';
 }) => {
   return (
-    <Node orientation={direction}>
+    <SpatialNavigationNode orientation={direction}>
       <View
         // eslint-disable-next-line react-native/no-inline-styles
         style={{
@@ -24,6 +24,6 @@ export const SpatialNavigatorView = ({
       >
         {children}
       </View>
-    </Node>
+    </SpatialNavigationNode>
   );
 };

@@ -20,7 +20,7 @@ type DefaultProps = {
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
-export const Node = ({
+export const SpatialNavigationNode = ({
   onFocus,
   onSelect,
   orientation = 'vertical',
