@@ -21,8 +21,10 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-typescript', '@babel/preset-react'],
-              plugins: ['react-native-web'],
+              presets: [
+                '@babel/preset-typescript',
+                ['@babel/preset-react', { runtime: 'automatic' }],
+              ],
             },
           },
         ],
@@ -40,5 +42,6 @@ module.exports = {
     react: 'react',
     'react-dom': 'react-dom',
     'react-native': 'react-native',
+    'react-native-web': 'react-native-web',
   },
 };
