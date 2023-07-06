@@ -1,11 +1,12 @@
+import React, { useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
-import { useSpatialNavigator } from '../context/SpatialNavigatorContext';
+import { useSpatialNavigatorDefaultFocus } from '../context/DefaultFocusContext';
 import { ParentIdContext, useParentId } from '../context/ParentIdContext';
+import { useSpatialNavigatorParentScroll } from '../context/ParentScrollContext';
+import { useSpatialNavigator } from '../context/SpatialNavigatorContext';
 import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useUniqueId } from '../hooks/useUniqueId';
 import { NodeOrientation } from '../types/orientation';
-import React, { useRef, useState } from 'react';
-import { useSpatialNavigatorParentScroll } from '../context/ParentScrollContext';
 
 type FocusableProps = {
   isFocusable: true;
@@ -82,6 +83,8 @@ export const SpatialNavigationNode = ({
     scrollToNodeIfNeeded();
   };
 
+  const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
+
   useBeforeMountEffect(() => {
     spatialNavigator.registerNode(id, {
       parent: parentId,
@@ -99,6 +102,12 @@ export const SpatialNavigationNode = ({
 
     return () => spatialNavigator.unregisterNode(id);
   }, [parentId]);
+
+  useEffect(() => {
+    if (shouldHaveDefaultFocus && isFocusable && !spatialNavigator.hasOneNodeFocused()) {
+      spatialNavigator.grabFocus(id);
+    }
+  }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
 
   return (
     <ParentIdContext.Provider value={id}>
