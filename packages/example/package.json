@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "test:types": "tsc",
     "start": "webpack serve --config webpack.config.example.js"
   },
   "devDependencies": {
     "babel-plugin-react-native-web": "^0.19.6",
     "file-loader": "^6.2.0",
+    "typescript": "^5.1.6",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"

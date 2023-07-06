@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native-tvos run-android",
+    "test:types": "tsc",
     "ios": "react-native-tvos run-ios",
     "lint": "eslint .",
     "start": "react-native-tvos start",
@@ -32,6 +33,7 @@
     "jest": "^29.2.1",
     "metro-react-native-babel-preset": "0.73.10",
     "react-test-renderer": "18.2.0",
+    "typescript": "^5.1.6",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"

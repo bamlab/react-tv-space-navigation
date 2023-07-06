@@ -43,6 +43,7 @@
     "react-native-web": "^0.19.6"
   },
   "scripts": {
+    "test:types": "yarn workspaces foreach run test:types",
     "test:lint": "eslint . --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --max-warnings 0 --cache --cache-strategy content --cache-location .cache/eslint.json",
     "build:core": "yarn workspace @react-spatial-navigation/core build",
     "start:example": "yarn workspace @react-spatial-navigation/example start"

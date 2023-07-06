@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "main": "dist/react-spatial-navigation.js",
   "devDependencies": {
+    "typescript": "^5.1.6",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
   },
   "scripts": {
+    "test:types": "tsc",
     "build": "webpack --config webpack.config.js"
   }
 }

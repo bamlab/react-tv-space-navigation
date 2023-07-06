@@ -2772,6 +2772,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@react-spatial-navigation/core@workspace:packages/core"
   dependencies:
+    typescript: ^5.1.6
     webpack: ^5.88.1
     webpack-cli: ^5.1.4
     webpack-dev-server: ^4.15.1
@@ -2787,6 +2788,7 @@ __metadata:
     file-loader: ^6.2.0
     react: ^18.2.0
     react-dom: ^18.2.0
+    typescript: ^5.1.6
     webpack: ^5.88.1
     webpack-cli: ^5.1.4
     webpack-dev-server: ^4.15.1
@@ -3605,6 +3607,7 @@ __metadata:
     react-native-screens: ^3.22.0
     react-native-web: ^0.19.6
     react-test-renderer: 18.2.0
+    typescript: ^5.1.6
     webpack: ^5.88.1
     webpack-cli: ^5.1.4
     webpack-dev-server: ^4.15.1
