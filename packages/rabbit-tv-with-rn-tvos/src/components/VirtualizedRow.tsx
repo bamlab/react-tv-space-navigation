@@ -10,7 +10,7 @@ import {Program} from './Program';
 
 const PROGRAM_HEIGHT = 200;
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 4;
-const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 4;
+const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 
 const SimpleNode = () => {
   return (
@@ -43,4 +43,12 @@ export const Row = ({numberOfItems}: {numberOfItems: number}) => {
   );
 };
 
-const styles = StyleSheet.create({container: {height: 250}});
+const styles = StyleSheet.create({
+  container: {
+    height: 320,
+    backgroundColor: '#222',
+    padding: 30,
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+});

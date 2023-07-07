@@ -10,6 +10,10 @@ const RABBITS = [
   require('../assets/rabbit7.png'),
   require('../assets/rabbit8.png'),
   require('../assets/rabbit9.png'),
+  require('../assets/rabbit4.png'),
+  require('../assets/rabbit1.png'),
+  require('../assets/rabbit5.png'),
+  require('../assets/rabbit6.png'),
 ];
 
 // Use a global mutated variable to not have duplicate rabbits
