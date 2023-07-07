@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/index.ts', // note the .ts extension here
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'react-spatial-navigation.js',
+    filename: 'index.js',
     library: 'ReactSpatialNavigation',
     libraryTarget: 'umd',
     umdNamedDefine: true,
@@ -21,10 +21,16 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [
-                '@babel/preset-typescript',
-                ['@babel/preset-react', { runtime: 'automatic' }],
-              ],
+              presets: [['@babel/preset-react', { runtime: 'automatic' }]],
+            },
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              compilerOptions: {
+                declaration: true,
+                declarationDir: './dist',
+              },
             },
           },
         ],
