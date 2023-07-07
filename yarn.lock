@@ -2768,33 +2768,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-spatial-navigation/core@*, @react-spatial-navigation/core@workspace:packages/core":
-  version: 0.0.0-use.local
-  resolution: "@react-spatial-navigation/core@workspace:packages/core"
-  dependencies:
-    typescript: ^5.1.6
-    webpack: ^5.88.1
-    webpack-cli: ^5.1.4
-    webpack-dev-server: ^4.15.1
-  languageName: unknown
-  linkType: soft
-
-"@react-spatial-navigation/example@workspace:packages/example":
-  version: 0.0.0-use.local
-  resolution: "@react-spatial-navigation/example@workspace:packages/example"
-  dependencies:
-    "@react-spatial-navigation/core": "*"
-    babel-plugin-react-native-web: ^0.19.6
-    file-loader: ^6.2.0
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    typescript: ^5.1.6
-    webpack: ^5.88.1
-    webpack-cli: ^5.1.4
-    webpack-dev-server: ^4.15.1
-  languageName: unknown
-  linkType: soft
-
 "@sideway/address@npm:^4.1.3":
   version: 4.1.4
   resolution: "@sideway/address@npm:4.1.4"
@@ -10570,6 +10543,17 @@ __metadata:
   checksum: 18014990785abade1223aeb6468c7f5917f9ef5bc7144fac4ba25b1778cb9faac413cbecd565fed6b7c40474a9387ba29d672af1539a175ca87a235900128b7f
   languageName: node
   linkType: hard
+
+"react-native-tv-spatial-navigation@workspace:packages/core":
+  version: 0.0.0-use.local
+  resolution: "react-native-tv-spatial-navigation@workspace:packages/core"
+  dependencies:
+    typescript: ^5.1.6
+    webpack: ^5.88.1
+    webpack-cli: ^5.1.4
+    webpack-dev-server: ^4.15.1
+  languageName: unknown
+  linkType: soft
 
 "react-native-web@npm:^0.19.6":
   version: 0.19.6

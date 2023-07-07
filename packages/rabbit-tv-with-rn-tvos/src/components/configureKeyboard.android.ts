@@ -4,7 +4,7 @@ import KeyEvent from 'react-native-keyevent';
 import {
   Directions,
   SpatialNavigation,
-} from '@react-spatial-navigation/core/src';
+} from 'react-native-tv-spatial-navigation/src';
 
 SpatialNavigation.configureKeyboard({
   keyboardSubscriber: callback => {

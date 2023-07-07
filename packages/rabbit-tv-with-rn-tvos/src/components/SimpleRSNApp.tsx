@@ -3,7 +3,7 @@ import {
   SpatialNavigationRoot,
   SpatialNavigationScrollView,
   SpatialNavigationView,
-} from '@react-spatial-navigation/core/src';
+} from 'react-native-tv-spatial-navigation/src';
 import {Program} from './Program';
 import {StyleSheet} from 'react-native';
 import './configureKeyboard';
