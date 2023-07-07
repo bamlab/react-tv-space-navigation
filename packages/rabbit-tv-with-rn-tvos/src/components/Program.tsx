@@ -44,11 +44,12 @@ Program.displayName = 'Program';
 
 const styles = StyleSheet.create({
   programImage: {
-    width: 200,
-    height: 250,
+    height: '100%',
+    width: '100%',
   },
   container: {
-    flex: 1,
+    height: 250,
+    width: 200,
     overflow: 'hidden',
     borderRadius: 20,
     borderColor: 'transparent',

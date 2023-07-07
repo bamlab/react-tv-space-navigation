@@ -68,5 +68,5 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  gap: {gap: 100},
+  gap: {gap: 50},
 });
