@@ -1,0 +1,7 @@
+*.test.*
+setup-tests.js
+coverage
+yarn-error.log
+*.png
+.circleci/config.yml
+.eslintcache
