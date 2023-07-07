@@ -8,6 +8,9 @@ type ProgramProps = {
   isFocused?: boolean;
 };
 
+export const PROGRAM_HEIGHT = 250;
+export const PROGRAM_WIDTH = 275;
+
 export const Program = React.forwardRef<View, ProgramProps>(
   ({isFocused = false}, ref) => {
     const imageSource = useRabbitImageSource();

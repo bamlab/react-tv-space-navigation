@@ -1,24 +1,13 @@
 import {StyleSheet, View} from 'react-native';
 
-import {
-  SpatialNavigationNode,
-  SpatialNavigatorVirtualizedList,
-} from 'react-native-tv-spatial-navigation/src';
+import {SpatialNavigatorVirtualizedList} from 'react-native-tv-spatial-navigation/src';
 
 import {useCallback} from 'react';
-import {Program} from './Program';
+import {PROGRAM_HEIGHT} from './Program';
+import {SimpleNode} from './SimpleNode';
 
-const PROGRAM_HEIGHT = 200;
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 4;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
-
-const SimpleNode = () => {
-  return (
-    <SpatialNavigationNode isFocusable>
-      {({isFocused}) => <Program touchable={false} isFocused={isFocused} />}
-    </SpatialNavigationNode>
-  );
-};
 
 export const Row = ({numberOfItems}: {numberOfItems: number}) => {
   const renderItem = useCallback(() => <SimpleNode />, []);
