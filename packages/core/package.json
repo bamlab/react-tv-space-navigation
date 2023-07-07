@@ -1,6 +1,6 @@
 {
-  "name": "@react-spatial-navigation/core",
-  "version": "1.0.0",
+  "name": "@react-spatial-navigation",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "devDependencies": {
     "typescript": "^5.1.6",
