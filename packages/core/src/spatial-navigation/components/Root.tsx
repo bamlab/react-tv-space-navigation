@@ -1,17 +1,25 @@
-import { SpatialNavigatorContext } from '../context/SpatialNavigatorContext';
+import { ReactNode } from 'react';
 import { ParentIdContext } from '../context/ParentIdContext';
+import { SpatialNavigatorContext } from '../context/SpatialNavigatorContext';
 import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useCreateSpatialNavigator } from '../hooks/useCreateSpatialNavigator';
-import { ReactNode } from 'react';
+import { useLockRootSpatialNavigator } from '../hooks/useLockRootSpatialNavigator';
 
 const ROOT_ID = 'root';
 
-export const SpatialNavigationRoot = ({ children }: { children: ReactNode }) => {
+type Props = { isActive: boolean; children: ReactNode };
+
+export const SpatialNavigationRoot = ({ isActive = true, children }: Props) => {
   const spatialNavigator = useCreateSpatialNavigator();
   useBeforeMountEffect(() => {
     spatialNavigator.registerNode(ROOT_ID, { orientation: 'vertical' });
     return () => spatialNavigator.unregisterNode(ROOT_ID);
   }, []);
+
+  useLockRootSpatialNavigator({
+    spatialNavigator,
+    isLocked: !isActive,
+  });
 
   return (
     <SpatialNavigatorContext.Provider value={spatialNavigator}>
