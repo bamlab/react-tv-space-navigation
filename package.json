@@ -50,6 +50,6 @@
     "test:types": "yarn workspaces foreach run test:types",
     "test:lint": "eslint . --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --max-warnings 0 --cache --cache-strategy content --cache-location .cache/eslint.json",
     "build:core": "yarn workspace react-native-tv-spatial-navigation build",
-    "start:example": "yarn workspace @react-spatial-navigation/example start"
+    "start:example": "yarn workspace RabbitApp start"
   }
 }
