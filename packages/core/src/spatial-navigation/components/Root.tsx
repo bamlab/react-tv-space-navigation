@@ -7,7 +7,7 @@ import { useLockRootSpatialNavigator } from '../hooks/useLockRootSpatialNavigato
 
 const ROOT_ID = 'root';
 
-type Props = { isActive: boolean; children: ReactNode };
+type Props = { isActive?: boolean; children: ReactNode };
 
 export const SpatialNavigationRoot = ({ isActive = true, children }: Props) => {
   const spatialNavigator = useCreateSpatialNavigator();
