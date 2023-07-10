@@ -124,3 +124,42 @@ const FocusableNode = () => (
 ```
 
 In this example, a `SpatialNavigationView` is created with vertical direction and a padding of 20 pixels provided by the style prop. It contains a single `SpatialNavigationNode`. When the node gains focus, the navigation adjusts according to the orientation.
+
+# DefaultFocus
+
+This allows to set a default focus state for the first spatial navigation node of a group of nodes.
+The first node to be rendered in this sub-tree will grab the focus by default.
+
+## Props
+
+The `DefaultFocus` component receives the following props:
+
+| Name       | Type        | Default | Description                                                                           |
+| ---------- | ----------- | ------- | ------------------------------------------------------------------------------------- |
+| `enable`   | `boolean`   | `true`  | If `true`, sets the default focus state to `true` for the children of this component. |
+| `children` | `ReactNode` | `null`  | The child elements of the component.                                                  |
+
+## Hook
+
+The `useSpatialNavigatorDefaultFocus` hook allows you to access the current value of the `SpatialNavigatorDefaultFocusContext`. It returns a boolean value that indicates the current default focus state.
+
+## Usage
+
+```jsx
+const FocusableNode = () => (
+  <SpatialNavigationNode isFocusable={true}>
+    {({ isFocused }) => <div style={{ color: isFocused ? "red" : "black" }}>Hello World!</div>}
+  </SpatialNavigationNode>
+);
+
+<SpatialNavigationRoot>
+  <FocusableNode />
+  <FocusableNode />
+  <DefaultFocus enable={true}>
+    <FocusableNode />
+  </DefaultFocus>
+  <FocusableNode />
+</SpatialNavigationRoot>
+```
+
+In the example above, the third node will get the default focus when mounting our page.
