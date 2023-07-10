@@ -81,8 +81,8 @@ const Page = () => {
 ```tsx
 const Element = () => (
     <SpatialNavigationNode isFocusable>
-        {({ isFocusable }) =>  (
-            <View style={isFocusable && { backgroundColor: 'green' }}>
+        {({ isFocused }) =>  (
+            <View style={isFocused && { backgroundColor: 'green' }}>
                 <Text>Page element</Text>
             </View>
         )}
@@ -106,8 +106,8 @@ Simply add an `onSelect` props to a node, very similarly as if you were adding a
 ```tsx
 const Element = ({ onSelect }) => (
     <SpatialNavigationNode isFocusable onSelect={onSelect}>
-        {({ isFocusable }) =>  (
-            <View style={isFocusable && { backgroundColor: 'green' }}>
+        {({ isFocused }) =>  (
+            <View style={isFocused && { backgroundColor: 'green' }}>
                 <Text>Page element</Text>
             </View>
         )}
@@ -131,8 +131,8 @@ To add a default focus, wrap the group of elements that you want the default foc
 ```tsx
 const Element = ({ onSelect }) => (
     <SpatialNavigationNode isFocusable onSelect={onSelect}>
-        {({ isFocusable }) =>  (
-            <View style={isFocusable && { backgroundColor: 'green' }}>
+        {({ isFocused }) =>  (
+            <View style={isFocused && { backgroundColor: 'green' }}>
                 <Text>Page element</Text>
             </View>
         )}
