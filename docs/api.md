@@ -61,7 +61,23 @@ The `SpatialNavigationNode` component receives the following props:
 </SpatialNavigationNode>
 ```
 
-In the example above, we're creating a `SpatialNavigationNode` that logs a message to the console when it gains focus or gets selected. Its orientation is set to 'horizontal', and it is focusable. When the node has focus, the color of the text inside the `div` will be red. When it doesn't, the text will be black.
+## Important note
+
+The SpatialNavigationNode will use the ref of your component to handle the scrolling.
+You might need to forward the ref to the closest inner view of your component.
+
+```tsx
+export const MyFocusableComponent = React.forwardRef<View, MyFocusableComponentProps>(({ isFocused  }, ref) => {
+  // ...
+
+  return (
+    // pass the ref to the relevant View in your component.
+    <View ref={ref}>
+      <YourOtherElements />
+    </View>
+  );
+});
+```
 
 
 # SpatialNavigationScrollView
@@ -86,7 +102,7 @@ The `SpatialNavigationScrollView` component receives the following props:
 ```jsx
 const FocusableNode = () => (
   <SpatialNavigationNode isFocusable={true}>
-    {({ isFocused }) => <div style={{ color: isFocused ? "red" : "black" }}>Hello World!</div>}
+    {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
   </SpatialNavigationNode>
 );
 
@@ -118,7 +134,7 @@ The `SpatialNavigationView` component receives the following props:
 ```jsx
 const FocusableNode = () => (
   <SpatialNavigationNode isFocusable={true}>
-    {({ isFocused }) => <div style={{ color: isFocused ? "red" : "black" }}>Hello World!</div>}
+    {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
   </SpatialNavigationNode>
 );
 
@@ -151,7 +167,7 @@ The `DefaultFocus` component receives the following props:
 ```jsx
 const FocusableNode = () => (
   <SpatialNavigationNode isFocusable={true}>
-    {({ isFocused }) => <div style={{ color: isFocused ? "red" : "black" }}>Hello World!</div>}
+    {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
   </SpatialNavigationNode>
 );
 
