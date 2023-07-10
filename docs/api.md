@@ -1,5 +1,29 @@
 # API
 
+# SpatialNavigationRoot
+
+The `SpatialNavigationRoot` is the root component that contains all the spatial navigation nodes. It manages the context providers and handles the registration and unregistration of the root node. This component is also responsible for locking or unlocking the root spatial navigator based on its activity state.
+
+## Props
+
+The `SpatialNavigationRoot` component receives the following props:
+
+| Name       | Type        | Default | Description                                                                                                                                                                                                                                 |
+| ---------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isActive` | `boolean`   | `true`  | Determines if the spatial navigation is active. If `false`, the spatial navigation will be locked, and no nodes can be focused. This is useful to handle a multi page app: you can disable the non-focused pages' spatial navigation roots. |
+| `children` | `ReactNode` | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                                                                                                                  |
+
+## Usage
+
+```jsx
+<SpatialNavigationRoot>
+  <SpatialNavigationNode>
+    <Text>Hello World!</Text>
+  </SpatialNavigationNode>
+</SpatialNavigationRoot>
+```
+
+
 # SpatialNavigationNode
 
 The SpatialNavigationNode is a component that can be used to handle spatial navigation in a React application.
