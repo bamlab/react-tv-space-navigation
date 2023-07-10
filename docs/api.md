@@ -55,3 +55,38 @@ The `SpatialNavigationNode` component receives the following props:
 ```
 
 In the example above, we're creating a `SpatialNavigationNode` that logs a message to the console when it gains focus or gets selected. Its orientation is set to 'horizontal', and it is focusable. When the node has focus, the color of the text inside the `div` will be red. When it doesn't, the text will be black.
+
+
+# SpatialNavigationScrollView
+
+The `SpatialNavigationScrollView` is a component that wraps a ScrollView to manage spatial navigation.
+It scrolls the ScrollView so that the currently focused element is visible on the screen.
+It also ensures that the scroll event is propagated properly for parent ScrollViews when nested scrolling is required.
+
+## Props
+
+The `SpatialNavigationScrollView` component receives the following props:
+
+| Name              | Type        | Default | Description                                                                                                                                   |
+| ----------------- | ----------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `horizontal`      | `boolean`   | `false` | Determines if the scrolling orientation is horizontal. If `false`, the scrolling orientation will be vertical.                                |
+| `offsetFromStart` | `number`    | `0`     | This offset is used to prevent the element from sticking too closely to the edges of the screen during scrolling. This is a margin in pixels. |
+| `style`           | `ViewStyle` | `null`  | Style for the ScrollView. This can be any valid React Native style object.                                                                    |
+| `children`        | `ReactNode` | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                    |
+
+## Usage
+
+```jsx
+const FocusableNode = () => (
+  <SpatialNavigationNode isFocusable={true}>
+    {({ isFocused }) => <div style={{ color: isFocused ? "red" : "black" }}>Hello World!</div>}
+  </SpatialNavigationNode>
+);
+
+<SpatialNavigationScrollView horizontal={true} style={{ padding: 20 }} offsetFromStart={10}>
+  <FocusableNode />
+  <FocusableNode />
+  <FocusableNode />
+  <FocusableNode />
+</SpatialNavigationScrollView>
+```
