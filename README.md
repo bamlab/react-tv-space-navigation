@@ -1,4 +1,8 @@
 # react-spatial-navigation
+- [What you can achieve](#what-you-can-achieve)
+- [How to use](#how-to-use)
+- [API documentation](#api-documentation)
+- [Pitfalls](#pitfalls)
 
 # What you can achieve
 

@@ -1,5 +1,12 @@
 # API
 
+- [SpatialNavigationRoot](#spatialnavigationroot)
+- [SpatialNavigationNode](#spatialnavigationnode)
+- [SpatialNavigationScrollView](#spatialnavigationscrollview)
+- [SpatialNavigationView](#spatialnavigationview)
+- [DefaultFocus](#defaultfocus)
+- [configureKeyboard](#configurekeyboard)
+
 # SpatialNavigationRoot
 
 The `SpatialNavigationRoot` is the root component that contains all the spatial navigation nodes. It manages the context providers and handles the registration and unregistration of the root node. This component is also responsible for locking or unlocking the root spatial navigator based on its activity state.
@@ -139,10 +146,6 @@ The `DefaultFocus` component receives the following props:
 | `enable`   | `boolean`   | `true`  | If `true`, sets the default focus state to `true` for the children of this component. |
 | `children` | `ReactNode` | `null`  | The child elements of the component.                                                  |
 
-## Hook
-
-The `useSpatialNavigatorDefaultFocus` hook allows you to access the current value of the `SpatialNavigatorDefaultFocusContext`. It returns a boolean value that indicates the current default focus state.
-
 ## Usage
 
 ```jsx
@@ -168,7 +171,7 @@ In the example above, the third node will get the default focus when mounting ou
 
 The Keyboard Configuration API is used to configure the remote control interaction for the `SpatialNavigation` components.
 
-## KeyboardConfiguration parameter
+## Parameters
 
 This object has two methods:
 
@@ -176,11 +179,6 @@ This object has two methods:
 - `keyboardUnsubscriber: (subscriber: TSubscriber) => void`: A function that takes the subscriber identifier returned by `keyboardSubscriber` as an argument. This function is meant to remove the keyboard event listener associated with the given identifier.
 
 The `TSubscriber` type can be any type, it is meant to be determined by the implementation of `keyboardSubscriber` and `keyboardUnsubscriber`.
-
-## configureKeyboard Function
-
-The `configureKeyboard` function takes an object of type `KeyboardConfiguration` as an argument.
-It sets up the keyboard interaction for the spatial navigation system according to the configuration object.
 
 ## Usage
 
