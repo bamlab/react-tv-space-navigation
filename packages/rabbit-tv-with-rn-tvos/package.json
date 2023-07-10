@@ -16,7 +16,7 @@
     "react": "18.2.0",
     "react-native": "npm:react-native-tvos@0.71.11-0",
     "react-native-keyevent": "^0.3.0",
-    "react-native-screens": "^3.22.0",
+    "react-native-screens": "^3.22.1",
     "react-native-web": "^0.19.6"
   },
   "devDependencies": {

@@ -3593,7 +3593,7 @@ __metadata:
     react: 18.2.0
     react-native: "npm:react-native-tvos@0.71.11-0"
     react-native-keyevent: ^0.3.0
-    react-native-screens: ^3.22.0
+    react-native-screens: ^3.22.1
     react-native-web: ^0.19.6
     react-test-renderer: 18.2.0
     typescript: ^5.1.6
@@ -10520,16 +10520,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:^3.22.0":
-  version: 3.22.0
-  resolution: "react-native-screens@npm:3.22.0"
+"react-native-screens@npm:^3.22.1":
+  version: 3.22.1
+  resolution: "react-native-screens@npm:3.22.1"
   dependencies:
     react-freeze: ^1.0.0
     warn-once: ^0.1.0
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 18014990785abade1223aeb6468c7f5917f9ef5bc7144fac4ba25b1778cb9faac413cbecd565fed6b7c40474a9387ba29d672af1539a175ca87a235900128b7f
+  checksum: 3b592ff31d9dfde5e2ce967f85f3ad17a94f4f3bee2248a3dad9ec791e7cda72a431f86b468b3b2a70ebeffb49b462f8162668a58fb9ddabb10b5a369816850d
   languageName: node
   linkType: hard
 
