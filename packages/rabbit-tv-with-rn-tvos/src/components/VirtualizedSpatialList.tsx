@@ -1,7 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-
 import {SpatialNavigatorVirtualizedList} from 'react-native-tv-spatial-navigation/src';
-
 import {useCallback} from 'react';
 import {PROGRAM_HEIGHT} from './Program';
 import {SimpleNode} from './SimpleNode';
@@ -9,7 +7,15 @@ import {SimpleNode} from './SimpleNode';
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 4;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 
-export const Row = ({numberOfItems}: {numberOfItems: number}) => {
+export const VirtualizedSpatialList = ({
+  numberOfItems,
+  orientation,
+  containerStyle,
+}: {
+  numberOfItems: number;
+  orientation?: 'vertical' | 'horizontal';
+  containerStyle?: object;
+}) => {
   const renderItem = useCallback(() => <SimpleNode />, []);
 
   const indexes = Array.from(Array(numberOfItems).keys()).map(value => {
@@ -19,8 +25,9 @@ export const Row = ({numberOfItems}: {numberOfItems: number}) => {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <SpatialNavigatorVirtualizedList
+        orientation={orientation}
         data={indexes}
         renderItem={renderItem}
         itemSize={PROGRAM_HEIGHT + 50}
@@ -34,10 +41,38 @@ export const Row = ({numberOfItems}: {numberOfItems: number}) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 320,
     backgroundColor: '#222',
     padding: 30,
     borderRadius: 20,
     overflow: 'hidden',
   },
+  row: {height: 320},
+  column: {height: 700, width: 265},
 });
+
+export const VirtualizedRow = ({
+  numberOfItems,
+  containerStyle,
+}: {
+  numberOfItems: number;
+  containerStyle?: object;
+}) => (
+  <VirtualizedSpatialList
+    numberOfItems={numberOfItems}
+    containerStyle={[containerStyle, styles.row]}
+  />
+);
+
+export const VirtualizedColumn = ({
+  numberOfItems,
+  containerStyle,
+}: {
+  numberOfItems: number;
+  containerStyle?: object;
+}) => (
+  <VirtualizedSpatialList
+    numberOfItems={numberOfItems}
+    orientation="vertical"
+    containerStyle={[containerStyle, styles.column]}
+  />
+);

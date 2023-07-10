@@ -6,10 +6,9 @@ import {
 } from 'react-native-tv-spatial-navigation/src';
 
 import './configureKeyboard';
-import {Row} from './VirtualizedRow';
 import {View, StyleSheet} from 'react-native';
-import {Column} from './VirtualizedColumn';
 import {SimpleNode} from './SimpleNode';
+import {VirtualizedColumn, VirtualizedRow} from './VirtualizedSpatialList';
 
 export const SimpleRSNApp = () => {
   return (
@@ -18,13 +17,13 @@ export const SimpleRSNApp = () => {
         <SpatialNavigationScrollView offsetFromStart={140}>
           <View style={styles.container}>
             <View style={styles.spacer} />
-            <Row numberOfItems={100} />
+            <VirtualizedRow numberOfItems={100} />
             <View style={styles.spacer} />
-            <Row numberOfItems={100} />
+            <VirtualizedRow numberOfItems={100} />
             <View style={styles.spacer} />
-            <Row numberOfItems={100} />
+            <VirtualizedRow numberOfItems={100} />
             <View style={styles.spacer} />
-            <Row numberOfItems={100} />
+            <VirtualizedRow numberOfItems={100} />
           </View>
           <SpatialNavigationView direction="horizontal">
             <View style={styles.containerRow}>
@@ -36,11 +35,11 @@ export const SimpleRSNApp = () => {
                 <SimpleNode />
               </SpatialNavigationView>
               <View style={styles.spacerRow} />
-              <Column numberOfItems={100} />
+              <VirtualizedColumn numberOfItems={100} />
               <View style={styles.spacerRow} />
-              <Column numberOfItems={100} />
+              <VirtualizedColumn numberOfItems={100} />
               <View style={styles.spacerRow} />
-              <Column numberOfItems={100} />
+              <VirtualizedColumn numberOfItems={100} />
             </View>
           </SpatialNavigationView>
           <View style={styles.containerPrograms}>
