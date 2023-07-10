@@ -36,7 +36,7 @@ export interface CustomVirtualizedListProps<T extends ItemWithIndex> {
    * Use a custom key instead of the recycling.
    * */
   keyExtractor?: (index: number) => string;
-  /** Total number of expected items for infinite scroll (helps aligning items) */
+  /** Total number of expected items for infinite scroll (helps aligning items) used for pagination */
   nbMaxOfItems?: number;
   /** Duration of a scrolling animation inside the VirtualizedList */
   scrollDuration?: number;
@@ -106,6 +106,9 @@ const ItemContainerWithAnimatedStyle = typedMemo(
 );
 
 /**
+ * DO NOT use this component directly !
+ * You should use the component SpatialNavigatorVirtualizedList.tsx to render navigable lists of components.
+ *
  * Why this has been made:
  *   - it gives us full control on the way we scroll (using CSS animations)
  *   - it is way more performant than a FlatList
@@ -177,17 +180,17 @@ export const CustomVirtualizedList = typedMemo(
      * If the view has the size of the screen, then it is dropped in the component hierarchy when scrolled for more than the screen size (scroll right).
      * To ensure that the view stays visible, we adat its size to the size of the virtualized list.
      * ```
-     *            Screen
-     *           ┌─────────────────────┐
-     *  View     │                     │
-     * ┌─────────┼───────────────────┐ │
-     * │┌─┬─┬─┬─┬┼┬─┬─┬─┬─┬─┬─┬─┬─┬──┐ │
-     * ││┼│ │┼│ │┼│ │┼│ │┼│ │┼│ │┼│  │ │
-     * │└─┴─┴─┴─┴┼┴─┴─┴─┴─┴─┴─┴─┴─┴──┘ │
-     * └─────────┼───────────────────┘ │
-     *           │                     │
-     *           └─────────────────────┘
-     *  ◄───────┼───────────────────►
+     *                        Screen
+     *                  ┌─────────────────────┐
+     *  View(container) │                     │
+     *        ┌─────────┼───────────────────┐ │
+     *        │┌─┬─┬─┬─┬┼┬─┬─┬─┬─┬─┬─┬─┬─┬──┤ │
+     *        ││┼│ │┼│ │┼│ │┼│ │┼│ │┼│ │┼│  │ │
+     *        │└─┴─┴─┴─┴┼┴─┴─┴─┴─┴─┴─┴─┴─┴──┤ │
+     *        └─────────┼───────────────────┘ │
+     *                  │                     │
+     *                  └─────────────────────┘
+     *          ◄───────┼───────────────────►
      *   RowWidth = Screen Width + size of the item on left
      * ```
      */
