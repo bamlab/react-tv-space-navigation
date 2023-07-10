@@ -163,3 +163,53 @@ const FocusableNode = () => (
 ```
 
 In the example above, the third node will get the default focus when mounting our page.
+
+# configureKeyboard
+
+The Keyboard Configuration API is used to configure the remote control interaction for the `SpatialNavigation` components.
+
+## KeyboardConfiguration parameter
+
+This object has two methods:
+
+- `keyboardSubscriber: (direction: Direction) => TSubscriber`: A function that takes a callback as an argument. This callback is meant to be invoked with a `Direction` enum value whenever a keyboard event that should change the focus occurs. The function should return a subscriber identifier that can be used to unsubscribe the event listener.
+- `keyboardUnsubscriber: (subscriber: TSubscriber) => void`: A function that takes the subscriber identifier returned by `keyboardSubscriber` as an argument. This function is meant to remove the keyboard event listener associated with the given identifier.
+
+The `TSubscriber` type can be any type, it is meant to be determined by the implementation of `keyboardSubscriber` and `keyboardUnsubscriber`.
+
+## configureKeyboard Function
+
+The `configureKeyboard` function takes an object of type `KeyboardConfiguration` as an argument.
+It sets up the keyboard interaction for the spatial navigation system according to the configuration object.
+
+## Usage
+
+Here is an example for the web. You will have to configure it differently for AndroidTV or tvOS.
+
+```jsx
+SpatialNavigation.configureKeyboard({
+  keyboardSubscriber: callback => {
+    const mapping = {
+      ArrowRight: Directions.RIGHT,
+      ArrowLeft: Directions.LEFT,
+      ArrowUp: Directions.UP,
+      ArrowDown: Directions.DOWN,
+    };
+
+    const eventId = window.addEventListener('keydown', keyEvent => {
+      callback(mapping[keyEvent.code]);
+    });
+
+    return eventId;
+  },
+
+  keyboardUnsubscriber: eventId => {
+    window.removeEventListener('keydown', eventId);
+  },
+});
+```
+
+In this example, the arrow keys are used to navigate.
+The 'keydown' event listener invokes the callback with a mapped `Direction` corresponding to the key that was pressed.
+It returns an event identifier that can be used to remove the event listener later,
+ensuring that the component will clean up after itself when it is no longer needed.
