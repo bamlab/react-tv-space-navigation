@@ -1,6 +1,5 @@
 import type {PropsWithChildren} from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -51,7 +50,7 @@ export const SimpleTVOSApp = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <View style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
@@ -95,7 +94,7 @@ export const SimpleTVOSApp = () => {
           </Section>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
