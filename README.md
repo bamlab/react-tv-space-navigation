@@ -57,4 +57,8 @@ You should [follow the tutorial](./docs/tutorial.md).
 
 # API documentation
 
-You can have a look at [the documentation](./docs//api.md).
+You can have a look at [the documentation](./docs/api.md).
+
+# Pitfalls
+
+You should have a look at [the pitfalls](./docs/pitfalls.md).
