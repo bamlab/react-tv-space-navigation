@@ -90,3 +90,37 @@ const FocusableNode = () => (
   <FocusableNode />
 </SpatialNavigationScrollView>
 ```
+
+# SpatialNavigationView
+
+The `SpatialNavigationView` component is a simple wrapper component that contains a `SpatialNavigationNode`.
+This component allows you to describe the orientation along with the style of the `SpatialNavigationNode` and its children.
+
+## Props
+
+The `SpatialNavigationView` component receives the following props:
+
+| Name        | Type                         | Default        | Description                                                                                                |
+| ----------- | ---------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------- |
+| `direction` | `'horizontal' \| 'vertical'` | `'horizontal'` | The orientation of the `SpatialNavigationNode`.                                                            |
+| `style`     | `ViewStyle`                  | `null`         | Style for the View. This can be any valid React Native style object.                                       |
+| `children`  | `ReactNode`                  | `null`         | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements. |
+
+## Usage
+
+```jsx
+const FocusableNode = () => (
+  <SpatialNavigationNode isFocusable={true}>
+    {({ isFocused }) => <div style={{ color: isFocused ? "red" : "black" }}>Hello World!</div>}
+  </SpatialNavigationNode>
+);
+
+<SpatialNavigationView direction="horizontal">
+  {/* Nodes will be horizontal, and flex view will be row */}
+  <FocusableNode />
+  <FocusableNode />
+  <FocusableNode />
+</SpatialNavigationView>
+```
+
+In this example, a `SpatialNavigationView` is created with vertical direction and a padding of 20 pixels provided by the style prop. It contains a single `SpatialNavigationNode`. When the node gains focus, the navigation adjusts according to the orientation.
