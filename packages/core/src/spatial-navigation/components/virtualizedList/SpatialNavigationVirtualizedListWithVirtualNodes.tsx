@@ -115,8 +115,7 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
   ),
 );
 
-export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T extends ItemWithIndex> =
-  VirtualizedListProps<T>;
+export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T> = VirtualizedListProps<T>;
 
 /**
  * This component wraps every item of the VirtualizedList inside a Virtual Node.

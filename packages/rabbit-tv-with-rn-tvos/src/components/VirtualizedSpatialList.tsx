@@ -18,17 +18,13 @@ export const VirtualizedSpatialList = ({
 }) => {
   const renderItem = useCallback(() => <SimpleNode />, []);
 
-  const indexes = Array.from(Array(numberOfItems).keys()).map((value) => {
-    return {
-      index: value,
-    };
-  });
+  const hardcodedRabbitsArray = Array(numberOfItems).fill({});
 
   return (
     <View style={[styles.container, containerStyle]}>
       <SpatialNavigationVirtualizedList
         orientation={orientation}
-        data={indexes}
+        data={hardcodedRabbitsArray}
         renderItem={renderItem}
         itemSize={PROGRAM_HEIGHT + 50}
         numberOfRenderedItems={WINDOW_SIZE}
