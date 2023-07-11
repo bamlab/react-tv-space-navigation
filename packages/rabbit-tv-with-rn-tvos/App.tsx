@@ -31,12 +31,14 @@ function App(): JSX.Element {
         style={{
           width: dimensions.window.width,
           height: dimensions.window.height,
-          backgroundColor: '#333',
         }}
       >
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
+            contentStyle: {
+              backgroundColor: '#333',
+            },
           }}
           initialRouteName="Home"
         >
