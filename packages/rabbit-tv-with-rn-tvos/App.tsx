@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
-import { View, Dimensions } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Dimensions, View } from 'react-native';
 
 const windowDimensions = Dimensions.get('window');
 
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SimpleRSNApp } from './src/components/SimpleRSNApp';
+
+const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
   const [dimensions, setDimensions] = useState({
@@ -28,7 +31,13 @@ function App(): JSX.Element {
           backgroundColor: '#333',
         }}
       >
-        <SimpleRSNApp />
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="Home" component={SimpleRSNApp} />
+        </Stack.Navigator>
       </View>
     </NavigationContainer>
   );
