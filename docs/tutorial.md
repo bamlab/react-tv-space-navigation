@@ -151,3 +151,7 @@ const Page = () => {
   );
 };
 ```
+
+### Add a VirtualizedList
+
+See the [API documentation for VirtualizedLists](./api.md#spatialnavigationvirtualizedlist).

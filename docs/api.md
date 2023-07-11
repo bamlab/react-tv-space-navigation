@@ -148,6 +148,70 @@ const FocusableNode = () => (
 
 In this example, a `SpatialNavigationView` is created with vertical direction and a padding of 20 pixels provided by the style prop. It contains a single `SpatialNavigationNode`. When the node gains focus, the navigation adjusts according to the orientation.
 
+# SpatialNavigationVirtualizedList
+
+The `SpatialNavigationVirtualizedList` component is a custom implementation of a Virtulized List with spatial navigation.
+It is based on an Animated View that grows with newly rendered elements and translates horizontally or vertically to scroll.
+It also ensures that the scroll event is propagated properly to parent ScrollViews or VirtualizedLists when nested scrolling is required.
+
+## Props
+
+| Name                               | Type                                 | Description                                                                                                                                                                      |
+| ---------------------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data`                             | `Array<T>`                           | The array of data items to render.                                                                                                                                               |
+| `renderItem`                       | `(args: { item: T }) => JSX.Element` | A function that returns the JSX element to render for each item in the data array. The function receives an object with the item as a parameter.                                 |
+| `itemSize`                         | `number`                             | If vertical, the height of an item; otherwise, the width.                                                                                                                        |
+| `numberOfRenderedItems`            | `number`                             | The number of items to be rendered (virtualization size).                                                                                                                        |
+| `numberOfItemsVisibleOnScreen`     | `number`                             | The number of items visible on the screen. This helps determine how to slice the data and when to stop the scroll at the end of the list.                                        |
+| `onEndReached`                     | `() => void`                         | An optional callback function that is called when the user reaches the end of the list.                                                                                          |
+| `onEndReachedThresholdItemsNumber` | `number`                             | The number of items left to display before triggering the `onEndReached` callback. Defaults to 3.                                                                                |
+| `style`                            | `ViewStyle`                          | Custom style to be applied to the VirtualizedList container.                                                                                                                     |
+| `orientation`                      | `'horizontal' \| 'vertical'`         | The orientation of the list. Defaults to `'horizontal'`.                                                                                                                         |
+| `nbMaxOfItems`                     | `number`                             | The total number of expected items for infinite scroll. This helps with aligning items and is used for pagination. If not provided, it defaults to the length of the data array. |
+| `scrollDuration`                   | `number`                             | The duration of a scrolling animation inside the VirtualizedList. Defaults to 200ms.                                                                                             |
+| `height`                           | `number`                             | Custom height for the VirtualizedList container. Defaults to the screen height.                                                                                                  |
+| `width`                            | `number`                             | Custom width for the VirtualizedList container. Defaults to the screen width.                                                                                                    |
+
+## Usage
+
+```jsx
+import { VirtualizedList } from 'path/to/VirtualizedList';
+
+// Example data
+const data = [
+  { index: 0, name: 'Item 1' },
+  { index: 1, name: 'Item 2' },
+  { index: 2, name: 'Item 3' },
+  // ...
+];
+
+const renderItem = ({ item }) => {
+  return (
+    <View>
+      <Text>{item.name}</Text>
+    </View>
+  );
+};
+
+const MyComponent = () => {
+  return (
+    <VirtualizedList
+      data={data}
+      renderItem={renderItem}
+      itemSize={50}
+      numberOfRenderedItems={10}
+      numberOfItemsVisibleOnScreen={5}
+      onEndReached={() => {
+        // Handle reaching the end of the list
+        // you might trigger your backend pagination for example
+      }}
+      style={styles.container}
+      orientation="horizontal"
+    />
+  );
+};
+```
+
 # DefaultFocus
 
 This allows to set a default focus state for the first spatial navigation node of a group of nodes.
