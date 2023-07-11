@@ -1,8 +1,8 @@
-import {StyleSheet, View} from 'react-native';
-import {SpatialNavigatorVirtualizedList} from 'react-native-tv-spatial-navigation/src';
-import {useCallback} from 'react';
-import {PROGRAM_HEIGHT} from './Program';
-import {SimpleNode} from './SimpleNode';
+import { StyleSheet, View } from 'react-native';
+import { SpatialNavigatorVirtualizedList } from 'react-native-tv-spatial-navigation/src';
+import { useCallback } from 'react';
+import { PROGRAM_HEIGHT } from './Program';
+import { SimpleNode } from './SimpleNode';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 4;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
@@ -18,7 +18,7 @@ export const VirtualizedSpatialList = ({
 }) => {
   const renderItem = useCallback(() => <SimpleNode />, []);
 
-  const indexes = Array.from(Array(numberOfItems).keys()).map(value => {
+  const indexes = Array.from(Array(numberOfItems).keys()).map((value) => {
     return {
       index: value,
     };
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
   },
-  row: {height: 320},
-  column: {height: 700, width: 265},
+  row: { height: 320 },
+  column: { height: 700, width: 265 },
 });
 
 export const VirtualizedRow = ({

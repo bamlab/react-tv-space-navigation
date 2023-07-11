@@ -1,11 +1,8 @@
-import {TVEventHandler} from 'react-native';
-import {
-  Directions,
-  SpatialNavigation,
-} from 'react-native-tv-spatial-navigation/src';
+import { TVEventHandler } from 'react-native';
+import { Directions, SpatialNavigation } from 'react-native-tv-spatial-navigation/src';
 
 SpatialNavigation.configureKeyboard({
-  keyboardSubscriber: callback => {
+  keyboardSubscriber: (callback) => {
     const _tvEventHandler = new TVEventHandler();
     _tvEventHandler.enable(this, function (cmp, evt) {
       if (!evt) return;
@@ -24,7 +21,7 @@ SpatialNavigation.configureKeyboard({
 
     return _tvEventHandler;
   },
-  keyboardUnsubscriber: _tvEventHandler => {
+  keyboardUnsubscriber: (_tvEventHandler) => {
     _tvEventHandler.disable();
   },
 });

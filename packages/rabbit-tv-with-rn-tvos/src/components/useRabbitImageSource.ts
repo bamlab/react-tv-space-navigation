@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import { useMemo } from 'react';
 
 const RABBITS = [
   require('../assets/rabbit1.png'),

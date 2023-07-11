@@ -1,10 +1,10 @@
-import {useState, useEffect} from 'react';
-import {View, Dimensions} from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Dimensions } from 'react-native';
 
 const windowDimensions = Dimensions.get('window');
 
-import {NavigationContainer} from '@react-navigation/native';
-import {SimpleRSNApp} from './src/components/SimpleRSNApp';
+import { NavigationContainer } from '@react-navigation/native';
+import { SimpleRSNApp } from './src/components/SimpleRSNApp';
 
 function App(): JSX.Element {
   const [dimensions, setDimensions] = useState({
@@ -12,8 +12,8 @@ function App(): JSX.Element {
   });
 
   useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', ({window}) => {
-      setDimensions({window});
+    const subscription = Dimensions.addEventListener('change', ({ window }) => {
+      setDimensions({ window });
     });
     return () => subscription?.remove();
   });
@@ -26,7 +26,8 @@ function App(): JSX.Element {
           width: dimensions.window.width,
           height: dimensions.window.height,
           backgroundColor: '#333',
-        }}>
+        }}
+      >
         <SimpleRSNApp />
       </View>
     </NavigationContainer>

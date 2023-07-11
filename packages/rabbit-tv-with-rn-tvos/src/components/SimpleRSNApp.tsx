@@ -6,9 +6,9 @@ import {
 } from 'react-native-tv-spatial-navigation/src';
 
 import './configureKeyboard';
-import {View, StyleSheet} from 'react-native';
-import {SimpleNode} from './SimpleNode';
-import {VirtualizedColumn, VirtualizedRow} from './VirtualizedSpatialList';
+import { View, StyleSheet } from 'react-native';
+import { SimpleNode } from './SimpleNode';
+import { VirtualizedColumn, VirtualizedRow } from './VirtualizedSpatialList';
 
 export const SimpleRSNApp = () => {
   return (
@@ -28,9 +28,7 @@ export const SimpleRSNApp = () => {
           <SpatialNavigationView direction="horizontal">
             <View style={styles.containerRow}>
               <View style={styles.spacerRow} />
-              <SpatialNavigationView
-                direction="vertical"
-                style={styles.smallContainerPrograms}>
+              <SpatialNavigationView direction="vertical" style={styles.smallContainerPrograms}>
                 <SimpleNode />
                 <SimpleNode />
               </SpatialNavigationView>
@@ -58,10 +56,10 @@ export const SimpleRSNApp = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {padding: 60},
-  spacer: {height: 50},
-  containerRow: {padding: 60, flexDirection: 'row'},
-  spacerRow: {width: 50},
+  container: { padding: 60 },
+  spacer: { height: 50 },
+  containerRow: { padding: 60, flexDirection: 'row' },
+  spacerRow: { width: 50 },
   smallContainerPrograms: {
     padding: 70,
     gap: 50,
@@ -70,5 +68,5 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  gap: {gap: 50},
+  gap: { gap: 50 },
 });

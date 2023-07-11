@@ -1,21 +1,14 @@
-import type {PropsWithChildren} from 'react';
-import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  useColorScheme,
-} from 'react-native';
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
-import {Highlight} from './Highlight';
-import {Program} from './Program';
+import type { PropsWithChildren } from 'react';
+import { ScrollView, StatusBar, StyleSheet, Text, View, useColorScheme } from 'react-native';
+import { Colors, Header } from 'react-native/Libraries/NewAppScreen';
+import { Highlight } from './Highlight';
+import { Program } from './Program';
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): JSX.Element {
+function Section({ children, title }: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
@@ -26,7 +19,8 @@ function Section({children, title}: SectionProps): JSX.Element {
           {
             color: isDarkMode ? Colors.white : Colors.black,
           },
-        ]}>
+        ]}
+      >
         {title}
       </Text>
       <Text
@@ -35,7 +29,8 @@ function Section({children, title}: SectionProps): JSX.Element {
           {
             color: isDarkMode ? Colors.light : Colors.dark,
           },
-        ]}>
+        ]}
+      >
         {children}
       </Text>
     </View>
@@ -55,14 +50,13 @@ export const SimpleTVOSApp = () => {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
+      <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
         <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
+          }}
+        >
           <Section title="Hightlights">
             <Highlight />
             <Highlight />
