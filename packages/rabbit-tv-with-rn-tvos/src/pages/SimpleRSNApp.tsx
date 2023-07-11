@@ -1,18 +1,16 @@
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StyleSheet, View } from 'react-native';
 import {
   DefaultFocus,
   SpatialNavigationRoot,
   SpatialNavigationScrollView,
   SpatialNavigationView,
 } from 'react-native-tv-spatial-navigation/src';
-
-import { StyleSheet, View } from 'react-native';
-
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { SimpleNode } from './SimpleNode';
-import { VirtualizedColumn, VirtualizedRow } from './VirtualizedSpatialList';
-import './configureRemoteControl';
 import { RootStackParamList } from '../../App';
+import { SimpleNode } from '../components/SimpleNode';
+import { VirtualizedColumn, VirtualizedRow } from '../components/VirtualizedSpatialList';
+import '../components/configureRemoteControl';
 
 export const SimpleRSNApp = () => {
   const isFocused = useIsFocused();

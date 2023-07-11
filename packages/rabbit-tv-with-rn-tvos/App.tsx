@@ -6,8 +6,8 @@ const windowDimensions = Dimensions.get('window');
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GoBackConfiguration } from './src/components/GoBackConfiguration';
-import { OtherProgramsPage } from './src/components/OtherProgramsPage';
-import { SimpleRSNApp } from './src/components/SimpleRSNApp';
+import { OtherProgramsPage } from './src/pages/OtherProgramsPage';
+import { SimpleRSNApp } from './src/pages/SimpleRSNApp';
 
 const Stack = createNativeStackNavigator();
 

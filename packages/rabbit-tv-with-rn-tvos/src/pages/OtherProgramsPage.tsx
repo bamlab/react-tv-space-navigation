@@ -1,7 +1,7 @@
 import { useIsFocused } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 import { DefaultFocus, SpatialNavigationRoot } from 'react-native-tv-spatial-navigation/src';
-import { VirtualizedRow } from './VirtualizedSpatialList';
+import { VirtualizedRow } from '../components/VirtualizedSpatialList';
 
 export const OtherProgramsPage = () => {
   const isFocused = useIsFocused();
