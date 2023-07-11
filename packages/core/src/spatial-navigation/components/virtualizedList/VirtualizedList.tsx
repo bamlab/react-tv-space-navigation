@@ -1,22 +1,22 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { Animated, StyleSheet, View, ViewStyle, Dimensions } from 'react-native';
 import { getRange } from './helpers/getRange';
-import { useCustomVirtualizedListAnimation } from './hooks/useCustomVirtualizedListAnimation';
+import { useVirtualizedListAnimation } from './hooks/useVirtualizedListAnimation';
 import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
 
 const screen = Dimensions.get('window');
 
 /**
- * @TODO: CustomVirtualizedList should be able to take any data as params.
+ * @TODO: VirtualizedList should be able to take any data as params.
  * We shouldn't restrict the use to a data that is indexed -> a mistake can be made on usage
  * if the data is not indexed properly for example.
- * The indexing should be done inside CustomVirtualizedList directly & CustomVirtualizedListProps
+ * The indexing should be done inside VirtualizedList directly & VirtualizedListProps
  * should accept any generic type T.
  */
 export type ItemWithIndex = { index: number };
 
-export interface CustomVirtualizedListProps<T extends ItemWithIndex> {
+export interface VirtualizedListProps<T extends ItemWithIndex> {
   data: Array<T>;
   renderItem: (args: { item: T }) => JSX.Element;
   /** If vertical the height of an item, otherwise the width */
@@ -87,7 +87,7 @@ const ItemContainerWithAnimatedStyle = typedMemo(
     vertical,
   }: {
     item: T;
-    renderItem: CustomVirtualizedListProps<T>['renderItem'];
+    renderItem: VirtualizedListProps<T>['renderItem'];
     itemSize: number;
     vertical: boolean;
   }) => {
@@ -107,13 +107,13 @@ const ItemContainerWithAnimatedStyle = typedMemo(
 
 /**
  * DO NOT use this component directly !
- * You should use the component SpatialNavigatorVirtualizedList.tsx to render navigable lists of components.
+ * You should use the component SpatialNavigationVirtualizedList.tsx to render navigable lists of components.
  *
  * Why this has been made:
  *   - it gives us full control on the way we scroll (using CSS animations)
  *   - it is way more performant than a FlatList
  */
-export const CustomVirtualizedList = typedMemo(
+export const VirtualizedList = typedMemo(
   <T extends ItemWithIndex>({
     data,
     renderItem,
@@ -130,7 +130,7 @@ export const CustomVirtualizedList = typedMemo(
     scrollDuration = 200,
     height = screen.height,
     width = screen.width,
-  }: CustomVirtualizedListProps<T>) => {
+  }: VirtualizedListProps<T>) => {
     const range = getRange({
       data,
       currentlyFocusedItemIndex,
@@ -150,7 +150,7 @@ export const CustomVirtualizedList = typedMemo(
       onEndReached,
     });
 
-    const animatedStyle = useCustomVirtualizedListAnimation({
+    const animatedStyle = useVirtualizedListAnimation({
       currentlyFocusedItemIndex,
       itemSizeInPx: itemSize,
       vertical,

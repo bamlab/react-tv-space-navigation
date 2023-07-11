@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { SpatialNavigatorVirtualizedList } from 'react-native-tv-spatial-navigation/src';
+import { SpatialNavigationVirtualizedList } from 'react-native-tv-spatial-navigation/src';
 import { useCallback } from 'react';
 import { PROGRAM_HEIGHT } from './Program';
 import { SimpleNode } from './SimpleNode';
@@ -26,7 +26,7 @@ export const VirtualizedSpatialList = ({
 
   return (
     <View style={[styles.container, containerStyle]}>
-      <SpatialNavigatorVirtualizedList
+      <SpatialNavigationVirtualizedList
         orientation={orientation}
         data={indexes}
         renderItem={renderItem}

@@ -3,7 +3,7 @@ import { Animated, Easing } from 'react-native';
 import { TypeVirtualizedListAnimation } from '../../../types/TypeVirtualizedListAnimation';
 import { computeTranslation } from '../helpers/computeTranslation';
 
-export const useCustomVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
+export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
   currentlyFocusedItemIndex,
   itemSizeInPx,
   vertical = false,

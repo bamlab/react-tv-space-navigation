@@ -33,7 +33,7 @@ const getRangeWithoutFloatHandling = ({
    */
   if (numberOfItemsNotVisible < 2) {
     throw new Error(
-      'You have set a numberOfRenderedItems inferior to the numberOfItemsVisibleOnScreen + 2 in your SpatialNavigatorVirtualizedList. You must change it.',
+      'You have set a numberOfRenderedItems inferior to the numberOfItemsVisibleOnScreen + 2 in your SpatialNavigationVirtualizedList. You must change it.',
     );
   }
 
@@ -83,7 +83,7 @@ export const getRange = ({
 }): { start: number; end: number } => {
   if (numberOfRenderedItems <= 0) {
     console.error(
-      '[CustomVirtualizedList] Negative number of rendered items was given, no elements will be rendered',
+      '[VirtualizedList] Negative number of rendered items was given, no elements will be rendered',
     );
     return { start: 0, end: 0 };
   }

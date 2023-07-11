@@ -1,10 +1,6 @@
 import uniqueId from 'lodash.uniqueid';
 import { useCallback, useRef } from 'react';
-import {
-  CustomVirtualizedList,
-  CustomVirtualizedListProps,
-  ItemWithIndex,
-} from './CustomVirtualizedList';
+import { VirtualizedList, VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
 import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
 import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
 import { updateVirtualNodeRegistration } from './helpers/updateVirtualNodeRegistration';
@@ -111,7 +107,7 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
   }: {
     virtualParentID: string;
     item: T;
-    renderItem: CustomVirtualizedListProps<T>['renderItem'];
+    renderItem: VirtualizedListProps<T>['renderItem'];
   }) => (
     <ParentIdContext.Provider value={virtualParentID}>
       {renderItem({ item })}
@@ -119,8 +115,8 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
   ),
 );
 
-export type SpatialNavigatorVirtualizedListWithVirtualNodesProps<T extends ItemWithIndex> =
-  CustomVirtualizedListProps<T>;
+export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T extends ItemWithIndex> =
+  VirtualizedListProps<T>;
 
 /**
  * This component wraps every item of the VirtualizedList inside a Virtual Node.
@@ -145,8 +141,8 @@ export type SpatialNavigatorVirtualizedListWithVirtualNodesProps<T extends ItemW
  *                       └───────────────────────────────────────┘
  * ```
  */
-export const SpatialNavigatorVirtualizedListWithVirtualNodes = typedMemo(
-  <T extends ItemWithIndex>(props: SpatialNavigatorVirtualizedListWithVirtualNodesProps<T>) => {
+export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
+  <T extends ItemWithIndex>(props: SpatialNavigationVirtualizedListWithVirtualNodesProps<T>) => {
     const { getNthVirtualNodeID } = useRegisterVirtualNodes({
       allItems: props.data,
     });
@@ -163,6 +159,6 @@ export const SpatialNavigatorVirtualizedListWithVirtualNodes = typedMemo(
       [getNthVirtualNodeID, renderItem],
     );
 
-    return <CustomVirtualizedList {...props} renderItem={renderWrappedItem} />;
+    return <VirtualizedList {...props} renderItem={renderWrappedItem} />;
   },
 );

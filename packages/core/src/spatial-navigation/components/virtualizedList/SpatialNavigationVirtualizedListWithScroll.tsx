@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { CustomVirtualizedListProps, ItemWithIndex } from './CustomVirtualizedList';
+import { VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
 import {
-  SpatialNavigatorVirtualizedListWithVirtualNodes,
-  SpatialNavigatorVirtualizedListWithVirtualNodesProps,
-} from './SpatialNavigatorVirtualizedListWithVirtualNodes';
+  SpatialNavigationVirtualizedListWithVirtualNodes,
+  SpatialNavigationVirtualizedListWithVirtualNodesProps,
+} from './SpatialNavigationVirtualizedListWithVirtualNodes';
 import {
   ScrollToNodeCallback,
   SpatialNavigatorParentScrollContext,
@@ -19,7 +19,7 @@ const ItemWrapperWithScrollContext = typedMemo(
   }: {
     setCurrentlyFocusedItemIndex: (i: number) => void;
     item: T;
-    renderItem: CustomVirtualizedListProps<T>['renderItem'];
+    renderItem: VirtualizedListProps<T>['renderItem'];
   }) => {
     const { scrollToNodeIfNeeded: makeParentsScrollToNodeIfNeeded } =
       useSpatialNavigatorParentScroll();
@@ -41,16 +41,16 @@ const ItemWrapperWithScrollContext = typedMemo(
   },
 );
 
-export type SpatialNavigatorVirtualizedListWithScrollProps<T extends ItemWithIndex> = Omit<
-  SpatialNavigatorVirtualizedListWithVirtualNodesProps<T>,
+export type SpatialNavigationVirtualizedListWithScrollProps<T extends ItemWithIndex> = Omit<
+  SpatialNavigationVirtualizedListWithVirtualNodesProps<T>,
   'currentlyFocusedItemIndex'
 >;
 
 /**
- * This component wraps every item of a CustomVirtualizedList in a scroll handling context.
+ * This component wraps every item of a virtualizedList in a scroll handling context.
  */
-export const SpatialNavigatorVirtualizedListWithScroll = typedMemo(
-  <T extends ItemWithIndex>(props: SpatialNavigatorVirtualizedListWithScrollProps<T>) => {
+export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
+  <T extends ItemWithIndex>(props: SpatialNavigationVirtualizedListWithScrollProps<T>) => {
     const { renderItem } = props;
     const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
 
@@ -70,7 +70,7 @@ export const SpatialNavigatorVirtualizedListWithScroll = typedMemo(
     );
 
     return (
-      <SpatialNavigatorVirtualizedListWithVirtualNodes
+      <SpatialNavigationVirtualizedListWithVirtualNodes
         {...props}
         currentlyFocusedItemIndex={currentlyFocusedItemIndex}
         renderItem={renderWrappedItem}
