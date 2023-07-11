@@ -3,30 +3,13 @@ import { Dimensions, View } from 'react-native';
 
 const windowDimensions = Dimensions.get('window');
 
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { OtherProgramsPage } from './src/components/OtherProgramsPage';
 import { SimpleRSNApp } from './src/components/SimpleRSNApp';
+import { GoBackConfiguration } from './src/components/GoBackConfiguration';
 
 const Stack = createNativeStackNavigator();
-
-const GoBackConfiguration = () => {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    const listener = window.addEventListener('keydown', (event) => {
-      if (event.code === 'Backspace') {
-        if (navigation.canGoBack()) {
-          navigation.goBack();
-        }
-      }
-    });
-
-    return window.removeEventListener('keydown', listener);
-  }, []);
-
-  return <></>;
-};
 
 function App(): JSX.Element {
   const [dimensions, setDimensions] = useState({
