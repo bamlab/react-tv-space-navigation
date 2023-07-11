@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { ItemWithIndex } from './VirtualizedList';
 import { SpatialNavigationNode } from '../Node';
 import {
@@ -5,6 +6,7 @@ import {
   SpatialNavigationVirtualizedListWithScrollProps,
 } from './SpatialNavigationVirtualizedListWithScroll';
 import { typedMemo } from '../../helpers/TypedMemo';
+import { addIndex } from './helpers/addIndex';
 
 /**
  * Use this component to render spatially navigable virtualized lists.
@@ -12,9 +14,11 @@ import { typedMemo } from '../../helpers/TypedMemo';
  * */
 export const SpatialNavigationVirtualizedList = typedMemo(
   <T extends ItemWithIndex>(props: SpatialNavigationVirtualizedListWithScrollProps<T>) => {
+    const indexedData = useMemo(() => addIndex(props.data), [props.data]);
+
     return (
       <SpatialNavigationNode orientation={props.orientation ?? 'horizontal'}>
-        <SpatialNavigationVirtualizedListWithScroll {...props} />
+        <SpatialNavigationVirtualizedListWithScroll {...props} data={indexedData} />
       </SpatialNavigationNode>
     );
   },
