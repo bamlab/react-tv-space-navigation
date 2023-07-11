@@ -30,7 +30,6 @@ The `SpatialNavigationRoot` component receives the following props:
 </SpatialNavigationRoot>
 ```
 
-
 # SpatialNavigationNode
 
 The SpatialNavigationNode is a component that can be used to handle spatial navigation in a React application.
@@ -52,12 +51,12 @@ The `SpatialNavigationNode` component receives the following props:
 
 ```jsx
 <SpatialNavigationNode
-  onFocus={() => console.log("Node gained focus")}
-  onSelect={() => console.log("Node was selected")}
+  onFocus={() => console.log('Node gained focus')}
+  onSelect={() => console.log('Node was selected')}
   orientation="horizontal"
   isFocusable={true}
 >
-  {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
+  {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
 </SpatialNavigationNode>
 ```
 
@@ -67,18 +66,19 @@ The SpatialNavigationNode will use the ref of your component to handle the scrol
 You might need to forward the ref to the closest inner view of your component.
 
 ```tsx
-export const MyFocusableComponent = React.forwardRef<View, MyFocusableComponentProps>(({ isFocused  }, ref) => {
-  // ...
+export const MyFocusableComponent = React.forwardRef<View, MyFocusableComponentProps>(
+  ({ isFocused }, ref) => {
+    // ...
 
-  return (
-    // pass the ref to the relevant View in your component.
-    <View ref={ref}>
-      <YourOtherElements />
-    </View>
-  );
-});
+    return (
+      // pass the ref to the relevant View in your component.
+      <View ref={ref}>
+        <YourOtherElements />
+      </View>
+    );
+  },
+);
 ```
-
 
 # SpatialNavigationScrollView
 
@@ -102,7 +102,7 @@ The `SpatialNavigationScrollView` component receives the following props:
 ```jsx
 const FocusableNode = () => (
   <SpatialNavigationNode isFocusable={true}>
-    {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
+    {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
   </SpatialNavigationNode>
 );
 
@@ -111,7 +111,7 @@ const FocusableNode = () => (
   <FocusableNode />
   <FocusableNode />
   <FocusableNode />
-</SpatialNavigationScrollView>
+</SpatialNavigationScrollView>;
 ```
 
 # SpatialNavigationView
@@ -134,7 +134,7 @@ The `SpatialNavigationView` component receives the following props:
 ```jsx
 const FocusableNode = () => (
   <SpatialNavigationNode isFocusable={true}>
-    {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
+    {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
   </SpatialNavigationNode>
 );
 
@@ -143,10 +143,74 @@ const FocusableNode = () => (
   <FocusableNode />
   <FocusableNode />
   <FocusableNode />
-</SpatialNavigationView>
+</SpatialNavigationView>;
 ```
 
 In this example, a `SpatialNavigationView` is created with vertical direction and a padding of 20 pixels provided by the style prop. It contains a single `SpatialNavigationNode`. When the node gains focus, the navigation adjusts according to the orientation.
+
+# SpatialNavigationVirtualizedList
+
+The `SpatialNavigationVirtualizedList` component is a custom implementation of a Virtulized List with spatial navigation.
+It is based on an Animated View that grows with newly rendered elements and translates horizontally or vertically to scroll.
+It also ensures that the scroll event is propagated properly to parent ScrollViews or VirtualizedLists when nested scrolling is required.
+
+## Props
+
+| Name                               | Type                                 | Description                                                                                                                                                                      |
+| ---------------------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data`                             | `Array<T>`                           | The array of data items to render.                                                                                                                                               |
+| `renderItem`                       | `(args: { item: T }) => JSX.Element` | A function that returns the JSX element to render for each item in the data array. The function receives an object with the item as a parameter.                                 |
+| `itemSize`                         | `number`                             | If vertical, the height of an item; otherwise, the width.                                                                                                                        |
+| `numberOfRenderedItems`            | `number`                             | The number of items to be rendered (virtualization size).                                                                                                                        |
+| `numberOfItemsVisibleOnScreen`     | `number`                             | The number of items visible on the screen. This helps determine how to slice the data and when to stop the scroll at the end of the list.                                        |
+| `onEndReached`                     | `() => void`                         | An optional callback function that is called when the user reaches the end of the list.                                                                                          |
+| `onEndReachedThresholdItemsNumber` | `number`                             | The number of items left to display before triggering the `onEndReached` callback. Defaults to 3.                                                                                |
+| `style`                            | `ViewStyle`                          | Custom style to be applied to the VirtualizedList container.                                                                                                                     |
+| `orientation`                      | `'horizontal' \| 'vertical'`         | The orientation of the list. Defaults to `'horizontal'`.                                                                                                                         |
+| `nbMaxOfItems`                     | `number`                             | The total number of expected items for infinite scroll. This helps with aligning items and is used for pagination. If not provided, it defaults to the length of the data array. |
+| `scrollDuration`                   | `number`                             | The duration of a scrolling animation inside the VirtualizedList. Defaults to 200ms.                                                                                             |
+| `height`                           | `number`                             | Custom height for the VirtualizedList container. Defaults to the screen height.                                                                                                  |
+| `width`                            | `number`                             | Custom width for the VirtualizedList container. Defaults to the screen width.                                                                                                    |
+
+## Usage
+
+```jsx
+import { VirtualizedList } from 'path/to/VirtualizedList';
+
+// Example data
+const data = [
+  { index: 0, name: 'Item 1' },
+  { index: 1, name: 'Item 2' },
+  { index: 2, name: 'Item 3' },
+  // ...
+];
+
+const renderItem = ({ item }) => {
+  return (
+    <View>
+      <Text>{item.name}</Text>
+    </View>
+  );
+};
+
+const MyComponent = () => {
+  return (
+    <VirtualizedList
+      data={data}
+      renderItem={renderItem}
+      itemSize={50}
+      numberOfRenderedItems={10}
+      numberOfItemsVisibleOnScreen={5}
+      onEndReached={() => {
+        // Handle reaching the end of the list
+        // you might trigger your backend pagination for example
+      }}
+      style={styles.container}
+      orientation="horizontal"
+    />
+  );
+};
+```
 
 # DefaultFocus
 
@@ -167,7 +231,7 @@ The `DefaultFocus` component receives the following props:
 ```jsx
 const FocusableNode = () => (
   <SpatialNavigationNode isFocusable={true}>
-    {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
+    {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
   </SpatialNavigationNode>
 );
 
@@ -178,7 +242,7 @@ const FocusableNode = () => (
     <FocusableNode />
   </DefaultFocus>
   <FocusableNode />
-</SpatialNavigationRoot>
+</SpatialNavigationRoot>;
 ```
 
 In the example above, the third node will get the default focus when mounting our page.
@@ -202,7 +266,7 @@ Here is an example for the web. You will have to configure it differently for An
 
 ```jsx
 SpatialNavigation.configureKeyboard({
-  keyboardSubscriber: callback => {
+  keyboardSubscriber: (callback) => {
     const mapping = {
       ArrowRight: Directions.RIGHT,
       ArrowLeft: Directions.LEFT,
@@ -210,14 +274,14 @@ SpatialNavigation.configureKeyboard({
       ArrowDown: Directions.DOWN,
     };
 
-    const eventId = window.addEventListener('keydown', keyEvent => {
+    const eventId = window.addEventListener('keydown', (keyEvent) => {
       callback(mapping[keyEvent.code]);
     });
 
     return eventId;
   },
 
-  keyboardUnsubscriber: eventId => {
+  keyboardUnsubscriber: (eventId) => {
     window.removeEventListener('keydown', eventId);
   },
 });

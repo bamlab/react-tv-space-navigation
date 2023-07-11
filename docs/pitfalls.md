@@ -5,23 +5,21 @@ If navigation elements are conditionnally visible, it is necessary to wrap them 
 ```tsx
 // DO
 const MyCardElement = () => {
-    return (
-        <View>
-            <Text>Title</Text>
-            <SpatialNavigationNode>
-                {isVisible && <Element />}
-            </SpatialNavigationNode>
-        </View>
-    )
-}
+  return (
+    <View>
+      <Text>Title</Text>
+      <SpatialNavigationNode>{isVisible && <Element />}</SpatialNavigationNode>
+    </View>
+  );
+};
 
 // DON'T
 const MyCardElement = () => {
-    return (
-        <View>
-            <Text>Title</Text>
-            {isVisible && <Element />}
-        </View>
-    )
-}
+  return (
+    <View>
+      <Text>Title</Text>
+      {isVisible && <Element />}
+    </View>
+  );
+};
 ```
