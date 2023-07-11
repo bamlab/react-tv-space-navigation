@@ -10,16 +10,18 @@ SpatialNavigation.configureKeyboard({
       Enter: Directions.ENTER,
     };
 
-    const eventId = window.addEventListener('keydown', (keyEvent) => {
+    const keyboardListener = (keyEvent: KeyboardEvent) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore TODO fix me, but this is just a demo anyway
       callback(mapping[keyEvent.code]);
-    });
+    };
 
-    return eventId;
+    window.addEventListener('keydown', keyboardListener);
+
+    return keyboardListener;
   },
 
-  keyboardUnsubscriber: (eventId) => {
-    window.removeEventListener('keydown', eventId);
+  keyboardUnsubscriber: (keyboardListener) => {
+    window.removeEventListener('keydown', keyboardListener);
   },
 });
