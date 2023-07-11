@@ -16,7 +16,7 @@ const screen = Dimensions.get('window');
  */
 export type ItemWithIndex = { index: number };
 
-export interface VirtualizedListProps<T extends ItemWithIndex> {
+export interface VirtualizedListProps<T> {
   data: Array<T>;
   renderItem: (args: { item: T }) => JSX.Element;
   /** If vertical the height of an item, otherwise the width */

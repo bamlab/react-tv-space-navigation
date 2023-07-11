@@ -41,7 +41,7 @@ const ItemWrapperWithScrollContext = typedMemo(
   },
 );
 
-export type SpatialNavigationVirtualizedListWithScrollProps<T extends ItemWithIndex> = Omit<
+export type SpatialNavigationVirtualizedListWithScrollProps<T> = Omit<
   SpatialNavigationVirtualizedListWithVirtualNodesProps<T>,
   'currentlyFocusedItemIndex'
 >;
