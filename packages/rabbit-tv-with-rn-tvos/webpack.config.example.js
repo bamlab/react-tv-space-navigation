@@ -51,7 +51,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.web.js', '.web.jsx', '.web.ts', '.web.tsx', '.ts', '.tsx', '.js', '.jsx'],
     alias: {
       'react-native$': 'react-native-web',
     },

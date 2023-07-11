@@ -12,6 +12,7 @@ SpatialNavigation.configureKeyboard({
         left: Directions.LEFT,
         up: Directions.UP,
         down: Directions.DOWN,
+        select: Directions.ENTER,
       };
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

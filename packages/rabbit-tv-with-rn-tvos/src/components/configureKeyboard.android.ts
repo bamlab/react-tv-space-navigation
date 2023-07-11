@@ -11,6 +11,7 @@ SpatialNavigation.configureKeyboard({
         22: Directions.RIGHT,
         20: Directions.DOWN,
         19: Directions.UP,
+        66: Directions.ENTER,
       };
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore -- TODO fix this later, it'a just an example

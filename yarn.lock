@@ -2744,6 +2744,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-navigation/elements@npm:^1.3.18":
+  version: 1.3.18
+  resolution: "@react-navigation/elements@npm:1.3.18"
+  peerDependencies:
+    "@react-navigation/native": ^6.0.0
+    react: "*"
+    react-native: "*"
+    react-native-safe-area-context: ">= 3.0.0"
+  checksum: 02293f0932e5f53bb9c4df46f97063bfa27f05a1f606ea556de42189e6bf3e928f70a531ae64e0f56072d6525178cee9bd41eafbcbbce4653476f4aa2346524a
+  languageName: node
+  linkType: hard
+
+"@react-navigation/native-stack@npm:^6.9.13":
+  version: 6.9.13
+  resolution: "@react-navigation/native-stack@npm:6.9.13"
+  dependencies:
+    "@react-navigation/elements": ^1.3.18
+    warn-once: ^0.1.0
+  peerDependencies:
+    "@react-navigation/native": ^6.0.0
+    react: "*"
+    react-native: "*"
+    react-native-safe-area-context: ">= 3.0.0"
+    react-native-screens: ">= 3.0.0"
+  checksum: 10d1f2ef4f1f2f4543f77b9c378dd3b49ee3c20e6e9d15b1b3ce3489d46c634411f6bc4c3cda379e47e7f3a669fb765c99954229479cd20aff5fae800e886574
+  languageName: node
+  linkType: hard
+
 "@react-navigation/native@npm:^6.1.7":
   version: 6.1.7
   resolution: "@react-navigation/native@npm:6.1.7"
@@ -3582,6 +3610,7 @@ __metadata:
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
     "@react-navigation/native": ^6.1.7
+    "@react-navigation/native-stack": ^6.9.13
     "@types/jest": ^29.2.1
     "@types/react": ^18.0.24
     "@types/react-test-renderer": ^18.0.0
@@ -3593,7 +3622,8 @@ __metadata:
     react: 18.2.0
     react-native: "npm:react-native-tvos@0.71.11-0"
     react-native-keyevent: ^0.3.0
-    react-native-screens: ^3.22.0
+    react-native-safe-area-context: ^4.7.0
+    react-native-screens: ^3.22.1
     react-native-web: ^0.19.6
     react-test-renderer: 18.2.0
     typescript: ^5.1.6
@@ -10520,16 +10550,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-screens@npm:^3.22.0":
-  version: 3.22.0
-  resolution: "react-native-screens@npm:3.22.0"
+"react-native-safe-area-context@npm:^4.7.0":
+  version: 4.7.0
+  resolution: "react-native-safe-area-context@npm:4.7.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 75dab4c6f84f32423ce23dcf40ec0e85e56d9f962fbf477b486dba8c5cc3d69cd2f3cf91f753cfca220d555a108b40764d719f5a60dadbe683a9ea09c9014afd
+  languageName: node
+  linkType: hard
+
+"react-native-screens@npm:^3.22.1":
+  version: 3.22.1
+  resolution: "react-native-screens@npm:3.22.1"
   dependencies:
     react-freeze: ^1.0.0
     warn-once: ^0.1.0
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 18014990785abade1223aeb6468c7f5917f9ef5bc7144fac4ba25b1778cb9faac413cbecd565fed6b7c40474a9387ba29d672af1539a175ca87a235900128b7f
+  checksum: 3b592ff31d9dfde5e2ce967f85f3ad17a94f4f3bee2248a3dad9ec791e7cda72a431f86b468b3b2a70ebeffb49b462f8162668a58fb9ddabb10b5a369816850d
   languageName: node
   linkType: hard
 

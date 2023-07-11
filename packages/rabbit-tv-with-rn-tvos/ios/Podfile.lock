@@ -318,6 +318,8 @@ PODS:
     - glog
   - react-native-keyevent (0.3.0):
     - React
+  - react-native-safe-area-context (4.7.0):
+    - React-Core
   - React-perflogger (0.71.11-0)
   - React-RCTActionSheet (0.71.11-0):
     - React-Core/RCTActionSheetHeaders (= 0.71.11-0)
@@ -396,7 +398,7 @@ PODS:
     - React-jsi (= 0.71.11-0)
     - React-logger (= 0.71.11-0)
     - React-perflogger (= 0.71.11-0)
-  - RNScreens (3.22.0):
+  - RNScreens (3.22.1):
     - React-Core
     - React-RCTImage
   - SocketRocket (0.6.0)
@@ -452,6 +454,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../../../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../../../node_modules/react-native/ReactCommon/logger`)
   - react-native-keyevent (from `../../../node_modules/react-native-keyevent`)
+  - react-native-safe-area-context (from `../../../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../../../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../../../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../../../node_modules/react-native/Libraries/NativeAnimation`)
@@ -530,6 +533,8 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native/ReactCommon/logger"
   react-native-keyevent:
     :path: "../../../node_modules/react-native-keyevent"
+  react-native-safe-area-context:
+    :path: "../../../node_modules/react-native-safe-area-context"
   React-perflogger:
     :path: "../../../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -594,6 +599,7 @@ SPEC CHECKSUMS:
   React-jsinspector: ec50c66abd5580a08cd8c83bc0b570de3dee90ad
   React-logger: 4d444d0dfbe78901a770e9d942cbcaa0d9cd1fbf
   react-native-keyevent: 03c7a167d511fb775b90eef5f196f4c5d99e752d
+  react-native-safe-area-context: 46b2815aabca6921dca647416a9ff42668a52580
   React-perflogger: a411f62cb204bed2e70aed84a9b08c45fe63fc40
   React-RCTActionSheet: 9868c507bbfee9f72d0929030dad30f3b189ee73
   React-RCTAnimation: d6bae3f31c4357ec4c74417ab59b34848c122884
@@ -606,7 +612,7 @@ SPEC CHECKSUMS:
   React-RCTText: e83b6e2d96ca8cd4d2d142ff79100a787772b382
   React-runtimeexecutor: f4612823f6da38f89fcf5cc13948f1b503d7e9ab
   ReactCommon: a99294a510a3b80273737b796da02ba481ba78c0
-  RNScreens: 68fd1060f57dd1023880bf4c05d74784b5392789
+  RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 1f76fc24e06883e0b475767d9aa6eab827a44441
   YogaKit: 1e22bf2228b3a5ac8cc88965153061ae92c494b5
