@@ -10,13 +10,10 @@ Here's an example for the web platform. You can check out more platforms
 in the repo example.
 
 ```tsx
-import {
-  Directions,
-  SpatialNavigation,
-} from 'react-native-tv-spatial-navigation';
+import { Directions, SpatialNavigation } from 'react-native-tv-spatial-navigation';
 
 SpatialNavigation.configureKeyboard({
-  keyboardSubscriber: callback => {
+  keyboardSubscriber: (callback) => {
     const mapping = {
       ArrowRight: Directions.RIGHT,
       ArrowLeft: Directions.LEFT,
@@ -25,14 +22,14 @@ SpatialNavigation.configureKeyboard({
       Enter: Directions.ENTER,
     };
 
-    const eventId = window.addEventListener('keydown', keyEvent => {
+    const eventId = window.addEventListener('keydown', (keyEvent) => {
       callback(mapping[keyEvent.code]);
     });
 
     return eventId;
   },
 
-  keyboardUnsubscriber: eventId => {
+  keyboardUnsubscriber: (eventId) => {
     window.removeEventListener('keydown', eventId);
   },
 });
@@ -43,60 +40,64 @@ SpatialNavigation.configureKeyboard({
 You can now create your page.
 
 ```tsx
-const Element = () => <View><Text>Page element</Text></View>
+const Element = () => (
+  <View>
+    <Text>Page element</Text>
+  </View>
+);
 
 const Page = () => {
-    return (
-        <SpatialNavigationRoot>
-            <Element />
-            <Element />
-        </SpatialNavigationRoot>
-    )
-}
+  return (
+    <SpatialNavigationRoot>
+      <Element />
+      <Element />
+    </SpatialNavigationRoot>
+  );
+};
 ```
 
 ### Add spatial navigation nodes
 
 ```tsx
 const Element = () => (
-    <SpatialNavigationNode>
-        <View>
-            <Text>Page element</Text>
-        </View>
-    </SpatialNavigationNode>
-)
+  <SpatialNavigationNode>
+    <View>
+      <Text>Page element</Text>
+    </View>
+  </SpatialNavigationNode>
+);
 
 const Page = () => {
-    return (
-        <SpatialNavigationRoot>
-            <Element />
-            <Element />
-        </SpatialNavigationRoot>
-    )
-}
+  return (
+    <SpatialNavigationRoot>
+      <Element />
+      <Element />
+    </SpatialNavigationRoot>
+  );
+};
 ```
 
 ### Make them focusable
 
 ```tsx
 const Element = () => (
-    <SpatialNavigationNode isFocusable>
-        {({ isFocused }) =>  (
-            <View style={isFocused && { backgroundColor: 'green' }}>
-                <Text>Page element</Text>
-            </View>
-        )}
-    </SpatialNavigationNode>
-)
+  <SpatialNavigationNode isFocusable>
+    {({ isFocused }) => (
+      <View style={isFocused && { backgroundColor: 'green' }}>
+        <Text>Page element</Text>
+      </View>
+    )}
+  </SpatialNavigationNode>
+);
 
 const Page = () => {
-    return (
-        <SpatialNavigationRoot>
-            <Element />
-            <Element />
-        </SpatialNavigationRoot>
-    )
-}
+  return (
+    <SpatialNavigationRoot>
+      <Element />
+      <Element />
+    </SpatialNavigationRoot>
+  );
+};
 ```
 
 ### Add behaviour when you select an element
@@ -105,23 +106,23 @@ Simply add an `onSelect` props to a node, very similarly as if you were adding a
 
 ```tsx
 const Element = ({ onSelect }) => (
-    <SpatialNavigationNode isFocusable onSelect={onSelect}>
-        {({ isFocused }) =>  (
-            <View style={isFocused && { backgroundColor: 'green' }}>
-                <Text>Page element</Text>
-            </View>
-        )}
-    </SpatialNavigationNode>
-)
+  <SpatialNavigationNode isFocusable onSelect={onSelect}>
+    {({ isFocused }) => (
+      <View style={isFocused && { backgroundColor: 'green' }}>
+        <Text>Page element</Text>
+      </View>
+    )}
+  </SpatialNavigationNode>
+);
 
 const Page = () => {
-    return (
-        <SpatialNavigationRoot>
-            <Element onSelect={() => console.log('selected first element')} />
-            <Element onSelect={() => console.log('selected second element')} />
-        </SpatialNavigationRoot>
-    )
-}
+  return (
+    <SpatialNavigationRoot>
+      <Element onSelect={() => console.log('selected first element')} />
+      <Element onSelect={() => console.log('selected second element')} />
+    </SpatialNavigationRoot>
+  );
+};
 ```
 
 ### Add a Default Focus
@@ -130,23 +131,23 @@ To add a default focus, wrap the group of elements that you want the default foc
 
 ```tsx
 const Element = ({ onSelect }) => (
-    <SpatialNavigationNode isFocusable onSelect={onSelect}>
-        {({ isFocused }) =>  (
-            <View style={isFocused && { backgroundColor: 'green' }}>
-                <Text>Page element</Text>
-            </View>
-        )}
-    </SpatialNavigationNode>
-)
+  <SpatialNavigationNode isFocusable onSelect={onSelect}>
+    {({ isFocused }) => (
+      <View style={isFocused && { backgroundColor: 'green' }}>
+        <Text>Page element</Text>
+      </View>
+    )}
+  </SpatialNavigationNode>
+);
 
 const Page = () => {
-    return (
-        <SpatialNavigationRoot>
-            <Element onSelect={() => console.log('selected first element')} />
-            <DefaultFocus>
-                <Element onSelect={() => console.log('selected second element')} />
-            </DefaultFocus>
-        </SpatialNavigationRoot>
-    )
-}
+  return (
+    <SpatialNavigationRoot>
+      <Element onSelect={() => console.log('selected first element')} />
+      <DefaultFocus>
+        <Element onSelect={() => console.log('selected second element')} />
+      </DefaultFocus>
+    </SpatialNavigationRoot>
+  );
+};
 ```

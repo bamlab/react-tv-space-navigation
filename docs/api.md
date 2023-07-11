@@ -30,7 +30,6 @@ The `SpatialNavigationRoot` component receives the following props:
 </SpatialNavigationRoot>
 ```
 
-
 # SpatialNavigationNode
 
 The SpatialNavigationNode is a component that can be used to handle spatial navigation in a React application.
@@ -52,12 +51,12 @@ The `SpatialNavigationNode` component receives the following props:
 
 ```jsx
 <SpatialNavigationNode
-  onFocus={() => console.log("Node gained focus")}
-  onSelect={() => console.log("Node was selected")}
+  onFocus={() => console.log('Node gained focus')}
+  onSelect={() => console.log('Node was selected')}
   orientation="horizontal"
   isFocusable={true}
 >
-  {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
+  {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
 </SpatialNavigationNode>
 ```
 
@@ -67,18 +66,19 @@ The SpatialNavigationNode will use the ref of your component to handle the scrol
 You might need to forward the ref to the closest inner view of your component.
 
 ```tsx
-export const MyFocusableComponent = React.forwardRef<View, MyFocusableComponentProps>(({ isFocused  }, ref) => {
-  // ...
+export const MyFocusableComponent = React.forwardRef<View, MyFocusableComponentProps>(
+  ({ isFocused }, ref) => {
+    // ...
 
-  return (
-    // pass the ref to the relevant View in your component.
-    <View ref={ref}>
-      <YourOtherElements />
-    </View>
-  );
-});
+    return (
+      // pass the ref to the relevant View in your component.
+      <View ref={ref}>
+        <YourOtherElements />
+      </View>
+    );
+  },
+);
 ```
-
 
 # SpatialNavigationScrollView
 
@@ -102,7 +102,7 @@ The `SpatialNavigationScrollView` component receives the following props:
 ```jsx
 const FocusableNode = () => (
   <SpatialNavigationNode isFocusable={true}>
-    {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
+    {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
   </SpatialNavigationNode>
 );
 
@@ -111,7 +111,7 @@ const FocusableNode = () => (
   <FocusableNode />
   <FocusableNode />
   <FocusableNode />
-</SpatialNavigationScrollView>
+</SpatialNavigationScrollView>;
 ```
 
 # SpatialNavigationView
@@ -134,7 +134,7 @@ The `SpatialNavigationView` component receives the following props:
 ```jsx
 const FocusableNode = () => (
   <SpatialNavigationNode isFocusable={true}>
-    {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
+    {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
   </SpatialNavigationNode>
 );
 
@@ -143,7 +143,7 @@ const FocusableNode = () => (
   <FocusableNode />
   <FocusableNode />
   <FocusableNode />
-</SpatialNavigationView>
+</SpatialNavigationView>;
 ```
 
 In this example, a `SpatialNavigationView` is created with vertical direction and a padding of 20 pixels provided by the style prop. It contains a single `SpatialNavigationNode`. When the node gains focus, the navigation adjusts according to the orientation.
@@ -167,7 +167,7 @@ The `DefaultFocus` component receives the following props:
 ```jsx
 const FocusableNode = () => (
   <SpatialNavigationNode isFocusable={true}>
-    {({ isFocused }) => <Text style={{ color: isFocused ? "red" : "black" }}>Hello World!</Text>}
+    {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
   </SpatialNavigationNode>
 );
 
@@ -178,7 +178,7 @@ const FocusableNode = () => (
     <FocusableNode />
   </DefaultFocus>
   <FocusableNode />
-</SpatialNavigationRoot>
+</SpatialNavigationRoot>;
 ```
 
 In the example above, the third node will get the default focus when mounting our page.
@@ -202,7 +202,7 @@ Here is an example for the web. You will have to configure it differently for An
 
 ```jsx
 SpatialNavigation.configureKeyboard({
-  keyboardSubscriber: callback => {
+  keyboardSubscriber: (callback) => {
     const mapping = {
       ArrowRight: Directions.RIGHT,
       ArrowLeft: Directions.LEFT,
@@ -210,14 +210,14 @@ SpatialNavigation.configureKeyboard({
       ArrowDown: Directions.DOWN,
     };
 
-    const eventId = window.addEventListener('keydown', keyEvent => {
+    const eventId = window.addEventListener('keydown', (keyEvent) => {
       callback(mapping[keyEvent.code]);
     });
 
     return eventId;
   },
 
-  keyboardUnsubscriber: eventId => {
+  keyboardUnsubscriber: (eventId) => {
     window.removeEventListener('keydown', eventId);
   },
 });
