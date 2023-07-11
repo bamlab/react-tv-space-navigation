@@ -2,9 +2,13 @@ import { SpatialNavigationNode } from 'react-native-tv-spatial-navigation/src';
 
 import { Program } from './Program';
 
-export const SimpleNode = () => {
+type Props = {
+  onSelect?: () => void;
+};
+
+export const SimpleNode = ({ onSelect }: Props) => {
   return (
-    <SpatialNavigationNode isFocusable>
+    <SpatialNavigationNode isFocusable onSelect={onSelect}>
       {({ isFocused }) => <Program touchable={false} isFocused={isFocused} />}
     </SpatialNavigationNode>
   );

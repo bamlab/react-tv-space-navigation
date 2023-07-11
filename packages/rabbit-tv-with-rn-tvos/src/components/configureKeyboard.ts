@@ -7,6 +7,7 @@ SpatialNavigation.configureKeyboard({
       ArrowLeft: Directions.LEFT,
       ArrowUp: Directions.UP,
       ArrowDown: Directions.DOWN,
+      Enter: Directions.ENTER,
     };
 
     const eventId = window.addEventListener('keydown', (keyEvent) => {

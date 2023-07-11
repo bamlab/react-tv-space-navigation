@@ -5,17 +5,23 @@ import {
   SpatialNavigationView,
 } from 'react-native-tv-spatial-navigation/src';
 
-import './configureKeyboard';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { SimpleNode } from './SimpleNode';
 import { VirtualizedColumn, VirtualizedRow } from './VirtualizedSpatialList';
+import './configureKeyboard';
 
 export const SimpleRSNApp = () => {
+  const isFocused = useIsFocused();
+  const navigation = useNavigation();
+
   return (
-    <SpatialNavigationRoot>
+    <SpatialNavigationRoot isActive={isFocused}>
       <DefaultFocus>
         <SpatialNavigationScrollView offsetFromStart={140}>
           <View style={styles.container}>
+            <SimpleNode onSelect={() => navigation.navigate('OtherPrograms')} />
             <View style={styles.spacer} />
             <VirtualizedRow numberOfItems={100} />
             <View style={styles.spacer} />
