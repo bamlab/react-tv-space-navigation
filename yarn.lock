@@ -3622,7 +3622,7 @@ __metadata:
     react: 18.2.0
     react-native: "npm:react-native-tvos@0.71.11-0"
     react-native-keyevent: ^0.3.0
-    react-native-safe-area-context: ^4.6.4
+    react-native-safe-area-context: ^4.7.0
     react-native-screens: ^3.22.1
     react-native-web: ^0.19.6
     react-test-renderer: 18.2.0
@@ -10550,13 +10550,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:^4.6.4":
-  version: 4.6.4
-  resolution: "react-native-safe-area-context@npm:4.6.4"
+"react-native-safe-area-context@npm:^4.7.0":
+  version: 4.7.0
+  resolution: "react-native-safe-area-context@npm:4.7.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: c6905193528dda61268565799d81817b1e436c32c120480084e48c955075e1017b399f763368ef39c4049d6eb0e2c05c3496390857d836b47ddcf861ab60871e
+  checksum: 75dab4c6f84f32423ce23dcf40ec0e85e56d9f962fbf477b486dba8c5cc3d69cd2f3cf91f753cfca220d555a108b40764d719f5a60dadbe683a9ea09c9014afd
   languageName: node
   linkType: hard
 

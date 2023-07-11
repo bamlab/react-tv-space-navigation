@@ -318,12 +318,8 @@ PODS:
     - glog
   - react-native-keyevent (0.3.0):
     - React
-  - react-native-safe-area-context (4.6.4):
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
+  - react-native-safe-area-context (4.7.0):
     - React-Core
-    - ReactCommon/turbomodule/core
   - React-perflogger (0.71.11-0)
   - React-RCTActionSheet (0.71.11-0):
     - React-Core/RCTActionSheetHeaders (= 0.71.11-0)
@@ -603,7 +599,7 @@ SPEC CHECKSUMS:
   React-jsinspector: ec50c66abd5580a08cd8c83bc0b570de3dee90ad
   React-logger: 4d444d0dfbe78901a770e9d942cbcaa0d9cd1fbf
   react-native-keyevent: 03c7a167d511fb775b90eef5f196f4c5d99e752d
-  react-native-safe-area-context: 68b07eabfb0d14547d36f6929c0e98d818064f02
+  react-native-safe-area-context: 46b2815aabca6921dca647416a9ff42668a52580
   React-perflogger: a411f62cb204bed2e70aed84a9b08c45fe63fc40
   React-RCTActionSheet: 9868c507bbfee9f72d0929030dad30f3b189ee73
   React-RCTAnimation: d6bae3f31c4357ec4c74417ab59b34848c122884
