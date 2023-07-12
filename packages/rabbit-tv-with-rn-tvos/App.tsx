@@ -11,6 +11,11 @@ import { GoBackConfiguration } from './src/components/GoBackConfiguration';
 
 const Stack = createNativeStackNavigator();
 
+export type RootStackParamList = {
+  Home: undefined;
+  OtherPrograms: undefined;
+};
+
 function App(): JSX.Element {
   const [dimensions, setDimensions] = useState({
     window: windowDimensions,
