@@ -1,23 +1,26 @@
 import mitt from 'mitt';
 import { SupportedKeys } from './SupportedKeys';
+import { HWEvent, TVEventHandler } from 'react-native';
 import { RemoteControlManagerInterface } from './RemoteControlManager.interface';
 
 class RemoteControlManager implements RemoteControlManagerInterface {
   constructor() {
-    window.addEventListener('keydown', this.handleKeyDown);
+    const _tvEventHandler = new TVEventHandler();
+    _tvEventHandler.enable(null, this.handleKeyDown);
   }
 
   private eventEmitter = mitt();
 
-  private handleKeyDown = (event: KeyboardEvent) => {
+  private handleKeyDown = (_: null, evt: HWEvent) => {
+    if (!evt) return;
+
     const mappedKey = {
-      ArrowRight: SupportedKeys.Right,
-      ArrowLeft: SupportedKeys.Left,
-      ArrowUp: SupportedKeys.Up,
-      ArrowDown: SupportedKeys.Down,
-      Enter: SupportedKeys.Enter,
-      Backspace: SupportedKeys.Back,
-    }[event.code];
+      right: SupportedKeys.Right,
+      left: SupportedKeys.Left,
+      up: SupportedKeys.Up,
+      down: SupportedKeys.Down,
+      select: SupportedKeys.Enter,
+    }[evt.eventType];
 
     if (!mappedKey) {
       return;

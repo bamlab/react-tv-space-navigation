@@ -1,23 +1,24 @@
 import mitt from 'mitt';
 import { SupportedKeys } from './SupportedKeys';
+import KeyEvent from 'react-native-keyevent';
 import { RemoteControlManagerInterface } from './RemoteControlManager.interface';
 
 class RemoteControlManager implements RemoteControlManagerInterface {
   constructor() {
-    window.addEventListener('keydown', this.handleKeyDown);
+    KeyEvent.onKeyDownListener(this.handleKeyDown);
   }
 
   private eventEmitter = mitt();
 
-  private handleKeyDown = (event: KeyboardEvent) => {
+  private handleKeyDown = (keyEvent: { keyCode: number }) => {
     const mappedKey = {
-      ArrowRight: SupportedKeys.Right,
-      ArrowLeft: SupportedKeys.Left,
-      ArrowUp: SupportedKeys.Up,
-      ArrowDown: SupportedKeys.Down,
-      Enter: SupportedKeys.Enter,
-      Backspace: SupportedKeys.Back,
-    }[event.code];
+      21: SupportedKeys.Left,
+      22: SupportedKeys.Right,
+      20: SupportedKeys.Down,
+      19: SupportedKeys.Up,
+      66: SupportedKeys.Enter,
+      67: SupportedKeys.Back,
+    }[keyEvent.keyCode];
 
     if (!mappedKey) {
       return;
