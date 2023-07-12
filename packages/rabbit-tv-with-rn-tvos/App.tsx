@@ -43,7 +43,7 @@ function App(): JSX.Element {
             screenOptions={{
               headerShown: false,
               contentStyle: {
-                backgroundColor: '#333',
+                backgroundColor: theme.colors.background.main,
               },
             }}
             initialRouteName="Home"
