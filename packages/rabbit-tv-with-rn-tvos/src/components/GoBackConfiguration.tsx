@@ -1,20 +1,21 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
+import RemoteControlManager from './remote-control/RemoteControlManager';
+import { SupportedKeys } from './remote-control/SupportedKeys';
 
 export const GoBackConfiguration = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const keyboardListener = (event: KeyboardEvent) => {
-      if (event.code === 'Backspace') {
-        if (navigation.canGoBack()) {
-          navigation.goBack();
-        }
+    const remoteControlListener = (pressedKey: SupportedKeys) => {
+      if (pressedKey !== SupportedKeys.Back) return;
+      if (navigation.canGoBack()) {
+        navigation.goBack();
       }
     };
-    window.addEventListener('keydown', keyboardListener);
+    RemoteControlManager.addKeydownListener(remoteControlListener);
 
-    return () => window.removeEventListener('keydown', keyboardListener);
+    return () => RemoteControlManager.removeKeydownListener(remoteControlListener);
   }, [navigation]);
 
   return <></>;

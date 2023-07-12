@@ -22,6 +22,7 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               presets: [['@babel/preset-react', { runtime: 'automatic' }]],
+              plugins: ['transform-class-properties'],
             },
           },
           {

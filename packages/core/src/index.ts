@@ -1,4 +1,4 @@
-import { configureKeyboard } from './spatial-navigation/configureKeyboard';
+import { configureRemoteControl } from './spatial-navigation/configureRemoteControl';
 export { Directions } from 'lrud';
 export { SpatialNavigationNode } from './spatial-navigation/components/Node';
 export { SpatialNavigationRoot } from './spatial-navigation/components/Root';
@@ -8,5 +8,5 @@ export { DefaultFocus } from './spatial-navigation/context/DefaultFocusContext';
 export { SpatialNavigationVirtualizedList } from './spatial-navigation/components/virtualizedList/SpatialNavigationVirtualizedList';
 
 export const SpatialNavigation = {
-  configureKeyboard,
+  configureRemoteControl,
 };

@@ -35,7 +35,7 @@ module.exports = {
                 ['@babel/preset-react', { runtime: 'automatic' }],
                 '@babel/preset-typescript',
               ],
-              plugins: ['react-native-web'],
+              plugins: ['react-native-web', 'transform-class-properties'],
             },
           },
         ],

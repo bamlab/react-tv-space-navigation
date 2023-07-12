@@ -1,9 +1,9 @@
 # Tutorial
 
-### Configure the keyboard
+### Configure the remote control
 
 The keys depend on the platform.
-It's up to you to add event listeners to your keyboard and map
+It's up to you to add event listeners to your remote control and map
 them correctly depending on the platform.
 
 Here's an example for the web platform. You can check out more platforms
@@ -12,8 +12,8 @@ in the repo example.
 ```tsx
 import { Directions, SpatialNavigation } from 'react-native-tv-spatial-navigation';
 
-SpatialNavigation.configureKeyboard({
-  keyboardSubscriber: (callback) => {
+SpatialNavigation.configureRemoteControl({
+  remoteControlSubscriber: (callback) => {
     const mapping = {
       ArrowRight: Directions.RIGHT,
       ArrowLeft: Directions.LEFT,
@@ -29,7 +29,7 @@ SpatialNavigation.configureKeyboard({
     return eventId;
   },
 
-  keyboardUnsubscriber: (eventId) => {
+  remoteControlUnsubscriber: (eventId) => {
     window.removeEventListener('keydown', eventId);
   },
 });

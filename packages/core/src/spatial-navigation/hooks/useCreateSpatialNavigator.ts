@@ -1,29 +1,31 @@
 import SpatialNavigator from '../SpatialNavigator';
 import { useEffect, useMemo } from 'react';
-import { keyboardSubscriber, keyboardUnsubscriber } from '../configureKeyboard';
+import { remoteControlSubscriber, remoteControlUnsubscriber } from '../configureRemoteControl';
 
 export const useCreateSpatialNavigator = () => {
   const spatialNavigator = useMemo(() => new SpatialNavigator(), []);
 
   useEffect(() => {
-    if (!keyboardSubscriber) {
+    if (!remoteControlSubscriber) {
       console.warn(
-        '[React Spatial Navigation] You probably forgot to configure the keyboard. Please call the configuration function.',
+        '[React Spatial Navigation] You probably forgot to configure the remote control. Please call the configuration function.',
       );
 
       return;
     }
 
-    const listener = keyboardSubscriber((direction) => spatialNavigator.handleKeyDown(direction));
+    const listener = remoteControlSubscriber((direction) =>
+      spatialNavigator.handleKeyDown(direction),
+    );
     return () => {
-      if (!keyboardUnsubscriber) {
+      if (!remoteControlUnsubscriber) {
         console.warn(
-          '[React Spatial Navigation] You did not provide a keyboard unsubscriber. Are you sure you called configuration correctly?',
+          '[React Spatial Navigation] You did not provide a remote control unsubscriber. Are you sure you called configuration correctly?',
         );
 
         return;
       }
-      keyboardUnsubscriber(listener);
+      remoteControlUnsubscriber(listener);
     };
   }, [spatialNavigator]);
 
