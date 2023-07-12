@@ -4,17 +4,16 @@ import RemoteControlManager from './remote-control/RemoteControlManager';
 
 SpatialNavigation.configureRemoteControl({
   remoteControlSubscriber: (callback) => {
-    const mapping = {
+    const mapping: { [key in SupportedKeys]: Directions | null } = {
       [SupportedKeys.Right]: Directions.RIGHT,
       [SupportedKeys.Left]: Directions.LEFT,
       [SupportedKeys.Up]: Directions.UP,
       [SupportedKeys.Down]: Directions.DOWN,
       [SupportedKeys.Enter]: Directions.ENTER,
+      [SupportedKeys.Back]: null,
     };
 
     const remoteControlListener = (keyEvent: SupportedKeys) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore TODO fix me, but this is just a demo anyway
       callback(mapping[keyEvent]);
     };
 
