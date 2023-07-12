@@ -263,6 +263,7 @@ The `TSubscriber` type can be any type, it is meant to be determined by the impl
 ## Usage
 
 Here is an example for the web. You will have to configure it differently for AndroidTV or tvOS.
+You can check out how we've done it in the example project.
 
 ```jsx
 SpatialNavigation.configureRemoteControl({
