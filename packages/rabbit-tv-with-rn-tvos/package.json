@@ -14,6 +14,7 @@
   "dependencies": {
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
+    "mitt": "^3.0.1",
     "react": "18.2.0",
     "react-native": "npm:react-native-tvos@0.71.11-0",
     "react-native-keyevent": "^0.3.0",
