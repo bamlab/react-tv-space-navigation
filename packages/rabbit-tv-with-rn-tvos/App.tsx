@@ -11,6 +11,11 @@ import { GoBackConfiguration } from './src/components/GoBackConfiguration';
 
 const Stack = createNativeStackNavigator();
 
+export type RootStackParamList = {
+  Home: undefined;
+  OtherPrograms: undefined;
+};
+
 function App(): JSX.Element {
   const [dimensions, setDimensions] = useState({
     window: windowDimensions,
@@ -27,7 +32,6 @@ function App(): JSX.Element {
     <NavigationContainer>
       <GoBackConfiguration />
       <View
-        // eslint-disable-next-line react-native/no-inline-styles -- dynamic style so inlining is fine
         style={{
           width: dimensions.window.width,
           height: dimensions.window.height,

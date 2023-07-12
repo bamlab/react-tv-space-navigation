@@ -6,9 +6,9 @@ import { computeTranslation } from '../helpers/computeTranslation';
 export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
   currentlyFocusedItemIndex,
   itemSizeInPx,
-  vertical = false,
   nbMaxOfItems,
   numberOfItemsVisibleOnScreen,
+  vertical = false,
   scrollDuration,
 }) => {
   const translation = useRef<Animated.Value>(new Animated.Value(0)).current;
@@ -30,5 +30,32 @@ export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
 
   return {
     transform: [vertical ? { translateY: translation } : { translateX: translation }],
+  };
+};
+
+export const useWebVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
+  currentlyFocusedItemIndex,
+  itemSizeInPx,
+  nbMaxOfItems,
+  numberOfItemsVisibleOnScreen,
+  vertical = false,
+  scrollDuration,
+}) => {
+  const animationDuration = `${scrollDuration}ms`;
+
+  const newTranslationValue = computeTranslation({
+    currentlyFocusedItemIndex,
+    itemSizeInPx,
+    nbMaxOfItems,
+    numberOfItemsVisibleOnScreen,
+  });
+
+  return {
+    transitionDuration: animationDuration,
+    transitionProperty: 'transform',
+    transitionTimingFunction: 'ease-out',
+    transform: [
+      vertical ? { translateY: newTranslationValue } : { translateX: newTranslationValue },
+    ],
   };
 };

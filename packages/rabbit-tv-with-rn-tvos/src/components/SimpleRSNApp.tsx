@@ -8,13 +8,15 @@ import {
 import { StyleSheet, View } from 'react-native';
 
 import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SimpleNode } from './SimpleNode';
 import { VirtualizedColumn, VirtualizedRow } from './VirtualizedSpatialList';
 import './configureKeyboard';
+import { RootStackParamList } from '../../App';
 
 export const SimpleRSNApp = () => {
   const isFocused = useIsFocused();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <SpatialNavigationRoot isActive={isFocused}>
