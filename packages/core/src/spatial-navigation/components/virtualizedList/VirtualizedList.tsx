@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { Animated, StyleSheet, View, ViewStyle, Dimensions } from 'react-native';
+import { Animated, StyleSheet, View, ViewStyle, Dimensions, Platform } from 'react-native';
 import { getRange } from './helpers/getRange';
-import { useVirtualizedListAnimation } from './hooks/useVirtualizedListAnimation';
+import {
+  useVirtualizedListAnimation,
+  useWebVirtualizedListAnimation,
+} from './hooks/useVirtualizedListAnimation';
 import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
 
@@ -150,14 +153,24 @@ export const VirtualizedList = typedMemo(
       onEndReached,
     });
 
-    const animatedStyle = useVirtualizedListAnimation({
-      currentlyFocusedItemIndex,
-      itemSizeInPx: itemSize,
-      vertical,
-      nbMaxOfItems: nbMaxOfItems ?? data.length,
-      numberOfItemsVisibleOnScreen,
-      scrollDuration,
-    });
+    const animatedStyle =
+      Platform.OS === 'web'
+        ? useWebVirtualizedListAnimation({
+            currentlyFocusedItemIndex,
+            itemSizeInPx: itemSize,
+            vertical,
+            nbMaxOfItems: nbMaxOfItems ?? data.length,
+            numberOfItemsVisibleOnScreen,
+            scrollDuration,
+          })
+        : useVirtualizedListAnimation({
+            currentlyFocusedItemIndex,
+            itemSizeInPx: itemSize,
+            vertical,
+            nbMaxOfItems: nbMaxOfItems ?? data.length,
+            numberOfItemsVisibleOnScreen,
+            scrollDuration,
+          });
 
     /*
      * This is a performance trick.
