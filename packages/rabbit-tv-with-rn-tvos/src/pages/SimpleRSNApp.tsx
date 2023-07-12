@@ -11,6 +11,7 @@ import { RootStackParamList } from '../../App';
 import { SimpleNode } from '../components/SimpleNode';
 import { VirtualizedColumn, VirtualizedRow } from '../components/VirtualizedSpatialList';
 import '../components/configureRemoteControl';
+import { Spacer } from '../design-system/components/Spacer';
 
 export const SimpleRSNApp = () => {
   const isFocused = useIsFocused();
@@ -22,27 +23,27 @@ export const SimpleRSNApp = () => {
         <SpatialNavigationScrollView offsetFromStart={140}>
           <View style={styles.container}>
             <SimpleNode onSelect={() => navigation.navigate('OtherPrograms')} />
-            <View style={styles.spacer} />
+            <Spacer gap="$12" />
             <VirtualizedRow numberOfItems={100} />
-            <View style={styles.spacer} />
+            <Spacer gap="$12" />
             <VirtualizedRow numberOfItems={100} />
-            <View style={styles.spacer} />
+            <Spacer gap="$12" />
             <VirtualizedRow numberOfItems={100} />
-            <View style={styles.spacer} />
+            <Spacer gap="$12" />
             <VirtualizedRow numberOfItems={100} />
           </View>
           <SpatialNavigationView direction="horizontal">
             <View style={styles.containerRow}>
-              <View style={styles.spacerRow} />
+              <Spacer direction="horizontal" gap="$12" />
               <SpatialNavigationView direction="vertical" style={styles.smallContainerPrograms}>
                 <SimpleNode />
                 <SimpleNode />
               </SpatialNavigationView>
-              <View style={styles.spacerRow} />
+              <Spacer direction="horizontal" gap="$12" />
               <VirtualizedColumn numberOfItems={100} />
-              <View style={styles.spacerRow} />
+              <Spacer direction="horizontal" gap="$12" />
               <VirtualizedColumn numberOfItems={100} />
-              <View style={styles.spacerRow} />
+              <Spacer direction="horizontal" gap="$12" />
               <VirtualizedColumn numberOfItems={100} />
             </View>
           </SpatialNavigationView>
@@ -54,7 +55,7 @@ export const SimpleRSNApp = () => {
               <SimpleNode />
             </SpatialNavigationView>
           </View>
-          <View style={styles.spacer} />
+          <Spacer gap="$12" />
         </SpatialNavigationScrollView>
       </DefaultFocus>
     </SpatialNavigationRoot>
@@ -63,9 +64,7 @@ export const SimpleRSNApp = () => {
 
 const styles = StyleSheet.create({
   container: { padding: 60 },
-  spacer: { height: 50 },
   containerRow: { padding: 60, flexDirection: 'row' },
-  spacerRow: { width: 50 },
   smallContainerPrograms: {
     padding: 70,
     gap: 50,
