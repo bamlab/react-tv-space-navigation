@@ -2,8 +2,8 @@ import { Directions, SpatialNavigation } from 'react-native-tv-spatial-navigatio
 import { SupportedKeys } from './remote-control/SupportedKeys';
 import RemoteControlManager from './remote-control/RemoteControlManager';
 
-SpatialNavigation.configureKeyboard({
-  keyboardSubscriber: (callback) => {
+SpatialNavigation.configureRemoteControl({
+  remoteControlSubscriber: (callback) => {
     const mapping = {
       [SupportedKeys.Right]: Directions.RIGHT,
       [SupportedKeys.Left]: Directions.LEFT,
@@ -12,16 +12,16 @@ SpatialNavigation.configureKeyboard({
       [SupportedKeys.Enter]: Directions.ENTER,
     };
 
-    const keyboardListener = (keyEvent: SupportedKeys) => {
+    const remoteControlListener = (keyEvent: SupportedKeys) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore TODO fix me, but this is just a demo anyway
       callback(mapping[keyEvent]);
     };
 
-    return RemoteControlManager.addKeydownListener(keyboardListener);
+    return RemoteControlManager.addKeydownListener(remoteControlListener);
   },
 
-  keyboardUnsubscriber: (keyboardListener) => {
-    RemoteControlManager.removeKeydownListener(keyboardListener);
+  remoteControlUnsubscriber: (remoteControlListener) => {
+    RemoteControlManager.removeKeydownListener(remoteControlListener);
   },
 });

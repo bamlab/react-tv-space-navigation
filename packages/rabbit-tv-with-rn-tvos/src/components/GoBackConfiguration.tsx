@@ -7,15 +7,15 @@ export const GoBackConfiguration = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const keyboardListener = (pressedKey: SupportedKeys) => {
+    const remoteControlListener = (pressedKey: SupportedKeys) => {
       if (pressedKey !== SupportedKeys.Back) return;
       if (navigation.canGoBack()) {
         navigation.goBack();
       }
     };
-    RemoteControlManager.addKeydownListener(keyboardListener);
+    RemoteControlManager.addKeydownListener(remoteControlListener);
 
-    return () => RemoteControlManager.removeKeydownListener(keyboardListener);
+    return () => RemoteControlManager.removeKeydownListener(remoteControlListener);
   }, [navigation]);
 
   return <></>;

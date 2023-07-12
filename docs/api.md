@@ -5,7 +5,7 @@
 - [SpatialNavigationScrollView](#spatialnavigationscrollview)
 - [SpatialNavigationView](#spatialnavigationview)
 - [DefaultFocus](#defaultfocus)
-- [configureKeyboard](#configurekeyboard)
+- [configureRemoteControl](#configureremotecontrol)
 
 # SpatialNavigationRoot
 
@@ -247,26 +247,26 @@ const FocusableNode = () => (
 
 In the example above, the third node will get the default focus when mounting our page.
 
-# configureKeyboard
+# configureRemoteControl
 
-The Keyboard Configuration API is used to configure the remote control interaction for the `SpatialNavigation` components.
+The Remote Control Configuration API is used to configure the remote control interaction for the `SpatialNavigation` components.
 
 ## Parameters
 
 This object has two methods:
 
-- `keyboardSubscriber: (direction: Direction) => TSubscriber`: A function that takes a callback as an argument. This callback is meant to be invoked with a `Direction` enum value whenever a keyboard event that should change the focus occurs. The function should return a subscriber identifier that can be used to unsubscribe the event listener.
-- `keyboardUnsubscriber: (subscriber: TSubscriber) => void`: A function that takes the subscriber identifier returned by `keyboardSubscriber` as an argument. This function is meant to remove the keyboard event listener associated with the given identifier.
+- `remoteControlSubscriber: (direction: Direction) => TSubscriber`: A function that takes a callback as an argument. This callback is meant to be invoked with a `Direction` enum value whenever a remoteControl event that should change the focus occurs. The function should return a subscriber identifier that can be used to unsubscribe the event listener.
+- `remoteControlUnsubscriber: (subscriber: TSubscriber) => void`: A function that takes the subscriber identifier returned by `remoteControlSubscriber` as an argument. This function is meant to remove the remoteControl event listener associated with the given identifier.
 
-The `TSubscriber` type can be any type, it is meant to be determined by the implementation of `keyboardSubscriber` and `keyboardUnsubscriber`.
+The `TSubscriber` type can be any type, it is meant to be determined by the implementation of `remoteControlSubscriber` and `remoteControlUnsubscriber`.
 
 ## Usage
 
 Here is an example for the web. You will have to configure it differently for AndroidTV or tvOS.
 
 ```jsx
-SpatialNavigation.configureKeyboard({
-  keyboardSubscriber: (callback) => {
+SpatialNavigation.configureRemoteControl({
+  remoteControlSubscriber: (callback) => {
     const mapping = {
       ArrowRight: Directions.RIGHT,
       ArrowLeft: Directions.LEFT,
@@ -281,7 +281,7 @@ SpatialNavigation.configureKeyboard({
     return eventId;
   },
 
-  keyboardUnsubscriber: (eventId) => {
+  remoteControlUnsubscriber: (eventId) => {
     window.removeEventListener('keydown', eventId);
   },
 });

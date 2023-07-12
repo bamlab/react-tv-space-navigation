@@ -11,7 +11,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SimpleNode } from './SimpleNode';
 import { VirtualizedColumn, VirtualizedRow } from './VirtualizedSpatialList';
-import './configureKeyboard';
+import './configureRemoteControl';
 import { RootStackParamList } from '../../App';
 
 export const SimpleRSNApp = () => {
