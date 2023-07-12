@@ -27,7 +27,6 @@ function App(): JSX.Element {
     <NavigationContainer>
       <GoBackConfiguration />
       <View
-        // eslint-disable-next-line react-native/no-inline-styles -- dynamic style so inlining is fine
         style={{
           width: dimensions.window.width,
           height: dimensions.window.height,
