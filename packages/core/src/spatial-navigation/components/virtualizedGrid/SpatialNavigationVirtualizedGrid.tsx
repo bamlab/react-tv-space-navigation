@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useMemo } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, ViewStyle, StyleSheet } from 'react-native';
 import range from 'lodash/range';
 
 import { ItemWithIndex } from '../virtualizedList/VirtualizedList';
@@ -23,6 +23,7 @@ type SpatialNavigationVirtualizedGridProps<T extends ItemWithIndex> = Pick<
   /** Number of rows left to display before triggering onEndReached */
   onEndReachedThresholdRowsNumber?: number;
   numberOfColumns: number;
+  rowContainerStyle?: ViewStyle;
 };
 
 export type GridRowType<T extends ItemWithIndex> = {
@@ -84,15 +85,17 @@ const GridRow = <T extends ItemWithIndex>({
   renderItem,
   numberOfColumns,
   row,
+  rowContainerStyle,
 }: {
   renderItem: (args: { item: T }) => JSX.Element;
   numberOfColumns: number;
   row: GridRowType<T>;
+  rowContainerStyle?: ViewStyle;
 }) => {
   const { getNthVirtualNodeID } = useRegisterGridRowVirtualNodes({ numberOfColumns });
 
   return (
-    <HorizontalContainer>
+    <HorizontalContainer style={rowContainerStyle}>
       {row.items.map((item, index) => {
         return (
           /* The view is important to reset flex direction to vertical */
@@ -119,15 +122,21 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
     numberOfRowsVisibleOnScreen,
     onEndReachedThresholdRowsNumber,
     nbMaxOfItems,
+    rowContainerStyle,
     ...props
   }: SpatialNavigationVirtualizedGridProps<T>) => {
     const gridRows = useMemo(() => convertToGrid(data, numberOfColumns), [data, numberOfColumns]);
 
     const renderRow = useCallback(
       ({ item: row }: { item: GridRowType<T> }) => (
-        <GridRow renderItem={renderItem} numberOfColumns={numberOfColumns} row={row} />
+        <GridRow
+          renderItem={renderItem}
+          numberOfColumns={numberOfColumns}
+          row={row}
+          rowContainerStyle={rowContainerStyle}
+        />
       ),
-      [renderItem, numberOfColumns],
+      [renderItem, numberOfColumns, rowContainerStyle],
     );
 
     return (
@@ -148,13 +157,14 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
 );
 
 type HorizontalContainerProps = {
+  style: ViewStyle;
   children: ReactNode;
 };
 
-const HorizontalContainer = ({ children }: HorizontalContainerProps) => {
-  return <View style={styles.horizontalContainer}>{children}</View>;
+const HorizontalContainer = ({ style, children }: HorizontalContainerProps) => {
+  return <View style={[style, styles.rowContainer]}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
-  horizontalContainer: { flexDirection: 'row' },
+  rowContainer: { flexDirection: 'row' },
 });
