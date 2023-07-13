@@ -6,6 +6,7 @@ export { SpatialNavigationScrollView } from './spatial-navigation/components/Scr
 export { SpatialNavigationView } from './spatial-navigation/components/View';
 export { DefaultFocus } from './spatial-navigation/context/DefaultFocusContext';
 export { SpatialNavigationVirtualizedList } from './spatial-navigation/components/virtualizedList/SpatialNavigationVirtualizedList';
+export { SpatialNavigationVirtualizedGrid } from './spatial-navigation/components/virtualizedGrid/SpatialNavigationVirtualizedGrid';
 
 export const SpatialNavigation = {
   configureRemoteControl,

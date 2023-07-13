@@ -7,6 +7,8 @@ import { updateVirtualNodeRegistration } from './helpers/updateVirtualNodeRegist
 import { useBeforeMountEffect } from '../../hooks/useBeforeMountEffect';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { useCachedValues } from './hooks/useCachedValues';
+import { NodeOrientation } from '../../types/orientation';
+import { invertOrientation } from '../virtualizedGrid/helpers/convertToGrid';
 
 const useCreateVirtualParentsIds = (parentId: string) =>
   useCachedValues(() => uniqueId(`${parentId}_virtual_`));
@@ -66,20 +68,31 @@ const useUpdateRegistration = <T,>({
   }, [allItems]);
 };
 
-const useRegisterVirtualNodes = <T extends ItemWithIndex>({ allItems }: { allItems: Array<T> }) => {
+const useRegisterVirtualNodes = <T extends ItemWithIndex>({
+  allItems,
+  orientation,
+  isGrid,
+}: {
+  allItems: Array<T>;
+  orientation: NodeOrientation;
+  isGrid: boolean;
+}) => {
   const spatialNavigator = useSpatialNavigator();
   const parentId = useParentId();
   const getNthVirtualNodeID = useCreateVirtualParentsIds(parentId);
+
+  // invert the orientation of children in grids so we can register rows in columns in rows, etc...
+  const nodeOrientation = isGrid ? invertOrientation(orientation) : 'vertical';
 
   const registerNthVirtualNode = useCallback(
     (index: number) => {
       return spatialNavigator.registerNode(getNthVirtualNodeID(index), {
         parent: parentId,
-        orientation: 'vertical', // default orientation used to register with lrud
+        orientation: nodeOrientation,
         isFocusable: false,
       });
     },
-    [getNthVirtualNodeID, parentId, spatialNavigator],
+    [getNthVirtualNodeID, parentId, spatialNavigator, nodeOrientation],
   );
 
   const unregisterNthVirtualNode = useCallback(
@@ -115,7 +128,9 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
   ),
 );
 
-export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T> = VirtualizedListProps<T>;
+export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T> = VirtualizedListProps<T> & {
+  isGrid?: boolean;
+};
 
 /**
  * This component wraps every item of the VirtualizedList inside a Virtual Node.
@@ -144,6 +159,8 @@ export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
   <T extends ItemWithIndex>(props: SpatialNavigationVirtualizedListWithVirtualNodesProps<T>) => {
     const { getNthVirtualNodeID } = useRegisterVirtualNodes({
       allItems: props.data,
+      orientation: props.orientation ?? 'horizontal',
+      isGrid: props.isGrid ?? false,
     });
 
     const { renderItem } = props;

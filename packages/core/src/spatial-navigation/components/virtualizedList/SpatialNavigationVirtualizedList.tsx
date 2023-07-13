@@ -17,7 +17,10 @@ export const SpatialNavigationVirtualizedList = typedMemo(
     const indexedData = useMemo(() => addIndex(props.data), [props.data]);
 
     return (
-      <SpatialNavigationNode orientation={props.orientation ?? 'horizontal'}>
+      <SpatialNavigationNode
+        alignInGrid={props.isGrid ?? false}
+        orientation={props.orientation ?? 'horizontal'}
+      >
         <SpatialNavigationVirtualizedListWithScroll<T & ItemWithIndex>
           {...props}
           data={indexedData}
