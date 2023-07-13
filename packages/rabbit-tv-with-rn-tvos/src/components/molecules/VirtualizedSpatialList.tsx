@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SpatialNavigationVirtualizedList } from 'react-native-tv-spatial-navigation/src';
-import { PROGRAM_HEIGHT } from '../atom/Program';
-import { SimpleNode } from './SimpleNode';
+import { PROGRAM_PORTRAIT_HEIGHT } from '../atom/Program';
+import { ProgramNode } from './ProgramNode';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 4;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
@@ -16,7 +16,7 @@ export const VirtualizedSpatialList = ({
   orientation?: 'vertical' | 'horizontal';
   containerStyle?: object;
 }) => {
-  const renderItem = useCallback(() => <SimpleNode />, []);
+  const renderItem = useCallback(() => <ProgramNode />, []);
 
   const hardcodedRabbitsArray = Array(numberOfItems).fill({});
 
@@ -26,7 +26,7 @@ export const VirtualizedSpatialList = ({
         orientation={orientation}
         data={hardcodedRabbitsArray}
         renderItem={renderItem}
-        itemSize={PROGRAM_HEIGHT + 50}
+        itemSize={PROGRAM_PORTRAIT_HEIGHT + 50}
         numberOfRenderedItems={WINDOW_SIZE}
         numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
         onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}

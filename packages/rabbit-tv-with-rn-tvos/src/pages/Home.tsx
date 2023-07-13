@@ -9,7 +9,7 @@ import {
 import { RootStackParamList } from '../../App';
 import { Page } from '../components/atom/Page';
 import '../components/configureRemoteControl';
-import { SimpleNode } from '../components/molecules/SimpleNode';
+import { ProgramNode } from '../components/molecules/ProgramNode';
 import { VirtualizedColumn, VirtualizedRow } from '../components/molecules/VirtualizedSpatialList';
 import { Spacer } from '../design-system/components/Spacer';
 
@@ -21,7 +21,7 @@ export const Home = () => {
       <DefaultFocus>
         <SpatialNavigationScrollView offsetFromStart={140}>
           <View style={styles.container}>
-            <SimpleNode onSelect={() => navigation.navigate('ProgramDetail')} />
+            <ProgramNode onSelect={() => navigation.navigate('ProgramDetail')} />
             <Spacer gap="$12" />
             <VirtualizedRow numberOfItems={100} />
             <Spacer gap="$12" />
@@ -35,8 +35,8 @@ export const Home = () => {
             <View style={styles.containerRow}>
               <Spacer direction="horizontal" gap="$12" />
               <SpatialNavigationView direction="vertical" style={styles.smallContainerPrograms}>
-                <SimpleNode />
-                <SimpleNode />
+                <ProgramNode />
+                <ProgramNode />
               </SpatialNavigationView>
               <Spacer direction="horizontal" gap="$12" />
               <VirtualizedColumn numberOfItems={100} />
@@ -48,10 +48,10 @@ export const Home = () => {
           </SpatialNavigationView>
           <View style={styles.containerPrograms}>
             <SpatialNavigationView style={styles.gap} direction="horizontal">
-              <SimpleNode />
-              <SimpleNode />
-              <SimpleNode />
-              <SimpleNode />
+              <ProgramNode />
+              <ProgramNode />
+              <ProgramNode />
+              <ProgramNode />
             </SpatialNavigationView>
           </View>
           <Spacer gap="$12" />

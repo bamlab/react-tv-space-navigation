@@ -6,7 +6,7 @@ type Props = {
   onSelect?: () => void;
 };
 
-export const SimpleNode = ({ onSelect }: Props) => {
+export const ProgramNode = ({ onSelect }: Props) => {
   return (
     <SpatialNavigationNode isFocusable onSelect={onSelect}>
       {({ isFocused }) => <Program touchable={false} isFocused={isFocused} />}

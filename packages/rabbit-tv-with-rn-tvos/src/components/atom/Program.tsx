@@ -8,8 +8,10 @@ type ProgramProps = {
   isFocused?: boolean;
 };
 
-export const PROGRAM_HEIGHT = 250;
-export const PROGRAM_WIDTH = 275;
+export const PROGRAM_PORTRAIT_HEIGHT = 250;
+export const PROGRAM_PORTRAIT_WIDTH = 200;
+export const PROGRAM_LANDSCAPE_HEIGHT = 200;
+export const PROGRAM_LANDSCAPE_WIDTH = 250;
 
 export const Program = React.forwardRef<View, ProgramProps>(({ isFocused = false }, ref) => {
   const imageSource = useRabbitImageSource();
@@ -47,8 +49,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   container: {
-    height: 250,
-    width: 200,
+    height: PROGRAM_PORTRAIT_HEIGHT,
+    width: PROGRAM_PORTRAIT_WIDTH,
     overflow: 'hidden',
     borderRadius: 20,
     borderColor: 'transparent',
