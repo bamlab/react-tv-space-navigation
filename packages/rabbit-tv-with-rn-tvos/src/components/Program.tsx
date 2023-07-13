@@ -1,7 +1,7 @@
 import { Animated, Image, StyleSheet, View } from 'react-native';
 
-import { useRabbitImageSource } from './useRabbitImageSource';
 import React, { useEffect, useRef } from 'react';
+import { useRabbitImageSource } from './useRabbitImageSource';
 
 type ProgramProps = {
   touchable?: boolean;
