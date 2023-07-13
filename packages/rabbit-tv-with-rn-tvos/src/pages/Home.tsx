@@ -22,7 +22,7 @@ export const Home = () => {
       <DefaultFocus>
         <SpatialNavigationScrollView offsetFromStart={140}>
           <View style={styles.container}>
-            <SimpleNode onSelect={() => navigation.navigate('OtherPrograms')} />
+            <SimpleNode onSelect={() => navigation.navigate('ProgramDetail')} />
             <Spacer gap="$12" />
             <VirtualizedRow numberOfItems={100} />
             <Spacer gap="$12" />

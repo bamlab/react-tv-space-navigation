@@ -6,7 +6,7 @@ import { Dimensions, View } from 'react-native';
 import { GoBackConfiguration } from './src/components/GoBackConfiguration';
 import { theme } from './src/design-system/theme/theme';
 import { Home } from './src/pages/Home';
-import { OtherProgramsPage } from './src/pages/OtherProgramsPage';
+import { ProgramDetail } from './src/pages/ProgramDetail';
 
 const windowDimensions = Dimensions.get('window');
 
@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 
 export type RootStackParamList = {
   Home: undefined;
-  OtherPrograms: undefined;
+  ProgramDetail: undefined;
 };
 
 function App(): JSX.Element {
@@ -49,7 +49,7 @@ function App(): JSX.Element {
             initialRouteName="Home"
           >
             <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="OtherPrograms" component={OtherProgramsPage} />
+            <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
           </Stack.Navigator>
         </View>
       </ThemeProvider>
