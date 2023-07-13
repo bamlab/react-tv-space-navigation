@@ -1,24 +1,23 @@
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StyleSheet, View } from 'react-native';
 import {
   DefaultFocus,
-  SpatialNavigationRoot,
   SpatialNavigationScrollView,
   SpatialNavigationView,
 } from 'react-native-tv-spatial-navigation/src';
 import { RootStackParamList } from '../../App';
+import { Page } from '../components/Page';
 import { SimpleNode } from '../components/SimpleNode';
 import { VirtualizedColumn, VirtualizedRow } from '../components/VirtualizedSpatialList';
 import '../components/configureRemoteControl';
 import { Spacer } from '../design-system/components/Spacer';
 
 export const Home = () => {
-  const isFocused = useIsFocused();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
-    <SpatialNavigationRoot isActive={isFocused}>
+    <Page>
       <DefaultFocus>
         <SpatialNavigationScrollView offsetFromStart={140}>
           <View style={styles.container}>
@@ -58,7 +57,7 @@ export const Home = () => {
           <Spacer gap="$12" />
         </SpatialNavigationScrollView>
       </DefaultFocus>
-    </SpatialNavigationRoot>
+    </Page>
   );
 };
 
