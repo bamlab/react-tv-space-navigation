@@ -1,6 +1,6 @@
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { useRabbitImageSource } from './useRabbitImageSource';
+import { useRabbitImageSource } from '../useRabbitImageSource';
 
 export const Highlight = () => {
   const imageSource = useRabbitImageSource();

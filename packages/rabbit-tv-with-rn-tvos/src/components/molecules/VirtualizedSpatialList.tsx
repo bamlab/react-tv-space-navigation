@@ -1,7 +1,7 @@
+import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SpatialNavigationVirtualizedList } from 'react-native-tv-spatial-navigation/src';
-import { useCallback } from 'react';
-import { PROGRAM_HEIGHT } from './Program';
+import { PROGRAM_HEIGHT } from '../atom/Program';
 import { SimpleNode } from './SimpleNode';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 4;

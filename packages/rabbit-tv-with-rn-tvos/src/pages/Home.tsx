@@ -7,10 +7,10 @@ import {
   SpatialNavigationView,
 } from 'react-native-tv-spatial-navigation/src';
 import { RootStackParamList } from '../../App';
-import { Page } from '../components/Page';
-import { SimpleNode } from '../components/SimpleNode';
-import { VirtualizedColumn, VirtualizedRow } from '../components/VirtualizedSpatialList';
+import { Page } from '../components/atom/Page';
 import '../components/configureRemoteControl';
+import { SimpleNode } from '../components/molecules/SimpleNode';
+import { VirtualizedColumn, VirtualizedRow } from '../components/molecules/VirtualizedSpatialList';
 import { Spacer } from '../design-system/components/Spacer';
 
 export const Home = () => {
