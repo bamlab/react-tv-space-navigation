@@ -28,4 +28,5 @@ const StyledText = styled.Text<{
 }>(({ variant, fontWeight, theme }) => ({
   ...theme.typography[variant][fontWeight],
   color: 'white',
+  flexWrap: 'wrap',
 }));
