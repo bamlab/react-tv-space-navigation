@@ -12,7 +12,6 @@ import '../components/configureRemoteControl';
 import { ProgramNode } from '../components/molecules/ProgramNode';
 import { VirtualizedColumn, VirtualizedRow } from '../components/molecules/VirtualizedSpatialList';
 import { Spacer } from '../design-system/components/Spacer';
-import { VirtualizedSpatialGrid } from '../components/VirtualizedSpatialGrid';
 
 export const Home = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -24,7 +23,7 @@ export const Home = () => {
           <View style={styles.container}>
             <ProgramNode onSelect={() => navigation.navigate('ProgramDetail')} />
             <Spacer gap="$12" />
-            <VirtualizedSpatialGrid numberOfItems={100} containerStyle={styles.containerGrid} />
+            <ProgramNode onSelect={() => navigation.navigate('ProgramGridPage')} />
             <Spacer gap="$12" />
             <VirtualizedRow numberOfItems={100} />
             <Spacer gap="$12" />
@@ -66,7 +65,6 @@ export const Home = () => {
 
 const styles = StyleSheet.create({
   container: { padding: 60 },
-  containerGrid: { height: 550 },
   containerRow: { padding: 60, flexDirection: 'row' },
   smallContainerPrograms: {
     padding: 70,
