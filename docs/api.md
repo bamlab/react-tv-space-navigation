@@ -5,6 +5,7 @@
 - [SpatialNavigationScrollView](#spatialnavigationscrollview)
 - [SpatialNavigationView](#spatialnavigationview)
 - [SpatialNavigationVirtualizedList](#spatialnavigationvirtualizedlist)
+- [SpatialNavigationVirtualizedGrid](#spatialnavigationvirtualizedgrid)
 - [DefaultFocus](#defaultfocus)
 - [configureRemoteControl](#configureremotecontrol)
 
@@ -211,6 +212,52 @@ const MyComponent = () => {
     />
   );
 };
+```
+
+# SpatialNavigationVirtualizedGrid
+
+The `SpatialNavigationVirtualizedGrid` component is a specific case of a Virtulized List with spatial navigation,
+that renders rows of items instead of simple items.
+A grid is a series of horizontal rows rendering 'numberOfColumns' items.
+VirtualizedGrids only support vertical orientation (vertically scrollable), but you can navigate between elements in any direction.
+
+## Props
+
+| Name                              | Type                                 | Description                                                                                                                                      |
+| --------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `data`                            | `Array<T>`                           | The array of items to render in the grid.                                                                                                        |
+| `renderItem`                      | `(args: { item: T }) => JSX.Element` | A function that returns the JSX element to render for each item in the data array. The function receives an object with the item as a parameter. |
+| `numberOfColumns`                 | `Number`                             | The number of columns in the grid or the number of items per row.                                                                                |
+| `itemHeight`                      | `Number`                             | The height of each item in the grid.                                                                                                             |
+| `numberOfRenderedRows`            | `Number`                             | How many rows are rendered (virtualization size).                                                                                                |
+| `numberOfRowsVisibleOnScreen`     | `Number`                             | How many rows are visible on the screen (helps with knowing how to slice the data and stop the scroll at the end of the list).                   |
+| `onEndReachedThresholdRowsNumber` | `Number`                             | Number of rows left to display before triggering the onEndReached event.                                                                         |
+| `style`                           | `Object`                             | Used to modify the style of the grid.                                                                                                            |
+| `nbMaxOfItems`                    | `Number`                             | The maximum number of items to render : used to compute the number of rows to render.                                                            |
+| `rowContainerStyle`               | `Object`                             | Used to modify the style of each row in the grid.                                                                                                |
+
+## Example Usage
+
+```jsx
+import { SpatialNavigationVirtualizedGrid } from 'path/to/component';
+
+// Define your data array and renderItem function
+const data = [...];
+const renderItem = ({ item }) => {
+  return <ItemComponent item={item} />;
+};
+
+// Render the SpatialNavigationVirtualizedGrid component
+<SpatialNavigationVirtualizedGrid
+  data={data}
+  renderItem={renderItem}
+  numberOfColumns={3}
+  itemHeight={100}
+  numberOfRenderedRows={7}
+  numberOfRowsVisibleOnScreen={3}
+  onEndReachedThresholdRowsNumber={2}
+  rowContainerStyle={{gap: 15}}
+/>
 ```
 
 # DefaultFocus

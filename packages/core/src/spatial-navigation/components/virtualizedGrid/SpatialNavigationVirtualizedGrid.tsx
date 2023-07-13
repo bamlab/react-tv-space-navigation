@@ -22,7 +22,9 @@ type SpatialNavigationVirtualizedGridProps<T extends ItemWithIndex> = Pick<
   numberOfRowsVisibleOnScreen: number;
   /** Number of rows left to display before triggering onEndReached */
   onEndReachedThresholdRowsNumber?: number;
+  /** Number of columns in the grid OR number of items per rows */
   numberOfColumns: number;
+  /** Used to modify every row style */
   rowContainerStyle?: ViewStyle;
 };
 
@@ -44,6 +46,9 @@ const useRegisterGridRowVirtualNodes = ({ numberOfColumns }: { numberOfColumns: 
         parent: parentId,
         orientation: 'horizontal',
         isFocusable: false,
+        /** This prop enables index synchronization for navigation between rows.
+         * Thus you can navigate up and down inside columns, instead of going back to the first element of rows.
+         */
         useMeForIndexAlign: true,
       });
     },
@@ -98,7 +103,7 @@ const GridRow = <T extends ItemWithIndex>({
     <HorizontalContainer style={rowContainerStyle}>
       {row.items.map((item, index) => {
         return (
-          /* The view is important to reset flex direction to vertical */
+          /* This view is important to reset flex direction to vertical */
           <View key={index}>
             <ItemWrapperWithVirtualParentContext
               virtualParentID={getNthVirtualNodeID(index)}
@@ -111,6 +116,53 @@ const GridRow = <T extends ItemWithIndex>({
     </HorizontalContainer>
   );
 };
+
+/**
+ * Use this component to render spatially navigable grids of items.
+ * Grids only support vertical orientation (vertically scrollable),
+ * but you can navigate between elements in any direction.
+ *
+ * A grid is a series of horizontal rows rendering 'numberOfColumns' items.
+ *
+ * ```
+ * ┌───────────────────────────────────────────────────┐
+ * │                  Screen                           │
+ * │                                                   │
+ * │ ┌───────────────────────────────────────────────┐ │
+ * │ │ Row1                                          │ │
+ * │ │                                               │ │
+ * │ │ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐  │ │
+ * │ │ │      │ │      │ │      │ │      │ │      │  │ │
+ * │ │ │  A   │ │  B   │ │  C   │ │  D   │ │   E  │  │ │
+ * │ │ │      │ │      │ │      │ │      │ │      │  │ │
+ * │ │ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘  │ │
+ * │ │                                               │ │
+ * │ └───────────────────────────────────────────────┘ │
+ * │                                                   │
+ * │ ┌───────────────────────────────────────────────┐ │
+ * │ │ Row2                                          │ │
+ * │ │                                               │ │
+ * │ │ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐  │ │
+ * │ │ │      │ │      │ │      │ │      │ │      │  │ │
+ * │ │ │   A  │ │  B   │ │  C   │ │  D   │ │  E   │  │ │
+ * │ │ │      │ │      │ │      │ │      │ │      │  │ │
+ * │ │ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘  │ │
+ * │ │                                               │ │
+ * │ └───────────────────────────────────────────────┘ │
+ * │                                                   │
+ * └───────────────────────────────────────────────────┘
+ *   ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐
+ *     Row3                                          │
+ *   │
+ *     ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐  │
+ *   │ │      │ │      │ │      │ │      │ │      │
+ *     │   A  │ │  B   │ │  C   │ │  D   │ │  E   │  │
+ *   │ │      │ │      │ │      │ │      │ │      │
+ *     └──────┘ └──────┘ └──────┘ └──────┘ └──────┘  │
+ *   │
+ *   └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘
+ * ```
+ */
 
 export const SpatialNavigationVirtualizedGrid = typedMemo(
   <T extends ItemWithIndex>({
