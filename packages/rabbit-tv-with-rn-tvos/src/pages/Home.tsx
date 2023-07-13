@@ -13,7 +13,7 @@ import { VirtualizedColumn, VirtualizedRow } from '../components/VirtualizedSpat
 import '../components/configureRemoteControl';
 import { Spacer } from '../design-system/components/Spacer';
 
-export const SimpleRSNApp = () => {
+export const Home = () => {
   const isFocused = useIsFocused();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 

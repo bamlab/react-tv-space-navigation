@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { Dimensions, View } from 'react-native';
 import { GoBackConfiguration } from './src/components/GoBackConfiguration';
 import { theme } from './src/design-system/theme/theme';
+import { Home } from './src/pages/Home';
 import { OtherProgramsPage } from './src/pages/OtherProgramsPage';
-import { SimpleRSNApp } from './src/pages/SimpleRSNApp';
 
 const windowDimensions = Dimensions.get('window');
 
@@ -48,7 +48,7 @@ function App(): JSX.Element {
             }}
             initialRouteName="Home"
           >
-            <Stack.Screen name="Home" component={SimpleRSNApp} />
+            <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="OtherPrograms" component={OtherProgramsPage} />
           </Stack.Navigator>
         </View>
