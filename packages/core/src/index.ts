@@ -1,5 +1,5 @@
 import { configureRemoteControl } from './spatial-navigation/configureRemoteControl';
-export { Directions } from 'lrud';
+export { Directions } from '@bam.tech/lrud';
 export { SpatialNavigationNode } from './spatial-navigation/components/Node';
 export { SpatialNavigationRoot } from './spatial-navigation/components/Root';
 export { SpatialNavigationScrollView } from './spatial-navigation/components/ScrollView';

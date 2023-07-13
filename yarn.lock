@@ -1919,6 +1919,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bam.tech/lrud@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@bam.tech/lrud@npm:8.0.0"
+  dependencies:
+    mitt: ^1.2.0
+  checksum: 032f5a8f19ef753e15a12a6983605b63d706e53d30090740a16d3e7f1e7e46803950fc83b222f61b281fe0c2babcee3a8adae37abeea4e71e8e578a07d00987c
+  languageName: node
+  linkType: hard
+
 "@bcoe/v8-coverage@npm:^0.2.3":
   version: 0.2.3
   resolution: "@bcoe/v8-coverage@npm:0.2.3"
@@ -9111,15 +9120,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lrud@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "lrud@npm:8.0.0"
-  dependencies:
-    mitt: ^1.2.0
-  checksum: 4913e331383a41df56f7da53cc199d32551469438d8e79e26bebc1f31810757ffb31d3096508c022a47d7ac759b18b49b013c57cfe7937a9d121b319d6fa3642
-  languageName: node
-  linkType: hard
-
 "make-dir@npm:^2.0.0, make-dir@npm:^2.1.0":
   version: 2.1.0
   resolution: "make-dir@npm:2.1.0"
@@ -11072,6 +11072,7 @@ __metadata:
     "@babel/preset-env": ^7.22.5
     "@babel/preset-react": ^7.22.5
     "@babel/preset-typescript": ^7.22.5
+    "@bam.tech/lrud": ^8.0.0
     "@react-native-community/eslint-config": ^3.2.0
     "@types/lodash.uniqueid": ^4.0.7
     "@types/react": ^18.2.14
@@ -11091,7 +11092,6 @@ __metadata:
     eslint-plugin-react-native: ^4.0.0
     html-webpack-plugin: ^5.5.3
     lodash.uniqueid: ^4.0.1
-    lrud: ^8.0.0
     metro-react-native-babel-preset: ^0.76.7
     prettier: ^2.8.8
     react: ^18.2.0

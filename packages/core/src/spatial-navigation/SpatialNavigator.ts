@@ -1,4 +1,4 @@
-import { Direction, Lrud } from 'lrud';
+import { Direction, Lrud } from '@bam.tech/lrud';
 
 export default class SpatialNavigator {
   private lrud: Lrud;
