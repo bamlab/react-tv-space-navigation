@@ -9,8 +9,8 @@ import {
 import { RootStackParamList } from '../../App';
 import { Page } from '../components/atom/Page';
 import '../components/configureRemoteControl';
+import { ProgramsColumn, ProgramsRow } from '../components/molecules/ProgramList';
 import { ProgramNode } from '../components/molecules/ProgramNode';
-import { VirtualizedColumn, VirtualizedRow } from '../components/molecules/VirtualizedSpatialList';
 import { Spacer } from '../design-system/components/Spacer';
 
 export const Home = () => {
@@ -23,15 +23,13 @@ export const Home = () => {
           <View style={styles.container}>
             <ProgramNode onSelect={() => navigation.navigate('ProgramDetail')} />
             <Spacer gap="$12" />
-            <ProgramNode onSelect={() => navigation.navigate('ProgramGridPage')} />
+            <ProgramsRow numberOfItems={100} />
             <Spacer gap="$12" />
-            <VirtualizedRow numberOfItems={100} />
+            <ProgramsRow numberOfItems={100} />
             <Spacer gap="$12" />
-            <VirtualizedRow numberOfItems={100} />
+            <ProgramsRow numberOfItems={100} />
             <Spacer gap="$12" />
-            <VirtualizedRow numberOfItems={100} />
-            <Spacer gap="$12" />
-            <VirtualizedRow numberOfItems={100} />
+            <ProgramsRow numberOfItems={100} />
           </View>
           <SpatialNavigationView direction="horizontal">
             <View style={styles.containerRow}>
@@ -41,11 +39,11 @@ export const Home = () => {
                 <ProgramNode />
               </SpatialNavigationView>
               <Spacer direction="horizontal" gap="$12" />
-              <VirtualizedColumn numberOfItems={100} />
+              <ProgramsColumn numberOfItems={100} />
               <Spacer direction="horizontal" gap="$12" />
-              <VirtualizedColumn numberOfItems={100} />
+              <ProgramsColumn numberOfItems={100} />
               <Spacer direction="horizontal" gap="$12" />
-              <VirtualizedColumn numberOfItems={100} />
+              <ProgramsColumn numberOfItems={100} />
             </View>
           </SpatialNavigationView>
           <View style={styles.containerPrograms}>

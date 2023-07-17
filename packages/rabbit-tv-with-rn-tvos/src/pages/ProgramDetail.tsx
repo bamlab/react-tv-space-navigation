@@ -1,7 +1,7 @@
 import styled from '@emotion/native';
 import { DefaultFocus, SpatialNavigationNode } from 'react-native-tv-spatial-navigation/src';
 import { Page } from '../components/atom/Page';
-import { ProgramList } from '../components/organisms/ProgramList';
+import { ProgramListWithTitle } from '../components/organisms/ProgramListWithTitle';
 import { useRabbitImageSource } from '../components/useRabbitImageSource';
 import { Box } from '../design-system/components/Box';
 import { Spacer } from '../design-system/components/Spacer';
@@ -39,7 +39,7 @@ export const ProgramDetail = () => {
         </Box>
       </Box>
       <Spacer gap="$5" />
-      <ProgramList title="You may also like..." numberOfItems={10}></ProgramList>
+      <ProgramListWithTitle title="You may also like..." numberOfItems={10}></ProgramListWithTitle>
     </Page>
   );
 };

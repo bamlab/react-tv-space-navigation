@@ -7,7 +7,7 @@ import { ProgramNode } from './ProgramNode';
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 4;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 
-export const VirtualizedSpatialList = ({
+export const ProgramList = ({
   numberOfItems,
   orientation,
   containerStyle,
@@ -46,27 +46,22 @@ const styles = StyleSheet.create({
   column: { height: 700, width: 265 },
 });
 
-export const VirtualizedRow = ({
+export const ProgramsRow = ({
   numberOfItems,
   containerStyle,
 }: {
   numberOfItems: number;
   containerStyle?: object;
-}) => (
-  <VirtualizedSpatialList
-    numberOfItems={numberOfItems}
-    containerStyle={[containerStyle, styles.row]}
-  />
-);
+}) => <ProgramList numberOfItems={numberOfItems} containerStyle={[containerStyle, styles.row]} />;
 
-export const VirtualizedColumn = ({
+export const ProgramsColumn = ({
   numberOfItems,
   containerStyle,
 }: {
   numberOfItems: number;
   containerStyle?: object;
 }) => (
-  <VirtualizedSpatialList
+  <ProgramList
     numberOfItems={numberOfItems}
     orientation="vertical"
     containerStyle={[containerStyle, styles.column]}
