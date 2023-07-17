@@ -1,6 +1,6 @@
 import { SpatialNavigationNode } from 'react-native-tv-spatial-navigation/src';
 
-import { Program } from '../atom/Program';
+import { Program } from '../atom/Program/view/Program';
 
 type Props = {
   onSelect?: () => void;
