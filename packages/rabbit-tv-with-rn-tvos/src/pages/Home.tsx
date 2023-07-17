@@ -1,28 +1,27 @@
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StyleSheet, View } from 'react-native';
 import {
   DefaultFocus,
-  SpatialNavigationRoot,
   SpatialNavigationScrollView,
   SpatialNavigationView,
 } from 'react-native-tv-spatial-navigation/src';
 import { RootStackParamList } from '../../App';
-import { SimpleNode } from '../components/SimpleNode';
-import { VirtualizedColumn, VirtualizedRow } from '../components/VirtualizedSpatialList';
+import { Page } from '../components/atom/Page';
 import '../components/configureRemoteControl';
+import { ProgramNode } from '../components/molecules/ProgramNode';
+import { VirtualizedColumn, VirtualizedRow } from '../components/molecules/VirtualizedSpatialList';
 import { Spacer } from '../design-system/components/Spacer';
 
-export const SimpleRSNApp = () => {
-  const isFocused = useIsFocused();
+export const Home = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
-    <SpatialNavigationRoot isActive={isFocused}>
+    <Page>
       <DefaultFocus>
         <SpatialNavigationScrollView offsetFromStart={140}>
           <View style={styles.container}>
-            <SimpleNode onSelect={() => navigation.navigate('OtherPrograms')} />
+            <ProgramNode onSelect={() => navigation.navigate('ProgramDetail')} />
             <Spacer gap="$12" />
             <VirtualizedRow numberOfItems={100} />
             <Spacer gap="$12" />
@@ -36,8 +35,8 @@ export const SimpleRSNApp = () => {
             <View style={styles.containerRow}>
               <Spacer direction="horizontal" gap="$12" />
               <SpatialNavigationView direction="vertical" style={styles.smallContainerPrograms}>
-                <SimpleNode />
-                <SimpleNode />
+                <ProgramNode />
+                <ProgramNode />
               </SpatialNavigationView>
               <Spacer direction="horizontal" gap="$12" />
               <VirtualizedColumn numberOfItems={100} />
@@ -49,16 +48,16 @@ export const SimpleRSNApp = () => {
           </SpatialNavigationView>
           <View style={styles.containerPrograms}>
             <SpatialNavigationView style={styles.gap} direction="horizontal">
-              <SimpleNode />
-              <SimpleNode />
-              <SimpleNode />
-              <SimpleNode />
+              <ProgramNode />
+              <ProgramNode />
+              <ProgramNode />
+              <ProgramNode />
             </SpatialNavigationView>
           </View>
           <Spacer gap="$12" />
         </SpatialNavigationScrollView>
       </DefaultFocus>
-    </SpatialNavigationRoot>
+    </Page>
   );
 };
 
