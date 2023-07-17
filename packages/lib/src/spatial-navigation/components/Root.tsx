@@ -9,7 +9,19 @@ import { OnDirectionHandledWithMovement } from '../SpatialNavigator';
 const ROOT_ID = 'root';
 
 type Props = {
+  /**
+   * Determines if the spatial navigation is active.
+   * If false, the spatial navigation will be locked, and no nodes can be focused.
+   * This is useful to handle a multi page app: you can disable the non-focused pages' spatial navigation roots.
+   */
   isActive?: boolean;
+  /**
+   * Called when you're reaching a border of the navigator.
+   * A use case for this would be the implementation of a side menu
+   * that's shared between pages. You can have a separate navigator
+   * for your side menu, which would be common across pages, and you'd
+   * make this menu active when you reach the left side of your page navigator.
+   */
   onDirectionHandledWithoutMovement?: OnDirectionHandledWithMovement;
   children: ReactNode;
 };
