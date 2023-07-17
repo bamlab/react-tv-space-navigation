@@ -4,6 +4,7 @@
 - [SpatialNavigationNode](#spatialnavigationnode)
 - [SpatialNavigationScrollView](#spatialnavigationscrollview)
 - [SpatialNavigationView](#spatialnavigationview)
+- [SpatialNavigationVirtualizedList](#spatialnavigationvirtualizedlist)
 - [DefaultFocus](#defaultfocus)
 - [configureRemoteControl](#configureremotecontrol)
 
