@@ -1,3 +1,4 @@
+import styled from '@emotion/native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StyleSheet, View } from 'react-native';
@@ -12,12 +13,16 @@ import '../components/configureRemoteControl';
 import { ProgramsColumn, ProgramsRow } from '../components/molecules/ProgramList';
 import { ProgramNode } from '../components/molecules/ProgramNode';
 import { Spacer } from '../design-system/components/Spacer';
+import { Typography } from '../design-system/components/Typography';
 
 export const Home = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <Page>
+      <TitleContainer>
+        <Title variant="title">Hoppix</Title>
+      </TitleContainer>
       <DefaultFocus>
         <SpatialNavigationScrollView offsetFromStart={140}>
           <View style={styles.container}>
@@ -60,6 +65,13 @@ export const Home = () => {
     </Page>
   );
 };
+
+const TitleContainer = styled.View(({ theme }) => ({ padding: theme.spacings.$4 }));
+
+const Title = styled(Typography)(({ theme }) => ({
+  textAlign: 'center',
+  color: theme.colors.primary.main,
+}));
 
 const styles = StyleSheet.create({
   container: { padding: 60 },
