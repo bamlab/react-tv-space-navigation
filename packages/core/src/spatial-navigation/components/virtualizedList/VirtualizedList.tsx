@@ -5,7 +5,6 @@ import {
   useVirtualizedListAnimation,
   useWebVirtualizedListAnimation,
 } from './hooks/useVirtualizedListAnimation';
-import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
 
 const screen = Dimensions.get('window');
@@ -33,7 +32,7 @@ export interface VirtualizedListProps<T> {
   /** Number of items left to display before triggering onEndReached */
   onEndReachedThresholdItemsNumber?: number;
   style?: ViewStyle;
-  orientation?: NodeOrientation;
+  vertical?: boolean;
   /**
    * @deprecated
    * Use a custom key instead of the recycling.
@@ -127,7 +126,7 @@ export const VirtualizedList = typedMemo(
     onEndReached,
     onEndReachedThresholdItemsNumber = 3,
     style,
-    orientation = 'horizontal',
+    vertical = false,
     nbMaxOfItems,
     keyExtractor,
     scrollDuration = 200,
@@ -140,8 +139,6 @@ export const VirtualizedList = typedMemo(
       numberOfRenderedItems,
       numberOfItemsVisibleOnScreen,
     });
-
-    const vertical = orientation === 'vertical';
 
     const dataSliceToRender = data.slice(range.start, range.end + 1);
 
