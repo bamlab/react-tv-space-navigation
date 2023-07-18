@@ -9,11 +9,11 @@ const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 
 export const VirtualizedSpatialList = ({
   numberOfItems,
-  orientation,
+  vertical,
   containerStyle,
 }: {
   numberOfItems: number;
-  orientation?: 'vertical' | 'horizontal';
+  vertical?: boolean;
   containerStyle?: object;
 }) => {
   const renderItem = useCallback(() => <ProgramNode />, []);
@@ -23,7 +23,7 @@ export const VirtualizedSpatialList = ({
   return (
     <View style={[styles.container, containerStyle]}>
       <SpatialNavigationVirtualizedList
-        orientation={orientation}
+        vertical={vertical}
         data={hardcodedRabbitsArray}
         renderItem={renderItem}
         itemSize={PROGRAM_PORTRAIT_HEIGHT + 50}
@@ -68,7 +68,7 @@ export const VirtualizedColumn = ({
 }) => (
   <VirtualizedSpatialList
     numberOfItems={numberOfItems}
-    orientation="vertical"
+    vertical
     containerStyle={[containerStyle, styles.column]}
   />
 );
