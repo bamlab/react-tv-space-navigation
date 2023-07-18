@@ -9,7 +9,7 @@ import { addIndex } from './helpers/addIndex';
 import { ItemWithIndex } from './VirtualizedList';
 
 /**
- * Use this component to render spatially navigable virtualized lists.
+ * Use this component to render horizontally or vertically virtualized lists with spatial navigation
  * This component wraps the virtualized list inside a parent navigation node.
  * */
 export const SpatialNavigationVirtualizedList = typedMemo(
@@ -17,7 +17,10 @@ export const SpatialNavigationVirtualizedList = typedMemo(
     const indexedData = useMemo(() => addIndex(props.data), [props.data]);
 
     return (
-      <SpatialNavigationNode orientation={props.orientation ?? 'horizontal'}>
+      <SpatialNavigationNode
+        alignInGrid={props.isGrid ?? false}
+        orientation={props.orientation ?? 'horizontal'}
+      >
         <SpatialNavigationVirtualizedListWithScroll<T & ItemWithIndex>
           {...props}
           data={indexedData}

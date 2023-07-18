@@ -23,6 +23,8 @@ export const Home = () => {
           <View style={styles.container}>
             <ProgramNode onSelect={() => navigation.navigate('ProgramDetail')} />
             <Spacer gap="$12" />
+            <ProgramNode onSelect={() => navigation.navigate('ProgramGridPage')} />
+            <Spacer gap="$12" />
             <VirtualizedRow numberOfItems={100} />
             <Spacer gap="$12" />
             <VirtualizedRow numberOfItems={100} />

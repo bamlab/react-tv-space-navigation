@@ -1,4 +1,4 @@
-import { Direction } from 'lrud';
+import { Direction } from '@bam.tech/lrud';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- can't know for sure what the subscriber will be...
 type SubscriberType = any;

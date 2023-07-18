@@ -20,6 +20,9 @@ type DefaultProps = {
   onFocus?: () => void;
   onSelect?: () => void;
   orientation?: NodeOrientation;
+  /** Use this for grid alignment.
+   * @see LRUD docs */
+  alignInGrid?: boolean;
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
@@ -59,11 +62,13 @@ export const SpatialNavigationNode = ({
   onSelect,
   orientation = 'vertical',
   isFocusable = false,
+  alignInGrid = false,
   children,
 }: Props) => {
   const spatialNavigator = useSpatialNavigator();
   const parentId = useParentId();
   const [isFocused, setIsFocused] = useState(false);
+  // If parent changes, we have to re-register the Node + all children -> adding the parentId to the nodeId makes the children re-register.
   const id = useUniqueId({ prefix: `${parentId}_node_` });
 
   const { scrollToNodeIfNeeded, bindRefToChild } = useScrollIfNeeded();
@@ -98,6 +103,7 @@ export const SpatialNavigationNode = ({
       },
       onSelect: () => currentOnSelect.current?.(),
       orientation,
+      isIndexAlign: alignInGrid,
     });
 
     return () => spatialNavigator.unregisterNode(id);

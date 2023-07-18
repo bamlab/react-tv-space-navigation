@@ -7,6 +7,7 @@ import { GoBackConfiguration } from './src/components/GoBackConfiguration';
 import { theme } from './src/design-system/theme/theme';
 import { Home } from './src/pages/Home';
 import { ProgramDetail } from './src/pages/ProgramDetail';
+import { ProgramGridPage } from './src/pages/ProgramGridPage';
 
 const windowDimensions = Dimensions.get('window');
 
@@ -15,6 +16,7 @@ const Stack = createNativeStackNavigator();
 export type RootStackParamList = {
   Home: undefined;
   ProgramDetail: undefined;
+  ProgramGridPage: undefined;
 };
 
 function App(): JSX.Element {
@@ -50,6 +52,7 @@ function App(): JSX.Element {
           >
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
+            <Stack.Screen name="ProgramGridPage" component={ProgramGridPage} />
           </Stack.Navigator>
         </View>
       </ThemeProvider>
