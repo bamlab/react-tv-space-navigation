@@ -29,7 +29,6 @@ export const VirtualizedSpatialList = ({
         itemSize={PROGRAM_PORTRAIT_HEIGHT + 50}
         numberOfRenderedItems={WINDOW_SIZE}
         numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-        onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
       />
     </View>
   );
