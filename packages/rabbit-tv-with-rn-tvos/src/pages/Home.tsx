@@ -1,7 +1,6 @@
 import styled from '@emotion/native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StyleSheet, View } from 'react-native';
 import {
   DefaultFocus,
   SpatialNavigationScrollView,
@@ -10,8 +9,8 @@ import {
 import { RootStackParamList } from '../../App';
 import { Page } from '../components/atom/Page';
 import '../components/configureRemoteControl';
-import { ProgramsColumn, ProgramsRow } from '../components/molecules/ProgramList';
-import { ProgramNode } from '../components/molecules/ProgramNode';
+import { ProgramListWithTitle } from '../components/organisms/ProgramListWithTitle';
+import { Box } from '../design-system/components/Box';
 import { Spacer } from '../design-system/components/Spacer';
 import { Typography } from '../design-system/components/Typography';
 
@@ -25,41 +24,27 @@ export const Home = () => {
       </TitleContainer>
       <DefaultFocus>
         <SpatialNavigationScrollView offsetFromStart={140}>
-          <View style={styles.container}>
-            <ProgramNode onSelect={() => navigation.navigate('ProgramDetail')} />
-            <Spacer gap="$12" />
-            <ProgramsRow numberOfItems={100} />
-            <Spacer gap="$12" />
-            <ProgramsRow numberOfItems={100} />
-            <Spacer gap="$12" />
-            <ProgramsRow numberOfItems={100} />
-            <Spacer gap="$12" />
-            <ProgramsRow numberOfItems={100} />
-          </View>
+          <Box padding="$10">
+            <ProgramListWithTitle title="Popular" numberOfItems={10} />
+            <Spacer gap="$6" />
+            <ProgramListWithTitle title="Classics" numberOfItems={10} />
+            <Spacer gap="$6" />
+            <ProgramListWithTitle title="Watch again" numberOfItems={10} />
+            <Spacer gap="$6" />
+            <ProgramListWithTitle title="You may also like..." numberOfItems={10} />
+          </Box>
+          <SectionTitle variant="title">Throughout the years</SectionTitle>
           <SpatialNavigationView direction="horizontal">
-            <View style={styles.containerRow}>
-              <Spacer direction="horizontal" gap="$12" />
-              <SpatialNavigationView direction="vertical" style={styles.smallContainerPrograms}>
-                <ProgramNode />
-                <ProgramNode />
-              </SpatialNavigationView>
-              <Spacer direction="horizontal" gap="$12" />
-              <ProgramsColumn numberOfItems={100} />
-              <Spacer direction="horizontal" gap="$12" />
-              <ProgramsColumn numberOfItems={100} />
-              <Spacer direction="horizontal" gap="$12" />
-              <ProgramsColumn numberOfItems={100} />
-            </View>
+            <Box padding="$10" direction="horizontal">
+              <ProgramListWithTitle title="70s" numberOfItems={10} orientation="vertical" />
+              <Spacer direction="horizontal" gap="$6" />
+              <ProgramListWithTitle title="80s" numberOfItems={10} orientation="vertical" />
+              <Spacer direction="horizontal" gap="$6" />
+              <ProgramListWithTitle title="90s" numberOfItems={10} orientation="vertical" />
+              <Spacer direction="horizontal" gap="$6" />
+              <ProgramListWithTitle title="00s" numberOfItems={10} orientation="vertical" />
+            </Box>
           </SpatialNavigationView>
-          <View style={styles.containerPrograms}>
-            <SpatialNavigationView style={styles.gap} direction="horizontal">
-              <ProgramNode />
-              <ProgramNode />
-              <ProgramNode />
-              <ProgramNode />
-            </SpatialNavigationView>
-          </View>
-          <Spacer gap="$12" />
         </SpatialNavigationScrollView>
       </DefaultFocus>
     </Page>
@@ -73,16 +58,7 @@ const Title = styled(Typography)(({ theme }) => ({
   color: theme.colors.primary.main,
 }));
 
-const styles = StyleSheet.create({
-  container: { padding: 60 },
-  containerRow: { padding: 60, flexDirection: 'row' },
-  smallContainerPrograms: {
-    padding: 70,
-    gap: 50,
-  },
-  containerPrograms: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  gap: { gap: 50 },
-});
+const SectionTitle = styled(Typography)(({ theme }) => ({
+  textAlign: 'center',
+  color: theme.colors.primary.contrastText,
+}));
