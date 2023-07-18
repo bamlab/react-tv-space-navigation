@@ -28,11 +28,11 @@ export interface VirtualizedListProps<T> {
   numberOfRenderedItems: number;
   /** How many items are visible on screen (helps with knowing how to slice our data and to stop the scroll at the end of the list) */
   numberOfItemsVisibleOnScreen: number;
+  vertical?: boolean;
+  style?: ViewStyle;
   onEndReached?: () => void;
   /** Number of items left to display before triggering onEndReached */
   onEndReachedThresholdItemsNumber?: number;
-  style?: ViewStyle;
-  vertical?: boolean;
   /**
    * @deprecated
    * Use a custom key instead of the recycling.
@@ -123,10 +123,10 @@ export const VirtualizedList = typedMemo(
     currentlyFocusedItemIndex,
     numberOfRenderedItems,
     numberOfItemsVisibleOnScreen,
+    vertical = false,
+    style,
     onEndReached,
     onEndReachedThresholdItemsNumber = 3,
-    style,
-    vertical = false,
     nbMaxOfItems,
     keyExtractor,
     scrollDuration = 200,
