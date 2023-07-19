@@ -39,7 +39,7 @@ export const ProgramDetail = () => {
         </Box>
       </Box>
       <Spacer gap="$5" />
-      <ProgramListWithTitle title="You may also like..." numberOfItems={10}></ProgramListWithTitle>
+      <ProgramListWithTitle title="You may also like..."></ProgramListWithTitle>
     </Page>
   );
 };

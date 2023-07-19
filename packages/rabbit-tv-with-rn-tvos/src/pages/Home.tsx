@@ -25,24 +25,24 @@ export const Home = () => {
       <DefaultFocus>
         <SpatialNavigationScrollView offsetFromStart={140}>
           <Box padding="$10">
-            <ProgramListWithTitle title="Popular" numberOfItems={10} />
+            <ProgramListWithTitle title="Popular" />
             <Spacer gap="$6" />
-            <ProgramListWithTitle title="Classics" numberOfItems={10} />
+            <ProgramListWithTitle title="Classics" />
             <Spacer gap="$6" />
-            <ProgramListWithTitle title="Watch again" numberOfItems={10} />
+            <ProgramListWithTitle title="Watch again" />
             <Spacer gap="$6" />
-            <ProgramListWithTitle title="You may also like..." numberOfItems={10} />
+            <ProgramListWithTitle title="You may also like..." />
           </Box>
           <SectionTitle variant="title">Throughout the years</SectionTitle>
           <SpatialNavigationView direction="horizontal">
             <Box padding="$10" direction="horizontal">
-              <ProgramListWithTitle title="70s" numberOfItems={10} orientation="vertical" />
+              <ProgramListWithTitle title="70s" orientation="vertical" />
               <Spacer direction="horizontal" gap="$6" />
-              <ProgramListWithTitle title="80s" numberOfItems={10} orientation="vertical" />
+              <ProgramListWithTitle title="80s" orientation="vertical" />
               <Spacer direction="horizontal" gap="$6" />
-              <ProgramListWithTitle title="90s" numberOfItems={10} orientation="vertical" />
+              <ProgramListWithTitle title="90s" orientation="vertical" />
               <Spacer direction="horizontal" gap="$6" />
-              <ProgramListWithTitle title="00s" numberOfItems={10} orientation="vertical" />
+              <ProgramListWithTitle title="00s" orientation="vertical" />
             </Box>
           </SpatialNavigationView>
         </SpatialNavigationScrollView>

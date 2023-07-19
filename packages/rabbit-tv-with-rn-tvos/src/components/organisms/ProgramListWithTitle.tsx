@@ -5,26 +5,17 @@ import { ProgramsColumn, ProgramsRow } from '../molecules/ProgramList';
 
 type Props = {
   title: string;
-  numberOfItems: number;
   orientation?: 'vertical' | 'horizontal';
 };
 
-export const ProgramListWithTitle = ({
-  title,
-  numberOfItems,
-  orientation = 'horizontal',
-}: Props) => {
+export const ProgramListWithTitle = ({ title, orientation = 'horizontal' }: Props) => {
   return (
     <Box direction="vertical">
       <Typography variant="body" fontWeight="strong">
         {title}
       </Typography>
       <Spacer direction="vertical" gap="$2" />
-      {orientation === 'horizontal' ? (
-        <ProgramsRow numberOfItems={numberOfItems} />
-      ) : (
-        <ProgramsColumn numberOfItems={numberOfItems} />
-      )}
+      {orientation === 'horizontal' ? <ProgramsRow /> : <ProgramsColumn />}
     </Box>
   );
 };

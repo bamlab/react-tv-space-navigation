@@ -10,11 +10,9 @@ const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 4;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 
 export const ProgramList = ({
-  numberOfItems,
   orientation,
   containerStyle,
 }: {
-  numberOfItems: number;
   orientation?: 'vertical' | 'horizontal';
   containerStyle?: object;
 }) => {
@@ -49,24 +47,10 @@ const styles = StyleSheet.create({
   column: { height: 700, width: 265 },
 });
 
-export const ProgramsRow = ({
-  numberOfItems,
-  containerStyle,
-}: {
-  numberOfItems: number;
-  containerStyle?: object;
-}) => <ProgramList numberOfItems={numberOfItems} containerStyle={[containerStyle, styles.row]} />;
+export const ProgramsRow = ({ containerStyle }: { containerStyle?: object }) => (
+  <ProgramList containerStyle={[containerStyle, styles.row]} />
+);
 
-export const ProgramsColumn = ({
-  numberOfItems,
-  containerStyle,
-}: {
-  numberOfItems: number;
-  containerStyle?: object;
-}) => (
-  <ProgramList
-    numberOfItems={numberOfItems}
-    orientation="vertical"
-    containerStyle={[containerStyle, styles.column]}
-  />
+export const ProgramsColumn = ({ containerStyle }: { containerStyle?: object }) => (
+  <ProgramList orientation="vertical" containerStyle={[containerStyle, styles.column]} />
 );
