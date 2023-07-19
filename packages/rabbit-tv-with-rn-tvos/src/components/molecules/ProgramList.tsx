@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SpatialNavigationVirtualizedList } from 'react-native-tv-spatial-navigation/src';
+import { ProgramInfo } from '../atom/Program/domain/program';
+import { programInfos } from '../atom/Program/infra/programInfos';
 import { PROGRAM_PORTRAIT_HEIGHT } from '../atom/Program/view/Program';
 import { ProgramNode } from './ProgramNode';
 
@@ -16,15 +18,16 @@ export const ProgramList = ({
   orientation?: 'vertical' | 'horizontal';
   containerStyle?: object;
 }) => {
-  const renderItem = useCallback(() => <ProgramNode />, []);
-
-  const hardcodedRabbitsArray = Array(numberOfItems).fill({});
+  const renderItem = useCallback(
+    ({ item }: { item: ProgramInfo }) => <ProgramNode programInfo={item} />,
+    [],
+  );
 
   return (
     <View style={[styles.container, containerStyle]}>
       <SpatialNavigationVirtualizedList
         orientation={orientation}
-        data={hardcodedRabbitsArray}
+        data={programInfos}
         renderItem={renderItem}
         itemSize={PROGRAM_PORTRAIT_HEIGHT + 50}
         numberOfRenderedItems={WINDOW_SIZE}
