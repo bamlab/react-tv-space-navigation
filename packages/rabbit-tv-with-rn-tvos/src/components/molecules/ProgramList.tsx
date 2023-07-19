@@ -1,6 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SpatialNavigationVirtualizedList } from 'react-native-tv-spatial-navigation/src';
+import { RootStackParamList } from '../../../App';
 import { ProgramInfo } from '../atom/Program/domain/program';
 import { programInfos } from '../atom/Program/infra/programInfos';
 import { PROGRAM_PORTRAIT_HEIGHT } from '../atom/Program/view/Program';
@@ -16,9 +19,13 @@ export const ProgramList = ({
   orientation?: 'vertical' | 'horizontal';
   containerStyle?: object;
 }) => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const renderItem = useCallback(
-    ({ item }: { item: ProgramInfo }) => <ProgramNode programInfo={item} />,
-    [],
+    ({ item }: { item: ProgramInfo }) => (
+      <ProgramNode programInfo={item} onSelect={() => navigation.navigate('ProgramDetail')} />
+    ),
+    [navigation],
   );
 
   return (

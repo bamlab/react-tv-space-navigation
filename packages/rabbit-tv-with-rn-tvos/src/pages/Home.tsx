@@ -1,12 +1,9 @@
 import styled from '@emotion/native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   DefaultFocus,
   SpatialNavigationScrollView,
   SpatialNavigationView,
 } from 'react-native-tv-spatial-navigation/src';
-import { RootStackParamList } from '../../App';
 import { Page } from '../components/atom/Page';
 import '../components/configureRemoteControl';
 import { ProgramListWithTitle } from '../components/organisms/ProgramListWithTitle';
@@ -15,8 +12,6 @@ import { Spacer } from '../design-system/components/Spacer';
 import { Typography } from '../design-system/components/Typography';
 
 export const Home = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
   return (
     <Page>
       <TitleContainer>
