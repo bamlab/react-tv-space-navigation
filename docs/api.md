@@ -168,7 +168,7 @@ It also ensures that the scroll event is propagated properly to parent ScrollVie
 | `onEndReached`                     | `() => void`                         | An optional callback function that is called when the user reaches the end of the list.                                                                                          |
 | `onEndReachedThresholdItemsNumber` | `number`                             | The number of items left to display before triggering the `onEndReached` callback. Defaults to 3.                                                                                |
 | `style`                            | `ViewStyle`                          | Custom style to be applied to the VirtualizedList container.                                                                                                                     |
-| `orientation`                      | `'horizontal' \| 'vertical'`         | The orientation of the list. Defaults to `'horizontal'`.                                                                                                                         |
+| `vertical`                         | `boolean`                            | If `true`, renders items next to each other vertically instead of stacked horizontally. Defaults to `false`.                                                                     |
 | `nbMaxOfItems`                     | `number`                             | The total number of expected items for infinite scroll. This helps with aligning items and is used for pagination. If not provided, it defaults to the length of the data array. |
 | `scrollDuration`                   | `number`                             | The duration of a scrolling animation inside the VirtualizedList. Defaults to 200ms.                                                                                             |
 | `height`                           | `number`                             | Custom height for the VirtualizedList container. Defaults to the screen height.                                                                                                  |
@@ -208,7 +208,7 @@ const MyComponent = () => {
         // you might trigger your backend pagination for example
       }}
       style={styles.container}
-      orientation="horizontal"
+      vertical
     />
   );
 };
