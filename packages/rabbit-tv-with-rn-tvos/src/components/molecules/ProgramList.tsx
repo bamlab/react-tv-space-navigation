@@ -9,7 +9,7 @@ import { programInfos } from '../atom/Program/infra/programInfos';
 import { PROGRAM_PORTRAIT_HEIGHT } from '../atom/Program/view/Program';
 import { ProgramNode } from './ProgramNode';
 
-const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 4;
+const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 2;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 
 export const ProgramList = ({
