@@ -23,7 +23,10 @@ export const ProgramList = ({
 
   const renderItem = useCallback(
     ({ item }: { item: ProgramInfo }) => (
-      <ProgramNode programInfo={item} onSelect={() => navigation.navigate('ProgramDetail')} />
+      <ProgramNode
+        programInfo={item}
+        onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
+      />
     ),
     [navigation],
   );
