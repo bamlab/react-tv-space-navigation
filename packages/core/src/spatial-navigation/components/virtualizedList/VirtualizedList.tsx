@@ -19,6 +19,7 @@ const screen = Dimensions.get('window');
  */
 export type ItemWithIndex = { index: number };
 
+export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
   data: Array<T>;
   renderItem: (args: { item: T }) => JSX.Element;
@@ -47,6 +48,7 @@ export interface VirtualizedListProps<T> {
   height?: number;
   /** Custom width for the VirtualizedList container */
   width?: number;
+  scrollBehavior?: ScrollBehavior;
 }
 
 const useOnEndReached = ({
@@ -131,6 +133,7 @@ export const VirtualizedList = typedMemo(
     nbMaxOfItems,
     keyExtractor,
     scrollDuration = 200,
+    scrollBehavior = 'stick-to-start',
     height = screen.height,
     width = screen.width,
   }: VirtualizedListProps<T>) => {
@@ -161,6 +164,7 @@ export const VirtualizedList = typedMemo(
             vertical,
             nbMaxOfItems: nbMaxOfItems ?? data.length,
             numberOfItemsVisibleOnScreen,
+            scrollBehavior,
             scrollDuration,
           })
         : useVirtualizedListAnimation({
@@ -169,6 +173,7 @@ export const VirtualizedList = typedMemo(
             vertical,
             nbMaxOfItems: nbMaxOfItems ?? data.length,
             numberOfItemsVisibleOnScreen,
+            scrollBehavior,
             scrollDuration,
           });
 
