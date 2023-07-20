@@ -1,7 +1,8 @@
-import { StyleSheet, View } from 'react-native';
 import { useCallback } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { SpatialNavigationVirtualizedGrid } from 'react-native-tv-spatial-navigation/src';
-import { PROGRAM_PORTRAIT_HEIGHT } from './atom/Program';
+import { programInfos } from './atom/Program/infra/programInfos';
+import { PROGRAM_PORTRAIT_HEIGHT } from './atom/Program/view/Program';
 import { ProgramNode } from './molecules/ProgramNode';
 
 const NUMBER_OF_ROWS_VISIBLE_ON_SCREEN = 2;
@@ -16,7 +17,8 @@ export const VirtualizedSpatialGrid = ({
   numberOfItems: number;
   containerStyle?: object;
 }) => {
-  const renderItem = useCallback(() => <ProgramNode />, []);
+  // TODO: correct SpatialNavigationVirtualizedGrid props types
+  const renderItem = useCallback(() => <ProgramNode programInfo={programInfos[0]} />, []);
 
   const hardcodedRabbitsArray = Array(numberOfItems).fill({});
 
