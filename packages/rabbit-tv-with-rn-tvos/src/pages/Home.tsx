@@ -4,7 +4,7 @@ import {
   SpatialNavigationScrollView,
   SpatialNavigationView,
 } from 'react-native-tv-spatial-navigation/src';
-import { Page } from '../components/atom/Page';
+import { Page } from '../components/Page';
 import '../components/configureRemoteControl';
 import { Box } from '../design-system/components/Box';
 import { Spacer } from '../design-system/components/Spacer';

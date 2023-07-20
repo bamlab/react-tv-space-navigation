@@ -2,7 +2,7 @@ import styled from '@emotion/native';
 import { RouteProp } from '@react-navigation/native';
 import { DefaultFocus, SpatialNavigationNode } from 'react-native-tv-spatial-navigation/src';
 import { RootStackParamList } from '../../App';
-import { Page } from '../components/atom/Page';
+import { Page } from '../components/Page';
 import { Box } from '../design-system/components/Box';
 import { Spacer } from '../design-system/components/Spacer';
 import { Typography } from '../design-system/components/Typography';
