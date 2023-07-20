@@ -4,7 +4,6 @@ import React, { useEffect, useRef } from 'react';
 import { ProgramInfo } from '../domain/program';
 
 type ProgramProps = {
-  touchable?: boolean;
   isFocused?: boolean;
   programInfo: ProgramInfo;
 };

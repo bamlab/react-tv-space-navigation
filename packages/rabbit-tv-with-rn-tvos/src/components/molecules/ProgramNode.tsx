@@ -11,9 +11,7 @@ type Props = {
 export const ProgramNode = ({ programInfo, onSelect }: Props) => {
   return (
     <SpatialNavigationNode isFocusable onSelect={onSelect}>
-      {({ isFocused }) => (
-        <Program touchable={false} isFocused={isFocused} programInfo={programInfo} />
-      )}
+      {({ isFocused }) => <Program isFocused={isFocused} programInfo={programInfo} />}
     </SpatialNavigationNode>
   );
 };
