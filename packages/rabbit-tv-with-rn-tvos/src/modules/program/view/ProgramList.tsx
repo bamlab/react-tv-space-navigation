@@ -3,10 +3,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SpatialNavigationVirtualizedList } from 'react-native-tv-spatial-navigation/src';
-import { RootStackParamList } from '../../../App';
-import { ProgramInfo } from '../atom/Program/domain/program';
-import { programInfos } from '../atom/Program/infra/programInfos';
-import { PROGRAM_PORTRAIT_HEIGHT } from '../atom/Program/view/Program';
+import { RootStackParamList } from '../../../../App';
+import { ProgramInfo } from '../domain/programInfo';
+import { programInfos } from '../infra/programInfos';
+import { PROGRAM_PORTRAIT_HEIGHT } from './Program';
 import { ProgramNode } from './ProgramNode';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 2;

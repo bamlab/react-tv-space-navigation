@@ -1,7 +1,7 @@
 import { Animated, Image, StyleSheet, View } from 'react-native';
 
 import React, { useEffect, useRef } from 'react';
-import { ProgramInfo } from '../domain/program';
+import { ProgramInfo } from '../domain/programInfo';
 
 type ProgramProps = {
   isFocused?: boolean;

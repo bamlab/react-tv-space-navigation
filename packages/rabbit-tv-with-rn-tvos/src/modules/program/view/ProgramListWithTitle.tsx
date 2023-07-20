@@ -1,7 +1,7 @@
-import { Box } from '../../design-system/components/Box';
-import { Spacer } from '../../design-system/components/Spacer';
-import { Typography } from '../../design-system/components/Typography';
-import { ProgramsColumn, ProgramsRow } from '../molecules/ProgramList';
+import { Box } from '../../../design-system/components/Box';
+import { Spacer } from '../../../design-system/components/Spacer';
+import { Typography } from '../../../design-system/components/Typography';
+import { ProgramsColumn, ProgramsRow } from './ProgramList';
 
 type Props = {
   title: string;

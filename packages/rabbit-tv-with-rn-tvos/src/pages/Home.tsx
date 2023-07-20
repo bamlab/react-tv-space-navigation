@@ -6,10 +6,10 @@ import {
 } from 'react-native-tv-spatial-navigation/src';
 import { Page } from '../components/atom/Page';
 import '../components/configureRemoteControl';
-import { ProgramListWithTitle } from '../components/organisms/ProgramListWithTitle';
 import { Box } from '../design-system/components/Box';
 import { Spacer } from '../design-system/components/Spacer';
 import { Typography } from '../design-system/components/Typography';
+import { ProgramListWithTitle } from '../modules/program/view/ProgramListWithTitle';
 
 export const Home = () => {
   return (

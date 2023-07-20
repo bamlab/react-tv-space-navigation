@@ -1,7 +1,7 @@
 import { SpatialNavigationNode } from 'react-native-tv-spatial-navigation/src';
 
-import { ProgramInfo } from '../atom/Program/domain/program';
-import { Program } from '../atom/Program/view/Program';
+import { ProgramInfo } from '../domain/programInfo';
+import { Program } from './Program';
 
 type Props = {
   programInfo: ProgramInfo;

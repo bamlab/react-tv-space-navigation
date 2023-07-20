@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SpatialNavigationVirtualizedGrid } from 'react-native-tv-spatial-navigation/src';
-import { programInfos } from './atom/Program/infra/programInfos';
-import { PROGRAM_PORTRAIT_HEIGHT } from './atom/Program/view/Program';
-import { ProgramNode } from './molecules/ProgramNode';
+import { programInfos } from '../modules/program/infra/programInfos';
+import { PROGRAM_PORTRAIT_HEIGHT } from '../modules/program/view/Program';
+import { ProgramNode } from '../modules/program/view/ProgramNode';
 
 const NUMBER_OF_ROWS_VISIBLE_ON_SCREEN = 2;
 const NUMBER_OF_RENDERED_ROWS = NUMBER_OF_ROWS_VISIBLE_ON_SCREEN + 3;
