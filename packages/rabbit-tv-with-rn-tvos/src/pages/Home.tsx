@@ -1,9 +1,5 @@
 import styled from '@emotion/native';
-import {
-  DefaultFocus,
-  SpatialNavigationScrollView,
-  SpatialNavigationView,
-} from 'react-native-tv-spatial-navigation/src';
+import { DefaultFocus, SpatialNavigationScrollView } from 'react-native-tv-spatial-navigation/src';
 import { Page } from '../components/Page';
 import '../components/configureRemoteControl';
 import { Box } from '../design-system/components/Box';
@@ -28,18 +24,6 @@ export const Home = () => {
             <Spacer gap="$6" />
             <ProgramListWithTitle title="You may also like..." />
           </Box>
-          <SectionTitle variant="title">Throughout the years</SectionTitle>
-          <SpatialNavigationView direction="horizontal">
-            <Box padding="$10" direction="horizontal">
-              <ProgramListWithTitle title="70s" orientation="vertical" />
-              <Spacer direction="horizontal" gap="$6" />
-              <ProgramListWithTitle title="80s" orientation="vertical" />
-              <Spacer direction="horizontal" gap="$6" />
-              <ProgramListWithTitle title="90s" orientation="vertical" />
-              <Spacer direction="horizontal" gap="$6" />
-              <ProgramListWithTitle title="00s" orientation="vertical" />
-            </Box>
-          </SpatialNavigationView>
         </SpatialNavigationScrollView>
       </DefaultFocus>
     </Page>
