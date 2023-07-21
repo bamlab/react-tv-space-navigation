@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native-tvos run-android",
-    "test:types": "tsc",
-    "ios": "react-native-tvos run-ios",
-    "lint": "eslint .",
     "start": "react-native-tvos start",
     "start:web": "webpack serve --config webpack.config.example.js",
-    "test": "jest"
+    "android": "react-native-tvos run-android",
+    "ios": "react-native-tvos run-ios",
+    "lint": "eslint .",
+    "test": "jest",
+    "test:types": "tsc"
   },
   "dependencies": {
     "@emotion/native": "^11.11.0",
