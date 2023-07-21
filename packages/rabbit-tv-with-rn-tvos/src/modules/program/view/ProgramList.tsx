@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
@@ -6,7 +7,6 @@ import { SpatialNavigationVirtualizedList } from 'react-native-tv-spatial-naviga
 import { RootStackParamList } from '../../../../App';
 import { ProgramInfo } from '../domain/programInfo';
 import { programInfos } from '../infra/programInfos';
-import { PROGRAM_PORTRAIT_HEIGHT } from './Program';
 import { ProgramNode } from './ProgramNode';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 2;
@@ -30,6 +30,7 @@ export const ProgramList = ({
     ),
     [navigation],
   );
+  const theme = useTheme();
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -37,7 +38,7 @@ export const ProgramList = ({
         orientation={orientation}
         data={programInfos}
         renderItem={renderItem}
-        itemSize={PROGRAM_PORTRAIT_HEIGHT + 50}
+        itemSize={theme.sizes.program.portrait.height + 50}
         numberOfRenderedItems={WINDOW_SIZE}
         numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
         onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}

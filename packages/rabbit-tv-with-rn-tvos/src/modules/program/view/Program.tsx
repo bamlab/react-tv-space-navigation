@@ -1,17 +1,12 @@
-import { Animated, Image, StyleSheet, View } from 'react-native';
-
+import styled from '@emotion/native';
 import React, { useEffect, useRef } from 'react';
+import { Animated, Image, View } from 'react-native';
 import { ProgramInfo } from '../domain/programInfo';
 
 type ProgramProps = {
   isFocused?: boolean;
   programInfo: ProgramInfo;
 };
-
-export const PROGRAM_PORTRAIT_HEIGHT = 250;
-export const PROGRAM_PORTRAIT_WIDTH = 200;
-export const PROGRAM_LANDSCAPE_HEIGHT = 200;
-export const PROGRAM_LANDSCAPE_WIDTH = 250;
 
 export const Program = React.forwardRef<View, ProgramProps>(
   ({ isFocused = false, programInfo }, ref) => {
@@ -29,36 +24,29 @@ export const Program = React.forwardRef<View, ProgramProps>(
     }, [isFocused, scaleAnimation]);
 
     return (
-      <Animated.View
-        style={[
-          styles.container,
-          isFocused && styles.containerFocused,
-          { transform: [{ scale: scaleAnimation }] }, // Apply the animated scale transform
-        ]}
+      <ProgramContainer
+        style={{ transform: [{ scale: scaleAnimation }] }} // Apply the animated scale transform
         ref={ref}
+        isFocused={isFocused}
       >
-        <Image style={styles.programImage} source={imageSource} />
-      </Animated.View>
+        <ProgramImage source={imageSource} />
+      </ProgramContainer>
     );
   },
 );
 
 Program.displayName = 'Program';
 
-const styles = StyleSheet.create({
-  programImage: {
-    height: '100%',
-    width: '100%',
-  },
-  container: {
-    height: PROGRAM_PORTRAIT_HEIGHT,
-    width: PROGRAM_PORTRAIT_WIDTH,
-    overflow: 'hidden',
-    borderRadius: 20,
-    borderColor: 'transparent',
-    borderWidth: 3,
-  },
-  containerFocused: {
-    borderColor: 'white',
-  },
+const ProgramContainer = styled(Animated.View)<{ isFocused: boolean }>(({ isFocused, theme }) => ({
+  height: theme.sizes.program.portrait.height,
+  width: theme.sizes.program.portrait.width,
+  overflow: 'hidden',
+  borderRadius: 20,
+  borderColor: isFocused ? theme.colors.primary.light : 'transparent',
+  borderWidth: 3,
+}));
+
+const ProgramImage = styled(Image)({
+  height: '100%',
+  width: '100%',
 });
