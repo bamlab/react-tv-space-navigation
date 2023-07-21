@@ -1,8 +1,8 @@
+import styled from '@emotion/native';
 import { useTheme } from '@emotion/react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
 import { SpatialNavigationVirtualizedList } from 'react-native-tv-spatial-navigation/src';
 import { RootStackParamList } from '../../../../App';
 import { ProgramInfo } from '../domain/programInfo';
@@ -11,6 +11,7 @@ import { ProgramNode } from './ProgramNode';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 2;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
+const ROW_PADDING = 70;
 
 export const ProgramList = ({
   orientation,
@@ -33,7 +34,7 @@ export const ProgramList = ({
   const theme = useTheme();
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <Container additionalStyles={containerStyle}>
       <SpatialNavigationVirtualizedList
         orientation={orientation}
         data={programInfos}
@@ -43,25 +44,40 @@ export const ProgramList = ({
         numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
         onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
       />
-    </View>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#222',
-    padding: 30,
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
-  row: { height: 320 },
-  column: { height: 700, width: 265 },
-});
+export const ProgramsRow = ({ containerStyle }: { containerStyle?: object }) => {
+  const theme = useTheme();
+  return (
+    <ProgramList
+      containerStyle={{
+        ...containerStyle,
+        height: theme.sizes.program.portrait.height + ROW_PADDING,
+      }}
+    />
+  );
+};
 
-export const ProgramsRow = ({ containerStyle }: { containerStyle?: object }) => (
-  <ProgramList containerStyle={[containerStyle, styles.row]} />
-);
+export const ProgramsColumn = ({ containerStyle }: { containerStyle?: object }) => {
+  const theme = useTheme();
+  return (
+    <ProgramList
+      orientation="vertical"
+      containerStyle={{
+        ...containerStyle,
+        width: theme.sizes.program.portrait.width + ROW_PADDING,
+        height: 3 * (theme.sizes.program.portrait.height + ROW_PADDING),
+      }}
+    />
+  );
+};
 
-export const ProgramsColumn = ({ containerStyle }: { containerStyle?: object }) => (
-  <ProgramList orientation="vertical" containerStyle={[containerStyle, styles.column]} />
-);
+const Container = styled.View<{ additionalStyles?: object }>(({ theme, additionalStyles }) => ({
+  backgroundColor: theme.colors.background.mainHover,
+  padding: theme.spacings.$8,
+  borderRadius: 20,
+  overflow: 'hidden',
+  ...additionalStyles,
+}));
