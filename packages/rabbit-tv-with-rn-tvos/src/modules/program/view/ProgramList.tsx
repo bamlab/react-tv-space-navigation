@@ -34,7 +34,7 @@ export const ProgramList = ({
   const theme = useTheme();
 
   return (
-    <Container additionalStyles={containerStyle}>
+    <Container style={containerStyle}>
       <SpatialNavigationVirtualizedList
         orientation={orientation}
         data={programInfos}
@@ -74,10 +74,9 @@ export const ProgramsColumn = ({ containerStyle }: { containerStyle?: object }) 
   );
 };
 
-const Container = styled.View<{ additionalStyles?: object }>(({ theme, additionalStyles }) => ({
+const Container = styled.View(({ theme }) => ({
   backgroundColor: theme.colors.background.mainHover,
   padding: theme.spacings.$8,
   borderRadius: 20,
   overflow: 'hidden',
-  ...additionalStyles,
 }));
