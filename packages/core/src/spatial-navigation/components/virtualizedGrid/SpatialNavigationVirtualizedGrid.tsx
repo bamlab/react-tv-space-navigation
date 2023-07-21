@@ -13,7 +13,13 @@ import { convertToGrid } from './helpers/convertToGrid';
 
 type SpatialNavigationVirtualizedGridProps<T extends ItemWithIndex> = Pick<
   SpatialNavigationVirtualizedListWithScrollProps<T>,
-  'data' | 'renderItem' | 'onEndReached' | 'style' | 'nbMaxOfItems'
+  | 'data'
+  | 'renderItem'
+  | 'onEndReached'
+  | 'style'
+  | 'nbMaxOfItems'
+  | 'scrollBehavior'
+  | 'scrollDuration'
 > & {
   itemHeight: number;
   /** How many rows are RENDERED (virtualization size) */
