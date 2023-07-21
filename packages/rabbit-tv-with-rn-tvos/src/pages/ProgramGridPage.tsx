@@ -1,8 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 import { DefaultFocus, SpatialNavigationScrollView } from 'react-native-tv-spatial-navigation/src';
+import { Page } from '../components/Page';
 import { VirtualizedSpatialGrid } from '../components/VirtualizedSpatialGrid';
 import '../components/configureRemoteControl';
-import { Page } from '../components/atom/Page';
 
 export const ProgramGridPage = () => {
   return (

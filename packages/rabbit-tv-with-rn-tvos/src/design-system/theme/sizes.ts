@@ -1,10 +1,6 @@
 export const sizes = {
-  portrait: {
-    width: 20,
-    height: 36,
-  },
-  landscape: {
-    width: 36,
-    height: 20,
+  program: {
+    landscape: { width: 250, height: 200 },
+    portrait: { width: 200, height: 250 },
   },
 };

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Dimensions, View } from 'react-native';
 import { GoBackConfiguration } from './src/components/GoBackConfiguration';
 import { theme } from './src/design-system/theme/theme';
+import { ProgramInfo } from './src/modules/program/domain/programInfo';
 import { Home } from './src/pages/Home';
 import { ProgramDetail } from './src/pages/ProgramDetail';
 import { ProgramGridPage } from './src/pages/ProgramGridPage';
@@ -15,7 +16,7 @@ const Stack = createNativeStackNavigator();
 
 export type RootStackParamList = {
   Home: undefined;
-  ProgramDetail: undefined;
+  ProgramDetail: { programInfo: ProgramInfo };
   ProgramGridPage: undefined;
 };
 
