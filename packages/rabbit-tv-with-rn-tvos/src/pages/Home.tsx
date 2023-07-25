@@ -36,8 +36,3 @@ const Title = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
   color: theme.colors.primary.main,
 }));
-
-const SectionTitle = styled(Typography)(({ theme }) => ({
-  textAlign: 'center',
-  color: theme.colors.primary.contrastText,
-}));

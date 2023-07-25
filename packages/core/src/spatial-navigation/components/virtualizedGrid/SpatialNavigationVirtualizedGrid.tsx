@@ -168,6 +168,8 @@ const GridRow = <T extends ItemWithIndex>({
  *   │
  *   └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘
  * ```
+ * The row framed in dotted lines corresponds to a virtualized component.
+ * There is no virtualization inside rows.
  */
 
 export const SpatialNavigationVirtualizedGrid = typedMemo(
