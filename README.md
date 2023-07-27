@@ -10,6 +10,8 @@
 
 # What you can achieve
 
+![demo](./docs/demo.gif)
+
 One of the goals of the lib is to have a simple and declarative API.
 No need for hooks or dark shenanigans. You just simply declare components.
 
