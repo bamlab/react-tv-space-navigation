@@ -2,6 +2,11 @@
   "name": "react-tv-space-navigation",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bamlab/react-tv-space-navigation.git"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.3",
@@ -16,6 +21,8 @@
   "scripts": {
     "test": "jest",
     "test:types": "tsc",
+    "publish:prepare": "yarn build",
+    "publish:package": "yarn publish:prepare && npm publish --access public",
     "build": "webpack --config webpack.config.js"
   }
 }
