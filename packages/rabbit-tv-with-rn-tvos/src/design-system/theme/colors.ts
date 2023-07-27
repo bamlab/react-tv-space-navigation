@@ -14,8 +14,8 @@ export const colors = {
     contrastText: '#FFFFFF',
   },
   background: {
-    main: '#333',
-    mainHover: '#222',
+    main: '#111111',
+    mainHover: '#1a1a1a',
     light: '#EEF0F5',
     lightHover: '#D5D7DC',
     contrastText: '#FFFFFF',
