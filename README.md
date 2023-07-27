@@ -1,4 +1,4 @@
-![banner](./docs/output.png)
+![banner](./docs/banner.png)
 
 # react-tv-space-navigation
 
