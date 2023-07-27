@@ -9,7 +9,7 @@ import { ProgramInfo } from '../domain/programInfo';
 import { programInfos } from '../infra/programInfos';
 import { ProgramNode } from './ProgramNode';
 
-const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 2;
+const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 6;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 const ROW_PADDING = 70;
 
