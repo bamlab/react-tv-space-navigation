@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "react-native-tv-spatial-navigation": ["../core/src/*"]
+      "react-tv-space-navigation": ["../core/src/*"]
     }
   },
   "include": [

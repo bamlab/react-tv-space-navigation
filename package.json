@@ -1,5 +1,5 @@
 {
-  "name": "react-spatial-navigation-monorepo",
+  "name": "react-tv-space-navigation-monorepo",
   "workspaces": [
     "packages/**"
   ],
@@ -50,9 +50,9 @@
   },
   "scripts": {
     "start:example": "yarn workspace RabbitApp start",
-    "test:core": "yarn workspace react-native-tv-spatial-navigation jest",
+    "test:core": "yarn workspace react-tv-space-navigation jest",
     "test:types": "yarn workspaces foreach run test:types",
     "test:lint": "eslint . --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --max-warnings 0 --cache --cache-strategy content --cache-location .cache/eslint.json",
-    "build:core": "yarn workspace react-native-tv-spatial-navigation build"
+    "build:core": "yarn workspace react-tv-space-navigation build"
   }
 }

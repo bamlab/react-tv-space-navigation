@@ -1,4 +1,4 @@
-import { SpatialNavigationNode } from 'react-native-tv-spatial-navigation/src';
+import { SpatialNavigationNode } from 'react-tv-space-navigation/src';
 
 import { ProgramInfo } from '../domain/programInfo';
 import { Program } from './Program';

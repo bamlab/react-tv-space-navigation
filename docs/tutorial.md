@@ -10,7 +10,7 @@ Here's an example for the web platform. You can check out more platforms
 in the repo example.
 
 ```tsx
-import { Directions, SpatialNavigation } from 'react-native-tv-spatial-navigation';
+import { Directions, SpatialNavigation } from 'react-tv-space-navigation';
 
 SpatialNavigation.configureRemoteControl({
   remoteControlSubscriber: (callback) => {

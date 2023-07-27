@@ -3,7 +3,7 @@ import { useTheme } from '@emotion/react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
-import { SpatialNavigationVirtualizedList } from 'react-native-tv-spatial-navigation/src';
+import { SpatialNavigationVirtualizedList } from 'react-tv-space-navigation/src';
 import { RootStackParamList } from '../../../../App';
 import { ProgramInfo } from '../domain/programInfo';
 import { programInfos } from '../infra/programInfos';
