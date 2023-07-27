@@ -1,4 +1,8 @@
-# react-spatial-navigation
+![banner](./docs/output.png)
+
+# react-tv-space-navigation
+
+
 - [What you can achieve](#what-you-can-achieve)
 - [How to use](#how-to-use)
 - [API documentation](#api-documentation)
