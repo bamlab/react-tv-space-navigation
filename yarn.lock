@@ -11838,9 +11838,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-tv-space-navigation@workspace:packages/core":
+"react-tv-space-navigation@workspace:packages/lib":
   version: 0.0.0-use.local
-  resolution: "react-tv-space-navigation@workspace:packages/core"
+  resolution: "react-tv-space-navigation@workspace:packages/lib"
   dependencies:
     "@testing-library/react-hooks": ^8.0.1
     "@types/jest": ^29.5.3
