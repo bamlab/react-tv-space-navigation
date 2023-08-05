@@ -95,9 +95,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.rabbitapp"
+    namespace "com.bamlab.hoppix"
     defaultConfig {
-        applicationId "com.rabbitapp"
+        applicationId "com.bamlab.hoppix"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

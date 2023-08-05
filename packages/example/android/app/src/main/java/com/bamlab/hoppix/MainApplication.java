@@ -1,4 +1,4 @@
-package com.rabbitapp;
+package com.bamlab.hoppix;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

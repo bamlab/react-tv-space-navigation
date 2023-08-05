@@ -7,7 +7,7 @@ prepare_react_native_project!
 
 production = ENV["PRODUCTION"] == "1"
 
-target 'RabbitApp' do
+target 'Hoppix' do
 
   platform :ios, min_ios_version_supported
 
@@ -43,13 +43,13 @@ target 'RabbitApp' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'RabbitAppTests' do
+  target 'HoppixTests' do
     inherit! :complete
     # Pods for testing
   end
 end
 
-target 'RabbitApp-tvOS' do
+target 'Hoppix-tvOS' do
 
   platform :tvos, min_ios_version_supported
 
@@ -69,7 +69,7 @@ target 'RabbitApp-tvOS' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'RabbitApp-tvOSTests' do
+  target 'Hoppix-tvOSTests' do
     inherit! :complete
     # Pods for testing
   end

@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* RabbitAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RabbitAppTests.m */; };
+		00E356F31AD99517003FC87E /* HoppixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HoppixTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		269984920579226908D49904 /* libPods-RabbitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2855AB2CCC04BED0978AE /* libPods-RabbitApp.a */; };
+		269984920579226908D49904 /* libPods-Hoppix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2855AB2CCC04BED0978AE /* libPods-Hoppix.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* RabbitAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RabbitAppTests.m */; };
-		41BF5F3596F87FEE707DDD11 /* libPods-RabbitApp-RabbitAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F21F13455730034D850CD1C /* libPods-RabbitApp-RabbitAppTests.a */; };
-		47EB63F3390701B2260096C6 /* libPods-RabbitApp-tvOS-RabbitApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0216F1136BF7C90703C880F /* libPods-RabbitApp-tvOS-RabbitApp-tvOSTests.a */; };
+		2DCD954D1E0B4F2C00145EB5 /* HoppixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HoppixTests.m */; };
+		41BF5F3596F87FEE707DDD11 /* libPods-Hoppix-HoppixTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F21F13455730034D850CD1C /* libPods-Hoppix-HoppixTests.a */; };
+		47EB63F3390701B2260096C6 /* libPods-Hoppix-tvOS-Hoppix-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0216F1136BF7C90703C880F /* libPods-Hoppix-tvOS-Hoppix-tvOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		EE57DEA5314790D63C074D03 /* libPods-RabbitApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA54FCF2086BA3B4678F8237 /* libPods-RabbitApp-tvOS.a */; };
+		EE57DEA5314790D63C074D03 /* libPods-Hoppix-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA54FCF2086BA3B4678F8237 /* libPods-Hoppix-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,43 +28,43 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = RabbitApp;
+			remoteInfo = Hoppix;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "RabbitApp-tvOS";
+			remoteInfo = "Hoppix-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* RabbitAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RabbitAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* HoppixTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoppixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* RabbitAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RabbitAppTests.m; sourceTree = "<group>"; };
-		015BA46D04C1496C29E63456 /* Pods-RabbitApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RabbitApp.debug.xcconfig"; path = "Target Support Files/Pods-RabbitApp/Pods-RabbitApp.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* RabbitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RabbitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RabbitApp/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.mm; path = RabbitApp/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RabbitApp/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RabbitApp/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RabbitApp/main.m; sourceTree = "<group>"; };
-		224D5D4AEB9A0A36B75746AA /* Pods-RabbitApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RabbitApp.release.xcconfig"; path = "Target Support Files/Pods-RabbitApp/Pods-RabbitApp.release.xcconfig"; sourceTree = "<group>"; };
-		2C329346E04FD437DBF160C6 /* Pods-RabbitApp-RabbitAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RabbitApp-RabbitAppTests.release.xcconfig"; path = "Target Support Files/Pods-RabbitApp-RabbitAppTests/Pods-RabbitApp-RabbitAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* RabbitApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RabbitApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* RabbitApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RabbitApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		36771B2C8C43AC6099096637 /* Pods-RabbitApp-RabbitAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RabbitApp-RabbitAppTests.debug.xcconfig"; path = "Target Support Files/Pods-RabbitApp-RabbitAppTests/Pods-RabbitApp-RabbitAppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		388308430DF4BE056B0CEF13 /* Pods-RabbitApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RabbitApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RabbitApp-tvOS/Pods-RabbitApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		3BDF8C4CCF278F944E8C6CBF /* Pods-RabbitApp-tvOS-RabbitApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RabbitApp-tvOS-RabbitApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		4F21F13455730034D850CD1C /* libPods-RabbitApp-RabbitAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RabbitApp-RabbitAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = RabbitApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8DC2855AB2CCC04BED0978AE /* libPods-RabbitApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RabbitApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0216F1136BF7C90703C880F /* libPods-RabbitApp-tvOS-RabbitApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RabbitApp-tvOS-RabbitApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CCE9A90FED9D09047497AB6D /* Pods-RabbitApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RabbitApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RabbitApp-tvOS/Pods-RabbitApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		E8891750AE2DFBD87A5BDB74 /* Pods-RabbitApp-tvOS-RabbitApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RabbitApp-tvOS-RabbitApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		EA54FCF2086BA3B4678F8237 /* libPods-RabbitApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RabbitApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F21AD99517003FC87E /* HoppixTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HoppixTests.m; sourceTree = "<group>"; };
+		015BA46D04C1496C29E63456 /* Pods-Hoppix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoppix.debug.xcconfig"; path = "Target Support Files/Pods-Hoppix/Pods-Hoppix.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Hoppix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoppix.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Hoppix/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.mm; path = Hoppix/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Hoppix/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Hoppix/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Hoppix/main.m; sourceTree = "<group>"; };
+		224D5D4AEB9A0A36B75746AA /* Pods-Hoppix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoppix.release.xcconfig"; path = "Target Support Files/Pods-Hoppix/Pods-Hoppix.release.xcconfig"; sourceTree = "<group>"; };
+		2C329346E04FD437DBF160C6 /* Pods-Hoppix-HoppixTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoppix-HoppixTests.release.xcconfig"; path = "Target Support Files/Pods-Hoppix-HoppixTests/Pods-Hoppix-HoppixTests.release.xcconfig"; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* Hoppix-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hoppix-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* Hoppix-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hoppix-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		36771B2C8C43AC6099096637 /* Pods-Hoppix-HoppixTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoppix-HoppixTests.debug.xcconfig"; path = "Target Support Files/Pods-Hoppix-HoppixTests/Pods-Hoppix-HoppixTests.debug.xcconfig"; sourceTree = "<group>"; };
+		388308430DF4BE056B0CEF13 /* Pods-Hoppix-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoppix-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Hoppix-tvOS/Pods-Hoppix-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		3BDF8C4CCF278F944E8C6CBF /* Pods-Hoppix-tvOS-Hoppix-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoppix-tvOS-Hoppix-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Hoppix-tvOS-Hoppix-tvOSTests/Pods-Hoppix-tvOS-Hoppix-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		4F21F13455730034D850CD1C /* libPods-Hoppix-HoppixTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoppix-HoppixTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Hoppix/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8DC2855AB2CCC04BED0978AE /* libPods-Hoppix.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoppix.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0216F1136BF7C90703C880F /* libPods-Hoppix-tvOS-Hoppix-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoppix-tvOS-Hoppix-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCE9A90FED9D09047497AB6D /* Pods-Hoppix-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoppix-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Hoppix-tvOS/Pods-Hoppix-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E8891750AE2DFBD87A5BDB74 /* Pods-Hoppix-tvOS-Hoppix-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoppix-tvOS-Hoppix-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Hoppix-tvOS-Hoppix-tvOSTests/Pods-Hoppix-tvOS-Hoppix-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EA54FCF2086BA3B4678F8237 /* libPods-Hoppix-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoppix-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41BF5F3596F87FEE707DDD11 /* libPods-RabbitApp-RabbitAppTests.a in Frameworks */,
+				41BF5F3596F87FEE707DDD11 /* libPods-Hoppix-HoppixTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				269984920579226908D49904 /* libPods-RabbitApp.a in Frameworks */,
+				269984920579226908D49904 /* libPods-Hoppix.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE57DEA5314790D63C074D03 /* libPods-RabbitApp-tvOS.a in Frameworks */,
+				EE57DEA5314790D63C074D03 /* libPods-Hoppix-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,20 +98,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47EB63F3390701B2260096C6 /* libPods-RabbitApp-tvOS-RabbitApp-tvOSTests.a in Frameworks */,
+				47EB63F3390701B2260096C6 /* libPods-Hoppix-tvOS-Hoppix-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* RabbitAppTests */ = {
+		00E356EF1AD99517003FC87E /* HoppixTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* RabbitAppTests.m */,
+				00E356F21AD99517003FC87E /* HoppixTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = RabbitAppTests;
+			path = HoppixTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -122,7 +122,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* RabbitApp */ = {
+		13B07FAE1A68108700A75B9A /* Hoppix */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -133,7 +133,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = RabbitApp;
+			name = Hoppix;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -141,10 +141,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				8DC2855AB2CCC04BED0978AE /* libPods-RabbitApp.a */,
-				4F21F13455730034D850CD1C /* libPods-RabbitApp-RabbitAppTests.a */,
-				EA54FCF2086BA3B4678F8237 /* libPods-RabbitApp-tvOS.a */,
-				A0216F1136BF7C90703C880F /* libPods-RabbitApp-tvOS-RabbitApp-tvOSTests.a */,
+				8DC2855AB2CCC04BED0978AE /* libPods-Hoppix.a */,
+				4F21F13455730034D850CD1C /* libPods-Hoppix-HoppixTests.a */,
+				EA54FCF2086BA3B4678F8237 /* libPods-Hoppix-tvOS.a */,
+				A0216F1136BF7C90703C880F /* libPods-Hoppix-tvOS-Hoppix-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,9 +159,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* RabbitApp */,
+				13B07FAE1A68108700A75B9A /* Hoppix */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* RabbitAppTests */,
+				00E356EF1AD99517003FC87E /* HoppixTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				9B1644CBAE2FABCCC6E29A69 /* Pods */,
@@ -174,10 +174,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* RabbitApp.app */,
-				00E356EE1AD99517003FC87E /* RabbitAppTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* RabbitApp-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* RabbitApp-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* Hoppix.app */,
+				00E356EE1AD99517003FC87E /* HoppixTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* Hoppix-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* Hoppix-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -185,14 +185,14 @@
 		9B1644CBAE2FABCCC6E29A69 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				015BA46D04C1496C29E63456 /* Pods-RabbitApp.debug.xcconfig */,
-				224D5D4AEB9A0A36B75746AA /* Pods-RabbitApp.release.xcconfig */,
-				36771B2C8C43AC6099096637 /* Pods-RabbitApp-RabbitAppTests.debug.xcconfig */,
-				2C329346E04FD437DBF160C6 /* Pods-RabbitApp-RabbitAppTests.release.xcconfig */,
-				CCE9A90FED9D09047497AB6D /* Pods-RabbitApp-tvOS.debug.xcconfig */,
-				388308430DF4BE056B0CEF13 /* Pods-RabbitApp-tvOS.release.xcconfig */,
-				E8891750AE2DFBD87A5BDB74 /* Pods-RabbitApp-tvOS-RabbitApp-tvOSTests.debug.xcconfig */,
-				3BDF8C4CCF278F944E8C6CBF /* Pods-RabbitApp-tvOS-RabbitApp-tvOSTests.release.xcconfig */,
+				015BA46D04C1496C29E63456 /* Pods-Hoppix.debug.xcconfig */,
+				224D5D4AEB9A0A36B75746AA /* Pods-Hoppix.release.xcconfig */,
+				36771B2C8C43AC6099096637 /* Pods-Hoppix-HoppixTests.debug.xcconfig */,
+				2C329346E04FD437DBF160C6 /* Pods-Hoppix-HoppixTests.release.xcconfig */,
+				CCE9A90FED9D09047497AB6D /* Pods-Hoppix-tvOS.debug.xcconfig */,
+				388308430DF4BE056B0CEF13 /* Pods-Hoppix-tvOS.release.xcconfig */,
+				E8891750AE2DFBD87A5BDB74 /* Pods-Hoppix-tvOS-Hoppix-tvOSTests.debug.xcconfig */,
+				3BDF8C4CCF278F944E8C6CBF /* Pods-Hoppix-tvOS-Hoppix-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -200,9 +200,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* RabbitAppTests */ = {
+		00E356ED1AD99517003FC87E /* HoppixTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RabbitAppTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "HoppixTests" */;
 			buildPhases = (
 				BC8CB606DF6125BE2BCE6F48 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -216,14 +216,13 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = RabbitAppTests;
-			productName = RabbitAppTests;
-			productReference = 00E356EE1AD99517003FC87E /* RabbitAppTests.xctest */;
+			name = HoppixTests;
+			productReference = 00E356EE1AD99517003FC87E /* HoppixTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* RabbitApp */ = {
+		13B07F861A680F5B00A75B9A /* Hoppix */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RabbitApp" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Hoppix" */;
 			buildPhases = (
 				5227897DA0E4608219DEAFFA /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -238,14 +237,14 @@
 			);
 			dependencies = (
 			);
-			name = RabbitApp;
-			productName = RabbitApp;
-			productReference = 13B07F961A680F5B00A75B9A /* RabbitApp.app */;
+			name = Hoppix;
+			productName = Hoppix;
+			productReference = 13B07F961A680F5B00A75B9A /* Hoppix.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* RabbitApp-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* Hoppix-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RabbitApp-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Hoppix-tvOS" */;
 			buildPhases = (
 				966D472419EA4A89F6874B5E /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -260,14 +259,14 @@
 			);
 			dependencies = (
 			);
-			name = "RabbitApp-tvOS";
-			productName = "RabbitApp-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* RabbitApp-tvOS.app */;
+			name = "Hoppix-tvOS";
+			productName = "Hoppix-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* Hoppix-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* RabbitApp-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* Hoppix-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RabbitApp-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Hoppix-tvOSTests" */;
 			buildPhases = (
 				C021C441AB5F12C78313DC25 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -281,9 +280,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "RabbitApp-tvOSTests";
-			productName = "RabbitApp-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* RabbitApp-tvOSTests.xctest */;
+			name = "Hoppix-tvOSTests";
+			productName = "Hoppix-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* Hoppix-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -312,7 +311,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RabbitApp" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Hoppix" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -325,10 +324,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* RabbitApp */,
-				00E356ED1AD99517003FC87E /* RabbitAppTests */,
-				2D02E47A1E0B4A5D006451C7 /* RabbitApp-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* RabbitApp-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* Hoppix */,
+				00E356ED1AD99517003FC87E /* HoppixTests */,
+				2D02E47A1E0B4A5D006451C7 /* Hoppix-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* Hoppix-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -390,15 +389,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp/Pods-RabbitApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix/Pods-Hoppix-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp/Pods-RabbitApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix/Pods-Hoppix-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RabbitApp/Pods-RabbitApp-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hoppix/Pods-Hoppix-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
@@ -421,15 +420,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp/Pods-RabbitApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix/Pods-Hoppix-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp/Pods-RabbitApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix/Pods-Hoppix-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RabbitApp/Pods-RabbitApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hoppix/Pods-Hoppix-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		42686649B799B0EA1ADB4648 /* [CP] Copy Pods Resources */ = {
@@ -438,15 +437,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS/Pods-RabbitApp-tvOS-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS/Pods-Hoppix-tvOS-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS/Pods-RabbitApp-tvOS-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS/Pods-Hoppix-tvOS-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS/Pods-RabbitApp-tvOS-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS/Pods-Hoppix-tvOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5227897DA0E4608219DEAFFA /* [CP] Check Pods Manifest.lock */ = {
@@ -464,7 +463,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RabbitApp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Hoppix-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -477,15 +476,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS-Hoppix-tvOSTests/Pods-Hoppix-tvOS-Hoppix-tvOSTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS-Hoppix-tvOSTests/Pods-Hoppix-tvOS-Hoppix-tvOSTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS-Hoppix-tvOSTests/Pods-Hoppix-tvOS-Hoppix-tvOSTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		966D472419EA4A89F6874B5E /* [CP] Check Pods Manifest.lock */ = {
@@ -503,7 +502,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RabbitApp-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Hoppix-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -516,15 +515,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-RabbitAppTests/Pods-RabbitApp-RabbitAppTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-HoppixTests/Pods-Hoppix-HoppixTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-RabbitAppTests/Pods-RabbitApp-RabbitAppTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-HoppixTests/Pods-Hoppix-HoppixTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-RabbitAppTests/Pods-RabbitApp-RabbitAppTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hoppix-HoppixTests/Pods-Hoppix-HoppixTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AE2D66786DC8D1508AC4A1EC /* [CP] Embed Pods Frameworks */ = {
@@ -533,15 +532,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS-Hoppix-tvOSTests/Pods-Hoppix-tvOS-Hoppix-tvOSTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS-Hoppix-tvOSTests/Pods-Hoppix-tvOS-Hoppix-tvOSTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS-Hoppix-tvOSTests/Pods-Hoppix-tvOS-Hoppix-tvOSTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BC8CB606DF6125BE2BCE6F48 /* [CP] Check Pods Manifest.lock */ = {
@@ -559,7 +558,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RabbitApp-RabbitAppTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Hoppix-HoppixTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -581,7 +580,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RabbitApp-tvOS-RabbitApp-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Hoppix-tvOS-Hoppix-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -594,15 +593,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-RabbitAppTests/Pods-RabbitApp-RabbitAppTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-HoppixTests/Pods-Hoppix-HoppixTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-RabbitAppTests/Pods-RabbitApp-RabbitAppTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-HoppixTests/Pods-Hoppix-HoppixTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-RabbitAppTests/Pods-RabbitApp-RabbitAppTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hoppix-HoppixTests/Pods-Hoppix-HoppixTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F4CDDEF600AB75A504790C84 /* [CP] Embed Pods Frameworks */ = {
@@ -611,15 +610,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS/Pods-RabbitApp-tvOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS/Pods-Hoppix-tvOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS/Pods-RabbitApp-tvOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS/Pods-Hoppix-tvOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RabbitApp-tvOS/Pods-RabbitApp-tvOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hoppix-tvOS/Pods-Hoppix-tvOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -667,7 +666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* RabbitAppTests.m in Sources */,
+				00E356F31AD99517003FC87E /* HoppixTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,7 +692,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* RabbitAppTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* HoppixTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,12 +701,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* RabbitApp */;
+			target = 13B07F861A680F5B00A75B9A /* Hoppix */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* RabbitApp-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* Hoppix-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -715,14 +714,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36771B2C8C43AC6099096637 /* Pods-RabbitApp-RabbitAppTests.debug.xcconfig */;
+			baseConfigurationReference = 36771B2C8C43AC6099096637 /* Pods-Hoppix-HoppixTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = RabbitAppTests/Info.plist;
+				INFOPLIST_FILE = HoppixTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -734,19 +733,19 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bamlab.hoppix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RabbitApp.app/RabbitApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hoppix.app/Hoppix";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C329346E04FD437DBF160C6 /* Pods-RabbitApp-RabbitAppTests.release.xcconfig */;
+			baseConfigurationReference = 2C329346E04FD437DBF160C6 /* Pods-Hoppix-HoppixTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = RabbitAppTests/Info.plist;
+				INFOPLIST_FILE = HoppixTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -758,15 +757,15 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bamlab.hoppix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RabbitApp.app/RabbitApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hoppix.app/Hoppix";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 015BA46D04C1496C29E63456 /* Pods-RabbitApp.debug.xcconfig */;
+			baseConfigurationReference = 015BA46D04C1496C29E63456 /* Pods-Hoppix.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -776,7 +775,8 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 				);
-				INFOPLIST_FILE = RabbitApp/Info.plist;
+				INFOPLIST_FILE = Hoppix/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Hoppix;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -788,8 +788,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = RabbitApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bamlab.hoppix;
+				PRODUCT_NAME = Hoppix;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -798,12 +798,13 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 224D5D4AEB9A0A36B75746AA /* Pods-RabbitApp.release.xcconfig */;
+			baseConfigurationReference = 224D5D4AEB9A0A36B75746AA /* Pods-Hoppix.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = RabbitApp/Info.plist;
+				INFOPLIST_FILE = Hoppix/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Hoppix;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -815,8 +816,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = RabbitApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bamlab.hoppix;
+				PRODUCT_NAME = Hoppix;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -824,7 +825,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCE9A90FED9D09047497AB6D /* Pods-RabbitApp-tvOS.debug.xcconfig */;
+			baseConfigurationReference = CCE9A90FED9D09047497AB6D /* Pods-Hoppix-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -836,7 +837,7 @@
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RabbitApp-tvOS/Info.plist";
+				INFOPLIST_FILE = "Hoppix-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -848,7 +849,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.RabbitApp-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bamlab.hoppix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -858,7 +859,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 388308430DF4BE056B0CEF13 /* Pods-RabbitApp-tvOS.release.xcconfig */;
+			baseConfigurationReference = 388308430DF4BE056B0CEF13 /* Pods-Hoppix-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -870,7 +871,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RabbitApp-tvOS/Info.plist";
+				INFOPLIST_FILE = "Hoppix-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -882,7 +883,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.RabbitApp-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bamlab.hoppix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -892,7 +893,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8891750AE2DFBD87A5BDB74 /* Pods-RabbitApp-tvOS-RabbitApp-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = E8891750AE2DFBD87A5BDB74 /* Pods-Hoppix-tvOS-Hoppix-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -902,7 +903,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RabbitApp-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "Hoppix-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -913,17 +914,17 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.RabbitApp-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bamlab.hoppix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RabbitApp-tvOS.app/RabbitApp-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hoppix-tvOS.app/Hoppix-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 12.4;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BDF8C4CCF278F944E8C6CBF /* Pods-RabbitApp-tvOS-RabbitApp-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 3BDF8C4CCF278F944E8C6CBF /* Pods-Hoppix-tvOS-Hoppix-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -933,7 +934,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "RabbitApp-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "Hoppix-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -944,10 +945,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.RabbitApp-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bamlab.hoppix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RabbitApp-tvOS.app/RabbitApp-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hoppix-tvOS.app/Hoppix-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 12.4;
 			};
 			name = Release;
@@ -1080,7 +1081,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RabbitAppTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "HoppixTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1089,7 +1090,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RabbitApp" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Hoppix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1098,7 +1099,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RabbitApp-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Hoppix-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1107,7 +1108,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "RabbitApp-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Hoppix-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1116,7 +1117,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RabbitApp" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Hoppix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
