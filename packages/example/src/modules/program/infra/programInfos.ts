@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const Rabbit1 = require('../../../assets/rabbit1.png');
-const Rabbit2 = require('../../../assets/rabbit2.png');
-const Rabbit3 = require('../../../assets/rabbit3.png');
-const Rabbit4 = require('../../../assets/rabbit4.png');
-const Rabbit5 = require('../../../assets/rabbit5.png');
-const Rabbit6 = require('../../../assets/rabbit6.png');
-const Rabbit7 = require('../../../assets/rabbit7.png');
-const Rabbit8 = require('../../../assets/rabbit8.png');
-const Rabbit9 = require('../../../assets/rabbit9.png');
+const Rabbit1 = require('../assets/rabbit1.png');
+const Rabbit2 = require('../assets/rabbit2.png');
+const Rabbit3 = require('../assets/rabbit3.png');
+const Rabbit4 = require('../assets/rabbit4.png');
+const Rabbit5 = require('../assets/rabbit5.png');
+const Rabbit6 = require('../assets/rabbit6.png');
+const Rabbit7 = require('../assets/rabbit7.png');
+const Rabbit8 = require('../assets/rabbit8.png');
+const Rabbit9 = require('../assets/rabbit9.png');
 import { ProgramInfo } from '../domain/programInfo';
 
 export const programInfos: ProgramInfo[] = [
