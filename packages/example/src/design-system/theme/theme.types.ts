@@ -1,2 +1,2 @@
-import { theme } from '../theme/theme';
+import { theme } from './theme';
 export type Theme = typeof theme;
