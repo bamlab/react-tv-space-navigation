@@ -2,11 +2,21 @@
 
 # react-tv-space-navigation
 
-
+- [Why?](#why)
 - [What you can achieve](#what-you-can-achieve)
 - [How to use](#how-to-use)
 - [API documentation](#api-documentation)
 - [Pitfalls](#pitfalls)
+
+# Why?
+
+Spatial navigation is a hard problem on a TV app. Many solutions exist. React Native TV even has a core solution for it.
+But most existing solutions are not 100% cross-platform.
+
+If you want to develop a TV app for AndroidTV + tvOS + web TV devices, then this package will be helpful.
+
+The library is based on LRUD, which is a UI-agnostic lib that represents spatial navigation. The library is a React wrapper around
+the core logic of LRUD.
 
 # What you can achieve
 
