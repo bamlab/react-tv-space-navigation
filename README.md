@@ -34,42 +34,44 @@ Here's the kind of code you'll be able to achieve:
  * We plug it to the Spatial Navigation easily using a Node
  */
 const Rabbit = ({ onSelect }) => (
-    <SpatialNavigationNode onSelect={onSelect}>
-        {({ isFocused }) => <RabbitLayout isFocused={isFocused} />}
-    </SpatialNavigationNode>
-)
+  <SpatialNavigationNode onSelect={onSelect}>
+    {({ isFocused }) => <RabbitLayout isFocused={isFocused} />}
+  </SpatialNavigationNode>
+);
 
 /**
  * We can as many nodes as we want. We group our rabbits in a horizontal spatial navigation view
  * to spatially describe a row layout
  * (it includes a spatial navigation node AND the horizontal styling for it)
- * 
+ *
  * We also want to scroll horizontally, so we add a horizontal scrollview.
  */
 const RabbitRow = () => (
-    <SpatialNavigationScrollView horizontal>
-        <SpatialNavigationView direction="horizontal">
-            {/* assuming you have rabbits data */}
-            {rabbits.map((_, index) => <Rabbit onSelect={() => console.log('selected rabbit ', index)} />)}
-        </SpatialNavigationView>
-    </SpatialNavigationScrollView>
-)
+  <SpatialNavigationScrollView horizontal>
+    <SpatialNavigationView direction="horizontal">
+      {/* assuming you have rabbits data */}
+      {rabbits.map((_, index) => (
+        <Rabbit onSelect={() => console.log('selected rabbit ', index)} />
+      ))}
+    </SpatialNavigationView>
+  </SpatialNavigationScrollView>
+);
 
 /**
  * Now I simply add a page with a Root node and a vertical scroll view to scroll through my rows.
  */
 const Page = () => (
-    <SpatialNavigationRoot>
-        <SpatialNavigationScrollView>
-            <RabbitRow />
-            <RabbitRow />
-            <RabbitRow />
-            <RabbitRow />
-            <RabbitRow />
-            <RabbitRow />
-        </SpatialNavigationScrollView>
-    </SpatialNavigationRoot>
-)
+  <SpatialNavigationRoot>
+    <SpatialNavigationScrollView>
+      <RabbitRow />
+      <RabbitRow />
+      <RabbitRow />
+      <RabbitRow />
+      <RabbitRow />
+      <RabbitRow />
+    </SpatialNavigationScrollView>
+  </SpatialNavigationRoot>
+);
 ```
 
 # How to use
