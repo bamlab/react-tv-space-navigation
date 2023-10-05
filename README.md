@@ -5,6 +5,7 @@
 - [Why?](#why)
 - [What you can achieve](#what-you-can-achieve)
 - [How to use](#how-to-use)
+- [How to run the example](#how-to-run-the-example)
 - [API documentation](#api-documentation)
 - [Pitfalls](#pitfalls)
 
@@ -74,6 +75,10 @@ const Page = () => (
 # How to use
 
 You should [follow the tutorial](./docs/tutorial.md).
+
+# How to run the example
+
+If you want to run the example app in `packages/example`, take a look at [the README](./packages/example/README.md)
 
 # API documentation
 
