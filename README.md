@@ -34,7 +34,7 @@ Here's the kind of code you'll be able to achieve:
  * We plug it to the Spatial Navigation easily using a Node
  */
 const Rabbit = ({ onSelect }) => (
-  <SpatialNavigationNode onSelect={onSelect}>
+  <SpatialNavigationNode isFocusable onSelect={onSelect}>
     {({ isFocused }) => <RabbitLayout isFocused={isFocused} />}
   </SpatialNavigationNode>
 );
