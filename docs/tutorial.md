@@ -39,7 +39,7 @@ SpatialNavigation.configureRemoteControl({
 
 You can now create your page.
 
-```tsx
+```diff
 const Element = () => (
   <View>
     <Text>Page element</Text>
@@ -48,23 +48,23 @@ const Element = () => (
 
 const Page = () => {
   return (
-    <SpatialNavigationRoot>
++    <SpatialNavigationRoot>
       <Element />
       <Element />
-    </SpatialNavigationRoot>
++    </SpatialNavigationRoot>
   );
 };
 ```
 
 ### Add spatial navigation nodes
 
-```tsx
+```diff
 const Element = () => (
-  <SpatialNavigationNode>
++  <SpatialNavigationNode>
     <View>
       <Text>Page element</Text>
     </View>
-  </SpatialNavigationNode>
++  </SpatialNavigationNode>
 );
 
 const Page = () => {
@@ -79,14 +79,16 @@ const Page = () => {
 
 ### Make them focusable
 
-```tsx
+```diff
 const Element = () => (
-  <SpatialNavigationNode isFocusable>
-    {({ isFocused }) => (
-      <View style={isFocused && { backgroundColor: 'green' }}>
+-  <SpatialNavigationNode>
++  <SpatialNavigationNode isFocusable>
++    {({ isFocused }) => (
+-      <View>
++      <View style={isFocused && { backgroundColor: 'green' }}>
         <Text>Page element</Text>
       </View>
-    )}
++    )}
   </SpatialNavigationNode>
 );
 
@@ -104,9 +106,10 @@ const Page = () => {
 
 Simply add an `onSelect` props to a node, very similarly as if you were adding a `onPress` props.
 
-```tsx
+```diff
 const Element = ({ onSelect }) => (
-  <SpatialNavigationNode isFocusable onSelect={onSelect}>
+-  <SpatialNavigationNode isFocusable>
++  <SpatialNavigationNode isFocusable onSelect={onSelect}>
     {({ isFocused }) => (
       <View style={isFocused && { backgroundColor: 'green' }}>
         <Text>Page element</Text>
@@ -118,8 +121,10 @@ const Element = ({ onSelect }) => (
 const Page = () => {
   return (
     <SpatialNavigationRoot>
-      <Element onSelect={() => console.log('selected first element')} />
-      <Element onSelect={() => console.log('selected second element')} />
+-      <Element />
+-      <Element />
++      <Element onSelect={() => console.log('selected first element')} />
++      <Element onSelect={() => console.log('selected second element')} />
     </SpatialNavigationRoot>
   );
 };
@@ -129,7 +134,7 @@ const Page = () => {
 
 To add a default focus, wrap the group of elements that you want the default focus to be on.
 
-```tsx
+```diff
 const Element = ({ onSelect }) => (
   <SpatialNavigationNode isFocusable onSelect={onSelect}>
     {({ isFocused }) => (
@@ -144,9 +149,9 @@ const Page = () => {
   return (
     <SpatialNavigationRoot>
       <Element onSelect={() => console.log('selected first element')} />
-      <DefaultFocus>
++      <DefaultFocus>
         <Element onSelect={() => console.log('selected second element')} />
-      </DefaultFocus>
++      </DefaultFocus>
     </SpatialNavigationRoot>
   );
 };
