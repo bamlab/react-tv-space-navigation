@@ -94,6 +94,10 @@ You should have a look at [the pitfalls](./docs/pitfalls.md).
 
 ## Publishing the package
 
+Increment the package.json in `./packages/lib/package.json`.
+
+Then publish it.
+
 ```
 cd packages/lib
 yarn publish:package
