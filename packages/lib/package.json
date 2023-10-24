@@ -21,8 +21,8 @@
   "scripts": {
     "test": "jest",
     "test:types": "tsc",
-    "publish:prepare": "yarn build",
-    "publish:package": "yarn publish:prepare && npm publish --access public",
+    "publish:prepare": "cp ../../README.md . && yarn build",
+    "publish:package": "yarn publish:prepare && npm publish --access public && rm README.md",
     "build": "webpack --config webpack.config.js"
   }
 }
