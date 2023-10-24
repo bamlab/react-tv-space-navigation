@@ -1,5 +1,13 @@
 # Tutorial
 
+First, you should install the npm package. There should be no other dependencies.
+
+```
+npm install react-tv-space-navigation
+# or
+yarn add react-tv-space-navigation
+```
+
 ### Configure the remote control
 
 The keys depend on the platform.
