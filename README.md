@@ -94,9 +94,10 @@ You should have a look at [the pitfalls](./docs/pitfalls.md).
 
 ## Publishing the package
 
-Increment the package.json in `./packages/lib/package.json`.
-
-Then publish it.
+- Increment the package.json in `./packages/lib/package.json`.
+- Commit the change `git commit -m "chore: bump version"`
+- Add a tag matching the version `git tag vx.x.x && git push --tags`
+- Then publish it:
 
 ```
 cd packages/lib
