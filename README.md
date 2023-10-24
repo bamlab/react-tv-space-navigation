@@ -89,3 +89,12 @@ You can have a look at [the documentation](./docs/api.md).
 # Pitfalls
 
 You should have a look at [the pitfalls](./docs/pitfalls.md).
+
+# Contributing
+
+## Publishing the package
+
+```
+cd packages/lib
+yarn publish:package
+```
