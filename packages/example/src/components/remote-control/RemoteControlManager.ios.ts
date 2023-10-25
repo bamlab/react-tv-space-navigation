@@ -6,12 +6,12 @@ import { RemoteControlManagerInterface } from './RemoteControlManager.interface'
 class RemoteControlManager implements RemoteControlManagerInterface {
   constructor() {
     const _tvEventHandler = new TVEventHandler();
-    _tvEventHandler.enable(null, this.handleKeyDown);
+    _tvEventHandler.enable(undefined, this.handleKeyDown);
   }
 
-  private eventEmitter = mitt();
+  private eventEmitter = mitt<{ keyDown: SupportedKeys }>();
 
-  private handleKeyDown = (_: null, evt: HWEvent) => {
+  private handleKeyDown = (_: unknown, evt: HWEvent) => {
     if (!evt) return;
 
     const mappedKey = {

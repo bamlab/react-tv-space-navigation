@@ -12,7 +12,7 @@ import { ProgramGridPage } from './src/pages/ProgramGridPage';
 
 const windowDimensions = Dimensions.get('window');
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
   Home: undefined;

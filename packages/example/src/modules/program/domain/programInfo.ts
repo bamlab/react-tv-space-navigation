@@ -1,6 +1,8 @@
+import { ImageSourcePropType } from 'react-native';
+
 export type ProgramInfo = {
   id: string;
   title: string;
-  image: unknown; // TODO: change typing;
+  image: ImageSourcePropType;
   description: string;
 };

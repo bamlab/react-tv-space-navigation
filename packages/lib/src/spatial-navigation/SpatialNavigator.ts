@@ -2,7 +2,7 @@ import { Direction, Lrud } from '@bam.tech/lrud';
 
 export default class SpatialNavigator {
   private lrud: Lrud;
-  private isLocked: boolean;
+  private isLocked = false;
 
   constructor() {
     this.lrud = new Lrud();
@@ -20,7 +20,7 @@ export default class SpatialNavigator {
     this.lrud.unregisterNode(...params);
   }
 
-  public async handleKeyDown(direction: Direction) {
+  public async handleKeyDown(direction: Direction | null) {
     if (!direction) return;
     if (this.isLocked) return;
     if (!this.hasRootNode) return;
