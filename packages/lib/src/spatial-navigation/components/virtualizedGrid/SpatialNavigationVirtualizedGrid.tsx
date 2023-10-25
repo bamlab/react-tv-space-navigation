@@ -217,7 +217,7 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
 );
 
 type HorizontalContainerProps = {
-  style: ViewStyle;
+  style?: ViewStyle;
   children: ReactNode;
 };
 

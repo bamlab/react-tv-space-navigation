@@ -8,7 +8,7 @@ class RemoteControlManager implements RemoteControlManagerInterface {
     KeyEvent.onKeyDownListener(this.handleKeyDown);
   }
 
-  private eventEmitter = mitt();
+  private eventEmitter = mitt<{ keyDown: SupportedKeys }>();
 
   private handleKeyDown = (keyEvent: { keyCode: number }) => {
     const mappedKey = {
