@@ -42,7 +42,6 @@
     "react-native-web": "^0.19.6"
   },
   "resolutions": {
-    "mitt": "3.0.1",
     "@typescript-eslint/typescript-estree": "5.61.0"
   },
   "scripts": {

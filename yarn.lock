@@ -1919,12 +1919,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bam.tech/lrud@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@bam.tech/lrud@npm:8.0.0"
+"@bam.tech/lrud@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "@bam.tech/lrud@npm:8.0.1"
   dependencies:
-    mitt: ^1.2.0
-  checksum: 032f5a8f19ef753e15a12a6983605b63d706e53d30090740a16d3e7f1e7e46803950fc83b222f61b281fe0c2babcee3a8adae37abeea4e71e8e578a07d00987c
+    mitt: 3.0.1
+  checksum: ff20f533a021ca795e091542e2fde66dded14e651a64f857d0281ec7cc660ac9ea149652f39d7ec7997300e68383d915bc41d04c902d5911d99e1e06d2babdbd
   languageName: node
   linkType: hard
 
@@ -10518,7 +10518,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mitt@npm:3.0.1":
+"mitt@npm:3.0.1, mitt@npm:^3.0.1":
   version: 3.0.1
   resolution: "mitt@npm:3.0.1"
   checksum: b55a489ac9c2949ab166b7f060601d3b6d893a852515ae9eca4e11df01c013876df777ea109317622b5c1c60e8aae252558e33c8c94e14124db38f64a39614b1
@@ -11839,7 +11839,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "react-tv-space-navigation@workspace:packages/lib"
   dependencies:
-    "@bam.tech/lrud": ^8.0.0
+    "@bam.tech/lrud": ^8.0.1
     "@testing-library/react-hooks": ^8.0.1
     "@types/jest": ^29.5.3
     "@types/lodash.uniqueid": ^4.0.8
