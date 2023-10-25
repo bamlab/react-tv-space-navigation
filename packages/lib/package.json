@@ -10,6 +10,7 @@
   "devDependencies": {
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.3",
+    "@types/lodash.uniqueid": "^4.0.8",
     "babel-jest": "^29.6.1",
     "jest": "^29.6.1",
     "jest-watch-typeahead": "^2.2.2",
@@ -24,5 +25,9 @@
     "publish:prepare": "cp ../../README.md . && yarn build",
     "publish:package": "yarn publish:prepare && npm publish --access public && rm README.md",
     "build": "webpack --config webpack.config.js"
+  },
+  "dependencies": {
+    "@bam.tech/lrud": "^8.0.0",
+    "lodash.uniqueid": "^4.0.1"
   }
 }
