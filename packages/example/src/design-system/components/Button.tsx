@@ -4,6 +4,7 @@ import { SpatialNavigationNode } from 'react-tv-space-navigation/src';
 import { Typography } from './Typography';
 import styled from '@emotion/native';
 import { useFocusAnimation } from '../helpers/useFocusAnimation';
+import { scaledPixels } from '../helpers/scaledPixels';
 
 type ButtonProps = {
   label: string;
@@ -30,11 +31,11 @@ export const Button = ({ label }: ButtonProps) => {
   );
 };
 
-const Container = styled(Animated.View)<{ isFocused: boolean }>(({ isFocused }) => ({
+const Container = styled(Animated.View)<{ isFocused: boolean }>(({ isFocused, theme }) => ({
   alignSelf: 'baseline',
   backgroundColor: isFocused ? 'white' : 'black',
-  padding: 16,
-  borderRadius: 12,
+  padding: theme.spacings.$4,
+  borderRadius: scaledPixels(12),
 }));
 
 const ColoredTypography = styled(Typography)<{ isFocused: boolean }>(({ isFocused }) => ({

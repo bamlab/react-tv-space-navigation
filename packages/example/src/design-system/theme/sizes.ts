@@ -1,6 +1,8 @@
+import { scaledPixels } from '../helpers/scaledPixels';
+
 export const sizes = {
   program: {
-    landscape: { width: 250, height: 200 },
-    portrait: { width: 200, height: 250 },
+    landscape: { width: scaledPixels(250), height: scaledPixels(200) },
+    portrait: { width: scaledPixels(200), height: scaledPixels(250) },
   },
 };

@@ -3,6 +3,7 @@ import { DefaultFocus, SpatialNavigationScrollView } from 'react-tv-space-naviga
 import { Page } from '../components/Page';
 import { VirtualizedSpatialGrid } from '../components/VirtualizedSpatialGrid';
 import '../components/configureRemoteControl';
+import { scaledPixels } from '../design-system/helpers/scaledPixels';
 
 export const ProgramGridPage = () => {
   return (
@@ -19,5 +20,5 @@ export const ProgramGridPage = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 40, flex: 1 },
+  container: { padding: scaledPixels(40), flex: 1 },
 });
