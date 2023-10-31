@@ -14,7 +14,7 @@ type FocusableProps = {
 };
 type NonFocusableProps = {
   isFocusable?: false;
-  children: React.ReactNode;
+  children: React.ReactElement;
 };
 type DefaultProps = {
   onFocus?: () => void;
@@ -26,19 +26,25 @@ type DefaultProps = {
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
-const useScrollIfNeeded = (): {
-  scrollToNodeIfNeeded: () => void;
-  bindRefToChild: (child: React.ReactElement) => React.ReactElement;
-} => {
-  const innerReactNodeRef = useRef<View | null>(null);
+const useScrollToNodeIfNeeded = ({
+  childRef,
+}: {
+  childRef: React.MutableRefObject<View | null>;
+}) => {
   const { scrollToNodeIfNeeded } = useSpatialNavigatorParentScroll();
+
+  return () => scrollToNodeIfNeeded(childRef);
+};
+
+const useBindRefToChild = () => {
+  const childRef = useRef<View | null>(null);
 
   const bindRefToChild = (child: React.ReactElement) => {
     return React.cloneElement(child, {
       ...child.props,
       ref: (node: View) => {
         // We need the reference for our scroll handling
-        innerReactNodeRef.current = node;
+        childRef.current = node;
 
         // @ts-expect-error @fixme This works at runtime but we couldn't find how to type it properly.
         // Let's check if a ref was given (not by us)
@@ -54,7 +60,7 @@ const useScrollIfNeeded = (): {
     });
   };
 
-  return { scrollToNodeIfNeeded: () => scrollToNodeIfNeeded(innerReactNodeRef), bindRefToChild };
+  return { bindRefToChild, childRef };
 };
 
 export const SpatialNavigationNode = ({
@@ -71,7 +77,9 @@ export const SpatialNavigationNode = ({
   // If parent changes, we have to re-register the Node + all children -> adding the parentId to the nodeId makes the children re-register.
   const id = useUniqueId({ prefix: `${parentId}_node_` });
 
-  const { scrollToNodeIfNeeded, bindRefToChild } = useScrollIfNeeded();
+  const { childRef, bindRefToChild } = useBindRefToChild();
+
+  const scrollToNodeIfNeeded = useScrollToNodeIfNeeded({ childRef });
 
   /*
    * We don't re-register in LRUD on each render, because LRUD does not allow updating the nodes.
