@@ -2,15 +2,15 @@ import styled from '@emotion/native';
 import { useTheme } from '@emotion/react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { SpatialNavigationVirtualizedList } from 'react-tv-space-navigation/src';
 import { RootStackParamList } from '../../../../App';
 import { ProgramInfo } from '../domain/programInfo';
-import { programInfos } from '../infra/programInfos';
+import { getPrograms } from '../infra/programInfos';
 import { ProgramNode } from './ProgramNode';
 import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
 
-const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 5;
+const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 const ROW_PADDING = scaledPixels(70);
 
@@ -34,13 +34,15 @@ export const ProgramList = ({
   );
   const theme = useTheme();
 
+  const programInfos = useMemo(() => getPrograms(), []);
+
   return (
     <Container style={containerStyle}>
       <SpatialNavigationVirtualizedList
         orientation={orientation}
         data={programInfos}
         renderItem={renderItem}
-        itemSize={theme.sizes.program.portrait.height + 50}
+        itemSize={theme.sizes.program.portrait.width + 30}
         numberOfRenderedItems={WINDOW_SIZE}
         numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
         onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
