@@ -23,9 +23,9 @@ const ButtonContent = forwardRef<View, { label: string; isFocused: boolean }>((p
 
 ButtonContent.displayName = 'ButtonContent';
 
-export const Button = ({ label }: ButtonProps) => {
+export const Button = ({ label, onSelect }: ButtonProps) => {
   return (
-    <SpatialNavigationNode isFocusable>
+    <SpatialNavigationNode isFocusable onSelect={onSelect}>
       {({ isFocused }) => <ButtonContent label={label} isFocused={isFocused} />}
     </SpatialNavigationNode>
   );
