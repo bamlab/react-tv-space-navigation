@@ -61,20 +61,6 @@ export const ProgramsRow = ({ containerStyle }: { containerStyle?: object }) => 
   );
 };
 
-export const ProgramsColumn = ({ containerStyle }: { containerStyle?: object }) => {
-  const theme = useTheme();
-  return (
-    <ProgramList
-      orientation="vertical"
-      containerStyle={{
-        ...containerStyle,
-        width: theme.sizes.program.portrait.width + ROW_PADDING,
-        height: 3 * (theme.sizes.program.portrait.height + ROW_PADDING),
-      }}
-    />
-  );
-};
-
 const Container = styled.View(({ theme }) => ({
   backgroundColor: theme.colors.background.mainHover,
   padding: theme.spacings.$8,
