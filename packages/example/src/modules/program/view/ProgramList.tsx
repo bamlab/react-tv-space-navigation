@@ -10,7 +10,7 @@ import { programInfos } from '../infra/programInfos';
 import { ProgramNode } from './ProgramNode';
 import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
 
-const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 6;
+const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 5;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 const ROW_PADDING = scaledPixels(70);
 
