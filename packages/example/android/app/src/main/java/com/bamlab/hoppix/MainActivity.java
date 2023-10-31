@@ -26,7 +26,9 @@ public class MainActivity extends ReactActivity {
     //        KeyEventModule.getInstance().onKeyDownEvent(keyCode, event);
     //
     // Using B.
-    KeyEventModule.getInstance().onKeyDownEvent(keyCode, event);
+    if (KeyEventModule.getInstance() != null) {
+      KeyEventModule.getInstance().onKeyDownEvent(keyCode, event);
+    }
 
     // There are 2 ways this can be done:
     //  1.  Override the default keyboard event behavior
@@ -43,7 +45,9 @@ public class MainActivity extends ReactActivity {
 
   @Override  // <--- Add this method if you want to react to keyUp
   public boolean onKeyUp(int keyCode, KeyEvent event) {
-    KeyEventModule.getInstance().onKeyUpEvent(keyCode, event);
+    if (KeyEventModule.getInstance() != null) {
+      KeyEventModule.getInstance().onKeyUpEvent(keyCode, event);
+    }
 
     // There are 2 ways this can be done:
     //  1.  Override the default keyboard event behavior

@@ -1,7 +1,8 @@
 import styled from '@emotion/native';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Animated, Image, View } from 'react-native';
 import { ProgramInfo } from '../domain/programInfo';
+import { useFocusAnimation } from '../../../design-system/helpers/useFocusAnimation';
 
 type ProgramProps = {
   isFocused?: boolean;
@@ -12,20 +13,11 @@ export const Program = React.forwardRef<View, ProgramProps>(
   ({ isFocused = false, programInfo }, ref) => {
     const imageSource = programInfo.image;
 
-    const scaleAnimation = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-      Animated.spring(scaleAnimation, {
-        toValue: isFocused ? 1.1 : 1,
-        useNativeDriver: true,
-        damping: 10,
-        stiffness: 100,
-      }).start();
-    }, [isFocused, scaleAnimation]);
+    const scaleAnimation = useFocusAnimation(isFocused);
 
     return (
       <ProgramContainer
-        style={{ transform: [{ scale: scaleAnimation }] }} // Apply the animated scale transform
+        style={scaleAnimation} // Apply the animated scale transform
         ref={ref}
         isFocused={isFocused}
       >

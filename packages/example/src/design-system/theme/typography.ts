@@ -1,3 +1,5 @@
+import { scaledPixels } from '../helpers/scaledPixels';
+
 export const fontFamilies = {
   montserrat: {
     medium: 'Montserrat-Medium',
@@ -10,25 +12,25 @@ export const typography = {
   title: {
     regular: {
       fontFamily: fontFamilies.montserrat.semiBold,
-      fontSize: 32,
-      lineHeight: 40,
+      fontSize: scaledPixels(32),
+      lineHeight: scaledPixels(40),
     },
     strong: {
       fontFamily: fontFamilies.montserrat.bold,
-      fontSize: 32,
-      lineHeight: 40,
+      fontSize: scaledPixels(32),
+      lineHeight: scaledPixels(40),
     },
   },
   body: {
     regular: {
       fontFamily: fontFamilies.montserrat.medium,
-      fontSize: 24,
-      lineHeight: 32,
+      fontSize: scaledPixels(24),
+      lineHeight: scaledPixels(32),
     },
     strong: {
       fontFamily: fontFamilies.montserrat.semiBold,
-      fontSize: 24,
-      lineHeight: 32,
+      fontSize: scaledPixels(24),
+      lineHeight: scaledPixels(32),
     },
   },
 } as const;

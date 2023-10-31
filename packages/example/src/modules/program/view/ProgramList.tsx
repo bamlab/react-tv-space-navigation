@@ -8,10 +8,11 @@ import { RootStackParamList } from '../../../../App';
 import { ProgramInfo } from '../domain/programInfo';
 import { programInfos } from '../infra/programInfos';
 import { ProgramNode } from './ProgramNode';
+import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 6;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
-const ROW_PADDING = 70;
+const ROW_PADDING = scaledPixels(70);
 
 export const ProgramList = ({
   orientation,
@@ -77,6 +78,6 @@ export const ProgramsColumn = ({ containerStyle }: { containerStyle?: object }) 
 const Container = styled.View(({ theme }) => ({
   backgroundColor: theme.colors.background.mainHover,
   padding: theme.spacings.$8,
-  borderRadius: 20,
+  borderRadius: scaledPixels(20),
   overflow: 'hidden',
 }));

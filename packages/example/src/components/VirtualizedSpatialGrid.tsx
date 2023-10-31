@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { SpatialNavigationVirtualizedGrid } from 'react-tv-space-navigation/src';
 import { programInfos } from '../modules/program/infra/programInfos';
 import { ProgramNode } from '../modules/program/view/ProgramNode';
+import { scaledPixels } from '../design-system/helpers/scaledPixels';
 
 const NUMBER_OF_ROWS_VISIBLE_ON_SCREEN = 2;
 const NUMBER_OF_RENDERED_ROWS = NUMBER_OF_ROWS_VISIBLE_ON_SCREEN + 3;
@@ -41,11 +42,11 @@ export const VirtualizedSpatialGrid = ({
 
 const styles = StyleSheet.create({
   container: {
-    height: 780,
+    height: scaledPixels(780),
     backgroundColor: '#222',
-    padding: 30,
-    borderRadius: 20,
+    padding: scaledPixels(30),
+    borderRadius: scaledPixels(20),
     overflow: 'hidden',
   },
-  rowStyle: { gap: 30 },
+  rowStyle: { gap: scaledPixels(30) },
 });
