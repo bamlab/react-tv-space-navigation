@@ -50,4 +50,4 @@ Once you do that, there is always an LRUD node living at the place of your butto
 
 ## Accessibility
 
-As mentioned on the root README, support is experimental. And help is welcome 🙂
+As mentioned in [accessibility](./accessibility.md), support is experimental. And help is welcome 🙂

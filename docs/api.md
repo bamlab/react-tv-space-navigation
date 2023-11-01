@@ -347,6 +347,8 @@ ensuring that the component will clean up after itself when it is no longer need
 
 # useSpatialNavigatorFocusableAccessibilityProps
 
+> Check out the [accessibility state of the lib](./accessibility.md) for more info and a little demo.
+
 This is a custom React hook that is used to provide suggested accessibility properties for a focusable component.
 It contains the following workaround (which is not standard at all, but the best we could achieve with TalkBack...):
 - if I focus an element using accessibility focus, nothing happens (unfortunately)
