@@ -18,6 +18,7 @@
     "@typescript-eslint/typescript-estree": "^5.61.0",
     "babel-loader": "^9.1.2",
     "babel-plugin-transform-class-properties": "6.24.1",
+    "conventional-changelog-cli": "^4.1.0",
     "css-loader": "^6.8.1",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
@@ -45,6 +46,7 @@
     "@typescript-eslint/typescript-estree": "5.61.0"
   },
   "scripts": {
+    "changelog": "conventional-changelog -p conventionalcommits -r 0 -o CHANGELOG.md",
     "start:example": "yarn workspace hoppix start",
     "test:core": "yarn workspace react-tv-space-navigation jest",
     "test:types": "yarn workspaces foreach run test:types",
