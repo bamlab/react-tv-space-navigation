@@ -343,3 +343,29 @@ In this example, the arrow keys are used to navigate.
 The 'keydown' event listener invokes the callback with a mapped `Direction` corresponding to the key that was pressed.
 It returns an event identifier that can be used to remove the event listener later,
 ensuring that the component will clean up after itself when it is no longer needed.
+
+
+# useSpatialNavigatorFocusableAccessibilityProps
+
+This is a custom React hook that is used to provide suggested accessibility properties for a focusable component.
+It contains the following workaround (which is not standard at all, but the best we could achieve with TalkBack...):
+- if I focus an element using accessibility focus, nothing happens (unfortunately)
+- to get our custom focus, I need to press enter first
+- once our custom focus is on, if I press enter again then my element is selected
+
+## Usage
+
+```tsx
+const Button = () => {
+  // You can't use the hook directly in `FocusableButton` since it needs to access
+  // the current SpatialNavigationNode's context
+  const accessibilityProps = useSpatialNavigatorFocusableAccessibilityProps();
+
+  return <Button {...accessibilityProps}>My Button</Button>;
+};
+
+const FocusableButton = () => {
+  // Do not put the hook here!
+  return <SpatialNavigationNode isFocusable>{({isFocused}) => <Button isFocused={isFocused} />}</Button>
+}
+```

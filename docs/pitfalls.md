@@ -50,5 +50,4 @@ Once you do that, there is always an LRUD node living at the place of your butto
 
 ## Accessibility
 
-The lib cannot support accessibility features yet as the focus system is not the native one.
-Contributions would be appreciated!
+As mentioned on the root README, support is experimental. And help is welcome 🙂
