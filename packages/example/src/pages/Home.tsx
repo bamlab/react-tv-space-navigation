@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import { DefaultFocus, SpatialNavigationScrollView } from 'react-tv-space-navigation/src';
+import { DefaultFocus, SpatialNavigationScrollView } from 'react-tv-space-navigation';
 import { Page } from '../components/Page';
 import '../components/configureRemoteControl';
 import { Box } from '../design-system/components/Box';

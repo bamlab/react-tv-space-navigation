@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { SpatialNavigationVirtualizedGrid } from 'react-tv-space-navigation/src';
+import { SpatialNavigationVirtualizedGrid } from 'react-tv-space-navigation';
 import { programInfos } from '../modules/program/infra/programInfos';
 import { ProgramNode } from '../modules/program/view/ProgramNode';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';

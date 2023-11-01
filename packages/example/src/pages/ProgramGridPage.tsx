@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { DefaultFocus, SpatialNavigationScrollView } from 'react-tv-space-navigation/src';
+import { DefaultFocus, SpatialNavigationScrollView } from 'react-tv-space-navigation';
 import { Page } from '../components/Page';
 import { VirtualizedSpatialGrid } from '../components/VirtualizedSpatialGrid';
 import '../components/configureRemoteControl';

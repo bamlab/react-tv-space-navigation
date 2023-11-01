@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import { RouteProp } from '@react-navigation/native';
-import { DefaultFocus } from 'react-tv-space-navigation/src';
+import { DefaultFocus } from 'react-tv-space-navigation';
 import { RootStackParamList } from '../../App';
 import { Page } from '../components/Page';
 import { Box } from '../design-system/components/Box';
