@@ -103,7 +103,8 @@ Read the [state of accessibility](./docs/accessibility.md).
 - Increment the package.json in `./packages/lib/package.json`.
 - Commit the change `git commit -m "chore: bump version"`
 - Add a tag matching the version `git tag vx.x.x && git push --tags`
-- Then publish it:
+- Generate the changelog and commit it `yarn changelog && git add CHANGELOG.md && git commit "chore: update changelog"`
+- Then publish the package:
 
 ```
 cd packages/lib
