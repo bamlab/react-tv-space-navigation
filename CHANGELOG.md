@@ -1,0 +1,90 @@
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.0.4...v) (2023-11-01)
+
+
+### Features
+
+* **accessibility:** add an experimental way to handle talkback accessibility ([e579ab7](https://github.com/bamlab/react-tv-space-navigation/commit/e579ab7285abbc65a2d5f740f3bd2ec15c89457f))
+
+## [1.0.4](https://github.com/bamlab/react-tv-space-navigation/compare/v1.0.3...v1.0.4) (2023-10-25)
+
+
+### Bug Fixes
+
+* **dependencies:** put dependencies in the proper workspace ([d07afa2](https://github.com/bamlab/react-tv-space-navigation/commit/d07afa21a77ed0cdac47e16845f7ad2cedb67857))
+* **typescript:** fix all strict errors ([74c3f88](https://github.com/bamlab/react-tv-space-navigation/commit/74c3f88e6fdb00c40956dd6e0d25ddcaeda34842))
+
+## [1.0.3](https://github.com/bamlab/react-tv-space-navigation/compare/v1.0.2...v1.0.3) (2023-10-24)
+
+## [1.0.2](https://github.com/bamlab/react-tv-space-navigation/compare/d2de3137f5d5085824eace46ed290fdeef473166...v1.0.2) (2023-07-27)
+
+
+### Features
+
+* add Box component ([7eac091](https://github.com/bamlab/react-tv-space-navigation/commit/7eac091ab6ee91cea1518b2129b680d0d49de16a))
+* add component for Spacer ([fad666a](https://github.com/bamlab/react-tv-space-navigation/commit/fad666a32548bbec3a6893a9d45c2c512b308e1f))
+* add empty native package ([7f432fe](https://github.com/bamlab/react-tv-space-navigation/commit/7f432fe7169ea3443740bd65d41f6214141477c6))
+* add first navigation component in native package ([6b40840](https://github.com/bamlab/react-tv-space-navigation/commit/6b408403010d3ebd12a16311355627cb52866ff7))
+* add infos for program and add function to find progrem by id ([e4da2bf](https://github.com/bamlab/react-tv-space-navigation/commit/e4da2bf3d310d7665d6eab5487c579fef638c728))
+* add isLocked property to SN root and possibility to lock&unlock ([50cb834](https://github.com/bamlab/react-tv-space-navigation/commit/50cb834f157dd174bd2677e2555c368b07f8d552))
+* add more nested rabbits ([1cdc267](https://github.com/bamlab/react-tv-space-navigation/commit/1cdc267d4607ac67dbfc19bf98eb40d5333e781d))
+* add new Page component ([4eabd4a](https://github.com/bamlab/react-tv-space-navigation/commit/4eabd4a01a7fd047a0e3f2b9539782a0de508236))
+* add page title to home page ([92750f2](https://github.com/bamlab/react-tv-space-navigation/commit/92750f2f561cbe13236f80ee8079a442d1029492))
+* add prettier example ([5d5181a](https://github.com/bamlab/react-tv-space-navigation/commit/5d5181a47552eb293332f9d27bb428ca38282eeb))
+* add react spatial navigation example ([dd99a4f](https://github.com/bamlab/react-tv-space-navigation/commit/dd99a4f0cfdb8bae9e0ea56143916f3b7afb5984))
+* add Typography ([bd67262](https://github.com/bamlab/react-tv-space-navigation/commit/bd67262b645751e1dc71dfff5e57eeb02c40280f))
+* adjust program list visible nodes number ([ee7afa7](https://github.com/bamlab/react-tv-space-navigation/commit/ee7afa7ea905091bdbf41f116649ffa970001e84))
+* clean up home page design ([ad47c54](https://github.com/bamlab/react-tv-space-navigation/commit/ad47c545c1c132f219d8a22c53186af904d2fe36))
+* create default focus context and apply to node ([6e137d4](https://github.com/bamlab/react-tv-space-navigation/commit/6e137d430c60426ebe016776222f1416ac779842))
+* declare basic consts for theme ([9fb0c37](https://github.com/bamlab/react-tv-space-navigation/commit/9fb0c37cb9ee8abbbee49aaabe3236751a2ba5b9))
+* embed the demo page in a navigator ([91ad353](https://github.com/bamlab/react-tv-space-navigation/commit/91ad35382154dea1c8f2e1f525157fd84652d2c5))
+* **example:** add goBack key on web ([ba62428](https://github.com/bamlab/react-tv-space-navigation/commit/ba62428ae83217ef4d1df66745ccb84a4d7bfd5d))
+* **example:** add react native keyevent ([d096f88](https://github.com/bamlab/react-tv-space-navigation/commit/d096f88537fbdad08da1848a82d5c6c964d1f2cb))
+* improve UI of ProgramDetail page ([bee2c7a](https://github.com/bamlab/react-tv-space-navigation/commit/bee2c7a4793b606b026d6a9229e6290931c34e7d))
+* navigate to another page on press enter ([c6a5a87](https://github.com/bamlab/react-tv-space-navigation/commit/c6a5a87e38272e6102bcecc78e927331962f8656))
+* navigate to another page on press enter ([183b6c4](https://github.com/bamlab/react-tv-space-navigation/commit/183b6c4a2ecaa4c0963b9d2d1019170722dc14f7))
+* **navigation:** add initial code and example ([d2de313](https://github.com/bamlab/react-tv-space-navigation/commit/d2de3137f5d5085824eace46ed290fdeef473166))
+* **package:** add script for jest tests ([083794e](https://github.com/bamlab/react-tv-space-navigation/commit/083794ebf980eb2c438647b987095b1c6d9e45ac))
+* pass program info to program detail page ([799cae6](https://github.com/bamlab/react-tv-space-navigation/commit/799cae6165455a58344d25f3d25cee93560be1ee))
+* push new screen on the stack on each click of program node ([4fc43a5](https://github.com/bamlab/react-tv-space-navigation/commit/4fc43a59ff95a54895d15a498e453cfccf10e59e))
+* **spatial-navigation:** add definition files ([d567490](https://github.com/bamlab/react-tv-space-navigation/commit/d567490dea6b5585b0a0e14b7eea69b84d030fbf))
+* **spatial-navigation:** add spatial navigation scroll view ([2a21ac7](https://github.com/bamlab/react-tv-space-navigation/commit/2a21ac77fc4615dee752a711104aa77c138d0b24))
+* **spatial-navigation:** add spatial navigation with custom virtualized list ([8647057](https://github.com/bamlab/react-tv-space-navigation/commit/8647057a153d88c5acfc52304f351f1c7a261bb4))
+* **spatial-navigation:** change repo name ([66d9eba](https://github.com/bamlab/react-tv-space-navigation/commit/66d9ebae1cba30a3430dcd3eb369aa64f9892d9f))
+* **spatial-navigator:** add ability to configure keypresses ([c3d31c9](https://github.com/bamlab/react-tv-space-navigation/commit/c3d31c9b7cea2bfe929b5b6ee3e2135bbb947e2d))
+* use sample data for program nodes ([af926f7](https://github.com/bamlab/react-tv-space-navigation/commit/af926f7b54f28602494929caa521f1a9a56746c2))
+* **virtualizedGrid:** add virtualizedGrid with spatial navigation ([aa2466b](https://github.com/bamlab/react-tv-space-navigation/commit/aa2466b4c79b46ddf71b16362ced02c3a3378336))
+* **VirtualizedGrid:** allow scroll configuration for grids ([c1c2aee](https://github.com/bamlab/react-tv-space-navigation/commit/c1c2aeef93802789a79602ef356ada0aeaeaebe6))
+* **VirtualizedGrid:** modify row container style with props ([0721dae](https://github.com/bamlab/react-tv-space-navigation/commit/0721dae240b78aea86ba428f2db2810f4ad7ba10))
+* **VirtualizedList:** add index to unindexed data ([394a77f](https://github.com/bamlab/react-tv-space-navigation/commit/394a77fd31495833595e2a2c62645ba4eb1a1e75))
+* **VirtualizedList:** allow different scroll behaviors ([00f6141](https://github.com/bamlab/react-tv-space-navigation/commit/00f6141990cf523f277ab6af1d41f5a43b6345da))
+* **Web:** add web animation for virtualized list ([fb01696](https://github.com/bamlab/react-tv-space-navigation/commit/fb01696803e4ab9ca5262c31ef047216c27a34c3))
+* wrap demo app with theme provider ([bd3c1bd](https://github.com/bamlab/react-tv-space-navigation/commit/bd3c1bdb6d483b17bfced079f33eb32d1a084156))
+
+
+### Bug Fixes
+
+* **eslint:** fix ts+eslint warnings on web example ([093e8fd](https://github.com/bamlab/react-tv-space-navigation/commit/093e8fd2600fabcd1ac19b945174d162a92b642e))
+* **eslint:** remove unused directive ([c200ef0](https://github.com/bamlab/react-tv-space-navigation/commit/c200ef0e45741c6c19a37df61663a6d546eddf2c))
+* **eslint:** solve eslint warning by forcing new estree version ([8becda3](https://github.com/bamlab/react-tv-space-navigation/commit/8becda380ba369b7b6838d1ea94561c813040b75))
+* **example:** fix background color ([b2ad8a6](https://github.com/bamlab/react-tv-space-navigation/commit/b2ad8a640abe2ad210e5eb5209a55a19d36ce664))
+* **example:** fix eslint and typescript setup ([e37b6b2](https://github.com/bamlab/react-tv-space-navigation/commit/e37b6b2d2d40840710b6e33936a638a885aa9ced))
+* **example:** fix imports with new package name ([3bd2c6d](https://github.com/bamlab/react-tv-space-navigation/commit/3bd2c6dae6447f136d5b2a035653429ae1b86c57))
+* **example:** fix ios build ([cd999d5](https://github.com/bamlab/react-tv-space-navigation/commit/cd999d519c4015c8675f58ae6945872169484c11))
+* **example:** fix keyboard subscription for web ([cd2e789](https://github.com/bamlab/react-tv-space-navigation/commit/cd2e789ff97d78193e9bfdee69f7a309c1362ad0))
+* **example:** fix tsconfig and metro config ([c0c31fb](https://github.com/bamlab/react-tv-space-navigation/commit/c0c31fb5e095055d6bd641f1ca0639eaa27b2ed2))
+* **example:** fix web example not working ([62af1a7](https://github.com/bamlab/react-tv-space-navigation/commit/62af1a762ffdf9e5f68df28ce026f583250e0272))
+* **example:** make cli work with yarn better ([7f0ace1](https://github.com/bamlab/react-tv-space-navigation/commit/7f0ace1c640aaa651898c6a662ddaba6d4e6c705))
+* **example:** make ios work ([73adcf5](https://github.com/bamlab/react-tv-space-navigation/commit/73adcf52bccd3545ff2dc76ffb390d4883aa69c3))
+* **lib:** fix React ref in bundle, as well as bundle size ([ed6cf5e](https://github.com/bamlab/react-tv-space-navigation/commit/ed6cf5ec696dc2d875832d733ba3cd9b17c12d7b))
+* make react jsx transform work properly ([c4574b7](https://github.com/bamlab/react-tv-space-navigation/commit/c4574b743b4abb2f2a0ba5126ba7f024b986404a))
+* **monorepo:** fix example ([2b56bbd](https://github.com/bamlab/react-tv-space-navigation/commit/2b56bbd79310b9860dd365d29e6714e112ebb674))
+* **monorepo:** fix ts import ([912e2f9](https://github.com/bamlab/react-tv-space-navigation/commit/912e2f922b57fbb4299ee673c028e72a62ee07c3))
+* **remote-control:** fix ts-ignore ([f02b801](https://github.com/bamlab/react-tv-space-navigation/commit/f02b80192f148cb010a43bde5701e1e8bea97f0a))
+* rename tsconfig for monorepo root ([1302293](https://github.com/bamlab/react-tv-space-navigation/commit/13022938f87f68be255733dca6193be2e8a8c09b))
+* **spatial-navigator:** take out style from spatial navigation view ([af98346](https://github.com/bamlab/react-tv-space-navigation/commit/af9834660fc39a86eec9cfc0cf53d6fa43bd4b9f))
+* temporary fix for Grid ([e74a8ba](https://github.com/bamlab/react-tv-space-navigation/commit/e74a8ba5a0de2315711258b2cd6f1e2f0496c378))
+* **typescript:** fix error on navigation.navigate() ([86007aa](https://github.com/bamlab/react-tv-space-navigation/commit/86007aabdcb33d1299a018c6d0ffe231b4344b1c))
+* **typescript:** fix props that should be optional ([2d0c579](https://github.com/bamlab/react-tv-space-navigation/commit/2d0c5791d5d3d041d0d579a9773a5b5af2a6eef4))
+* use View instead of div in native package ([0476e95](https://github.com/bamlab/react-tv-space-navigation/commit/0476e95d1c04a24f7305eb0b0049487b9065b886))
+* **web:** fix web webpack config ([8956d46](https://github.com/bamlab/react-tv-space-navigation/commit/8956d46bbd331fb437fe0a6f3ce013d95d8732eb))
+
