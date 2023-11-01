@@ -33,9 +33,11 @@ export const ProgramDetail = ({
                 {programInfo.description}
               </Description>
               <Spacer gap="$8" />
-              <Button label="Play" />
+              {/* eslint-disable-next-line no-console */}
+              <Button label="Play" onSelect={() => console.log('Playing!')} />
               <Spacer gap="$8" />
-              <Button label="More info" />
+              {/* eslint-disable-next-line no-console */}
+              <Button label="More info" onSelect={() => console.log('More info!')} />
             </Box>
           </DefaultFocus>
         </Container>

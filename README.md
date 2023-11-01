@@ -8,6 +8,8 @@
 - [How to run the example](#how-to-run-the-example)
 - [API documentation](#api-documentation)
 - [Pitfalls](#pitfalls)
+- [Accessibility support](#accessibility-support)
+- [Contributing](#contributing)
 
 # Why?
 
@@ -89,6 +91,10 @@ You can have a look at [the documentation](./docs/api.md).
 # Pitfalls
 
 You should have a look at [the pitfalls](./docs/pitfalls.md).
+
+# Accessibility support
+
+Read the [state of accessibility](./docs/accessibility.md).
 
 # Contributing
 

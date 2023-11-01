@@ -37,6 +37,10 @@ export default class SpatialNavigator {
     return this.lrud.assignFocus(id);
   }
 
+  public getCurrentFocusNode() {
+    return this.lrud.currentFocusNode;
+  }
+
   public lock() {
     this.isLocked = true;
   }
