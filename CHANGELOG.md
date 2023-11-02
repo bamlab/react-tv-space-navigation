@@ -1,4 +1,11 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.0.4...v) (2023-11-01)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.1.0...v) (2023-11-02)
+
+
+### Bug Fixes
+
+* **build:** do not minimize output ([402e24e](https://github.com/bamlab/react-tv-space-navigation/commit/402e24e734e2850575478ea56a854c1ca9040eb4))
+
+## [1.1.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.0.4...v1.1.0) (2023-11-01)
 
 
 ### Features
