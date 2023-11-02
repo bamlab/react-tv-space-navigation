@@ -165,6 +165,11 @@ const Page = () => {
 };
 ```
 
+### Add a ScrollView
+
+You will probably need an app where your content is larger than your screen. You can use the spatial scroll view to handle this.
+Check out the [ScrollView API docs](https://github.com/bamlab/react-tv-space-navigation/blob/main/docs/api.md#spatialnavigationscrollview)
+
 ### Add a VirtualizedList
 
 See the [API documentation for VirtualizedLists](./api.md#spatialnavigationvirtualizedlist).
