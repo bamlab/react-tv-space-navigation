@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.ts', // note the .ts extension here
+  entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
@@ -11,6 +11,7 @@ module.exports = {
     umdNamedDefine: true,
     globalObject: 'this',
   },
+  devtool: 'source-map',
   mode: 'production',
   module: {
     rules: [
@@ -50,5 +51,8 @@ module.exports = {
     'react-dom': 'react-dom',
     'react-native': 'react-native',
     'react-native-web': 'react-native-web',
+  },
+  optimization: {
+    minimize: false,
   },
 };
