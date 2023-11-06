@@ -1,4 +1,13 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.1.0...v) (2023-11-02)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.2.0...v) (2023-11-06)
+
+## [1.2.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.1.1...v1.2.0) (2023-11-06)
+
+
+### Features
+
+* **spatial-navigation:** add callback when key pressed but no movement ([c9a171c](https://github.com/bamlab/react-tv-space-navigation/commit/c9a171c50845b8356a35d018f19703029e333399))
+
+## [1.1.1](https://github.com/bamlab/react-tv-space-navigation/compare/v1.1.0...v1.1.1) (2023-11-02)
 
 
 ### Bug Fixes
