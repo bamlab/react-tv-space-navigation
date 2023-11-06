@@ -173,3 +173,27 @@ Check out the [ScrollView API docs](https://github.com/bamlab/react-tv-space-nav
 ### Add a VirtualizedList
 
 See the [API documentation for VirtualizedLists](./api.md#spatialnavigationvirtualizedlist).
+
+### Handling a side menu
+
+You can check out the example app for this.
+
+Usually, when we integrate a side menu in a TV app, it should be persisted across pages.
+It is an element on the border of the screen that is above the root view.
+
+It would be super hard to handle it this way:
+- integrate the nodes of this menu into the existing Spatial Navigator instance of a given page
+- the user goes to another page
+- keep the menu mounted on the left, but move its nodes to the Spatial Navigator instance of the new page ❌
+
+To solve this, here's a solution:
+- create a spatial navigator dedicated to the menu itself
+- don't touch each page's spatial navigator
+- add an event that detects when we're going off-screen with the remote controller
+- add a wrapper above the app that detects that if we're going off-screen to the left on a screen, we should disable our page's navigator and enable our menu's navigator (and vice-versa)
+
+> You can use `onDirectionHandledWithoutMovement` and `isActive` of `SpatialNavigationRoot` to do so
+
+And tada 🎉
+
+![handling the menu](./menu-handling.png)

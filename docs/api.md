@@ -20,7 +20,8 @@ The `SpatialNavigationRoot` component receives the following props:
 | Name       | Type        | Default | Description                                                                                                                                                                                                                                 |
 | ---------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `isActive` | `boolean`   | `true`  | Determines if the spatial navigation is active. If `false`, the spatial navigation will be locked, and no nodes can be focused. This is useful to handle a multi page app: you can disable the non-focused pages' spatial navigation roots. |
-| `children` | `ReactNode` | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                                                                                                                  |
+| `onDirectionHandledWithoutMovement` | `(direction: Direction) => void` | `undefined`  | Called when you're reaching a border of the navigator. A use case for this would be the implementation of a side menu that's shared between pages. You can have a separate navigator for your side menu, which would be common across pages, and you'd make this menu active when you reach the left side of your page navigator. |
+| `children` | `ReactNode` | `null`  | |
 
 ## Usage
 

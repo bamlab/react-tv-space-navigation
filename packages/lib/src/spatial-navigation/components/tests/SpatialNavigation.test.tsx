@@ -9,8 +9,8 @@ import { render } from '@testing-library/react-native';
 import { SpatialNavigationView } from '../View';
 import { SpatialNavigationScrollView } from '../ScrollView';
 
-const TestScreen = () => (
-  <SpatialNavigationRoot>
+const TestScreen = ({ onDirectionHandledWithoutMovement = () => undefined }) => (
+  <SpatialNavigationRoot onDirectionHandledWithoutMovement={onDirectionHandledWithoutMovement}>
     <DefaultFocus>
       <SpatialNavigationScrollView>
         <SpatialNavigationView direction="horizontal">
@@ -74,5 +74,31 @@ describe('Spatial Navigation Movement', () => {
     expectButtonToHaveFocus(component, 'button 1');
     testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 5');
+  });
+
+  it('handles correctly out-of-screen movement detection', () => {
+    const mock = jest.fn();
+    const component = render(<TestScreen onDirectionHandledWithoutMovement={mock} />);
+
+    expectButtonToHaveFocus(component, 'button 1');
+    testRemoteControlManager.handleLeft();
+    expectButtonToHaveFocus(component, 'button 1');
+    expect(mock).toHaveBeenCalledWith('left');
+    mock.mockReset();
+
+    testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleUp();
+    testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleDown();
+    expect(mock).not.toHaveBeenCalled();
+
+    testRemoteControlManager.handleDown();
+    expect(mock).toHaveBeenCalledWith('down');
+    mock.mockReset();
+
+    testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
+    expect(mock).toHaveBeenCalledWith('right');
   });
 });

@@ -1,11 +1,22 @@
 import { Direction, Lrud } from '@bam.tech/lrud';
 
+export type OnDirectionHandledWithoutMovement = (direction: Direction) => void;
+type OnDirectionHandledWithoutMovementRef = { current: OnDirectionHandledWithoutMovement };
+
+type SpatialNavigatorParams = {
+  onDirectionHandledWithoutMovementRef: OnDirectionHandledWithoutMovementRef;
+};
+
 export default class SpatialNavigator {
   private lrud: Lrud;
   private isLocked = false;
+  private onDirectionHandledWithoutMovementRef: OnDirectionHandledWithoutMovementRef;
 
-  constructor() {
+  constructor({
+    onDirectionHandledWithoutMovementRef = { current: () => undefined },
+  }: SpatialNavigatorParams) {
     this.lrud = new Lrud();
+    this.onDirectionHandledWithoutMovementRef = onDirectionHandledWithoutMovementRef;
   }
 
   public registerNode(...params: Parameters<Lrud['registerNode']>) {
@@ -26,7 +37,15 @@ export default class SpatialNavigator {
     if (!this.hasRootNode) return;
     if (!this.lrud.getRootNode()) return;
 
-    if (direction) this.lrud.handleKeyEvent({ direction }, { forceFocus: true });
+    if (direction) {
+      const nodeBeforeMovement = this.lrud.getCurrentFocusNode();
+      this.lrud.handleKeyEvent({ direction }, { forceFocus: true });
+      const nodeAfterMovement = this.lrud.getCurrentFocusNode();
+
+      if (nodeBeforeMovement === nodeAfterMovement) {
+        this.onDirectionHandledWithoutMovementRef.current(direction);
+      }
+    }
   }
 
   public hasOneNodeFocused() {
