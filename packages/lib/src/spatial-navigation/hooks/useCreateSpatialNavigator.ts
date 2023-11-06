@@ -1,9 +1,9 @@
-import SpatialNavigator, { OnDirectionHandledWithMovement } from '../SpatialNavigator';
+import SpatialNavigator, { OnDirectionHandledWithoutMovement } from '../SpatialNavigator';
 import { useEffect, useMemo } from 'react';
 import { remoteControlSubscriber, remoteControlUnsubscriber } from '../configureRemoteControl';
 
 type SpatialNavigatorHookParams = {
-  onDirectionHandledWithoutMovementRef: React.MutableRefObject<OnDirectionHandledWithMovement>;
+  onDirectionHandledWithoutMovementRef: React.MutableRefObject<OnDirectionHandledWithoutMovement>;
 };
 
 export const useCreateSpatialNavigator = ({

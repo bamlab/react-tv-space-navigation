@@ -1,16 +1,16 @@
 import { Direction, Lrud } from '@bam.tech/lrud';
 
-export type OnDirectionHandledWithMovement = (direction: Direction) => void;
-type OnDirectionHandledWithMovementRef = { current: OnDirectionHandledWithMovement };
+export type OnDirectionHandledWithoutMovement = (direction: Direction) => void;
+type OnDirectionHandledWithoutMovementRef = { current: OnDirectionHandledWithoutMovement };
 
 type SpatialNavigatorParams = {
-  onDirectionHandledWithoutMovementRef: OnDirectionHandledWithMovementRef;
+  onDirectionHandledWithoutMovementRef: OnDirectionHandledWithoutMovementRef;
 };
 
 export default class SpatialNavigator {
   private lrud: Lrud;
   private isLocked = false;
-  private onDirectionHandledWithoutMovementRef: OnDirectionHandledWithMovementRef;
+  private onDirectionHandledWithoutMovementRef: OnDirectionHandledWithoutMovementRef;
 
   constructor({
     onDirectionHandledWithoutMovementRef = { current: () => undefined },

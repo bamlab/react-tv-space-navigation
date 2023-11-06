@@ -4,7 +4,7 @@ import { SpatialNavigatorContext } from '../context/SpatialNavigatorContext';
 import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useCreateSpatialNavigator } from '../hooks/useCreateSpatialNavigator';
 import { useLockRootSpatialNavigator } from '../hooks/useLockRootSpatialNavigator';
-import { OnDirectionHandledWithMovement } from '../SpatialNavigator';
+import { OnDirectionHandledWithoutMovement } from '../SpatialNavigator';
 
 const ROOT_ID = 'root';
 
@@ -22,7 +22,7 @@ type Props = {
    * for your side menu, which would be common across pages, and you'd
    * make this menu active when you reach the left side of your page navigator.
    */
-  onDirectionHandledWithoutMovement?: OnDirectionHandledWithMovement;
+  onDirectionHandledWithoutMovement?: OnDirectionHandledWithoutMovement;
   children: ReactNode;
 };
 
@@ -33,7 +33,7 @@ export const SpatialNavigationRoot = ({
 }: Props) => {
   // We can't follow the react philosophy here: we can't recreate a navigator if this function changes
   // so we'll have to store its ref and update the ref if there is a new value to this function
-  const onDirectionHandledWithoutMovementRef = useRef<OnDirectionHandledWithMovement>(
+  const onDirectionHandledWithoutMovementRef = useRef<OnDirectionHandledWithoutMovement>(
     () => undefined,
   );
   // Update the ref at every render
