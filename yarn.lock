@@ -8182,6 +8182,7 @@ __metadata:
     react-native-screens: ^3.22.1
     react-native-web: ^0.19.6
     react-test-renderer: 18.2.0
+    terser-webpack-plugin: ^5.3.9
     typescript: ^5.1.6
     webpack: ^5.88.1
     webpack-cli: ^5.1.4
@@ -14188,7 +14189,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^5.3.7":
+"terser-webpack-plugin@npm:^5.3.7, terser-webpack-plugin@npm:^5.3.9":
   version: 5.3.9
   resolution: "terser-webpack-plugin@npm:5.3.9"
   dependencies:
