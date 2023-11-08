@@ -43,6 +43,23 @@ SpatialNavigation.configureRemoteControl({
 });
 ```
 
+#### Some details about the remote control implementation
+
+We unify the key events implementations under a RemoteControlManager interface.
+This interface exposes a `addKeydownListener` and `removeKeydownListener`.
+The latter one takes as first argument the return value of `addKeydownListener`, so that you can easily define an unsubscription logic.
+We also define `SupportedKeys` as an output value for all platforms, and we map each platform to these keys.
+
+We decline this interface on multiple platforms.
+
+- web: quite straightforward
+- android: we install `react-native-keyevent` (check out the install docs). Rest is straightforward.
+- ios: we use the `react-native-tvos` API to remap the iOS keys. We do not handle the gestures yet.
+
+You can improve this to handle gestures on tvOS.
+We are considering long presses as well, but this will need an additional `onLongSelect` props on `SpatialNavigationNode`.
+
+
 ### Set-up a spatial navigation root
 
 You can now create your page.
