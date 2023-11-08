@@ -4,10 +4,12 @@ import { remoteControlSubscriber, remoteControlUnsubscriber } from '../configure
 
 type SpatialNavigatorHookParams = {
   onDirectionHandledWithoutMovementRef: React.MutableRefObject<OnDirectionHandledWithoutMovement>;
+  isActive: boolean;
 };
 
 export const useCreateSpatialNavigator = ({
   onDirectionHandledWithoutMovementRef,
+  isActive,
 }: SpatialNavigatorHookParams) => {
   const spatialNavigator = useMemo(
     () =>
@@ -27,6 +29,10 @@ export const useCreateSpatialNavigator = ({
       return;
     }
 
+    if (!isActive) {
+      return () => undefined;
+    }
+
     const listener = remoteControlSubscriber((direction) =>
       spatialNavigator.handleKeyDown(direction),
     );
@@ -40,7 +46,7 @@ export const useCreateSpatialNavigator = ({
       }
       remoteControlUnsubscriber(listener);
     };
-  }, [spatialNavigator]);
+  }, [spatialNavigator, isActive]);
 
   return spatialNavigator;
 };

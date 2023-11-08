@@ -9,7 +9,6 @@ type SpatialNavigatorParams = {
 
 export default class SpatialNavigator {
   private lrud: Lrud;
-  private isLocked = false;
   private onDirectionHandledWithoutMovementRef: OnDirectionHandledWithoutMovementRef;
 
   constructor({
@@ -33,7 +32,6 @@ export default class SpatialNavigator {
 
   public async handleKeyDown(direction: Direction | null) {
     if (!direction) return;
-    if (this.isLocked) return;
     if (!this.hasRootNode) return;
     if (!this.lrud.getRootNode()) return;
 
@@ -58,14 +56,6 @@ export default class SpatialNavigator {
 
   public getCurrentFocusNode() {
     return this.lrud.currentFocusNode;
-  }
-
-  public lock() {
-    this.isLocked = true;
-  }
-
-  public unlock() {
-    this.isLocked = false;
   }
 
   private get hasRootNode(): boolean {
