@@ -25,6 +25,8 @@ the core logic of LRUD.
 
 ![demo](./docs/demo.gif)
 
+[Check out the live web demo!](https://bamlab.github.io/react-tv-space-navigation/)
+
 One of the goals of the lib is to have a simple and declarative API.
 No need for hooks or dark shenanigans. You just simply declare components.
 
