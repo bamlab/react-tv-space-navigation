@@ -18,6 +18,7 @@ type NonFocusableProps = {
 };
 type DefaultProps = {
   onFocus?: () => void;
+  onBlur?: () => void;
   onSelect?: () => void;
   orientation?: NodeOrientation;
   /** Use this for grid alignment.
@@ -65,6 +66,7 @@ const useBindRefToChild = () => {
 
 export const SpatialNavigationNode = ({
   onFocus,
+  onBlur,
   onSelect,
   orientation = 'vertical',
   isFocusable = false,
@@ -96,6 +98,9 @@ export const SpatialNavigationNode = ({
     scrollToNodeIfNeeded();
   };
 
+  const currentOnBlur = useRef<() => void>();
+  currentOnBlur.current = onBlur;
+
   const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
 
   useBeforeMountEffect(() => {
@@ -103,6 +108,7 @@ export const SpatialNavigationNode = ({
       parent: parentId,
       isFocusable,
       onBlur: () => {
+        currentOnBlur.current?.();
         setIsFocused(false);
       },
       onFocus: () => {
