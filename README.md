@@ -44,7 +44,7 @@ const Rabbit = ({ onSelect }) => (
 );
 
 /**
- * We can as many nodes as we want. We group our rabbits in a horizontal spatial navigation view
+ * We can have as many nodes as we want. We group our rabbits in a horizontal spatial navigation view
  * to spatially describe a row layout
  * (it includes a spatial navigation node AND the horizontal styling for it)
  *
