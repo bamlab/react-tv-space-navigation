@@ -3,7 +3,7 @@ import { ParentIdContext } from '../context/ParentIdContext';
 import { SpatialNavigatorContext } from '../context/SpatialNavigatorContext';
 import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useCreateSpatialNavigator } from '../hooks/useCreateSpatialNavigator';
-import { useLockRootSpatialNavigator } from '../hooks/useLockRootSpatialNavigator';
+import { useRemoteControl } from '../hooks/useRemoteControl';
 import { OnDirectionHandledWithoutMovement } from '../SpatialNavigator';
 
 const ROOT_ID = 'root';
@@ -39,16 +39,16 @@ export const SpatialNavigationRoot = ({
   // Update the ref at every render
   onDirectionHandledWithoutMovementRef.current = onDirectionHandledWithoutMovement;
 
-  const spatialNavigator = useCreateSpatialNavigator({ onDirectionHandledWithoutMovementRef });
+  const spatialNavigator = useCreateSpatialNavigator({
+    onDirectionHandledWithoutMovementRef,
+  });
+
+  useRemoteControl({ spatialNavigator, isActive });
+
   useBeforeMountEffect(() => {
     spatialNavigator.registerNode(ROOT_ID, { orientation: 'vertical' });
     return () => spatialNavigator.unregisterNode(ROOT_ID);
   }, []);
-
-  useLockRootSpatialNavigator({
-    spatialNavigator,
-    isLocked: !isActive,
-  });
 
   return (
     <SpatialNavigatorContext.Provider value={spatialNavigator}>
