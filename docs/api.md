@@ -8,6 +8,8 @@
 - [SpatialNavigationVirtualizedGrid](#spatialnavigationvirtualizedgrid)
 - [DefaultFocus](#defaultfocus)
 - [configureRemoteControl](#configureremotecontrol)
+- [useSpatialNavigatorFocusableAccessibilityProps](#usespatialnavigatorfocusableaccessibilityprops)
+- [useLockSpatialNavigation](#uselockspatialnavigation)
 
 # SpatialNavigationRoot
 
@@ -371,5 +373,22 @@ const Button = () => {
 const FocusableButton = () => {
   // Do not put the hook here!
   return <SpatialNavigationNode isFocusable>{({isFocused}) => <Button isFocused={isFocused} />}</Button>
+}
+```
+
+# useLockSpatialNavigation
+
+This hook allows to control the lock of the remote control.
+For example, it helps with workarounds regarding the native focus system
+(I may want to disable the remote while the focus system has taken over)
+
+## Usage
+
+```tsx
+const MyComponent = () => {
+  const { lock, unlock } = useLockSpatialNavigation();
+
+  // Doesn't really make sense to lock after selecting a button, but you get the idea
+  return <Button onSelect={() => lock()} />
 }
 ```

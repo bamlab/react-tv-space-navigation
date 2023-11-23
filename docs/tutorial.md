@@ -214,3 +214,10 @@ To solve this, here's a solution:
 And tada 🎉
 
 ![handling the menu](./menu-handling.png)
+
+### Handling the text inputs
+
+Check out the example app.
+
+- You first need to lock the remote control when the keyboard appears. We've done it with the component `SpatialNavigationKeyboardLocker`.
+- Your TextInput component needs to have a `SpatialNavigationNode` around it to catch our custom focus system event. Then, it needs to pass down the native focus down to the native TextInput below. You can check out `TextInput.tsx` in the example app.
