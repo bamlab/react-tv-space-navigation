@@ -1,11 +1,18 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.2.0...v) (2023-11-06)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.3.0...v) (2023-11-24)
 
-## [1.2.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.1.1...v1.2.0) (2023-11-06)
+## [1.3.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.1.1...v1.3.0) (2023-11-24)
 
 
 ### Features
 
+* **core:** add lock mechanism ([941c296](https://github.com/bamlab/react-tv-space-navigation/commit/941c29609d433e8ad72d15fc8344e0b08419344c))
+* **core:** add onBlur props to SpatialNavigationNode ([2d73227](https://github.com/bamlab/react-tv-space-navigation/commit/2d73227094c19a338f5c935631389437d2050a9b))
 * **spatial-navigation:** add callback when key pressed but no movement ([c9a171c](https://github.com/bamlab/react-tv-space-navigation/commit/c9a171c50845b8356a35d018f19703029e333399))
+
+
+### Bug Fixes
+
+* **remote:** better lifecycles for remote control subscription ([#33](https://github.com/bamlab/react-tv-space-navigation/issues/33)) ([5c56ef0](https://github.com/bamlab/react-tv-space-navigation/commit/5c56ef06560467ee314be8b4e7cc9bca75b1c9bd))
 
 ## [1.1.1](https://github.com/bamlab/react-tv-space-navigation/compare/v1.1.0...v1.1.1) (2023-11-02)
 
