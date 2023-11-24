@@ -8,6 +8,7 @@ export { DefaultFocus } from './spatial-navigation/context/DefaultFocusContext';
 export { SpatialNavigationVirtualizedList } from './spatial-navigation/components/virtualizedList/SpatialNavigationVirtualizedList';
 export { SpatialNavigationVirtualizedGrid } from './spatial-navigation/components/virtualizedGrid/SpatialNavigationVirtualizedGrid';
 export { useSpatialNavigatorFocusableAccessibilityProps } from './spatial-navigation/hooks/useSpatialNavigatorFocusableAccessibilityProps';
+export { useLockSpatialNavigation } from './spatial-navigation/context/LockSpatialNavigationContext';
 
 export const SpatialNavigation = {
   configureRemoteControl,

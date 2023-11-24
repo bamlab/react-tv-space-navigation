@@ -8,6 +8,8 @@
 - [SpatialNavigationVirtualizedGrid](#spatialnavigationvirtualizedgrid)
 - [DefaultFocus](#defaultfocus)
 - [configureRemoteControl](#configureremotecontrol)
+- [useSpatialNavigatorFocusableAccessibilityProps](#usespatialnavigatorfocusableaccessibilityprops)
+- [useLockSpatialNavigation](#uselockspatialnavigation)
 
 # SpatialNavigationRoot
 
@@ -45,6 +47,7 @@ The `SpatialNavigationNode` component receives the following props:
 | Name          | Type                        | Default      | Description                                                                                                                                                                                                                                                   |
 | ------------- | --------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `onFocus`     | `function`                  | `undefined`  | Callback function to be called when the node gains focus.                                                                                                                                                                                                     |
+| `onBlur`      | `function`                  | `undefined`  | Callback function to be called when the node loses focus.                                                                                                                                                                                                     |
 | `onSelect`    | `function`                  | `undefined`  | Callback function to be called when the node is selected.                                                                                                                                                                                                     |
 | `orientation` | `'vertical' \| 'horizontal` | `'vertical'` | Determines the orientation of the node.                                                                                                                                                                                                                       |
 | `isFocusable` | `boolean`                   | `false`      | Determines if the node is focusable or not. If it's `true`, the `children` prop must be a function that returns a React element and accepts a parameter with a `isFocused` property. If it's `false` or not provided, `children` can be any valid React node. |
@@ -370,5 +373,22 @@ const Button = () => {
 const FocusableButton = () => {
   // Do not put the hook here!
   return <SpatialNavigationNode isFocusable>{({isFocused}) => <Button isFocused={isFocused} />}</Button>
+}
+```
+
+# useLockSpatialNavigation
+
+This hook allows to control the lock of the remote control.
+For example, it helps with workarounds regarding the native focus system
+(I may want to disable the remote while the focus system has taken over)
+
+## Usage
+
+```tsx
+const MyComponent = () => {
+  const { lock, unlock } = useLockSpatialNavigation();
+
+  // Doesn't really make sense to lock after selecting a button, but you get the idea
+  return <Button onSelect={() => lock()} />
 }
 ```

@@ -5,6 +5,7 @@ import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useCreateSpatialNavigator } from '../hooks/useCreateSpatialNavigator';
 import { useRemoteControl } from '../hooks/useRemoteControl';
 import { OnDirectionHandledWithoutMovement } from '../SpatialNavigator';
+import { LockSpatialNavigationContext, useIsLocked } from '../context/LockSpatialNavigationContext';
 
 const ROOT_ID = 'root';
 
@@ -43,7 +44,9 @@ export const SpatialNavigationRoot = ({
     onDirectionHandledWithoutMovementRef,
   });
 
-  useRemoteControl({ spatialNavigator, isActive });
+  const { isLocked, lockActions } = useIsLocked();
+
+  useRemoteControl({ spatialNavigator, isActive: isActive && !isLocked });
 
   useBeforeMountEffect(() => {
     spatialNavigator.registerNode(ROOT_ID, { orientation: 'vertical' });
@@ -52,7 +55,9 @@ export const SpatialNavigationRoot = ({
 
   return (
     <SpatialNavigatorContext.Provider value={spatialNavigator}>
-      <ParentIdContext.Provider value={ROOT_ID}>{children}</ParentIdContext.Provider>
+      <LockSpatialNavigationContext.Provider value={lockActions}>
+        <ParentIdContext.Provider value={ROOT_ID}>{children}</ParentIdContext.Provider>
+      </LockSpatialNavigationContext.Provider>
     </SpatialNavigatorContext.Provider>
   );
 };
