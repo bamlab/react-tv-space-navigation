@@ -1,8 +1,7 @@
 import { ThemeProvider } from '@emotion/react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useEffect, useState } from 'react';
-import { Dimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 import { GoBackConfiguration } from './src/components/GoBackConfiguration';
 import { theme } from './src/design-system/theme/theme';
 import { ProgramInfo } from './src/modules/program/domain/programInfo';
@@ -13,8 +12,6 @@ import { Menu } from './src/components/Menu/Menu';
 import { MenuProvider } from './src/components/Menu/MenuContext';
 import styled from '@emotion/native';
 
-const windowDimensions = Dimensions.get('window');
-
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type RootStackParamList = {
@@ -24,23 +21,14 @@ export type RootStackParamList = {
 };
 
 function App(): JSX.Element {
-  const [dimensions, setDimensions] = useState({
-    window: windowDimensions,
-  });
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', ({ window }) => {
-      setDimensions({ window });
-    });
-    return () => subscription?.remove();
-  });
+  const { height, width } = useWindowDimensions();
 
   return (
     <NavigationContainer>
       <ThemeProvider theme={theme}>
         <GoBackConfiguration />
         <MenuProvider>
-          <Container width={dimensions.window.width} height={dimensions.window.height}>
+          <Container width={width} height={height}>
             <Stack.Navigator
               screenOptions={{
                 headerShown: false,
