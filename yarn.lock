@@ -3400,6 +3400,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@expo/metro-runtime@npm:~3.1.1":
+  version: 3.1.2
+  resolution: "@expo/metro-runtime@npm:3.1.2"
+  peerDependencies:
+    react-native: "*"
+  checksum: 5b24d3b73dde0d6582bdc1c991c08ce4be094055f59963f01e30e03855e4a1d8a7e6244ebdae7f7e87f5d53b45109aa6c92c1566184f8919692c6bd0ad2939e7
+  languageName: node
+  linkType: hard
+
 "@expo/osascript@npm:^2.0.31":
   version: 2.1.0
   resolution: "@expo/osascript@npm:2.1.0"
@@ -9680,6 +9689,7 @@ __metadata:
   resolution: "hoppixtv@workspace:packages/hoppixTv"
   dependencies:
     "@babel/core": ^7.20.0
+    "@expo/metro-runtime": ~3.1.1
     expo: ~50.0.3
     expo-status-bar: ~1.11.1
     react: 18.2.0
