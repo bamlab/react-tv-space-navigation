@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
+    "android": "EXPO_TV=1 expo run:android",
+    "ios": "EXPO_TV=1 expo run:ios",
     "web": "expo start --web",
     "prebuild": "EXPO_TV=1 expo prebuild --clean"
   },
