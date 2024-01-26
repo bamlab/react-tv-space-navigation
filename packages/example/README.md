@@ -14,15 +14,9 @@ To install the project, follow these steps:
    yarn install
    ```
 
-2. Setup the EXPO_TV env variable:
-
+2. Prebuild the app with expo before running:
    ```
-   export EXPO_TV=1
-   ```
-
-3. Install pods to run the AppleTV TVOS Application with a prebuild:
-   ```
-   yarn expo prebuild --clean
+   yarn prebuild
    ```
 
 ## Usage

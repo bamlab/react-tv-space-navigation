@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "prebuild": "EXPO_TV=1 expo prebuild --clean"
   },
   "dependencies": {
     "@emotion/native": "^11.11.0",
