@@ -10042,9 +10042,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoppixtv@workspace:packages/hoppixTv":
+"hoppixtv@workspace:packages/example":
   version: 0.0.0-use.local
-  resolution: "hoppixtv@workspace:packages/hoppixTv"
+  resolution: "hoppixtv@workspace:packages/example"
   dependencies:
     "@babel/core": ^7.20.0
     "@emotion/native": ^11.11.0
