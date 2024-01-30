@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
 import styled from '@emotion/native';
-import { Fragment } from 'react';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';
 import { ProgramNode } from '../modules/program/view/ProgramNode';
 
@@ -15,13 +14,11 @@ export const NonVirtualizedGridPage = () => {
     <Page>
       <Container>
         <SpatialNavigationNode alignInGrid>
-          <Fragment>
-            <DefaultFocus>
-              <ShortProgramList />
-            </DefaultFocus>
+          <DefaultFocus>
             <ShortProgramList />
             <ShortProgramList />
-          </Fragment>
+            <ShortProgramList />
+          </DefaultFocus>
         </SpatialNavigationNode>
       </Container>
     </Page>
