@@ -6,7 +6,7 @@ export const sizes = {
     portrait: { width: scaledPixels(200), height: scaledPixels(250) },
   },
   menu: {
-    open: scaledPixels(200),
-    closed: scaledPixels(80),
+    open: scaledPixels(400),
+    closed: scaledPixels(100),
   },
 };
