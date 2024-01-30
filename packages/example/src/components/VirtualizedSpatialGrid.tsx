@@ -8,7 +8,7 @@ import { scaledPixels } from '../design-system/helpers/scaledPixels';
 
 const NUMBER_OF_ROWS_VISIBLE_ON_SCREEN = 2;
 const NUMBER_OF_RENDERED_ROWS = NUMBER_OF_ROWS_VISIBLE_ON_SCREEN + 3;
-const NUMBER_OF_COLUMNS = 6;
+const NUMBER_OF_COLUMNS = 7;
 const INFINITE_SCROLL_ROW_THRESHOLD = 2;
 
 export const VirtualizedSpatialGrid = ({
@@ -42,9 +42,10 @@ export const VirtualizedSpatialGrid = ({
 
 const styles = StyleSheet.create({
   container: {
-    height: scaledPixels(780),
+    height: scaledPixels(1000),
     backgroundColor: '#222',
     padding: scaledPixels(30),
+    paddingLeft: scaledPixels(75),
     borderRadius: scaledPixels(20),
     overflow: 'hidden',
   },

@@ -1,24 +1,52 @@
 import { ThemeProvider } from '@emotion/react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useWindowDimensions } from 'react-native';
 import { GoBackConfiguration } from './src/components/GoBackConfiguration';
 import { theme } from './src/design-system/theme/theme';
-import { ProgramInfo } from './src/modules/program/domain/programInfo';
 import { Home } from './src/pages/Home';
-import { ProgramDetail } from './src/pages/ProgramDetail';
 import { ProgramGridPage } from './src/pages/ProgramGridPage';
 import { Menu } from './src/components/Menu/Menu';
 import { MenuProvider } from './src/components/Menu/MenuContext';
 import styled from '@emotion/native';
 import { useFonts } from './src/hooks/useFonts';
+import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ProgramInfo } from './src/modules/program/domain/programInfo';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ProgramDetail } from './src/pages/ProgramDetail';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export type RootStackParamList = {
+const Tab = createBottomTabNavigator<RootTabParamList>();
+
+export type RootTabParamList = {
   Home: undefined;
-  ProgramDetail: { programInfo: ProgramInfo };
   ProgramGridPage: undefined;
+};
+
+export type RootStackParamList = {
+  TabNavigator: undefined;
+  ProgramDetail: { programInfo: ProgramInfo };
+};
+
+const RenderMenu = (props: BottomTabBarProps) => <Menu {...props} />;
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="Home"
+      tabBar={RenderMenu}
+      sceneContainerStyle={{
+        marginLeft: theme.sizes.menu.closed,
+        backgroundColor: theme.colors.background.main,
+      }}
+    >
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="ProgramGridPage" component={ProgramGridPage} />
+    </Tab.Navigator>
+  );
 };
 
 function App(): JSX.Element {
@@ -42,13 +70,11 @@ function App(): JSX.Element {
                   backgroundColor: theme.colors.background.main,
                 },
               }}
-              initialRouteName="Home"
+              initialRouteName="TabNavigator"
             >
-              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="TabNavigator" component={TabNavigator} />
               <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
-              <Stack.Screen name="ProgramGridPage" component={ProgramGridPage} />
             </Stack.Navigator>
-            <Menu />
           </Container>
         </MenuProvider>
       </ThemeProvider>

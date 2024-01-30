@@ -5,29 +5,34 @@ import {
   SpatialNavigationView,
 } from 'react-tv-space-navigation';
 import { useMenuContext } from './MenuContext';
-import { Button } from '../../design-system/components/Button';
-import { useCallback, useEffect, useRef } from 'react';
-import { Animated, Dimensions } from 'react-native';
+
+import { Fragment, useCallback, useEffect, useRef } from 'react';
+import { Animated, Dimensions, View } from 'react-native';
 import styled from '@emotion/native';
 import { Typography } from '../../design-system/components/Typography';
 import { Spacer } from '../../design-system/components/Spacer';
 import { Box } from '../../design-system/components/Box';
 import { useTheme } from '@emotion/react';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { MenuButton } from './MenuButton';
 
 const windowDimensions = Dimensions.get('window');
 
 const MenuItem = ({
-  shortLabel,
   label,
   isMenuOpen,
+  isActive,
+  onSelect,
 }: {
-  shortLabel: string;
   label: string;
   isMenuOpen: boolean;
+  isActive: boolean;
+  onSelect: () => void;
 }) => {
   return (
     <Box direction="horizontal" alignItems="center">
-      <Button label={shortLabel} />
+      <ActiveIndicator isActive={isActive} />
+      <MenuButton label={label[0]} onSelect={() => onSelect()} isMenuOpen={isMenuOpen} />
       {isMenuOpen && (
         <>
           <Spacer direction="horizontal" gap="$2" />
@@ -38,7 +43,7 @@ const MenuItem = ({
   );
 };
 
-export const Menu = () => {
+export const Menu = ({ state, navigation }: BottomTabBarProps) => {
   const { isOpen: isMenuOpen, toggleMenu } = useMenuContext();
   const theme = useTheme();
   const animatedWidth = useRef(
@@ -67,19 +72,31 @@ export const Menu = () => {
       isActive={isMenuOpen}
       onDirectionHandledWithoutMovement={onDirectionHandledWithoutMovement}
     >
-      <SpatialNavigationView direction="vertical">
-        <MenuSpacer />
-        <MenuOverlay style={{ width: animatedWidth }} />
-        <MenuContainer>
-          <DefaultFocus>
-            <MenuItem shortLabel="A" label="Page A" isMenuOpen={isMenuOpen} />
-          </DefaultFocus>
-          <Spacer direction="vertical" gap="$4" />
-          <MenuItem shortLabel="B" label="Page B" isMenuOpen={isMenuOpen} />
-          <Spacer direction="vertical" gap="$4" />
-          <MenuItem shortLabel="C" label="Page C" isMenuOpen={isMenuOpen} />
-        </MenuContainer>
-      </SpatialNavigationView>
+      <AbsoluteMenuContainer>
+        <SpatialNavigationView direction="vertical">
+          <MenuSpacer />
+          <MenuOverlay style={{ width: animatedWidth }} />
+          <MenuContainer>
+            <DefaultFocus>
+              <View>
+                {state.routes.map((route, index) => {
+                  return (
+                    <Fragment key={route.key}>
+                      <MenuItem
+                        label={route.name}
+                        isMenuOpen={isMenuOpen}
+                        isActive={state.index === index}
+                        onSelect={() => navigation.navigate(route.name, route.params)}
+                      />
+                      <Spacer direction="vertical" gap={'$4'} />
+                    </Fragment>
+                  );
+                })}
+              </View>
+            </DefaultFocus>
+          </MenuContainer>
+        </SpatialNavigationView>
+      </AbsoluteMenuContainer>
     </SpatialNavigationRoot>
   );
 };
@@ -101,6 +118,18 @@ const MenuOverlay = styled(Animated.View)(({ theme }) => ({
   height: windowDimensions.height,
 }));
 
+const ActiveIndicator = styled.View<{ isActive: boolean }>(({ isActive, theme }) => ({
+  marginRight: 6,
+  width: 4,
+  height: '80%',
+  backgroundColor: isActive ? theme.colors.primary.main : 'transparent',
+  borderRadius: 4,
+}));
+
 const MenuSpacer = styled.View(({ theme }) => ({
   width: theme.sizes.menu.closed,
 }));
+
+const AbsoluteMenuContainer = styled.View({
+  position: 'absolute',
+});
