@@ -5,6 +5,7 @@ import { SpatialNavigationVirtualizedGrid } from 'react-tv-space-navigation';
 import { programInfos } from '../modules/program/infra/programInfos';
 import { ProgramNode } from '../modules/program/view/ProgramNode';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';
+import { theme } from '../design-system/theme/theme';
 
 const NUMBER_OF_ROWS_VISIBLE_ON_SCREEN = 2;
 const NUMBER_OF_RENDERED_ROWS = NUMBER_OF_ROWS_VISIBLE_ON_SCREEN + 3;
@@ -43,7 +44,7 @@ export const VirtualizedSpatialGrid = ({
 const styles = StyleSheet.create({
   container: {
     height: scaledPixels(1000),
-    backgroundColor: '#222',
+    backgroundColor: theme.colors.background.mainHover,
     padding: scaledPixels(30),
     paddingLeft: scaledPixels(75),
     borderRadius: scaledPixels(20),

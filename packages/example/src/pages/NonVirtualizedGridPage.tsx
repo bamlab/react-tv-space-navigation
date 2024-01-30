@@ -10,6 +10,7 @@ import { scaledPixels } from '../design-system/helpers/scaledPixels';
 import { ProgramNode } from '../modules/program/view/ProgramNode';
 import chunk from 'lodash/chunk';
 import { ProgramInfo } from '../modules/program/domain/programInfo';
+import { theme } from '../design-system/theme/theme';
 
 const renderProgramList = (programsLists: ProgramInfo[]) => (
   <ProgramList programs={programsLists} />
@@ -56,7 +57,7 @@ const ListContainer = styled.View(({ theme }) => ({
 }));
 
 const Container = styled.View({
-  backgroundColor: '#222',
+  backgroundColor: theme.colors.background.mainHover,
   margin: 'auto',
   borderRadius: scaledPixels(20),
   padding: scaledPixels(30),
