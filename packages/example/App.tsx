@@ -88,4 +88,5 @@ const Container = styled.View<{ width: number; height: number }>(({ width, heigh
   width,
   height,
   flexDirection: 'row-reverse',
+  backgroundColor: theme.colors.background.main,
 }));
