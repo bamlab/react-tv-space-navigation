@@ -11,6 +11,7 @@ import { ProgramGridPage } from './src/pages/ProgramGridPage';
 import { Menu } from './src/components/Menu/Menu';
 import { MenuProvider } from './src/components/Menu/MenuContext';
 import styled from '@emotion/native';
+import { useFonts } from './src/hooks/useFonts';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -22,6 +23,11 @@ export type RootStackParamList = {
 
 function App(): JSX.Element {
   const { height, width } = useWindowDimensions();
+  const areFontsLoaded = useFonts();
+
+  if (!areFontsLoaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer>

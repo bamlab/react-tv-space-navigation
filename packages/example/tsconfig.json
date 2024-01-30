@@ -1,13 +1,8 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "paths": {
       "react-tv-space-navigation": ["../lib/src/index"]
     }
   },
-  "include": [
-    "./web/**/*",
-    "./App.tsx",
-    "./src/**/*"
-  ]
+  "extends": "expo/tsconfig.base"
 }
