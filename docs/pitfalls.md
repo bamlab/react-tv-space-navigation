@@ -51,3 +51,10 @@ Once you do that, there is always an LRUD node living at the place of your butto
 ## Accessibility
 
 As mentioned in [accessibility](./accessibility.md), support is experimental. And help is welcome 🙂
+
+## React Strict Mode
+
+It can't work 😢 Long story short: we're relying on React's rendering order
+to register our elements, and the strict mode is messing with it.
+
+You can [check this talk out](https://www.youtube.com/watch?v=Asn1TmCH2b0) to understand why.

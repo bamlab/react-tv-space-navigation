@@ -90,9 +90,9 @@ If you want to run the example app in `packages/example`, take a look at [the RE
 
 You can have a look at [the documentation](./docs/api.md).
 
-# Pitfalls
+# Pitfalls & troubleshooting
 
-You should have a look at [the pitfalls](./docs/pitfalls.md).
+You should have a look at [the pitfalls and troubleshooting](./docs/pitfalls.md).
 
 # Accessibility support
 
