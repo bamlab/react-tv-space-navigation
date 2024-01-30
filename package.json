@@ -29,6 +29,7 @@
     "eslint-plugin-react-native": "^4.0.0",
     "html-webpack-plugin": "^5.5.3",
     "metro-react-native-babel-preset": "^0.76.7",
+    "patch-package": "^8.0.0",
     "prettier": "^2.8.8",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.4.4",
@@ -54,6 +55,7 @@
     "test:types": "yarn workspaces foreach run test:types",
     "test:lint": "eslint . --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --max-warnings 0 --cache --cache-strategy content --cache-location .cache/eslint.json",
     "test": "yarn test:lint && yarn test:types && yarn test:core",
-    "build:core": "yarn workspace react-tv-space-navigation build"
+    "build:core": "yarn workspace react-tv-space-navigation build",
+    "postinstall": "patch-package"
   }
 }
