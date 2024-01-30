@@ -8,26 +8,28 @@ import { RootStackParamList } from '../../App';
 import styled from '@emotion/native';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';
 import { ProgramNode } from '../modules/program/view/ProgramNode';
+import chunk from 'lodash/chunk';
+import { ProgramInfo } from '../modules/program/domain/programInfo';
+
+const renderProgramList = (programsLists: ProgramInfo[]) => (
+  <ProgramList programs={programsLists} />
+);
 
 export const NonVirtualizedGridPage = () => {
+  const programsList = chunk(getPrograms(), 7);
   return (
     <Page>
       <Container>
         <SpatialNavigationNode alignInGrid>
-          <DefaultFocus>
-            <ShortProgramList />
-            <ShortProgramList />
-            <ShortProgramList />
-          </DefaultFocus>
+          <DefaultFocus>{programsList.map(renderProgramList)}</DefaultFocus>
         </SpatialNavigationNode>
       </Container>
     </Page>
   );
 };
 
-const ShortProgramList = () => {
+const ProgramList = ({ programs }: { programs: ProgramInfo[] }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const programs = getPrograms().slice(0, 6);
   return (
     <SpatialNavigationNode orientation="horizontal">
       <ListContainer>
@@ -58,6 +60,5 @@ const Container = styled.View({
   margin: 'auto',
   borderRadius: scaledPixels(20),
   padding: scaledPixels(30),
-  justifyContent: 'center',
-  alignItems: 'center',
+  alignItems: 'flex-start',
 });
