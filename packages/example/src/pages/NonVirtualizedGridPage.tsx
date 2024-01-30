@@ -12,24 +12,24 @@ import chunk from 'lodash/chunk';
 import { ProgramInfo } from '../modules/program/domain/programInfo';
 import { theme } from '../design-system/theme/theme';
 
-const renderProgramList = (programsLists: ProgramInfo[]) => (
-  <ProgramList programs={programsLists} />
-);
+const ROW_SIZE = 7;
+
+const renderProgramsList = (programsList: ProgramInfo[]) => <ProgramRow programs={programsList} />;
 
 export const NonVirtualizedGridPage = () => {
-  const programsList = chunk(getPrograms(), 7);
+  const programsLists = chunk(getPrograms(), ROW_SIZE);
   return (
     <Page>
       <Container>
         <SpatialNavigationNode alignInGrid>
-          <DefaultFocus>{programsList.map(renderProgramList)}</DefaultFocus>
+          <DefaultFocus>{programsLists.map(renderProgramsList)}</DefaultFocus>
         </SpatialNavigationNode>
       </Container>
     </Page>
   );
 };
 
-const ProgramList = ({ programs }: { programs: ProgramInfo[] }) => {
+const ProgramRow = ({ programs }: { programs: ProgramInfo[] }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <SpatialNavigationNode orientation="horizontal">
