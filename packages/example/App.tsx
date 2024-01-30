@@ -13,6 +13,7 @@ import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/b
 import { ProgramInfo } from './src/modules/program/domain/programInfo';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ProgramDetail } from './src/pages/ProgramDetail';
+import { NonVirtualizedGridPage } from './src/pages/NonVirtualizedGridPage';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -21,6 +22,7 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 export type RootTabParamList = {
   Home: undefined;
   ProgramGridPage: undefined;
+  NonVirtualizedGridPage: undefined;
 };
 
 export type RootStackParamList = {
@@ -45,6 +47,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="ProgramGridPage" component={ProgramGridPage} />
+      <Tab.Screen name="NonVirtualizedGridPage" component={NonVirtualizedGridPage} />
     </Tab.Navigator>
   );
 };
