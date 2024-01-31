@@ -1,4 +1,8 @@
-import { DefaultFocus, SpatialNavigationNode } from 'react-tv-space-navigation';
+import {
+  DefaultFocus,
+  SpatialNavigationNode,
+  SpatialNavigationScrollView,
+} from 'react-tv-space-navigation';
 import { Page } from '../components/Page';
 import '../components/configureRemoteControl';
 import { getPrograms } from '../modules/program/infra/programInfos';
@@ -11,19 +15,30 @@ import { ProgramNode } from '../modules/program/view/ProgramNode';
 import chunk from 'lodash/chunk';
 import { ProgramInfo } from '../modules/program/domain/programInfo';
 import { theme } from '../design-system/theme/theme';
+import { Header } from '../modules/header/view/Header';
 
 const ROW_SIZE = 7;
+const HEADER_SIZE = 400;
 
-const renderProgramsList = (programsList: ProgramInfo[]) => <ProgramRow programs={programsList} />;
+const renderProgramsList = (programsList: ProgramInfo[]) => (
+  <ProgramRow programs={programsList} key={programsList[0].id} />
+);
 
 export const NonVirtualizedGridPage = () => {
   const programsLists = chunk(getPrograms(), ROW_SIZE);
   return (
     <Page>
       <Container>
-        <SpatialNavigationNode alignInGrid>
-          <DefaultFocus>{programsLists.map(renderProgramsList)}</DefaultFocus>
-        </SpatialNavigationNode>
+        <SpatialNavigationScrollView offsetFromStart={HEADER_SIZE + 20}>
+          <Header
+            title="Rabbit Movies"
+            description="Delve into the delightful world of Rabbit Movies, where every film celebrates the charm and whimsy of our favorite fluffy friends. This category is a haven for rabbit lovers, featuring animated escapades and heartwarming family stories starring these adorable creatures."
+            verticalSize={HEADER_SIZE}
+          />
+          <SpatialNavigationNode alignInGrid>
+            <DefaultFocus>{programsLists.map(renderProgramsList)}</DefaultFocus>
+          </SpatialNavigationNode>
+        </SpatialNavigationScrollView>
       </Container>
     </Page>
   );
@@ -51,7 +66,6 @@ const ProgramRow = ({ programs }: { programs: ProgramInfo[] }) => {
 const ListContainer = styled.View(({ theme }) => ({
   flexDirection: 'row',
   flexWrap: 'wrap',
-  justifyContent: 'center',
   gap: theme.spacings.$4,
   padding: theme.spacings.$4,
 }));
@@ -59,7 +73,8 @@ const ListContainer = styled.View(({ theme }) => ({
 const Container = styled.View({
   backgroundColor: theme.colors.background.mainHover,
   margin: 'auto',
+  height: '95%',
+  width: '88%',
   borderRadius: scaledPixels(20),
   padding: scaledPixels(30),
-  alignItems: 'flex-start',
 });
