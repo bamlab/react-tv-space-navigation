@@ -24,7 +24,7 @@
       "package": "com.reactTvSpaceNavigation.hoppixTv"
     },
     "web": {
-      "favicon": "./assets/favicon.ico"
+      "favicon": "./assets/favicon.png"
     },
     "experiments": {
       "baseUrl": "/react-tv-space-navigation"
