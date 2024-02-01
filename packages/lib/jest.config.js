@@ -47,6 +47,7 @@ const config = {
   // tools
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
   reporters: ['default', 'github-actions'], // Remove this line if your CI is not on Github actions
+  snapshotResolver: './jestSnapshotResolver.js',
 };
 
 module.exports = config;

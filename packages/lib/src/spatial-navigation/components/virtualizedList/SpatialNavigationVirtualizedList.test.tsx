@@ -2,10 +2,10 @@ import { RenderResult, act, render, screen } from '@testing-library/react-native
 import { ItemWithIndex } from '../virtualizedList/VirtualizedList';
 import { PropsTestButton, TestButton } from '../tests/TestButton';
 import { SpatialNavigationRoot } from '../Root';
-import './helpers/configureTestRemoteControl';
-import { SpatialNavigationVirtualizedList } from '../virtualizedList/SpatialNavigationVirtualizedList';
+import '../tests/helpers/configureTestRemoteControl';
+import { SpatialNavigationVirtualizedList } from './SpatialNavigationVirtualizedList';
 import { DefaultFocus } from '../../context/DefaultFocusContext';
-import testRemoteControlManager from './helpers/testRemoteControlManager';
+import testRemoteControlManager from '../tests/helpers/testRemoteControlManager';
 
 export const expectButtonToHaveFocus = (component: RenderResult, text: string) => {
   const element = component.getByRole('button', { name: text });
