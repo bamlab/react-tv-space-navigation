@@ -2,7 +2,7 @@ import styled from '@emotion/native';
 import { Text } from 'react-native';
 import { SpatialNavigationNode } from '../Node';
 
-type PropsTestButton = {
+export type PropsTestButton = {
   onSelect: () => void;
   title: string;
 };
