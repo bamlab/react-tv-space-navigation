@@ -18,7 +18,7 @@ import { theme } from '../design-system/theme/theme';
 import { Header } from '../modules/header/view/Header';
 
 const ROW_SIZE = 7;
-const HEADER_SIZE = 400;
+const HEADER_SIZE = scaledPixels(400);
 
 const renderProgramsList = (programsList: ProgramInfo[]) => (
   <ProgramRow programs={programsList} key={programsList[0].id} />
@@ -28,18 +28,20 @@ export const NonVirtualizedGridPage = () => {
   const programsLists = chunk(getPrograms(), ROW_SIZE);
   return (
     <Page>
-      <Container>
-        <SpatialNavigationScrollView offsetFromStart={HEADER_SIZE + 20}>
-          <Header
-            title="Rabbit Movies"
-            description="Delve into the delightful world of Rabbit Movies, where every film celebrates the charm and whimsy of our favorite fluffy friends. This category is a haven for rabbit lovers, featuring animated escapades and heartwarming family stories starring these adorable creatures."
-            verticalSize={HEADER_SIZE}
-          />
-          <SpatialNavigationNode alignInGrid>
-            <DefaultFocus>{programsLists.map(renderProgramsList)}</DefaultFocus>
-          </SpatialNavigationNode>
-        </SpatialNavigationScrollView>
-      </Container>
+      <CenteringView>
+        <GridContainer>
+          <SpatialNavigationScrollView offsetFromStart={HEADER_SIZE + 20}>
+            <Header
+              title="Rabbit Movies"
+              description="Delve into the delightful world of Rabbit Movies, where every film celebrates the charm and whimsy of our favorite fluffy friends. This category is a haven for rabbit lovers, featuring animated escapades and heartwarming family stories starring these adorable creatures."
+              verticalSize={HEADER_SIZE}
+            />
+            <SpatialNavigationNode alignInGrid>
+              <DefaultFocus>{programsLists.map(renderProgramsList)}</DefaultFocus>
+            </SpatialNavigationNode>
+          </SpatialNavigationScrollView>
+        </GridContainer>
+      </CenteringView>
     </Page>
   );
 };
@@ -70,11 +72,17 @@ const ListContainer = styled.View(({ theme }) => ({
   padding: theme.spacings.$4,
 }));
 
-const Container = styled.View({
+const GridContainer = styled.View({
   backgroundColor: theme.colors.background.mainHover,
   margin: 'auto',
   height: '95%',
   width: '88%',
   borderRadius: scaledPixels(20),
   padding: scaledPixels(30),
+});
+
+const CenteringView = styled.View({
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
 });
