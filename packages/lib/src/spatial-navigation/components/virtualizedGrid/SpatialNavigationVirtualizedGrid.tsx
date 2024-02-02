@@ -20,6 +20,7 @@ type SpatialNavigationVirtualizedGridProps<T extends ItemWithIndex> = Pick<
   | 'nbMaxOfItems'
   | 'scrollBehavior'
   | 'scrollDuration'
+  | 'testID'
 > & {
   itemHeight: number;
   /** How many rows are RENDERED (virtualization size) */

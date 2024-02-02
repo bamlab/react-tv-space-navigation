@@ -49,6 +49,7 @@ export interface VirtualizedListProps<T> {
   /** Custom width for the VirtualizedList container */
   width?: number;
   scrollBehavior?: ScrollBehavior;
+  testID?: string;
 }
 
 const useOnEndReached = ({
@@ -136,6 +137,7 @@ export const VirtualizedList = typedMemo(
     scrollBehavior = 'stick-to-start',
     height = screen.height,
     width = screen.width,
+    testID,
   }: VirtualizedListProps<T>) => {
     const range = getRange({
       data,
@@ -226,6 +228,7 @@ export const VirtualizedList = typedMemo(
     return (
       <Animated.View
         style={[styles.container, animatedStyle, style, directionStyle, dimensionStyle]}
+        testID={testID}
       >
         <View>
           {dataSliceToRender.map((item) => {
