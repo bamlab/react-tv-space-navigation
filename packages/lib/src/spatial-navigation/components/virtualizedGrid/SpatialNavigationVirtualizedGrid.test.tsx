@@ -48,7 +48,6 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     );
 
   it('renders the correct number of item', () => {
-    jest.useFakeTimers();
     const component = renderGrid();
     act(() => jest.runAllTimers());
 
@@ -74,7 +73,6 @@ describe('SpatialNavigationVirtualizedGrid', () => {
   });
 
   it('renders the correct number of item', () => {
-    jest.useFakeTimers();
     const component = renderGrid();
     act(() => jest.runAllTimers());
 

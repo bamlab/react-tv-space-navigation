@@ -48,7 +48,6 @@ describe('SpatialNavigationVirtualizedList', () => {
     );
 
   it('renders the correct number of item', () => {
-    jest.useFakeTimers();
     const component = renderList();
     act(() => jest.runAllTimers());
 
@@ -75,7 +74,6 @@ describe('SpatialNavigationVirtualizedList', () => {
   });
 
   it('handles correctly RIGHT and RENDERS new elements accordingly while deleting elements that are too far from scroll', async () => {
-    jest.useFakeTimers();
     const component = renderList();
     act(() => jest.runAllTimers());
 
