@@ -9,7 +9,7 @@ import testRemoteControlManager from '../tests/helpers/testRemoteControlManager'
 
 export const expectButtonToHaveFocus = (component: RenderResult, text: string) => {
   const element = component.getByRole('button', { name: text });
-  expect(element).toHaveAccessibilityState({ selected: true });
+  expect(element).toBeSelected();
 };
 
 describe('SpatialNavigationVirtualizedList', () => {

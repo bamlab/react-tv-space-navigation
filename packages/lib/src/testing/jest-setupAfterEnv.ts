@@ -1,4 +1,4 @@
-import '@testing-library/jest-native/extend-expect';
+import '@testing-library/react-native/extend-expect';
 
 import { TEST_DEFAULT_DATE, TEST_DEFAULT_MATH_RANDOM } from './constants';
 
