@@ -7,6 +7,10 @@
  *
  * If encountering a syntax error during tests with a new package, add it to this list
  */
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path');
+
 const packagesToTransform = [
   'react-native',
   'react-native-(.*)',
@@ -30,7 +34,10 @@ const config = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testRegex: '\\.test\\.[jt]sx?$',
   transform: {
-    '\\.[jt]sx?$': ['babel-jest', { configFile: './babel.jest.config.js' }],
+    '\\.[jt]sx?$': [
+      'babel-jest',
+      { configFile: path.resolve(__dirname, './babel.jest.config.js') },
+    ],
   },
   transformIgnorePatterns: [`node_modules/(?!(${packagesToTransform.join('|')})/)`],
   cacheDirectory: '.cache/jest',
@@ -40,6 +47,7 @@ const config = {
   // tools
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
   reporters: ['default', 'github-actions'], // Remove this line if your CI is not on Github actions
+  snapshotResolver: './jestSnapshotResolver.js',
 };
 
 module.exports = config;
