@@ -7,6 +7,7 @@ import { useSpatialNavigator } from '../context/SpatialNavigatorContext';
 import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useUniqueId } from '../hooks/useUniqueId';
 import { NodeOrientation } from '../types/orientation';
+import { NodeIndexRange } from '@bam.tech/lrud';
 
 type FocusableProps = {
   isFocusable: true;
@@ -24,6 +25,7 @@ type DefaultProps = {
   /** Use this for grid alignment.
    * @see LRUD docs */
   alignInGrid?: boolean;
+  indexRange?: NodeIndexRange;
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
@@ -71,6 +73,7 @@ export const SpatialNavigationNode = ({
   orientation = 'vertical',
   isFocusable = false,
   alignInGrid = false,
+  indexRange,
   children,
 }: Props) => {
   const spatialNavigator = useSpatialNavigator();
@@ -118,6 +121,7 @@ export const SpatialNavigationNode = ({
       onSelect: () => currentOnSelect.current?.(),
       orientation,
       isIndexAlign: alignInGrid,
+      indexRange,
     });
 
     return () => spatialNavigator.unregisterNode(id);

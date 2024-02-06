@@ -51,6 +51,9 @@ The `SpatialNavigationNode` component receives the following props:
 | `onSelect`    | `function`                  | `undefined`  | Callback function to be called when the node is selected.                                                                                                                                                                                                     |
 | `orientation` | `'vertical' \| 'horizontal` | `'vertical'` | Determines the orientation of the node.                                                                                                                                                                                                                       |
 | `isFocusable` | `boolean`                   | `false`      | Determines if the node is focusable or not. If it's `true`, the `children` prop must be a function that returns a React element and accepts a parameter with a `isFocused` property. If it's `false` or not provided, `children` can be any valid React node. |
+
+| `indexRange`  | `number[]`                  | `undefined`  | Determines the indexes when using long nodes in a grid. cf : https://github.com/bbc/lrud/blob/master/docs/usage.md#indexrange 
+
 | `children`    | `function` or `ReactNode`   | `null`       | Child elements of the component. It can be a function that returns a React element and accepts a parameter with a `isFocused` property when `isFocusable` is `true`. If `isFocusable` is `false` or not provided, it can be any valid React node.             |
 
 ## Usage
