@@ -17,36 +17,42 @@ class TestRemoteControlManager {
     act(() => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Up);
     });
+    act(() => jest.runAllTimers());
   };
 
   public handleDown = () => {
     act(() => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Down);
     });
+    act(() => jest.runAllTimers());
   };
 
   public handleLeft = () => {
     act(() => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Left);
     });
+    act(() => jest.runAllTimers());
   };
 
   public handleRight = () => {
     act(() => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Right);
     });
+    act(() => jest.runAllTimers());
   };
 
   public handleEnter = () => {
     act(() => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Enter);
     });
+    act(() => jest.runAllTimers());
   };
 
   public handleBackSpace = () => {
     act(() => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Back);
     });
+    act(() => jest.runAllTimers());
   };
 
   addKeydownListener = (listener: (event: SupportedKeys) => void) => {

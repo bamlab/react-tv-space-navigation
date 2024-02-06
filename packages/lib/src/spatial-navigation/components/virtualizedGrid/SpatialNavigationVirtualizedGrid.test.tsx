@@ -49,7 +49,6 @@ describe('SpatialNavigationVirtualizedGrid', () => {
 
   it('renders the correct number of item', () => {
     const component = renderGrid();
-    act(() => jest.runAllTimers());
 
     expect(screen).toMatchSnapshot();
 
@@ -80,7 +79,6 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
     testRemoteControlManager.handleRight();
-    act(() => jest.runAllTimers());
 
     expect(screen.getByText('button 1')).toBeTruthy();
     expect(screen.getByText('button 2')).toBeTruthy();
@@ -101,7 +99,6 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(screen.queryByText('button 16')).toBeFalsy();
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expect(listElement).toHaveStyle({ transform: [{ translateY: -100 }] });
 
     expect(screen.getByText('button 1')).toBeTruthy();
@@ -123,7 +120,6 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(screen.queryByText('button 16')).toBeFalsy();
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expect(listElement).toHaveStyle({ transform: [{ translateY: -200 }] });
 
     expect(screen.queryByText('button 1')).toBeFalsy();
@@ -150,22 +146,18 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(screen).toMatchSnapshot();
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expect(listElement).toHaveStyle({ transform: [{ translateY: -300 }] });
     expectButtonToHaveFocus(component, 'button 11');
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expect(listElement).toHaveStyle({ transform: [{ translateY: -400 }] });
     expectButtonToHaveFocus(component, 'button 14');
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expect(listElement).toHaveStyle({ transform: [{ translateY: -400 }] });
     expectButtonToHaveFocus(component, 'button 17');
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expect(listElement).toHaveStyle({ transform: [{ translateY: -400 }] });
     expectButtonToHaveFocus(component, 'button 19');
   });
@@ -193,37 +185,30 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
     testRemoteControlManager.handleRight();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 2');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 5');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 8');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 11');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -100 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 14');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -200 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 17');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -300 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 19');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -400 }] });
   });
@@ -251,37 +236,30 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
     testRemoteControlManager.handleRight();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 2');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 5');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 8');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 11');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -300 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 14');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -300 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 17');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -300 }] });
 
     testRemoteControlManager.handleDown();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 19');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -400 }] });
   });
