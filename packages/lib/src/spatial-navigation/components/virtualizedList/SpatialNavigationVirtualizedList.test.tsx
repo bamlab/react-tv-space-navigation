@@ -81,7 +81,6 @@ describe('SpatialNavigationVirtualizedList', () => {
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
 
     testRemoteControlManager.handleRight();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 2');
     expect(listElement).toHaveStyle({ transform: [{ translateX: -100 }] });
 
@@ -90,7 +89,6 @@ describe('SpatialNavigationVirtualizedList', () => {
     expect(screen.queryByText('button 6')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 3');
     expect(listElement).toHaveStyle({ transform: [{ translateX: -200 }] });
 
@@ -99,8 +97,9 @@ describe('SpatialNavigationVirtualizedList', () => {
     expect(screen.getByText('button 6')).toBeTruthy();
     expect(screen.queryByText('button 7')).toBeFalsy();
 
+    expect(screen).toMatchSnapshot();
+
     testRemoteControlManager.handleRight();
-    act(() => jest.runAllTimers());
     expectButtonToHaveFocus(component, 'button 4');
     expect(listElement).toHaveStyle({ transform: [{ translateX: -300 }] });
 
@@ -108,5 +107,175 @@ describe('SpatialNavigationVirtualizedList', () => {
     expect(screen.getByText('button 3')).toBeTruthy();
     expect(screen.getByText('button 7')).toBeTruthy();
     expect(screen.queryByText('button 8')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 5');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -400 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 6');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -500 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 7');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -600 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 8');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -700 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 9');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -700 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 10');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -700 }] });
+  });
+
+  it('handles correctly RIGHT and RENDERS new elements accordingly while deleting elements that are too far from scroll when on stick to end scroll', async () => {
+    const component = render(
+      <SpatialNavigationRoot>
+        <DefaultFocus>
+          <SpatialNavigationVirtualizedList
+            testID="test-list"
+            renderItem={renderItem}
+            data={data}
+            itemSize={100}
+            width={300}
+            numberOfRenderedItems={5}
+            numberOfItemsVisibleOnScreen={3}
+            scrollBehavior="stick-to-end"
+          />
+        </DefaultFocus>
+      </SpatialNavigationRoot>,
+    );
+    act(() => jest.runAllTimers());
+
+    const listElement = component.getByTestId('test-list');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 2');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+
+    expect(screen.getByText('button 1')).toBeTruthy();
+    expect(screen.getByText('button 5')).toBeTruthy();
+    expect(screen.queryByText('button 6')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 3');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+
+    expect(screen.queryByText('button 1')).toBeFalsy();
+    expect(screen.getByText('button 2')).toBeTruthy();
+    expect(screen.getByText('button 6')).toBeTruthy();
+    expect(screen.queryByText('button 7')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 4');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -100 }] });
+
+    expect(screen.queryByText('button 2')).toBeFalsy();
+    expect(screen.getByText('button 3')).toBeTruthy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 5');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -200 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 6');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -300 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 7');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -400 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 8');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -500 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 9');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -600 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 10');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -700 }] });
+  });
+
+  it('handles correctly RIGHT and RENDERS new elements accordingly while deleting elements that are too far from scroll when on jump on scroll', async () => {
+    const component = render(
+      <SpatialNavigationRoot>
+        <DefaultFocus>
+          <SpatialNavigationVirtualizedList
+            testID="test-list"
+            renderItem={renderItem}
+            data={data}
+            itemSize={100}
+            width={300}
+            numberOfRenderedItems={5}
+            numberOfItemsVisibleOnScreen={3}
+            scrollBehavior="jump-on-scroll"
+          />
+        </DefaultFocus>
+      </SpatialNavigationRoot>,
+    );
+    act(() => jest.runAllTimers());
+
+    const listElement = component.getByTestId('test-list');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 2');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+
+    expect(screen.getByText('button 1')).toBeTruthy();
+    expect(screen.getByText('button 5')).toBeTruthy();
+    expect(screen.queryByText('button 6')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 3');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+
+    expect(screen.queryByText('button 1')).toBeFalsy();
+    expect(screen.getByText('button 2')).toBeTruthy();
+    expect(screen.getByText('button 6')).toBeTruthy();
+    expect(screen.queryByText('button 7')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 4');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -300 }] });
+
+    expect(screen.queryByText('button 2')).toBeFalsy();
+    expect(screen.getByText('button 3')).toBeTruthy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 5');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -300 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 6');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -300 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 7');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -600 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 8');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -600 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 9');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -600 }] });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 10');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -700 }] });
   });
 });
