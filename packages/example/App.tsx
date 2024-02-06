@@ -14,6 +14,7 @@ import { ProgramInfo } from './src/modules/program/domain/programInfo';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ProgramDetail } from './src/pages/ProgramDetail';
 import { NonVirtualizedGridPage } from './src/pages/NonVirtualizedGridPage';
+import { GridWithLongNodesPage } from './src/pages/GridWithLongNodesPage';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,6 +24,7 @@ export type RootTabParamList = {
   Home: undefined;
   ProgramGridPage: undefined;
   NonVirtualizedGridPage: undefined;
+  GridWithLongNodesPage: undefined;
 };
 
 export type RootStackParamList = {
@@ -48,6 +50,7 @@ const TabNavigator = () => {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="ProgramGridPage" component={ProgramGridPage} />
       <Tab.Screen name="NonVirtualizedGridPage" component={NonVirtualizedGridPage} />
+      <Tab.Screen name="GridWithLongNodesPage" component={GridWithLongNodesPage} />
     </Tab.Navigator>
   );
 };
