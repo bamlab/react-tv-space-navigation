@@ -8,12 +8,15 @@ import { Spacer } from '../design-system/components/Spacer';
 import { Typography } from '../design-system/components/Typography';
 import { ProgramListWithTitle } from '../modules/program/view/ProgramListWithTitle';
 import { Button } from '../design-system/components/Button';
+import { useState } from 'react';
+import { GenericModal } from '../components/GenericModal';
 
 export const ProgramDetail = ({
   route,
 }: {
   route: RouteProp<RootStackParamList, 'ProgramDetail'>;
 }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { programInfo } = route.params;
 
   return (
@@ -38,6 +41,16 @@ export const ProgramDetail = ({
               <Spacer gap="$8" />
               {/* eslint-disable-next-line no-console */}
               <Button label="More info" onSelect={() => console.log('More info!')} />
+              <Spacer gap="$8" />
+              {/* eslint-disable-next-line no-console */}
+              <Button label="Choose subtitles" onSelect={() => setIsModalVisible(true)} />
+              <GenericModal isVisible={isModalVisible}>
+                <Button label="English" onSelect={() => setIsModalVisible(false)} />
+                <Spacer direction="horizontal" gap="$8" />
+                <Button label="Spanish" onSelect={() => setIsModalVisible(false)} />
+                <Spacer direction="horizontal" gap="$8" />
+                <Button label="French" onSelect={() => setIsModalVisible(false)} />
+              </GenericModal>
             </Box>
           </DefaultFocus>
         </Container>
