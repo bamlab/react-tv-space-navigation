@@ -1,4 +1,12 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.3.0...v) (2023-11-24)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.3.1...v) (2024-02-07)
+
+## [1.3.1](https://github.com/bamlab/react-tv-space-navigation/compare/v1.3.0...v1.3.1) (2024-02-07)
+
+
+### Features
+
+* adding testId for virtualized list and grid ([53a8814](https://github.com/bamlab/react-tv-space-navigation/commit/53a8814070465ebdd5308131da735ece3d20ae7a))
+* **core:** add indexRange props to SpatialNavigationNode ([bb5ee0d](https://github.com/bamlab/react-tv-space-navigation/commit/bb5ee0dcb7422a14c0191998da88b8e951e85c90))
 
 ## [1.3.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.1.1...v1.3.0) (2023-11-24)
 
