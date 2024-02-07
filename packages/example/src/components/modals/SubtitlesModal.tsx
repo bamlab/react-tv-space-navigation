@@ -5,8 +5,6 @@ import { useLockSpatialNavigation } from '../../../../lib/src/spatial-navigation
 import { Button } from '../../design-system/components/Button';
 import { Spacer } from '../../design-system/components/Spacer';
 import { GenericModal } from './GenericModal';
-import { SupportedKeys } from '../remote-control/SupportedKeys';
-import RemoteControlManager from '../remote-control/RemoteControlManager';
 import { useIsFirstRender } from '../../hooks/useIsFirstRender';
 import { useNavigation } from '@react-navigation/native';
 
@@ -29,16 +27,10 @@ export const SubtitlesModal = ({
     const navigationListener = (e) => {
       if (isModalVisible) {
         e.preventDefault();
-      }
-    };
-    navigation.addListener('beforeRemove', navigationListener);
-
-    const remoteControlListener = (pressedKey: SupportedKeys) => {
-      if (isModalVisible && pressedKey === SupportedKeys.Back) {
         setIsModalVisible(false);
       }
     };
-    RemoteControlManager.addKeydownListener(remoteControlListener);
+    navigation.addListener('beforeRemove', navigationListener);
 
     // Locks the parent spatial navigator when the modal is open and unlocks it when it's closed
     if (!isFirstRender) {
@@ -51,7 +43,6 @@ export const SubtitlesModal = ({
 
     // Cleanup
     return () => {
-      RemoteControlManager.removeKeydownListener(remoteControlListener);
       navigation.removeListener('beforeRemove', navigationListener);
     };
   }, [isModalVisible, lock, unlock, setIsModalVisible, isFirstRender, navigation]);
