@@ -8,7 +8,7 @@ import { GenericModal } from './GenericModal';
 import { SupportedKeys } from '../remote-control/SupportedKeys';
 import RemoteControlManager from '../remote-control/RemoteControlManager';
 import { useIsFirstRender } from '../../hooks/useIsFirstRender';
-import { useGoBack } from '../GoBack/GoBackContext';
+import { useNavigation } from '@react-navigation/native';
 
 interface SubtitlesModalProps {
   isModalVisible: boolean;
@@ -23,9 +23,16 @@ export const SubtitlesModal = ({
 }: SubtitlesModalProps) => {
   const { lock, unlock } = useLockSpatialNavigation();
   const isFirstRender = useIsFirstRender();
-  const { setIsGoBackActive } = useGoBack();
+  const navigation = useNavigation();
 
   useEffect(() => {
+    const navigationListener = (e) => {
+      if (isModalVisible) {
+        e.preventDefault();
+      }
+    };
+    navigation.addListener('beforeRemove', navigationListener);
+
     const remoteControlListener = (pressedKey: SupportedKeys) => {
       if (isModalVisible && pressedKey === SupportedKeys.Back) {
         setIsModalVisible(false);
@@ -36,10 +43,8 @@ export const SubtitlesModal = ({
     // Locks the parent spatial navigator when the modal is open and unlocks it when it's closed
     if (!isFirstRender) {
       if (isModalVisible) {
-        setIsGoBackActive(false);
         lock();
       } else {
-        setIsGoBackActive(true);
         unlock();
       }
     }
@@ -47,8 +52,9 @@ export const SubtitlesModal = ({
     // Cleanup
     return () => {
       RemoteControlManager.removeKeydownListener(remoteControlListener);
+      navigation.removeListener('beforeRemove', navigationListener);
     };
-  }, [isModalVisible, lock, unlock, setIsModalVisible, isFirstRender, setIsGoBackActive]);
+  }, [isModalVisible, lock, unlock, setIsModalVisible, isFirstRender, navigation]);
 
   return (
     <SpatialNavigationRoot>
