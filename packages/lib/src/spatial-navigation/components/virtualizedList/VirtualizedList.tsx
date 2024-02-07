@@ -7,6 +7,8 @@ import {
 } from './hooks/useVirtualizedListAnimation';
 import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
+import { getLastLeftItemIndex } from './helpers/getLastLeftItemIndex';
+import { getLastRightItemIndex } from './helpers/getLastRightItemIndex';
 
 /**
  * @TODO: VirtualizedList should be able to take any data as params.
@@ -160,6 +162,9 @@ export const VirtualizedList = typedMemo(
 
     const dataSliceToRender = data.slice(range.start, range.end + 1);
 
+    const maxPossibleLeftAlignedIndex = getLastLeftItemIndex<T>(data, itemSize, listSizeInPx);
+    const maxPossibleRightAlignedIndex = getLastRightItemIndex<T>(data, itemSize, listSizeInPx);
+
     useOnEndReached({
       numberOfItems: data.length,
       range,
@@ -180,6 +185,8 @@ export const VirtualizedList = typedMemo(
             scrollDuration,
             data,
             listSizeInPx,
+            maxPossibleLeftAlignedIndex,
+            maxPossibleRightAlignedIndex,
           })
         : useVirtualizedListAnimation({
             currentlyFocusedItemIndex,
@@ -191,6 +198,8 @@ export const VirtualizedList = typedMemo(
             scrollDuration,
             data,
             listSizeInPx,
+            maxPossibleLeftAlignedIndex,
+            maxPossibleRightAlignedIndex,
           });
 
     /*

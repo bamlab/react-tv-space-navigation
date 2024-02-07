@@ -9,6 +9,8 @@ export type TypeVirtualizedListAnimation = <T>(args: {
   numberOfItemsVisibleOnScreen: number;
   scrollBehavior: ScrollBehavior;
   scrollDuration: number;
-  data?: T[];
-  listSizeInPx?: number;
+  data: T[];
+  listSizeInPx: number;
+  maxPossibleLeftAlignedIndex: number;
+  maxPossibleRightAlignedIndex: number;
 }) => Animated.WithAnimatedValue<ViewStyle>;

@@ -34,7 +34,7 @@ export const ProgramList = ({
   );
   const theme = useTheme();
 
-  const programInfos = useMemo(() => getPrograms(1000), []);
+  const programInfos = useMemo(() => getPrograms(10), []);
 
   return (
     <Container style={containerStyle}>

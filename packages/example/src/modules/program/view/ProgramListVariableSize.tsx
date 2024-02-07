@@ -41,7 +41,7 @@ export const ProgramList = ({
   );
   const theme = useTheme();
 
-  const programInfos = useMemo(() => getVariableSizePrograms(1000), []);
+  const programInfos = useMemo(() => getVariableSizePrograms(10), []);
 
   return (
     <Container style={containerStyle}>
@@ -57,7 +57,6 @@ export const ProgramList = ({
         numberOfRenderedItems={WINDOW_SIZE}
         numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
         onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-        scrollBehavior="stick-to-end"
       />
     </Container>
   );
