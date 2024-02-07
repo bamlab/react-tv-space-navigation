@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@emotion/react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useWindowDimensions } from 'react-native';
-import { GoBackConfiguration } from './src/components/GoBackConfiguration';
+import { GoBackConfiguration } from './src/components/GoBack/GoBackConfiguration';
 import { theme } from './src/design-system/theme/theme';
 import { Home } from './src/pages/Home';
 import { ProgramGridPage } from './src/pages/ProgramGridPage';
@@ -14,6 +14,7 @@ import { ProgramInfo } from './src/modules/program/domain/programInfo';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ProgramDetail } from './src/pages/ProgramDetail';
 import { NonVirtualizedGridPage } from './src/pages/NonVirtualizedGridPage';
+import { GoBackProvider } from './src/components/GoBack/GoBackContext';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -63,23 +64,25 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <ThemeProvider theme={theme}>
-        <GoBackConfiguration />
-        <MenuProvider>
-          <Container width={width} height={height}>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-                contentStyle: {
-                  backgroundColor: theme.colors.background.main,
-                },
-              }}
-              initialRouteName="TabNavigator"
-            >
-              <Stack.Screen name="TabNavigator" component={TabNavigator} />
-              <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
-            </Stack.Navigator>
-          </Container>
-        </MenuProvider>
+        <GoBackProvider>
+          <GoBackConfiguration />
+          <MenuProvider>
+            <Container width={width} height={height}>
+              <Stack.Navigator
+                screenOptions={{
+                  headerShown: false,
+                  contentStyle: {
+                    backgroundColor: theme.colors.background.main,
+                  },
+                }}
+                initialRouteName="TabNavigator"
+              >
+                <Stack.Screen name="TabNavigator" component={TabNavigator} />
+                <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
+              </Stack.Navigator>
+            </Container>
+          </MenuProvider>
+        </GoBackProvider>
       </ThemeProvider>
     </NavigationContainer>
   );
