@@ -11,6 +11,8 @@ export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
   vertical = false,
   scrollBehavior,
   scrollDuration,
+  data,
+  listSizeInPx,
 }) => {
   const translation = useRef<Animated.Value>(new Animated.Value(0)).current;
   const newTranslationValue = computeTranslation({
@@ -19,6 +21,8 @@ export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
     nbMaxOfItems,
     numberOfItemsVisibleOnScreen,
     scrollBehavior,
+    data,
+    listSizeInPx,
   });
 
   useEffect(() => {
@@ -43,6 +47,8 @@ export const useWebVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
   vertical = false,
   scrollBehavior,
   scrollDuration,
+  data,
+  listSizeInPx,
 }) => {
   const animationDuration = `${scrollDuration}ms`;
   const newTranslationValue = computeTranslation({
@@ -51,6 +57,8 @@ export const useWebVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
     nbMaxOfItems,
     numberOfItemsVisibleOnScreen,
     scrollBehavior,
+    data,
+    listSizeInPx,
   });
 
   return {

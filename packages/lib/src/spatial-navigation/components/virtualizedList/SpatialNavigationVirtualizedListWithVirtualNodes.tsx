@@ -1,6 +1,6 @@
 import uniqueId from 'lodash.uniqueid';
 import { useCallback, useRef } from 'react';
-import { VirtualizedList, VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
+import { VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
 import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
 import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
 import { updateVirtualNodeRegistration } from './helpers/updateVirtualNodeRegistration';
@@ -9,6 +9,7 @@ import { typedMemo } from '../../helpers/TypedMemo';
 import { useCachedValues } from './hooks/useCachedValues';
 import { NodeOrientation } from '../../types/orientation';
 import { invertOrientation } from '../virtualizedGrid/helpers/convertToGrid';
+import { VirtualizedListWithSize } from './VirtualizedListWithSize';
 
 const useCreateVirtualParentsIds = (parentId: string) =>
   useCachedValues(() => uniqueId(`${parentId}_virtual_`));
@@ -128,8 +129,13 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
   ),
 );
 
-export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T> = VirtualizedListProps<T> & {
+export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T> = Omit<
+  VirtualizedListProps<T>,
+  'width' | 'height'
+> & {
   isGrid?: boolean;
+  width?: number;
+  height?: number;
 };
 
 /**
@@ -176,6 +182,6 @@ export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
       [getNthVirtualNodeID, renderItem],
     );
 
-    return <VirtualizedList {...props} renderItem={renderWrappedItem} />;
+    return <VirtualizedListWithSize {...props} renderItem={renderWrappedItem} />;
   },
 );

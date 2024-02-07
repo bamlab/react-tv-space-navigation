@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { Animated, StyleSheet, View, ViewStyle, Dimensions, Platform } from 'react-native';
+import { Animated, StyleSheet, View, ViewStyle, Platform } from 'react-native';
 import { getRange } from './helpers/getRange';
 import {
   useVirtualizedListAnimation,
@@ -7,8 +7,6 @@ import {
 } from './hooks/useVirtualizedListAnimation';
 import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
-
-const screen = Dimensions.get('window');
 
 /**
  * @TODO: VirtualizedList should be able to take any data as params.
@@ -21,10 +19,10 @@ export type ItemWithIndex = { index: number };
 
 export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
-  data: Array<T>;
+  data: T[];
   renderItem: (args: { item: T }) => JSX.Element;
   /** If vertical the height of an item, otherwise the width */
-  itemSize: number;
+  itemSize: number | ((item: T) => number);
   currentlyFocusedItemIndex: number;
   /** How many items are RENDERED (virtualization size) */
   numberOfRenderedItems: number;
@@ -45,9 +43,9 @@ export interface VirtualizedListProps<T> {
   /** Duration of a scrolling animation inside the VirtualizedList */
   scrollDuration?: number;
   /** Custom height for the VirtualizedList container */
-  height?: number;
+  height: number;
   /** Custom width for the VirtualizedList container */
-  width?: number;
+  width: number;
   scrollBehavior?: ScrollBehavior;
   testID?: string;
 }
@@ -91,21 +89,31 @@ const ItemContainerWithAnimatedStyle = typedMemo(
     renderItem,
     itemSize,
     vertical,
+    data,
   }: {
     item: T;
     renderItem: VirtualizedListProps<T>['renderItem'];
-    itemSize: number;
+    itemSize: number | ((item: T) => number);
     vertical: boolean;
+    data: T[];
   }) => {
+    const computeOffset = useCallback(
+      (item: T) =>
+        typeof itemSize === 'number'
+          ? item.index * itemSize
+          : data.slice(0, item.index).reduce((acc, item) => acc + itemSize(item), 0),
+      [data, itemSize],
+    );
+
     const style = useMemo(
       () =>
         StyleSheet.flatten([
           styles.item,
           vertical
-            ? { transform: [{ translateY: item.index * itemSize }] }
-            : { transform: [{ translateX: item.index * itemSize }] },
+            ? { transform: [{ translateY: computeOffset(item) }] }
+            : { transform: [{ translateX: computeOffset(item) }] },
         ]),
-      [item.index, itemSize, vertical],
+      [computeOffset, item, vertical],
     );
     return <View style={style}>{renderItem({ item })}</View>;
   },
@@ -135,8 +143,8 @@ export const VirtualizedList = typedMemo(
     keyExtractor,
     scrollDuration = 200,
     scrollBehavior = 'stick-to-start',
-    height = screen.height,
-    width = screen.width,
+    height,
+    width,
     testID,
   }: VirtualizedListProps<T>) => {
     const range = getRange({
@@ -147,6 +155,8 @@ export const VirtualizedList = typedMemo(
     });
 
     const vertical = orientation === 'vertical';
+
+    const listSizeInPx = vertical ? height : width;
 
     const dataSliceToRender = data.slice(range.start, range.end + 1);
 
@@ -168,6 +178,8 @@ export const VirtualizedList = typedMemo(
             numberOfItemsVisibleOnScreen,
             scrollBehavior,
             scrollDuration,
+            data,
+            listSizeInPx,
           })
         : useVirtualizedListAnimation({
             currentlyFocusedItemIndex,
@@ -177,6 +189,8 @@ export const VirtualizedList = typedMemo(
             numberOfItemsVisibleOnScreen,
             scrollBehavior,
             scrollDuration,
+            data,
+            listSizeInPx,
           });
 
     /*
@@ -215,14 +229,24 @@ export const VirtualizedList = typedMemo(
      * ```
      */
 
+    const getTotalVirtualizedListSize = useCallback(
+      (data: T[], itemSize: number | ((item: T) => number)) => {
+        if (typeof itemSize === 'number') {
+          return data.reduce((acc) => acc + itemSize, 0);
+        }
+        return data.reduce((acc, item) => acc + itemSize(item), 0);
+      },
+      [],
+    );
+
     const dimensionStyle = useMemo(
       () =>
         vertical
           ? ({
-              height: height + itemSize * currentlyFocusedItemIndex,
+              height: getTotalVirtualizedListSize(data, itemSize),
             } as const)
-          : ({ width: width + itemSize * currentlyFocusedItemIndex } as const),
-      [height, width, itemSize, currentlyFocusedItemIndex, vertical],
+          : ({ width: getTotalVirtualizedListSize(data, itemSize) } as const),
+      [data, getTotalVirtualizedListSize, itemSize, vertical],
     );
 
     return (
@@ -239,6 +263,7 @@ export const VirtualizedList = typedMemo(
                 item={item}
                 itemSize={itemSize}
                 vertical={vertical}
+                data={data}
               />
             );
           })}
