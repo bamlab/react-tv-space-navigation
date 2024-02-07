@@ -9,14 +9,10 @@ import { useState } from 'react';
  * or height not defined (as it is used later for computing offsets for example).
  */
 export const VirtualizedListWithSize = typedMemo(
-  <T extends ItemWithIndex>(
-    props: Omit<VirtualizedListProps<T>, 'width' | 'height'> & { width?: number; height?: number },
-  ) => {
+  <T extends ItemWithIndex>(props: Omit<VirtualizedListProps<T>, 'width' | 'height'>) => {
     const [viewHeight, setViewHeight] = useState<number | null>(null);
     const [viewWidth, setViewWidth] = useState<number | null>(null);
-    const actualWidth = props.width || viewWidth;
-    const actualHeight = props.height || viewHeight;
-    const shouldRender = actualWidth && actualHeight;
+    const shouldRender = viewWidth && viewHeight;
 
     return (
       <View
@@ -31,9 +27,7 @@ export const VirtualizedListWithSize = typedMemo(
         }}
         testID={props.testID ? props.testID + '-size-giver' : undefined}
       >
-        {shouldRender ? (
-          <VirtualizedList {...props} width={actualWidth} height={actualHeight} />
-        ) : null}
+        {shouldRender ? <VirtualizedList {...props} width={viewWidth} height={viewHeight} /> : null}
       </View>
     );
   },

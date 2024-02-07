@@ -134,8 +134,6 @@ export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T> = Omit<
   'width' | 'height'
 > & {
   isGrid?: boolean;
-  width?: number;
-  height?: number;
 };
 
 /**
