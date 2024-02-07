@@ -10,7 +10,7 @@ type CustomModalProps = ModalProps & {
   title: string;
 };
 
-export const GenericModal: React.FC<CustomModalProps> = ({ isVisible, children, title }) => {
+export const GenericModal = ({ isVisible, children, title }: CustomModalProps) => {
   if (!isVisible) return null;
 
   return (
