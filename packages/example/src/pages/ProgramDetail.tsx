@@ -21,43 +21,41 @@ export const ProgramDetail = ({
   const { programInfo } = route.params;
 
   return (
-    <>
-      <Page isPageActive={!isModalVisible}>
-        <Box padding="$5">
-          <Container paddingHorizontal="$15" paddingTop="$10" direction="horizontal">
-            <JumbotronContainer>
-              <Jumbotron source={programInfo.image} />
-            </JumbotronContainer>
-            <DefaultFocus>
-              <Box padding="$15" flex={1}>
-                <Typography variant="title" fontWeight="strong">
-                  {programInfo.title}
-                </Typography>
-                <Spacer gap="$15" />
-                <Description variant="body" fontWeight="strong">
-                  {programInfo.description}
-                </Description>
-                <Spacer gap="$8" />
-                {/* eslint-disable-next-line no-console */}
-                <Button label="Play" onSelect={() => console.log('Playing!')} />
-                <Spacer gap="$8" />
-                {/* eslint-disable-next-line no-console */}
-                <Button label="More info" onSelect={() => console.log('More info!')} />
-                <Spacer gap="$8" />
-                <Button label={`${subtitles} subtitles`} onSelect={() => setIsModalVisible(true)} />
-              </Box>
-            </DefaultFocus>
-          </Container>
-          <Spacer gap="$5" />
-          <ProgramListWithTitle title="You may also like..."></ProgramListWithTitle>
-        </Box>
-      </Page>
+    <Page>
+      <Box padding="$5">
+        <Container paddingHorizontal="$15" paddingTop="$10" direction="horizontal">
+          <JumbotronContainer>
+            <Jumbotron source={programInfo.image} />
+          </JumbotronContainer>
+          <DefaultFocus>
+            <Box padding="$15" flex={1}>
+              <Typography variant="title" fontWeight="strong">
+                {programInfo.title}
+              </Typography>
+              <Spacer gap="$15" />
+              <Description variant="body" fontWeight="strong">
+                {programInfo.description}
+              </Description>
+              <Spacer gap="$8" />
+              {/* eslint-disable-next-line no-console */}
+              <Button label="Play" onSelect={() => console.log('Playing!')} />
+              <Spacer gap="$8" />
+              {/* eslint-disable-next-line no-console */}
+              <Button label="More info" onSelect={() => console.log('More info!')} />
+              <Spacer gap="$8" />
+              <Button label={`${subtitles} subtitles`} onSelect={() => setIsModalVisible(true)} />
+            </Box>
+          </DefaultFocus>
+        </Container>
+        <Spacer gap="$5" />
+        <ProgramListWithTitle title="You may also like..."></ProgramListWithTitle>
+      </Box>
       <SubtitlesModal
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
         setSubtitles={setSubtitles}
       />
-    </>
+    </Page>
   );
 };
 
