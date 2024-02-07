@@ -24,158 +24,183 @@ const Rabbit22 = require('../assets/rabbit22.png');
 const Rabbit23 = require('../assets/rabbit23.png');
 const Rabbit24 = require('../assets/rabbit24.png');
 const Rabbit25 = require('../assets/rabbit25.png');
-import { ProgramInfo } from '../domain/programInfo';
+import { VariableSizeProgramInfo } from '../domain/variableSizeProgramInfo';
 
-export const programInfos: ProgramInfo[] = [
+export const programInfos: VariableSizeProgramInfo[] = [
   {
     id: '1',
     title: 'Program 1',
     image: Rabbit1,
     description: 'Program 1 description',
+    type: 'portrait',
   },
   {
     id: '2',
     title: 'Program 2',
     image: Rabbit2,
     description: 'Program 2 description',
+    type: 'portrait',
   },
   {
     id: '3',
     title: 'Program 3',
     image: Rabbit3,
     description: 'Program 3 description',
+    type: 'square',
   },
   {
     id: '4',
     title: 'Program 4',
     image: Rabbit4,
     description: 'Program 4 description',
+    type: 'portrait',
   },
   {
     id: '5',
     title: 'Program 5',
     image: Rabbit5,
     description: 'Program 5 description',
+    type: 'square',
   },
   {
     id: '6',
     title: 'Program 6',
     image: Rabbit6,
     description: 'Program 6 description',
+    type: 'square',
   },
   {
     id: '7',
     title: 'Program 7',
     image: Rabbit7,
     description: 'Program 7 description',
+    type: 'square',
   },
   {
     id: '8',
     title: 'Program 8',
     image: Rabbit8,
     description: 'Program 8 description',
+    type: 'portrait',
   },
   {
     id: '9',
     title: 'Program 9',
     image: Rabbit9,
     description: 'Program 9 description',
+    type: 'portrait',
   },
   {
     id: '10',
     title: 'Program 10',
     image: Rabbit10,
     description: 'Program 10 description',
+    type: 'portrait',
   },
   {
     id: '11',
     title: 'Program 11',
     image: Rabbit11,
     description: 'Program 11 description',
+    type: 'portrait',
   },
   {
     id: '12',
     title: 'Program 12',
     image: Rabbit12,
     description: 'Program 12 description',
+    type: 'square',
   },
   {
     id: '13',
     title: 'Program 13',
     image: Rabbit13,
     description: 'Program 13 description',
+    type: 'square',
   },
   {
     id: '14',
     title: 'Program 14',
     image: Rabbit14,
     description: 'Program 14 description',
+    type: 'square',
   },
   {
     id: '15',
     title: 'Program 15',
     image: Rabbit15,
     description: 'Program 15 description',
+    type: 'square',
   },
   {
     id: '16',
     title: 'Program 16',
     image: Rabbit16,
     description: 'Program 16 description',
+    type: 'square',
   },
   {
     id: '17',
     title: 'Program 17',
     image: Rabbit17,
     description: 'Program 17 description',
+    type: 'portrait',
   },
   {
     id: '18',
     title: 'Program 18',
     image: Rabbit18,
     description: 'Program 18 description',
+    type: 'portrait',
   },
   {
     id: '19',
     title: 'Program 19',
     image: Rabbit19,
     description: 'Program 19 description',
+    type: 'square',
   },
   {
     id: '20',
     title: 'Program 20',
     image: Rabbit20,
     description: 'Program 20 description',
+    type: 'square',
   },
   {
     id: '21',
     title: 'Program 21',
     image: Rabbit21,
     description: 'Program 21 description',
+    type: 'square',
   },
   {
     id: '22',
     title: 'Program 22',
     image: Rabbit22,
     description: 'Program 22 description',
+    type: 'square',
   },
   {
     id: '23',
     title: 'Program 23',
     image: Rabbit23,
     description: 'Program 23 description',
+    type: 'portrait',
   },
   {
     id: '24',
     title: 'Program 24',
     image: Rabbit24,
     description: 'Program 24 description',
+    type: 'square',
   },
   {
     id: '25',
     title: 'Program 25',
     image: Rabbit25,
     description: 'Program 25 description',
+    type: 'square',
   },
 ];
 
@@ -191,9 +216,9 @@ const shuffleArray = <T>(array: Array<T>) => {
   return arrayCopy;
 };
 
-export const getPrograms = (listSize?: number) => {
+export const getVariableSizePrograms = (listSize?: number) => {
   if (!listSize) return shuffleArray(programInfos);
-  const programInfosWithCustomSize: ProgramInfo[] = [];
+  const programInfosWithCustomSize: VariableSizeProgramInfo[] = [];
   for (let i = 0; i < listSize; i++) {
     programInfosWithCustomSize.push(
       programInfos[Math.floor(Math.random() * (programInfos.length - 1))],
