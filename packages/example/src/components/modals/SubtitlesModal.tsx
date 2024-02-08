@@ -17,7 +17,7 @@ export const SubtitlesModal = ({
   return (
     <Modal
       isModalVisible={isModalVisible}
-      setIsModalVisible={setIsModalVisible}
+      hideModal={() => setIsModalVisible(false)}
       title={'Choose subtitles'}
     >
       <DefaultFocus>

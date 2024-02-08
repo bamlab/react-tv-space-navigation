@@ -3,16 +3,16 @@ import { useLockModal } from './useLockModal';
 
 type SpatialNavigationModalProps = {
   isModalVisible: boolean;
-  setIsModalVisible: (isVisible: boolean) => void;
+  hideModal: () => void;
   children: React.ReactNode;
 };
 
 export const SpatialNavigationModal = ({
   isModalVisible,
-  setIsModalVisible,
+  hideModal,
   children,
 }: SpatialNavigationModalProps) => {
-  useLockModal({ isModalVisible, setIsModalVisible });
+  useLockModal({ isModalVisible, hideModal });
 
   return <SpatialNavigationRoot>{children}</SpatialNavigationRoot>;
 };

@@ -4,14 +4,14 @@ import { EventArg, useNavigation } from '@react-navigation/native';
 
 interface UseLockProps {
   isModalVisible: boolean;
-  setIsModalVisible: (isVisible: boolean) => void;
+  hideModal: () => void;
 }
 
 // This hook is used to lock the spatial navigation of parent navigator when a modal is open
 // and to prevent the user from closing the modal by pressing the back button
-export const useLockModal = ({ isModalVisible, setIsModalVisible }: UseLockProps) => {
+export const useLockModal = ({ isModalVisible, hideModal }: UseLockProps) => {
   useLockParentSpatialNavigator(isModalVisible);
-  usePreventNavigationGoBack(isModalVisible, setIsModalVisible);
+  usePreventNavigationGoBack(isModalVisible, hideModal);
 };
 
 const useLockParentSpatialNavigator = (isModalVisible: boolean) => {
@@ -26,21 +26,18 @@ const useLockParentSpatialNavigator = (isModalVisible: boolean) => {
   }, [isModalVisible, lock, unlock]);
 };
 
-const usePreventNavigationGoBack = (
-  isModalVisible: boolean,
-  setIsModalVisible: (isVisible: boolean) => void,
-) => {
+const usePreventNavigationGoBack = (isModalVisible: boolean, hideModal: () => void) => {
   const navigation = useNavigation();
   useEffect(() => {
     if (isModalVisible) {
       const navigationListener = (e: EventArg<'beforeRemove', true>) => {
         e.preventDefault();
-        setIsModalVisible(false);
+        hideModal();
       };
       navigation.addListener('beforeRemove', navigationListener);
       return () => {
         navigation.removeListener('beforeRemove', navigationListener);
       };
     }
-  }, [navigation, isModalVisible, setIsModalVisible]);
+  }, [navigation, isModalVisible, hideModal]);
 };

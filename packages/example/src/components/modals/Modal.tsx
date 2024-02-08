@@ -8,21 +8,18 @@ import { SpatialNavigationModal } from './SpatialNavigationModal/SpatialNavigati
 
 type CustomModalProps = ModalProps & {
   isModalVisible: boolean;
-  setIsModalVisible: (isVisible: boolean) => void;
+  hideModal: () => void;
   children: React.ReactNode;
   title: string;
 };
 
-export const Modal = ({ isModalVisible, setIsModalVisible, children, title }: CustomModalProps) => {
+export const Modal = ({ isModalVisible, hideModal, children, title }: CustomModalProps) => {
   if (!isModalVisible) return null;
 
   return (
     <StyledModal>
       <ModalContentContainer>
-        <SpatialNavigationModal
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-        >
+        <SpatialNavigationModal isModalVisible={isModalVisible} hideModal={hideModal}>
           <Typography variant="title" fontWeight="strong">
             {title}
           </Typography>
