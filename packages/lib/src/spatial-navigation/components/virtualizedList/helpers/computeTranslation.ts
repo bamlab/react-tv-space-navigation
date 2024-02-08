@@ -32,15 +32,22 @@ const computeStickToEndTranslation = <T>({
   listSizeInPx: number;
   maxPossibleRightAlignedIndex: number;
 }) => {
-  const scrollOffset =
-    currentlyFocusedItemIndex > maxPossibleRightAlignedIndex
-      ? getSizeInPxFromOneItemToAnother(data, itemSizeInPx, 0, currentlyFocusedItemIndex) +
-        (typeof itemSizeInPx === 'function'
-          ? itemSizeInPx(data[currentlyFocusedItemIndex])
-          : itemSizeInPx) -
-        listSizeInPx
-      : 0;
+  if (currentlyFocusedItemIndex <= maxPossibleRightAlignedIndex) return -0;
 
+  const currentlyFocusedItemSize =
+    typeof itemSizeInPx === 'function'
+      ? itemSizeInPx(data[currentlyFocusedItemIndex])
+      : itemSizeInPx;
+
+  const sizeOfListFromStartToCurrentlyFocusedItem = getSizeInPxFromOneItemToAnother(
+    data,
+    itemSizeInPx,
+    0,
+    currentlyFocusedItemIndex,
+  );
+
+  const scrollOffset =
+    sizeOfListFromStartToCurrentlyFocusedItem + currentlyFocusedItemSize - listSizeInPx;
   return -scrollOffset;
 };
 
