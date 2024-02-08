@@ -1,4 +1,4 @@
-import { RenderResult, act, fireEvent, render, screen } from '@testing-library/react-native';
+import { RenderResult, act, render, screen } from '@testing-library/react-native';
 import { ItemWithIndex } from '../virtualizedList/VirtualizedList';
 import { PropsTestButton, TestButton } from '../tests/TestButton';
 import { SpatialNavigationRoot } from '../Root';
@@ -6,6 +6,7 @@ import '../tests/helpers/configureTestRemoteControl';
 import { SpatialNavigationVirtualizedList } from './SpatialNavigationVirtualizedList';
 import { DefaultFocus } from '../../context/DefaultFocusContext';
 import testRemoteControlManager from '../tests/helpers/testRemoteControlManager';
+import { setComponentLayoutSize } from '../../../testing/setComponentLayoutSize';
 
 export const expectButtonToHaveFocus = (component: RenderResult, text: string) => {
   const element = component.getByRole('button', { name: text });
@@ -64,19 +65,11 @@ describe('SpatialNavigationVirtualizedList', () => {
       </SpatialNavigationRoot>,
     );
 
-  const fireLayoutEvent = (component: RenderResult, width: number, height: number) => {
-    const listElementSizeGiver = component.getByTestId(listTestId + '-size-giver');
-
-    fireEvent(listElementSizeGiver, 'layout', {
-      nativeEvent: { layout: { width: width, height: height } },
-    });
-  };
-
   it('renders the correct number of item', async () => {
     const component = renderList();
     act(() => jest.runAllTimers());
 
-    fireLayoutEvent(component, 300, 300);
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
 
     const listElement = await component.findByTestId(listTestId);
     expect(listElement).toHaveStyle({ width: 1000 });
@@ -107,7 +100,7 @@ describe('SpatialNavigationVirtualizedList', () => {
     const component = renderList();
     act(() => jest.runAllTimers());
 
-    fireLayoutEvent(component, 300, 300);
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
 
     const listElement = await component.findByTestId(listTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
@@ -184,7 +177,7 @@ describe('SpatialNavigationVirtualizedList', () => {
     );
     act(() => jest.runAllTimers());
 
-    fireLayoutEvent(component, 300, 300);
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
 
     const listElement = await component.findByTestId(listTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
@@ -259,7 +252,7 @@ describe('SpatialNavigationVirtualizedList', () => {
     );
     act(() => jest.runAllTimers());
 
-    fireLayoutEvent(component, 300, 300);
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
 
     const listElement = await component.findByTestId(listTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
@@ -333,7 +326,7 @@ describe('SpatialNavigationVirtualizedList', () => {
     );
     act(() => jest.runAllTimers());
 
-    fireLayoutEvent(component, 300, 300);
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
 
     const listElement = await component.findByTestId(listTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
@@ -384,7 +377,7 @@ describe('SpatialNavigationVirtualizedList', () => {
     );
     act(() => jest.runAllTimers());
 
-    fireLayoutEvent(component, 300, 300);
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
 
     const listElement = await component.findByTestId(listTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });

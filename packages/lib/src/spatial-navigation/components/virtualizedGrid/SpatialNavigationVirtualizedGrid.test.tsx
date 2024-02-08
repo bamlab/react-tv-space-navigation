@@ -1,4 +1,4 @@
-import { RenderResult, act, fireEvent, render, screen } from '@testing-library/react-native';
+import { RenderResult, act, render, screen } from '@testing-library/react-native';
 import { ItemWithIndex } from '../virtualizedList/VirtualizedList';
 import { PropsTestButton, TestButton } from '../tests/TestButton';
 import { SpatialNavigationRoot } from '../Root';
@@ -7,6 +7,7 @@ import '../tests/helpers/configureTestRemoteControl';
 import { DefaultFocus } from '../../context/DefaultFocusContext';
 import { SpatialNavigationVirtualizedGrid } from '../virtualizedGrid/SpatialNavigationVirtualizedGrid';
 import testRemoteControlManager from '../tests/helpers/testRemoteControlManager';
+import { setComponentLayoutSize } from '../../../testing/setComponentLayoutSize';
 
 export const expectButtonToHaveFocus = (component: RenderResult, text: string) => {
   const element = component.getByRole('button', { name: text });
@@ -32,14 +33,6 @@ describe('SpatialNavigationVirtualizedGrid', () => {
 
   const gridTestId = 'test-grid';
 
-  const fireLayoutEvent = (component: RenderResult, width: number, height: number) => {
-    const listElementSizeGiver = component.getByTestId(gridTestId + '-size-giver');
-
-    fireEvent(listElementSizeGiver, 'layout', {
-      nativeEvent: { layout: { width: width, height: height } },
-    });
-  };
-
   const renderGrid = () =>
     render(
       <SpatialNavigationRoot>
@@ -59,7 +52,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
 
   it('renders the correct number of item', () => {
     const component = renderGrid();
-    fireLayoutEvent(component, 300, 300);
+    setComponentLayoutSize(gridTestId, component, { width: 300, height: 300 });
 
     expect(screen).toMatchSnapshot();
 
@@ -87,7 +80,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
 
   it('handles correctly RIGHT & DOWN and RENDERS new elements accordingly while deleting elements that are too far from scroll when on stick to start scroll', () => {
     const component = renderGrid();
-    fireLayoutEvent(component, 300, 300);
+    setComponentLayoutSize(gridTestId, component, { width: 300, height: 300 });
     act(() => jest.runAllTimers());
 
     const listElement = component.getByTestId(gridTestId);
@@ -195,7 +188,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
         </DefaultFocus>
       </SpatialNavigationRoot>,
     );
-    fireLayoutEvent(component, 300, 300);
+    setComponentLayoutSize(gridTestId, component, { width: 300, height: 300 });
     act(() => jest.runAllTimers());
 
     const listElement = component.getByTestId(gridTestId);
@@ -248,7 +241,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
         </DefaultFocus>
       </SpatialNavigationRoot>,
     );
-    fireLayoutEvent(component, 300, 300);
+    setComponentLayoutSize(gridTestId, component, { width: 300, height: 300 });
     act(() => jest.runAllTimers());
 
     const listElement = component.getByTestId(gridTestId);
