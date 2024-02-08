@@ -5,7 +5,6 @@ import { useLockSpatialNavigation } from '../../../../lib/src/spatial-navigation
 import { Button } from '../../design-system/components/Button';
 import { Spacer } from '../../design-system/components/Spacer';
 import { GenericModal } from './GenericModal';
-import { useIsFirstRender } from '../../hooks/useIsFirstRender';
 
 interface SubtitlesModalProps {
   isModalVisible: boolean;
@@ -19,18 +18,16 @@ export const SubtitlesModal = ({
   setSubtitles,
 }: SubtitlesModalProps) => {
   const { lock, unlock } = useLockSpatialNavigation();
-  const isFirstRender = useIsFirstRender();
 
   // Locks the parent navigator when the modal is open and unlocks it when it's closed
   useEffect(() => {
-    if (!isFirstRender) {
-      if (isModalVisible) {
-        lock();
-      } else {
+    if (isModalVisible) {
+      lock();
+      return () => {
         unlock();
-      }
+      };
     }
-  }, [isModalVisible, lock, unlock, isFirstRender]);
+  }, [isModalVisible, lock, unlock]);
 
   return (
     <SpatialNavigationRoot>
