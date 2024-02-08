@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { useSpatialNavigatorDefaultFocus } from '../context/DefaultFocusContext';
 import { ParentIdContext, useParentId } from '../context/ParentIdContext';
 import { useSpatialNavigatorParentScroll } from '../context/ParentScrollContext';
@@ -149,12 +149,36 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       }
     }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
 
+    // Additional props for web
+    const webProps = Platform.select({
+      web: {
+        onMouseEnter: () => {
+          currentOnFocus.current?.();
+          spatialNavigator.grabFocus(id);
+          setIsFocused(true);
+        },
+        onMouseLeave: () => {
+          if (spatialNavigator.getCurrentFocusNode()?.id !== id) {
+            currentOnBlur.current?.();
+            setIsFocused(false);
+          }
+        },
+        // TODO: Remove this if it happens that events are already triggered by the RemoteControlManager
+        onMouseDown: () => {
+          currentOnSelect.current?.();
+        },
+      },
+      default: {},
+    });
+
     return (
-      <ParentIdContext.Provider value={id}>
-        {typeof children === 'function'
-          ? bindRefToChild(children({ isFocused, isActive }))
-          : children}
-      </ParentIdContext.Provider>
+      <View {...webProps}>
+        <ParentIdContext.Provider value={id}>
+          {typeof children === 'function'
+            ? bindRefToChild(children({ isFocused, isActive }))
+            : children}
+        </ParentIdContext.Provider>
+      </View>
     );
   },
 );
