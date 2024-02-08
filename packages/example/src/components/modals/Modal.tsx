@@ -5,6 +5,7 @@ import { Typography } from '../../design-system/components/Typography';
 import { Spacer } from '../../design-system/components/Spacer';
 import { SpatialNavigationRoot } from '../../../../lib/src/spatial-navigation/components/Root';
 import { useLockModal } from '../../hooks/useLockModal';
+import { colors } from '../../design-system/theme/colors';
 
 type CustomModalProps = ModalProps & {
   isModalVisible: boolean;
@@ -46,7 +47,9 @@ const StyledModal = styled(View)({
 const ModalContentContainer = styled(View)({
   minHeight: 200,
   minWidth: 200,
-  backgroundColor: 'grey',
+  backgroundColor: colors.background.main,
+  borderWidth: 2,
+  borderColor: colors.primary.light,
   padding: 32,
   margin: 16,
   borderRadius: 16,
