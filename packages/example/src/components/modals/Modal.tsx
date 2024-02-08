@@ -4,7 +4,7 @@ import { View, ModalProps } from 'react-native';
 import { Typography } from '../../design-system/components/Typography';
 import { Spacer } from '../../design-system/components/Spacer';
 import { colors } from '../../design-system/theme/colors';
-import { SpatialNavigationModal } from './SpatialNavigationModal/SpatialNavigationModal';
+import { SpatialNavigationOverlay } from './SpatialNavigationOverlay/SpatialNavigationOverlay';
 
 type CustomModalProps = ModalProps & {
   isModalVisible: boolean;
@@ -19,13 +19,13 @@ export const Modal = ({ isModalVisible, hideModal, children, title }: CustomModa
   return (
     <StyledModal>
       <ModalContentContainer>
-        <SpatialNavigationModal isModalVisible={isModalVisible} hideModal={hideModal}>
+        <SpatialNavigationOverlay isModalVisible={isModalVisible} hideModal={hideModal}>
           <Typography variant="title" fontWeight="strong">
             {title}
           </Typography>
           <Spacer gap="$8" />
           {children}
-        </SpatialNavigationModal>
+        </SpatialNavigationOverlay>
       </ModalContentContainer>
     </StyledModal>
   );

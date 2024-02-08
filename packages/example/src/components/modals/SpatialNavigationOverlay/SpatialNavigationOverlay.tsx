@@ -1,18 +1,18 @@
 import { SpatialNavigationRoot } from '../../../../../lib/src/spatial-navigation/components/Root';
-import { useLockModal } from './useLockModal';
+import { useLockOverlay } from './useLockOverlay';
 
-type SpatialNavigationModalProps = {
+type SpatialNavigationOverlayProps = {
   isModalVisible: boolean;
   hideModal: () => void;
   children: React.ReactNode;
 };
 
-export const SpatialNavigationModal = ({
+export const SpatialNavigationOverlay = ({
   isModalVisible,
   hideModal,
   children,
-}: SpatialNavigationModalProps) => {
-  useLockModal({ isModalVisible, hideModal });
+}: SpatialNavigationOverlayProps) => {
+  useLockOverlay({ isModalVisible, hideModal });
 
   return <SpatialNavigationRoot>{children}</SpatialNavigationRoot>;
 };
