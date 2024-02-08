@@ -8,12 +8,16 @@ import { Spacer } from '../design-system/components/Spacer';
 import { Typography } from '../design-system/components/Typography';
 import { ProgramListWithTitle } from '../modules/program/view/ProgramListWithTitle';
 import { Button } from '../design-system/components/Button';
+import { useState } from 'react';
+import { SubtitlesModal } from '../components/modals/SubtitlesModal';
 
 export const ProgramDetail = ({
   route,
 }: {
   route: RouteProp<RootStackParamList, 'ProgramDetail'>;
 }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [subtitles, setSubtitles] = useState('No');
   const { programInfo } = route.params;
 
   return (
@@ -38,12 +42,19 @@ export const ProgramDetail = ({
               <Spacer gap="$8" />
               {/* eslint-disable-next-line no-console */}
               <Button label="More info" onSelect={() => console.log('More info!')} />
+              <Spacer gap="$8" />
+              <Button label={`${subtitles} subtitles`} onSelect={() => setIsModalVisible(true)} />
             </Box>
           </DefaultFocus>
         </Container>
         <Spacer gap="$5" />
         <ProgramListWithTitle title="You may also like..."></ProgramListWithTitle>
       </Box>
+      <SubtitlesModal
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        setSubtitles={setSubtitles}
+      />
     </Page>
   );
 };

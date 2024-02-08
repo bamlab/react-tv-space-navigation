@@ -44,6 +44,7 @@
     "@react-navigation/bottom-tabs": "^6.5.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-native-modal": "^13.0.1",
     "react-native-web": "^0.19.6"
   },
   "resolutions": {
