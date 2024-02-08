@@ -24,9 +24,13 @@ export const ProgramList = ({
 }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+  const isItemLarge = (item: ProgramInfo) => {
+    return parseInt(item.id, 10) % 2 === 0;
+  };
+
   const renderItem = useCallback(
     ({ item }: { item: ProgramInfo }) =>
-      parseInt(item.id, 10) % 2 === 0 ? (
+      isItemLarge(item) ? (
         <ProgramNode
           programInfo={item}
           onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
@@ -50,7 +54,7 @@ export const ProgramList = ({
         data={programInfos}
         renderItem={renderItem}
         itemSize={(item) =>
-          parseInt(item.id, 10) % 2 === 0
+          isItemLarge(item)
             ? theme.sizes.program.portrait.width + 30
             : theme.sizes.program.landscape.width * 2 + 45
         }
