@@ -2,7 +2,6 @@ import { DefaultFocus } from '../../../../lib/src/spatial-navigation/context/Def
 import { Button } from '../../design-system/components/Button';
 import { Spacer } from '../../design-system/components/Spacer';
 import { Modal } from './Modal';
-import { useLockModal } from '../../hooks/useLockModal';
 
 interface SubtitlesModalProps {
   isModalVisible: boolean;
@@ -15,8 +14,6 @@ export const SubtitlesModal = ({
   setIsModalVisible,
   setSubtitles,
 }: SubtitlesModalProps) => {
-  useLockModal({ isModalVisible, setIsModalVisible });
-
   return (
     <Modal
       isModalVisible={isModalVisible}

@@ -3,9 +3,8 @@ import React from 'react';
 import { View, ModalProps } from 'react-native';
 import { Typography } from '../../design-system/components/Typography';
 import { Spacer } from '../../design-system/components/Spacer';
-import { SpatialNavigationRoot } from '../../../../lib/src/spatial-navigation/components/Root';
-import { useLockModal } from '../../hooks/useLockModal';
 import { colors } from '../../design-system/theme/colors';
+import { SpatialNavigationModal } from './SpatialNavigationModal/SpatialNavigationModal';
 
 type CustomModalProps = ModalProps & {
   isModalVisible: boolean;
@@ -15,22 +14,23 @@ type CustomModalProps = ModalProps & {
 };
 
 export const Modal = ({ isModalVisible, setIsModalVisible, children, title }: CustomModalProps) => {
-  useLockModal({ isModalVisible, setIsModalVisible });
-
   if (!isModalVisible) return null;
 
   return (
-    <SpatialNavigationRoot>
-      <StyledModal>
-        <ModalContentContainer>
+    <StyledModal>
+      <ModalContentContainer>
+        <SpatialNavigationModal
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+        >
           <Typography variant="title" fontWeight="strong">
             {title}
           </Typography>
           <Spacer gap="$8" />
           {children}
-        </ModalContentContainer>
-      </StyledModal>
-    </SpatialNavigationRoot>
+        </SpatialNavigationModal>
+      </ModalContentContainer>
+    </StyledModal>
   );
 };
 

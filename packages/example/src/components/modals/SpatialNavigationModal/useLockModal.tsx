@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLockSpatialNavigation } from '../../../lib/src/spatial-navigation/context/LockSpatialNavigationContext';
+import { useLockSpatialNavigation } from '../../../../../lib/src/spatial-navigation/context/LockSpatialNavigationContext';
 import { EventArg, useNavigation } from '@react-navigation/native';
 
 interface UseLockProps {
