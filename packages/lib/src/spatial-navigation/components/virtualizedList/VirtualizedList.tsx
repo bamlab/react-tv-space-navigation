@@ -7,8 +7,7 @@ import {
 } from './hooks/useVirtualizedListAnimation';
 import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
-import { getLastLeftItemIndex } from './helpers/getLastLeftItemIndex';
-import { getLastRightItemIndex } from './helpers/getLastRightItemIndex';
+import { getLastLeftItemIndex, getLastRightItemIndex } from './helpers/getLastItemIndex';
 
 /**
  * @TODO: VirtualizedList should be able to take any data as params.
