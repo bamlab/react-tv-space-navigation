@@ -8,6 +8,7 @@ import {
 import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { getLastLeftItemIndex, getLastRightItemIndex } from './helpers/getLastItemIndex';
+import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneItemToAnother';
 
 /**
  * @TODO: VirtualizedList should be able to take any data as params.
@@ -159,6 +160,11 @@ export const VirtualizedList = typedMemo(
 
     const listSizeInPx = vertical ? height : width;
 
+    const totalVirtualizedListSize = useMemo(
+      () => getSizeInPxFromOneItemToAnother(data, itemSize, 0, data.length),
+      [data, itemSize],
+    );
+
     const dataSliceToRender = data.slice(range.start, range.end + 1);
 
     const maxPossibleLeftAlignedIndex = getLastLeftItemIndex<T>(data, itemSize, listSizeInPx);
@@ -236,25 +242,14 @@ export const VirtualizedList = typedMemo(
      *   RowWidth = Screen Width + size of the item on left
      * ```
      */
-
-    const getTotalVirtualizedListSize = useCallback(
-      (data: T[], itemSize: number | ((item: T) => number)) => {
-        if (typeof itemSize === 'number') {
-          return data.reduce((acc) => acc + itemSize, 0);
-        }
-        return data.reduce((acc, item) => acc + itemSize(item), 0);
-      },
-      [],
-    );
-
     const dimensionStyle = useMemo(
       () =>
         vertical
           ? ({
-              height: getTotalVirtualizedListSize(data, itemSize),
+              height: totalVirtualizedListSize,
             } as const)
-          : ({ width: getTotalVirtualizedListSize(data, itemSize) } as const),
-      [data, getTotalVirtualizedListSize, itemSize, vertical],
+          : ({ width: totalVirtualizedListSize } as const),
+      [totalVirtualizedListSize, vertical],
     );
 
     return (
