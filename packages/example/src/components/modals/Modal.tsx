@@ -19,11 +19,11 @@ export const Modal = ({ isModalVisible, hideModal, children, title }: CustomModa
   return (
     <StyledModal>
       <ModalContentContainer>
+        <Typography variant="title" fontWeight="strong">
+          {title}
+        </Typography>
+        <Spacer gap="$8" />
         <SpatialNavigationOverlay isModalVisible={isModalVisible} hideModal={hideModal}>
-          <Typography variant="title" fontWeight="strong">
-            {title}
-          </Typography>
-          <Spacer gap="$8" />
           {children}
         </SpatialNavigationOverlay>
       </ModalContentContainer>
