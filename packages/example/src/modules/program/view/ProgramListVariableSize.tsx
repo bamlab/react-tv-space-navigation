@@ -7,9 +7,9 @@ import { SpatialNavigationVirtualizedList } from 'react-tv-space-navigation';
 import { RootStackParamList } from '../../../../App';
 import { ProgramNode } from './ProgramNode';
 import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
-import { VariableSizeProgramInfo } from '../domain/variableSizeProgramInfo';
 import { ProgramNodeLandscape } from './ProgramNodeLandscape';
-import { getVariableSizePrograms } from '../infra/variableSizeProgramInfo';
+import { getPrograms } from '../infra/programInfos';
+import { ProgramInfo } from '../domain/programInfo';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
@@ -25,8 +25,8 @@ export const ProgramList = ({
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const renderItem = useCallback(
-    ({ item }: { item: VariableSizeProgramInfo }) =>
-      item.type === 'portrait' ? (
+    ({ item }: { item: ProgramInfo }) =>
+      parseInt(item.id, 10) % 2 === 0 ? (
         <ProgramNode
           programInfo={item}
           onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
@@ -41,7 +41,7 @@ export const ProgramList = ({
   );
   const theme = useTheme();
 
-  const programInfos = useMemo(() => getVariableSizePrograms(10), []);
+  const programInfos = useMemo(() => getPrograms(10), []);
 
   return (
     <Container style={containerStyle}>
@@ -50,7 +50,7 @@ export const ProgramList = ({
         data={programInfos}
         renderItem={renderItem}
         itemSize={(item) =>
-          item.type === 'portrait'
+          parseInt(item.id, 10) % 2 === 0
             ? theme.sizes.program.portrait.width + 30
             : theme.sizes.program.landscape.width * 2 + 45
         }
