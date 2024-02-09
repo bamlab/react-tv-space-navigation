@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Animated, Easing } from 'react-native';
 import { TypeVirtualizedListAnimation } from '../../../types/TypeVirtualizedListAnimation';
+import { useDevice } from '../../../context/DeviceContext';
 
 export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
   currentlyFocusedItemIndex,
@@ -31,15 +32,18 @@ export const useWebVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
   scrollDuration,
   scrollOffsetsArray,
 }) => {
+  const { deviceType } = useDevice();
   const animationDuration = `${scrollDuration}ms`;
   const newTranslationValue = scrollOffsetsArray[currentlyFocusedItemIndex];
 
-  return {
-    transitionDuration: animationDuration,
-    transitionProperty: 'transform',
-    transitionTimingFunction: 'ease-out',
-    transform: [
-      vertical ? { translateY: newTranslationValue } : { translateX: newTranslationValue },
-    ],
-  };
+  return deviceType === 'remoteKeys'
+    ? {
+        transitionDuration: animationDuration,
+        transitionProperty: 'transform',
+        transitionTimingFunction: 'ease-out',
+        transform: [
+          vertical ? { translateY: newTranslationValue } : { translateX: newTranslationValue },
+        ],
+      }
+    : {};
 };

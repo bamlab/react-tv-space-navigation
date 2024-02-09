@@ -9,6 +9,7 @@ import { useUniqueId } from '../hooks/useUniqueId';
 import { NodeOrientation } from '../types/orientation';
 import { NodeIndexRange } from '@bam.tech/lrud';
 import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
+import { useDevice } from '../context/DeviceContext';
 
 type FocusableProps = {
   isFocusable: true;
@@ -120,6 +121,8 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
 
     const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
 
+    const { setDeviceType } = useDevice();
+
     useBeforeMountEffect(() => {
       spatialNavigator.registerNode(id, {
         parent: parentId,
@@ -153,12 +156,14 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     const webProps = Platform.select({
       web: {
         onMouseEnter: () => {
+          setDeviceType('remotePointer');
           currentOnFocus.current?.();
           spatialNavigator.grabFocus(id);
           setIsFocused(true);
         },
         onMouseLeave: () => {
           if (spatialNavigator.getCurrentFocusNode()?.id !== id) {
+            setDeviceType('remotePointer');
             currentOnBlur.current?.();
             setIsFocused(false);
           }
