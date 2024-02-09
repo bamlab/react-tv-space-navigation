@@ -17,7 +17,7 @@ interface DeviceProviderProps {
 }
 
 export const DeviceProvider = ({ children }: DeviceProviderProps) => {
-  const [deviceType, setDeviceType] = useState<Device>('remoteKeys');
+  const [deviceType, setDeviceType] = useState<Device>('remotePointer');
   return (
     <DeviceContext.Provider value={{ deviceType, setDeviceType }}>
       {children}

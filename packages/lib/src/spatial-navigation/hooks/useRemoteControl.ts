@@ -1,6 +1,7 @@
 import SpatialNavigator from '../SpatialNavigator';
 import { useEffect } from 'react';
 import { remoteControlSubscriber, remoteControlUnsubscriber } from '../configureRemoteControl';
+import { useDevice } from '../context/DeviceContext';
 
 export const useRemoteControl = ({
   spatialNavigator,
@@ -9,6 +10,7 @@ export const useRemoteControl = ({
   spatialNavigator: SpatialNavigator;
   isActive: boolean;
 }) => {
+  const { setDeviceType } = useDevice();
   useEffect(() => {
     if (!remoteControlSubscriber) {
       console.warn(
@@ -22,9 +24,10 @@ export const useRemoteControl = ({
       return () => undefined;
     }
 
-    const listener = remoteControlSubscriber((direction) =>
-      spatialNavigator.handleKeyDown(direction),
-    );
+    const listener = remoteControlSubscriber((direction) => {
+      spatialNavigator.handleKeyDown(direction);
+      setDeviceType('remoteKeys');
+    });
     return () => {
       if (!remoteControlUnsubscriber) {
         console.warn(
@@ -35,5 +38,5 @@ export const useRemoteControl = ({
       }
       remoteControlUnsubscriber(listener);
     };
-  }, [spatialNavigator, isActive]);
+  }, [spatialNavigator, isActive, setDeviceType]);
 };
