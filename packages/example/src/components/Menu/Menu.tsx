@@ -72,7 +72,7 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
       isActive={isMenuOpen}
       onDirectionHandledWithoutMovement={onDirectionHandledWithoutMovement}
     >
-      <AbsoluteMenuContainer>
+      <AbsoluteMenuContainer pointerEvents="none">
         <SpatialNavigationView direction="vertical">
           <MenuSpacer />
           <MenuOverlay style={{ width: animatedWidth }} />

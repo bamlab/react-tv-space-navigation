@@ -6,14 +6,12 @@ export const LeftArrow = () => {
 };
 
 const StyledLeftView = styled(View)({
-  width: 300,
-  height: 200,
-  backgroundColor: 'red',
+  width: 200,
+  height: 300,
   opacity: 0.5,
   position: 'absolute',
-  transform: [{ translateX: -100 }],
+  transform: [{ translateX: -100 }, { translateY: -50 }],
   zIndex: 1,
-  top: 0,
 });
 
 export const RihtArrow = () => {
@@ -21,12 +19,11 @@ export const RihtArrow = () => {
 };
 
 const StyledRightView = styled(View)({
-  width: 300,
-  height: 200,
-  backgroundColor: 'red',
+  width: 200,
+  height: 300,
   opacity: 0.5,
   position: 'absolute',
-  transform: [{ translateX: 100 }],
+  transform: [{ translateX: 100 }, { translateY: -50 }],
   zIndex: 1,
   top: 0,
   right: 0,
