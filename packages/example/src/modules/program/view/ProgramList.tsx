@@ -9,6 +9,7 @@ import { ProgramInfo } from '../domain/programInfo';
 import { getPrograms } from '../infra/programInfos';
 import { ProgramNode } from './ProgramNode';
 import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
+import { LeftArrow, RihtArrow } from './LeftArrow';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
@@ -48,6 +49,8 @@ export const ProgramList = ({
             numberOfRenderedItems={WINDOW_SIZE}
             numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
             onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+            leftArrow={<LeftArrow />}
+            rightArrow={<RihtArrow />}
           />
         </Container>
       )}

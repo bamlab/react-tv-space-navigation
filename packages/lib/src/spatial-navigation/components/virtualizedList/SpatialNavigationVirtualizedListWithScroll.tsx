@@ -11,6 +11,7 @@ import {
 } from '../../context/ParentScrollContext';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { useDevice } from '../../context/DeviceContext';
+import { SpatialNavigationNode } from '../Node';
 
 const ItemWrapperWithScrollContext = typedMemo(
   <T extends ItemWithIndex>({
@@ -52,7 +53,12 @@ export type SpatialNavigationVirtualizedListWithScrollProps<T> = Omit<
  * This component wraps every item of a virtualizedList in a scroll handling context.
  */
 export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
-  <T extends ItemWithIndex>(props: SpatialNavigationVirtualizedListWithScrollProps<T>) => {
+  <T extends ItemWithIndex>(
+    props: SpatialNavigationVirtualizedListWithScrollProps<T> & {
+      leftArrow?: React.ReactNode;
+      rightArrow?: React.ReactNode;
+    },
+  ) => {
     const { deviceType } = useDevice();
     const { renderItem } = props;
     const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
@@ -63,6 +69,22 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       },
       [deviceType],
     );
+
+    const onMouseOverLeft = () => {
+      setCurrentlyFocusedItemIndex((index) => {
+        if (index > 0) {
+          return index - 1;
+        } else {
+          return index;
+        }
+      });
+    };
+
+    const onMouseOverRight = () => {
+      setCurrentlyFocusedItemIndex((index) => {
+        return index + 1;
+      });
+    };
 
     const renderWrappedItem: typeof props.renderItem = useCallback(
       ({ item }) => (
@@ -76,11 +98,19 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
     );
 
     return (
-      <SpatialNavigationVirtualizedListWithVirtualNodes
-        {...props}
-        currentlyFocusedItemIndex={currentlyFocusedItemIndex}
-        renderItem={renderWrappedItem}
-      />
+      <>
+        <SpatialNavigationVirtualizedListWithVirtualNodes
+          {...props}
+          currentlyFocusedItemIndex={currentlyFocusedItemIndex}
+          renderItem={renderWrappedItem}
+        />
+        <SpatialNavigationNode isFocusable={false} onMouseOver={onMouseOverLeft}>
+          {props.leftArrow}
+        </SpatialNavigationNode>
+        <SpatialNavigationNode isFocusable={false} onMouseOver={onMouseOverRight}>
+          {props.rightArrow}
+        </SpatialNavigationNode>
+      </>
     );
   },
 );

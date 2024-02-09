@@ -23,6 +23,7 @@ type DefaultProps = {
   onFocus?: () => void;
   onBlur?: () => void;
   onSelect?: () => void;
+  onMouseOver?: () => void;
   orientation?: NodeOrientation;
   /** Use this for grid alignment.
    * @see LRUD docs */
@@ -74,6 +75,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       onFocus,
       onBlur,
       onSelect,
+      onMouseOver,
       orientation = 'vertical',
       isFocusable = false,
       alignInGrid = false,
@@ -122,6 +124,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
 
     const { setDeviceType } = useDevice();
+    const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
 
     useBeforeMountEffect(() => {
       spatialNavigator.registerNode(id, {
@@ -157,20 +160,37 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       web: {
         onMouseEnter: () => {
           setDeviceType('remotePointer');
-          currentOnFocus.current?.();
-          spatialNavigator.grabFocus(id);
-          setIsFocused(true);
+          if (isFocusable) {
+            currentOnFocus.current?.();
+            spatialNavigator.grabFocus(id);
+            setIsFocused(true);
+          }
         },
         onMouseLeave: () => {
-          if (spatialNavigator.getCurrentFocusNode()?.id !== id) {
-            setDeviceType('remotePointer');
-            currentOnBlur.current?.();
-            setIsFocused(false);
+          setDeviceType('remotePointer');
+          if (isFocusable) {
+            if (spatialNavigator.getCurrentFocusNode()?.id !== id) {
+              currentOnBlur.current?.();
+              setIsFocused(false);
+            }
+          }
+          if (intervalId) {
+            clearInterval(intervalId);
+            setIntervalId(null);
           }
         },
         // TODO: Remove this if it happens that events are already triggered by the RemoteControlManager
         onMouseDown: () => {
           currentOnSelect.current?.();
+        },
+        onMouseOver: () => {
+          if (!isFocusable) {
+            onMouseOver?.();
+            const id = setInterval(() => {
+              onMouseOver?.();
+            }, 500);
+            setIntervalId(id);
+          }
         },
       },
       default: {},
