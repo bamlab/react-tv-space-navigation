@@ -1,16 +1,8 @@
 import { ViewStyle, Animated } from 'react-native';
-import { ScrollBehavior } from '../components/virtualizedList/VirtualizedList';
 
-export type TypeVirtualizedListAnimation = <T>(args: {
+export type TypeVirtualizedListAnimation = (args: {
   currentlyFocusedItemIndex: number;
-  itemSizeInPx: number | ((item: T) => number);
   vertical?: boolean;
-  nbMaxOfItems: number;
-  numberOfItemsVisibleOnScreen: number;
-  scrollBehavior: ScrollBehavior;
   scrollDuration: number;
-  data: T[];
-  listSizeInPx: number;
-  maxPossibleLeftAlignedIndex: number;
-  maxPossibleRightAlignedIndex: number;
+  scrollOffsetsArray: number[];
 }) => Animated.WithAnimatedValue<ViewStyle>;

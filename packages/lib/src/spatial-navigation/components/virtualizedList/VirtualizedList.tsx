@@ -9,6 +9,7 @@ import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { getLastLeftItemIndex, getLastRightItemIndex } from './helpers/getLastItemIndex';
 import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneItemToAnother';
+import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
 
 /**
  * @TODO: VirtualizedList should be able to take any data as params.
@@ -170,6 +171,30 @@ export const VirtualizedList = typedMemo(
     const maxPossibleLeftAlignedIndex = getLastLeftItemIndex<T>(data, itemSize, listSizeInPx);
     const maxPossibleRightAlignedIndex = getLastRightItemIndex<T>(data, itemSize, listSizeInPx);
 
+    const allScrollOffsets = useMemo(
+      () =>
+        computeAllScrollOffsets({
+          itemSize: itemSize,
+          nbMaxOfItems: nbMaxOfItems ?? data.length,
+          numberOfItemsVisibleOnScreen: numberOfItemsVisibleOnScreen,
+          scrollBehavior: scrollBehavior,
+          data: data,
+          listSizeInPx: listSizeInPx,
+          maxPossibleLeftAlignedIndex: maxPossibleLeftAlignedIndex,
+          maxPossibleRightAlignedIndex: maxPossibleRightAlignedIndex,
+        }),
+      [
+        data,
+        itemSize,
+        listSizeInPx,
+        maxPossibleLeftAlignedIndex,
+        maxPossibleRightAlignedIndex,
+        nbMaxOfItems,
+        numberOfItemsVisibleOnScreen,
+        scrollBehavior,
+      ],
+    );
+
     useOnEndReached({
       numberOfItems: data.length,
       range,
@@ -182,29 +207,15 @@ export const VirtualizedList = typedMemo(
       Platform.OS === 'web'
         ? useWebVirtualizedListAnimation({
             currentlyFocusedItemIndex,
-            itemSizeInPx: itemSize,
             vertical,
-            nbMaxOfItems: nbMaxOfItems ?? data.length,
-            numberOfItemsVisibleOnScreen,
-            scrollBehavior,
             scrollDuration,
-            data,
-            listSizeInPx,
-            maxPossibleLeftAlignedIndex,
-            maxPossibleRightAlignedIndex,
+            scrollOffsetsArray: allScrollOffsets,
           })
         : useVirtualizedListAnimation({
             currentlyFocusedItemIndex,
-            itemSizeInPx: itemSize,
             vertical,
-            nbMaxOfItems: nbMaxOfItems ?? data.length,
-            numberOfItemsVisibleOnScreen,
-            scrollBehavior,
             scrollDuration,
-            data,
-            listSizeInPx,
-            maxPossibleLeftAlignedIndex,
-            maxPossibleRightAlignedIndex,
+            scrollOffsetsArray: allScrollOffsets,
           });
 
     /*
