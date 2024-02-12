@@ -1,10 +1,19 @@
-import React, { useCallback, RefObject, useRef } from 'react';
+import React, {
+  useCallback,
+  RefObject,
+  useRef,
+  cloneElement,
+  ReactElement,
+  useState,
+  ReactNode,
+} from 'react';
 import { ScrollView, View, ViewStyle } from 'react-native';
 import {
   SpatialNavigatorParentScrollContext,
   useSpatialNavigatorParentScroll,
 } from '../context/ParentScrollContext';
 import { scrollToNewlyFocusedElement } from '../helpers/scrollToNewlyfocusedElement';
+import { useDevice } from '../context/DeviceContext';
 
 type Props = {
   horizontal?: boolean;
@@ -15,6 +24,8 @@ type Props = {
   offsetFromStart?: number;
   children: React.ReactNode;
   style?: ViewStyle;
+  topArrow?: ReactNode;
+  bottomArrow?: ReactElement;
 };
 
 export const SpatialNavigationScrollView = ({
@@ -22,33 +33,64 @@ export const SpatialNavigationScrollView = ({
   style,
   offsetFromStart = 0,
   children,
+  topArrow,
+  bottomArrow,
 }: Props) => {
   const { scrollToNodeIfNeeded: makeParentsScrollToNodeIfNeeded } =
     useSpatialNavigatorParentScroll();
   const scrollViewRef = useRef<ScrollView>(null);
+  const { deviceType } = useDevice();
+  const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
 
   const scrollToNode = useCallback(
     (newlyFocusedElementRef: RefObject<View>) => {
       try {
-        newlyFocusedElementRef?.current?.measureLayout(
-          scrollViewRef?.current?.getInnerViewNode(),
-          (left, top) =>
-            scrollToNewlyFocusedElement({
-              newlyFocusedElementDistanceToLeftRelativeToLayout: left,
-              newlyFocusedElementDistanceToTopRelativeToLayout: top,
-              horizontal,
-              offsetFromStart,
-              scrollViewRef,
-            }),
-          () => {},
-        );
+        if (deviceType === 'remoteKeys') {
+          newlyFocusedElementRef?.current?.measureLayout(
+            scrollViewRef?.current?.getInnerViewNode(),
+            (left, top) =>
+              scrollToNewlyFocusedElement({
+                newlyFocusedElementDistanceToLeftRelativeToLayout: left,
+                newlyFocusedElementDistanceToTopRelativeToLayout: top,
+                horizontal,
+                offsetFromStart,
+                scrollViewRef,
+              }),
+            () => {},
+          );
+        }
       } catch {
         // A crash can happen when calling measureLayout when a page unmounts. No impact on focus detected in regular use cases.
       }
       makeParentsScrollToNodeIfNeeded(newlyFocusedElementRef); // We need to propagate the scroll event for parents if we have nested ScrollViews/VirtualizedLists.
     },
-    [makeParentsScrollToNodeIfNeeded, horizontal, offsetFromStart],
+    [makeParentsScrollToNodeIfNeeded, horizontal, offsetFromStart, deviceType],
   );
+
+  const onMouseOverTop = () => {
+    const id = setInterval(() => {
+      scrollViewRef.current?.scrollBy({
+        top: -10,
+      });
+    }, 10);
+    setIntervalId(id);
+  };
+
+  const onMouseOverBottom = () => {
+    const id = setInterval(() => {
+      scrollViewRef.current?.scrollBy({
+        top: 10,
+      });
+    }, 10);
+    setIntervalId(id);
+  };
+
+  const onMouseLeave = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+    }
+  };
 
   return (
     <SpatialNavigatorParentScrollContext.Provider value={scrollToNode}>
@@ -62,6 +104,16 @@ export const SpatialNavigationScrollView = ({
       >
         {children}
       </ScrollView>
+      <View
+        style={{ position: 'absolute' }}
+        onMouseOver={onMouseOverTop}
+        onMouseLeave={onMouseLeave}
+      >
+        {topArrow}
+      </View>
+      <View onMouseOver={onMouseOverBottom} onMouseLeave={onMouseLeave}>
+        {bottomArrow}
+      </View>
     </SpatialNavigatorParentScrollContext.Provider>
   );
 };

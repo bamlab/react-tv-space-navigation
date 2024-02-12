@@ -9,6 +9,7 @@ import {
   ProgramListWithTitle,
   ProgramListWithTitleAndVariableSizes,
 } from '../modules/program/view/ProgramListWithTitle';
+import { BottomArrow, TopArrow } from '../modules/program/view/LeftArrow';
 
 export const Home = () => {
   return (
@@ -17,7 +18,11 @@ export const Home = () => {
         <Title variant="title">Hoppix</Title>
       </TitleContainer>
       <DefaultFocus>
-        <SpatialNavigationScrollView offsetFromStart={140}>
+        <SpatialNavigationScrollView
+          offsetFromStart={140}
+          topArrow={<TopArrow />}
+          bottomArrow={<BottomArrow />}
+        >
           <Box padding="$10">
             <ProgramListWithTitle title="Popular" />
             <Spacer gap="$6" />
@@ -26,6 +31,10 @@ export const Home = () => {
             <ProgramListWithTitle title="Watch again" />
             <Spacer gap="$6" />
             <ProgramListWithTitle title="You may also like..." />
+            <Spacer gap="$6" />
+            <ProgramListWithTitle title="The finest programs" />
+            <Spacer gap="$6" />
+            <ProgramListWithTitle title="Collection : Rabbits" />
             <Spacer gap="$6" />
             <ProgramListWithTitleAndVariableSizes title="Our selection"></ProgramListWithTitleAndVariableSizes>
           </Box>

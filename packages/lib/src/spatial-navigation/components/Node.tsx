@@ -29,6 +29,7 @@ type DefaultProps = {
    * @see LRUD docs */
   alignInGrid?: boolean;
   indexRange?: NodeIndexRange;
+  onMouseOverInterval?: number;
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
@@ -81,6 +82,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       alignInGrid = false,
       indexRange,
       children,
+      onMouseOverInterval = 500,
     }: Props,
     ref,
   ) => {
@@ -188,7 +190,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
             onMouseOver?.();
             const id = setInterval(() => {
               onMouseOver?.();
-            }, 500);
+            }, onMouseOverInterval);
             setIntervalId(id);
           }
         },
