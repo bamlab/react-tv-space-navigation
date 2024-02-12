@@ -36,22 +36,24 @@ const RenderMenu = (props: BottomTabBarProps) => <Menu {...props} />;
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      initialRouteName="Home"
-      tabBar={RenderMenu}
-      sceneContainerStyle={{
-        marginLeft: theme.sizes.menu.closed,
-        backgroundColor: theme.colors.background.main,
-      }}
-    >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="ProgramGridPage" component={ProgramGridPage} />
-      <Tab.Screen name="NonVirtualizedGridPage" component={NonVirtualizedGridPage} />
-      <Tab.Screen name="GridWithLongNodesPage" component={GridWithLongNodesPage} />
-    </Tab.Navigator>
+    <MenuProvider>
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+        initialRouteName="Home"
+        tabBar={RenderMenu}
+        sceneContainerStyle={{
+          marginLeft: theme.sizes.menu.closed,
+          backgroundColor: theme.colors.background.main,
+        }}
+      >
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="ProgramGridPage" component={ProgramGridPage} />
+        <Tab.Screen name="NonVirtualizedGridPage" component={NonVirtualizedGridPage} />
+        <Tab.Screen name="GridWithLongNodesPage" component={GridWithLongNodesPage} />
+      </Tab.Navigator>
+    </MenuProvider>
   );
 };
 
@@ -67,22 +69,21 @@ function App(): JSX.Element {
     <NavigationContainer>
       <ThemeProvider theme={theme}>
         <GoBackConfiguration />
-        <MenuProvider>
-          <Container width={width} height={height}>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-                contentStyle: {
-                  backgroundColor: theme.colors.background.main,
-                },
-              }}
-              initialRouteName="TabNavigator"
-            >
-              <Stack.Screen name="TabNavigator" component={TabNavigator} />
-              <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
-            </Stack.Navigator>
-          </Container>
-        </MenuProvider>
+
+        <Container width={width} height={height}>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+              contentStyle: {
+                backgroundColor: theme.colors.background.main,
+              },
+            }}
+            initialRouteName="TabNavigator"
+          >
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+            <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
+          </Stack.Navigator>
+        </Container>
       </ThemeProvider>
     </NavigationContainer>
   );

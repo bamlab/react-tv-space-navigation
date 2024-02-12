@@ -2,9 +2,7 @@ import { createContext, useContext, useMemo, useState } from 'react';
 
 const MenuContext = createContext<{ isOpen: boolean; toggleMenu: (isOpen: boolean) => void }>({
   isOpen: false,
-  toggleMenu: () => {
-    throw new Error('MenuContext not initialized');
-  },
+  toggleMenu: () => {},
 });
 
 export const MenuProvider = ({ children }: { children: React.ReactNode }) => {
