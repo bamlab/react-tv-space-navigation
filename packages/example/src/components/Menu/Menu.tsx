@@ -7,7 +7,7 @@ import {
 import { useMenuContext } from './MenuContext';
 
 import { Fragment, useCallback, useEffect, useRef } from 'react';
-import { Animated, Dimensions, View } from 'react-native';
+import { Animated, Dimensions, Platform, View } from 'react-native';
 import styled from '@emotion/native';
 import { Typography } from '../../design-system/components/Typography';
 import { Spacer } from '../../design-system/components/Spacer';
@@ -59,6 +59,18 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
     [toggleMenu],
   );
 
+  const menuWebProps = Platform.select({
+    web: {
+      onMouseEnter: () => {
+        toggleMenu(true);
+      },
+      onMouseLeave: () => {
+        toggleMenu(false);
+      },
+    },
+    default: {},
+  });
+
   useEffect(() => {
     Animated.timing(animatedWidth, {
       toValue: isMenuOpen ? theme.sizes.menu.open : theme.sizes.menu.closed,
@@ -72,11 +84,11 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
       isActive={isMenuOpen}
       onDirectionHandledWithoutMovement={onDirectionHandledWithoutMovement}
     >
-      <AbsoluteMenuContainer pointerEvents="none">
+      <AbsoluteMenuContainer>
         <SpatialNavigationView direction="vertical">
           <MenuSpacer />
           <MenuOverlay style={{ width: animatedWidth }} />
-          <MenuContainer>
+          <MenuContainer isOpen={isMenuOpen} {...menuWebProps}>
             <DefaultFocus>
               <View>
                 {state.routes.map((route, index) => {
@@ -101,11 +113,11 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
   );
 };
 
-const MenuContainer = styled.View(({ theme }) => ({
+const MenuContainer = styled.View<{ isOpen: boolean }>(({ isOpen, theme }) => ({
   position: 'absolute',
   left: 0,
   backgroundColor: 'transparent',
-  width: theme.sizes.menu.open,
+  width: isOpen ? theme.sizes.menu.open : theme.sizes.menu.closed,
   height: windowDimensions.height,
   paddingLeft: theme.spacings.$4,
   justifyContent: 'center',
