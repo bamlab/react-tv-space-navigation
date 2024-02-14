@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useMemo } from 'react';
+import React, { ReactNode, useCallback, useMemo } from 'react';
 import { View, ViewStyle, StyleSheet } from 'react-native';
 import range from 'lodash/range';
 
@@ -23,6 +23,8 @@ type SpatialNavigationVirtualizedGridProps<T extends ItemWithIndex> = Pick<
   | 'testID'
 > & {
   itemHeight: number;
+  header?: JSX.Element;
+  headerSize?: number;
   /** How many rows are RENDERED (virtualization size) */
   numberOfRenderedRows: number;
   /** How many rows are visible on screen (helps with knowing how to slice our data and to stop the scroll at the end of the list) */
@@ -179,6 +181,8 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
     data,
     numberOfColumns,
     itemHeight,
+    header,
+    headerSize,
     numberOfRenderedRows,
     numberOfRowsVisibleOnScreen,
     onEndReachedThresholdRowsNumber,
@@ -186,7 +190,30 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
     rowContainerStyle,
     ...props
   }: SpatialNavigationVirtualizedGridProps<T>) => {
-    const gridRows = useMemo(() => convertToGrid(data, numberOfColumns), [data, numberOfColumns]);
+    if (header && !headerSize) throw new Error('You must provide a headerSize when using a header');
+    if (headerSize && !header) throw new Error('You must provide a header when using a headerSize');
+    const hasHeader = !!header && !!headerSize;
+
+    const gridRows = useMemo(
+      () => convertToGrid(data, numberOfColumns, header),
+      [data, header, numberOfColumns],
+    );
+    const gridRowsWithHeaderIfProvided = useMemo(
+      () => (hasHeader ? [header, ...gridRows] : gridRows),
+      [hasHeader, header, gridRows],
+    );
+
+    const itemSizeAsAFunction = useCallback(
+      (item: GridRowType<T> | JSX.Element) => {
+        if (hasHeader && React.isValidElement(item)) {
+          return headerSize;
+        }
+        return itemHeight;
+      },
+      [hasHeader, headerSize, itemHeight],
+    );
+
+    const itemSize = hasHeader ? itemSizeAsAFunction : itemHeight;
 
     const renderRow = useCallback(
       ({ item: row }: { item: GridRowType<T> }) => (
@@ -199,17 +226,26 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
       ),
       [renderItem, numberOfColumns, rowContainerStyle],
     );
+    const renderHeaderThenRows = useCallback(
+      ({ item }: { item: GridRowType<T> | JSX.Element }) => {
+        if (React.isValidElement(item)) {
+          return item;
+        }
+        return renderRow({ item: item as GridRowType<T> });
+      },
+      [renderRow],
+    );
 
     return (
       <SpatialNavigationVirtualizedList
-        data={gridRows}
-        itemSize={itemHeight}
+        data={gridRowsWithHeaderIfProvided}
+        itemSize={itemSize}
         numberOfRenderedItems={numberOfRenderedRows}
         numberOfItemsVisibleOnScreen={numberOfRowsVisibleOnScreen}
         onEndReachedThresholdItemsNumber={onEndReachedThresholdRowsNumber}
         orientation="vertical"
         nbMaxOfItems={nbMaxOfItems ? Math.ceil(nbMaxOfItems / numberOfColumns) : undefined}
-        renderItem={renderRow}
+        renderItem={renderHeaderThenRows}
         isGrid
         {...props}
       />
