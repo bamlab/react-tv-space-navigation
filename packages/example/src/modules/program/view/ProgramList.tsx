@@ -3,7 +3,7 @@ import { useTheme } from '@emotion/react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useMemo } from 'react';
-import { SpatialNavigationVirtualizedList } from 'react-tv-space-navigation';
+import { SpatialNavigationNode, SpatialNavigationVirtualizedList } from 'react-tv-space-navigation';
 import { RootStackParamList } from '../../../../App';
 import { ProgramInfo } from '../domain/programInfo';
 import { getPrograms } from '../infra/programInfos';
@@ -37,17 +37,21 @@ export const ProgramList = ({
   const programInfos = useMemo(() => getPrograms(), []);
 
   return (
-    <Container style={containerStyle}>
-      <SpatialNavigationVirtualizedList
-        orientation={orientation}
-        data={programInfos}
-        renderItem={renderItem}
-        itemSize={theme.sizes.program.portrait.width + 30}
-        numberOfRenderedItems={WINDOW_SIZE}
-        numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-        onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-      />
-    </Container>
+    <SpatialNavigationNode>
+      {({ isActive }) => (
+        <Container isActive={isActive} style={containerStyle}>
+          <SpatialNavigationVirtualizedList
+            orientation={orientation}
+            data={programInfos}
+            renderItem={renderItem}
+            itemSize={theme.sizes.program.portrait.width + 30}
+            numberOfRenderedItems={WINDOW_SIZE}
+            numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+            onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+          />
+        </Container>
+      )}
+    </SpatialNavigationNode>
   );
 };
 
@@ -63,8 +67,10 @@ export const ProgramsRow = ({ containerStyle }: { containerStyle?: object }) => 
   );
 };
 
-const Container = styled.View(({ theme }) => ({
-  backgroundColor: theme.colors.background.mainHover,
+const Container = styled.View<{ isActive: boolean }>(({ isActive, theme }) => ({
+  backgroundColor: isActive
+    ? theme.colors.background.mainActive
+    : theme.colors.background.mainHover,
   padding: theme.spacings.$8,
   borderRadius: scaledPixels(20),
   overflow: 'hidden',
