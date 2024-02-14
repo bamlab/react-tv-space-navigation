@@ -11,11 +11,11 @@ import { NodeIndexRange } from '@bam.tech/lrud';
 
 type FocusableProps = {
   isFocusable: true;
-  children: (props: { isFocused: boolean }) => React.ReactElement;
+  children: (props: { isFocused: boolean; isActive: boolean }) => React.ReactElement;
 };
 type NonFocusableProps = {
   isFocusable?: false;
-  children: React.ReactElement;
+  children: React.ReactElement | ((props: { isActive: boolean }) => React.ReactElement);
 };
 type DefaultProps = {
   onFocus?: () => void;
@@ -79,6 +79,7 @@ export const SpatialNavigationNode = ({
   const spatialNavigator = useSpatialNavigator();
   const parentId = useParentId();
   const [isFocused, setIsFocused] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   // If parent changes, we have to re-register the Node + all children -> adding the parentId to the nodeId makes the children re-register.
   const id = useUniqueId({ prefix: `${parentId}_node_` });
 
@@ -122,6 +123,8 @@ export const SpatialNavigationNode = ({
       orientation,
       isIndexAlign: alignInGrid,
       indexRange,
+      onActive: () => setIsActive(true),
+      onInactive: () => setIsActive(false),
     });
 
     return () => spatialNavigator.unregisterNode(id);
@@ -135,7 +138,9 @@ export const SpatialNavigationNode = ({
 
   return (
     <ParentIdContext.Provider value={id}>
-      {typeof children === 'function' ? bindRefToChild(children({ isFocused })) : children}
+      {typeof children === 'function'
+        ? bindRefToChild(children({ isFocused, isActive }))
+        : children}
     </ParentIdContext.Provider>
   );
 };

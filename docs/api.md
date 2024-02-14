@@ -71,6 +71,21 @@ The `SpatialNavigationNode` component receives the following props:
 </SpatialNavigationNode>
 ```
 
+```jsx
+<SpatialNavigationNode
+  orientation="horizontal"
+  isFocusable={false}
+>
+  {({ isActive }) => (
+    // This node is active if one of its nodes is focused
+    <View style={{ backgroundColor: isActive ? 'grey' : 'black' }}>
+      <FocusableNodes/>
+    </View>)}
+</SpatialNavigationNode>
+```
+
+Note : It is not recommend to use isActive on virtualized focusable nodes,  as this can lead to unexpected behaviour.
+
 ## Important note
 
 The SpatialNavigationNode will use the ref of your component to handle the scrolling.
