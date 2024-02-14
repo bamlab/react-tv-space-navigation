@@ -7,6 +7,7 @@ import '../tests/helpers/configureTestRemoteControl';
 import { DefaultFocus } from '../../context/DefaultFocusContext';
 import { SpatialNavigationVirtualizedGrid } from '../virtualizedGrid/SpatialNavigationVirtualizedGrid';
 import testRemoteControlManager from '../tests/helpers/testRemoteControlManager';
+import { setComponentLayoutSize } from '../../../testing/setComponentLayoutSize';
 
 export const expectButtonToHaveFocus = (component: RenderResult, text: string) => {
   const element = component.getByRole('button', { name: text });
@@ -30,6 +31,8 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     return data;
   }
 
+  const gridTestId = 'test-grid';
+
   const renderGrid = () =>
     render(
       <SpatialNavigationRoot>
@@ -49,8 +52,12 @@ describe('SpatialNavigationVirtualizedGrid', () => {
 
   it('renders the correct number of item', () => {
     const component = renderGrid();
+    setComponentLayoutSize(gridTestId, component, { width: 300, height: 300 });
 
     expect(screen).toMatchSnapshot();
+
+    const listElement = component.getByTestId(gridTestId);
+    expect(listElement).toHaveStyle({ height: 700 });
 
     expect(screen.getByText('button 1')).toBeTruthy();
     expectButtonToHaveFocus(component, 'button 1');
@@ -73,10 +80,12 @@ describe('SpatialNavigationVirtualizedGrid', () => {
 
   it('handles correctly RIGHT & DOWN and RENDERS new elements accordingly while deleting elements that are too far from scroll when on stick to start scroll', () => {
     const component = renderGrid();
+    setComponentLayoutSize(gridTestId, component, { width: 300, height: 300 });
     act(() => jest.runAllTimers());
 
-    const listElement = component.getByTestId('test-grid');
+    const listElement = component.getByTestId(gridTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
+    expect(listElement).toHaveStyle({ height: 700 });
 
     testRemoteControlManager.handleRight();
 
@@ -179,10 +188,12 @@ describe('SpatialNavigationVirtualizedGrid', () => {
         </DefaultFocus>
       </SpatialNavigationRoot>,
     );
+    setComponentLayoutSize(gridTestId, component, { width: 300, height: 300 });
     act(() => jest.runAllTimers());
 
-    const listElement = component.getByTestId('test-grid');
+    const listElement = component.getByTestId(gridTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
+    expect(listElement).toHaveStyle({ height: 700 });
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 2');
@@ -230,10 +241,12 @@ describe('SpatialNavigationVirtualizedGrid', () => {
         </DefaultFocus>
       </SpatialNavigationRoot>,
     );
+    setComponentLayoutSize(gridTestId, component, { width: 300, height: 300 });
     act(() => jest.runAllTimers());
 
-    const listElement = component.getByTestId('test-grid');
+    const listElement = component.getByTestId(gridTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
+    expect(listElement).toHaveStyle({ height: 700 });
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 2');

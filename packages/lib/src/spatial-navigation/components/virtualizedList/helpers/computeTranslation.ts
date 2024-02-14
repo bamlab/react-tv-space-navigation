@@ -1,50 +1,70 @@
 import { ScrollBehavior } from '../VirtualizedList';
+import { getSizeInPxFromOneItemToAnother } from './getSizeInPxFromOneItemToAnother';
 
-const computeStickToStartTranslation = ({
+const computeStickToStartTranslation = <T>({
   currentlyFocusedItemIndex,
   itemSizeInPx,
-  nbMaxOfItems,
-  numberOfItemsVisibleOnScreen,
+  data,
+  maxPossibleLeftAlignedIndex,
 }: {
   currentlyFocusedItemIndex: number;
-  itemSizeInPx: number;
-  nbMaxOfItems: number;
-  numberOfItemsVisibleOnScreen: number;
+  itemSizeInPx: number | ((item: T) => number);
+  data: T[];
+  maxPossibleLeftAlignedIndex: number;
 }) => {
-  const maxPossibleLeftAlignedIndex = Math.max(nbMaxOfItems - numberOfItemsVisibleOnScreen, 0);
-  const leftAlignedIndex = Math.min(currentlyFocusedItemIndex, maxPossibleLeftAlignedIndex);
-  const scrollOffset = leftAlignedIndex * itemSizeInPx;
+  const scrollOffset =
+    currentlyFocusedItemIndex < maxPossibleLeftAlignedIndex
+      ? getSizeInPxFromOneItemToAnother(data, itemSizeInPx, 0, currentlyFocusedItemIndex)
+      : getSizeInPxFromOneItemToAnother(data, itemSizeInPx, 0, maxPossibleLeftAlignedIndex);
   return -scrollOffset;
 };
 
-const computeStickToEndTranslation = ({
+const computeStickToEndTranslation = <T>({
   currentlyFocusedItemIndex,
   itemSizeInPx,
-  numberOfItemsVisibleOnScreen,
+  data,
+  listSizeInPx,
+  maxPossibleRightAlignedIndex,
 }: {
   currentlyFocusedItemIndex: number;
-  itemSizeInPx: number;
-  numberOfItemsVisibleOnScreen: number;
+  itemSizeInPx: number | ((item: T) => number);
+  data: T[];
+  listSizeInPx: number;
+  maxPossibleRightAlignedIndex: number;
 }) => {
-  const rightAlignedIndex = Math.max(
-    currentlyFocusedItemIndex - numberOfItemsVisibleOnScreen + 1,
-    0, // Equals to minPossibleLeftAlignedIndex
+  if (currentlyFocusedItemIndex <= maxPossibleRightAlignedIndex) return -0;
+
+  const currentlyFocusedItemSize =
+    typeof itemSizeInPx === 'function'
+      ? itemSizeInPx(data[currentlyFocusedItemIndex])
+      : itemSizeInPx;
+
+  const sizeOfListFromStartToCurrentlyFocusedItem = getSizeInPxFromOneItemToAnother(
+    data,
+    itemSizeInPx,
+    0,
+    currentlyFocusedItemIndex,
   );
-  const scrollOffset = rightAlignedIndex * itemSizeInPx;
+
+  const scrollOffset =
+    sizeOfListFromStartToCurrentlyFocusedItem + currentlyFocusedItemSize - listSizeInPx;
   return -scrollOffset;
 };
 
-const computeJumpOnScrollTranslation = ({
+const computeJumpOnScrollTranslation = <T>({
   currentlyFocusedItemIndex,
   itemSizeInPx,
   nbMaxOfItems,
   numberOfItemsVisibleOnScreen,
 }: {
   currentlyFocusedItemIndex: number;
-  itemSizeInPx: number;
+  itemSizeInPx: number | ((item: T) => number);
   nbMaxOfItems: number;
   numberOfItemsVisibleOnScreen: number;
 }) => {
+  if (typeof itemSizeInPx === 'function')
+    throw new Error('jump-on-scroll scroll behavior is not supported with dynamic item size');
+
   const maxPossibleLeftAlignedIndex = Math.max(nbMaxOfItems - numberOfItemsVisibleOnScreen, 0);
   const indexOfItemToFocus =
     currentlyFocusedItemIndex - (currentlyFocusedItemIndex % numberOfItemsVisibleOnScreen);
@@ -53,32 +73,42 @@ const computeJumpOnScrollTranslation = ({
   return -scrollOffset;
 };
 
-export const computeTranslation = ({
+export const computeTranslation = <T>({
   currentlyFocusedItemIndex,
   itemSizeInPx,
   nbMaxOfItems,
   numberOfItemsVisibleOnScreen,
   scrollBehavior,
+  data,
+  listSizeInPx,
+  maxPossibleLeftAlignedIndex,
+  maxPossibleRightAlignedIndex,
 }: {
   currentlyFocusedItemIndex: number;
-  itemSizeInPx: number;
+  itemSizeInPx: number | ((item: T) => number);
   nbMaxOfItems: number;
   numberOfItemsVisibleOnScreen: number;
   scrollBehavior: ScrollBehavior;
+  data: T[];
+  listSizeInPx: number;
+  maxPossibleLeftAlignedIndex: number;
+  maxPossibleRightAlignedIndex: number;
 }) => {
   switch (scrollBehavior) {
     case 'stick-to-start':
       return computeStickToStartTranslation({
         currentlyFocusedItemIndex,
         itemSizeInPx,
-        nbMaxOfItems,
-        numberOfItemsVisibleOnScreen,
+        data,
+        maxPossibleLeftAlignedIndex,
       });
     case 'stick-to-end':
       return computeStickToEndTranslation({
         currentlyFocusedItemIndex,
         itemSizeInPx,
-        numberOfItemsVisibleOnScreen,
+        data,
+        listSizeInPx,
+        maxPossibleRightAlignedIndex,
       });
     case 'jump-on-scroll':
       return computeJumpOnScrollTranslation({

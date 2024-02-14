@@ -6,6 +6,7 @@ import '../tests/helpers/configureTestRemoteControl';
 import { SpatialNavigationVirtualizedList } from './SpatialNavigationVirtualizedList';
 import { DefaultFocus } from '../../context/DefaultFocusContext';
 import testRemoteControlManager from '../tests/helpers/testRemoteControlManager';
+import { setComponentLayoutSize } from '../../../testing/setComponentLayoutSize';
 
 export const expectButtonToHaveFocus = (component: RenderResult, text: string) => {
   const element = component.getByRole('button', { name: text });
@@ -30,16 +31,33 @@ describe('SpatialNavigationVirtualizedList', () => {
     { title: 'button 10', onSelect: () => undefined, index: 9 },
   ];
 
+  const dataWithVariableSizes = [
+    { title: 'button 1', onSelect: () => undefined, index: 0 },
+    { title: 'button 2', onSelect: () => undefined, index: 1 },
+    { title: 'button 3', onSelect: () => undefined, index: 2 },
+    { title: 'button 4', onSelect: () => undefined, index: 3 },
+    { title: 'button 5', onSelect: () => undefined, index: 4 },
+    { title: 'button 6', onSelect: () => undefined, index: 5 },
+    { title: 'button 7', onSelect: () => undefined, index: 6 },
+    { title: 'button 8', onSelect: () => undefined, index: 7 },
+    { title: 'button 9', onSelect: () => undefined, index: 8 },
+    { title: 'button 10', onSelect: () => undefined, index: 9 },
+  ];
+
+  const itemSize = (item: { title: string; onSelect: () => undefined; index: number }) =>
+    item.index % 2 === 0 ? 100 : 200;
+
+  const listTestId = 'test-list';
+
   const renderList = () =>
     render(
       <SpatialNavigationRoot>
         <DefaultFocus>
           <SpatialNavigationVirtualizedList
-            testID="test-list"
+            testID={listTestId}
             renderItem={renderItem}
             data={data}
             itemSize={100}
-            width={300}
             numberOfRenderedItems={5}
             numberOfItemsVisibleOnScreen={3}
           />
@@ -47,9 +65,14 @@ describe('SpatialNavigationVirtualizedList', () => {
       </SpatialNavigationRoot>,
     );
 
-  it('renders the correct number of item', () => {
+  it('renders the correct number of item', async () => {
     const component = renderList();
     act(() => jest.runAllTimers());
+
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+
+    const listElement = await component.findByTestId(listTestId);
+    expect(listElement).toHaveStyle({ width: 1000 });
 
     expect(screen).toMatchSnapshot();
 
@@ -77,8 +100,11 @@ describe('SpatialNavigationVirtualizedList', () => {
     const component = renderList();
     act(() => jest.runAllTimers());
 
-    const listElement = component.getByTestId('test-list');
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+
+    const listElement = await component.findByTestId(listTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+    expect(listElement).toHaveStyle({ width: 1000 });
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 2');
@@ -142,7 +168,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={data}
             itemSize={100}
-            width={300}
             numberOfRenderedItems={5}
             numberOfItemsVisibleOnScreen={3}
             scrollBehavior="stick-to-end"
@@ -152,8 +177,11 @@ describe('SpatialNavigationVirtualizedList', () => {
     );
     act(() => jest.runAllTimers());
 
-    const listElement = component.getByTestId('test-list');
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+
+    const listElement = await component.findByTestId(listTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+    expect(listElement).toHaveStyle({ width: 1000 });
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 2');
@@ -215,7 +243,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={data}
             itemSize={100}
-            width={300}
             numberOfRenderedItems={5}
             numberOfItemsVisibleOnScreen={3}
             scrollBehavior="jump-on-scroll"
@@ -225,8 +252,11 @@ describe('SpatialNavigationVirtualizedList', () => {
     );
     act(() => jest.runAllTimers());
 
-    const listElement = component.getByTestId('test-list');
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+
+    const listElement = await component.findByTestId(listTestId);
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+    expect(listElement).toHaveStyle({ width: 1000 });
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 2');
@@ -277,5 +307,106 @@ describe('SpatialNavigationVirtualizedList', () => {
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 10');
     expect(listElement).toHaveStyle({ transform: [{ translateX: -700 }] });
+  });
+
+  it('handles correctly different item sizes', async () => {
+    const component = render(
+      <SpatialNavigationRoot>
+        <DefaultFocus>
+          <SpatialNavigationVirtualizedList
+            testID="test-list"
+            renderItem={renderItem}
+            data={dataWithVariableSizes}
+            itemSize={itemSize}
+            numberOfRenderedItems={5}
+            numberOfItemsVisibleOnScreen={3}
+          />
+        </DefaultFocus>
+      </SpatialNavigationRoot>,
+    );
+    act(() => jest.runAllTimers());
+
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+
+    const listElement = await component.findByTestId(listTestId);
+    expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+    expect(listElement).toHaveStyle({ width: 1500 });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 2');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -100 }] });
+
+    expect(screen.getByText('button 1')).toBeTruthy();
+    expect(screen.getByText('button 5')).toBeTruthy();
+    expect(screen.queryByText('button 6')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 3');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -300 }] });
+
+    expect(screen.queryByText('button 1')).toBeFalsy();
+    expect(screen.getByText('button 2')).toBeTruthy();
+    expect(screen.getByText('button 6')).toBeTruthy();
+    expect(screen.queryByText('button 7')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 4');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -400 }] });
+
+    expect(screen.queryByText('button 2')).toBeFalsy();
+    expect(screen.getByText('button 3')).toBeTruthy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
+  });
+
+  it('handles correctly different item sizes on stick to end scroll', async () => {
+    const component = render(
+      <SpatialNavigationRoot>
+        <DefaultFocus>
+          <SpatialNavigationVirtualizedList
+            testID="test-list"
+            renderItem={renderItem}
+            data={dataWithVariableSizes}
+            itemSize={itemSize}
+            numberOfRenderedItems={5}
+            numberOfItemsVisibleOnScreen={3}
+            scrollBehavior="stick-to-end"
+          />
+        </DefaultFocus>
+      </SpatialNavigationRoot>,
+    );
+    act(() => jest.runAllTimers());
+
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+
+    const listElement = await component.findByTestId(listTestId);
+    expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+    expect(listElement).toHaveStyle({ width: 1500 });
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 2');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+
+    expect(screen.getByText('button 1')).toBeTruthy();
+    expect(screen.getByText('button 5')).toBeTruthy();
+    expect(screen.queryByText('button 6')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 3');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -100 }] });
+
+    expect(screen.queryByText('button 1')).toBeFalsy();
+    expect(screen.getByText('button 2')).toBeTruthy();
+    expect(screen.getByText('button 6')).toBeTruthy();
+    expect(screen.queryByText('button 7')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 4');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -300 }] });
+
+    expect(screen.queryByText('button 2')).toBeFalsy();
+    expect(screen.getByText('button 3')).toBeTruthy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
   });
 });

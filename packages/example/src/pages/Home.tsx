@@ -5,7 +5,10 @@ import '../components/configureRemoteControl';
 import { Box } from '../design-system/components/Box';
 import { Spacer } from '../design-system/components/Spacer';
 import { Typography } from '../design-system/components/Typography';
-import { ProgramListWithTitle } from '../modules/program/view/ProgramListWithTitle';
+import {
+  ProgramListWithTitle,
+  ProgramListWithTitleAndVariableSizes,
+} from '../modules/program/view/ProgramListWithTitle';
 
 export const Home = () => {
   return (
@@ -23,6 +26,8 @@ export const Home = () => {
             <ProgramListWithTitle title="Watch again" />
             <Spacer gap="$6" />
             <ProgramListWithTitle title="You may also like..." />
+            <Spacer gap="$6" />
+            <ProgramListWithTitleAndVariableSizes title="Our selection"></ProgramListWithTitleAndVariableSizes>
           </Box>
         </SpatialNavigationScrollView>
       </DefaultFocus>

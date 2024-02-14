@@ -1,25 +1,15 @@
 import { useEffect, useRef } from 'react';
 import { Animated, Easing } from 'react-native';
 import { TypeVirtualizedListAnimation } from '../../../types/TypeVirtualizedListAnimation';
-import { computeTranslation } from '../helpers/computeTranslation';
 
 export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
   currentlyFocusedItemIndex,
-  itemSizeInPx,
-  nbMaxOfItems,
-  numberOfItemsVisibleOnScreen,
   vertical = false,
-  scrollBehavior,
   scrollDuration,
+  scrollOffsetsArray,
 }) => {
   const translation = useRef<Animated.Value>(new Animated.Value(0)).current;
-  const newTranslationValue = computeTranslation({
-    currentlyFocusedItemIndex,
-    itemSizeInPx,
-    nbMaxOfItems,
-    numberOfItemsVisibleOnScreen,
-    scrollBehavior,
-  });
+  const newTranslationValue = scrollOffsetsArray[currentlyFocusedItemIndex];
 
   useEffect(() => {
     Animated.timing(translation, {
@@ -37,21 +27,12 @@ export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
 
 export const useWebVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
   currentlyFocusedItemIndex,
-  itemSizeInPx,
-  nbMaxOfItems,
-  numberOfItemsVisibleOnScreen,
   vertical = false,
-  scrollBehavior,
   scrollDuration,
+  scrollOffsetsArray,
 }) => {
   const animationDuration = `${scrollDuration}ms`;
-  const newTranslationValue = computeTranslation({
-    currentlyFocusedItemIndex,
-    itemSizeInPx,
-    nbMaxOfItems,
-    numberOfItemsVisibleOnScreen,
-    scrollBehavior,
-  });
+  const newTranslationValue = scrollOffsetsArray[currentlyFocusedItemIndex];
 
   return {
     transitionDuration: animationDuration,

@@ -19,11 +19,11 @@ The `SpatialNavigationRoot` is the root component that contains all the spatial 
 
 The `SpatialNavigationRoot` component receives the following props:
 
-| Name       | Type        | Default | Description                                                                                                                                                                                                                                 |
-| ---------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `isActive` | `boolean`   | `true`  | Determines if the spatial navigation is active. If `false`, the spatial navigation will be locked, and no nodes can be focused. This is useful to handle a multi page app: you can disable the non-focused pages' spatial navigation roots. |
-| `onDirectionHandledWithoutMovement` | `(direction: Direction) => void` | `undefined`  | Called when you're reaching a border of the navigator. A use case for this would be the implementation of a side menu that's shared between pages. You can have a separate navigator for your side menu, which would be common across pages, and you'd make this menu active when you reach the left side of your page navigator. |
-| `children` | `ReactNode` | `null`  | |
+| Name                                | Type                             | Default     | Description                                                                                                                                                                                                                                                                                                                       |
+| ----------------------------------- | -------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isActive`                          | `boolean`                        | `true`      | Determines if the spatial navigation is active. If `false`, the spatial navigation will be locked, and no nodes can be focused. This is useful to handle a multi page app: you can disable the non-focused pages' spatial navigation roots.                                                                                       |
+| `onDirectionHandledWithoutMovement` | `(direction: Direction) => void` | `undefined` | Called when you're reaching a border of the navigator. A use case for this would be the implementation of a side menu that's shared between pages. You can have a separate navigator for your side menu, which would be common across pages, and you'd make this menu active when you reach the left side of your page navigator. |
+| `children`                          | `ReactNode`                      | `null`      |                                                                                                                                                                                                                                                                                                                                   |
 
 ## Usage
 
@@ -167,27 +167,25 @@ It also ensures that the scroll event is propagated properly to parent ScrollVie
 
 ## Props
 
-| Name                               | Type                                                     | Description                                                                                                                                                                                                                                                               |
-| ---------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data`                             | `Array<T>`                                               | The array of data items to render.                                                                                                                                                                                                                                        |
-| `renderItem`                       | `(args: { item: T }) => JSX.Element`                     | A function that returns the JSX element to render for each item in the data array. The function receives an object with the item as a parameter.                                                                                                                          |
-| `itemSize`                         | `number`                                                 | If vertical, the height of an item; otherwise, the width.                                                                                                                                                                                                                 |
-| `numberOfRenderedItems`            | `number`                                                 | The number of items to be rendered (virtualization size).                                                                                                                                                                                                                 |
-| `numberOfItemsVisibleOnScreen`     | `number`                                                 | The number of items visible on the screen. This helps determine how to slice the data and when to stop the scroll at the end of the list.                                                                                                                                 |
-| `onEndReached`                     | `() => void`                                             | An optional callback function that is called when the user reaches the end of the list.                                                                                                                                                                                   |
-| `onEndReachedThresholdItemsNumber` | `number`                                                 | The number of items left to display before triggering the `onEndReached` callback. Defaults to 3.                                                                                                                                                                         |
-| `style`                            | `ViewStyle`                                              | Custom style to be applied to the VirtualizedList container.                                                                                                                                                                                                              |
-| `orientation`                      | `'horizontal' \| 'vertical'`                             | The orientation of the list. Defaults to `'horizontal'`.                                                                                                                                                                                                                  |
-| `nbMaxOfItems`                     | `number`                                                 | The total number of expected items for infinite scroll. This helps with aligning items and is used for pagination. If not provided, it defaults to the length of the data array.                                                                                          |
-| `scrollDuration`                   | `number`                                                 | The duration of a scrolling animation inside the VirtualizedList. Defaults to 200ms.                                                                                                                                                                                      |
-| `scrollBehavior`                   | `'stick-to-start' \| 'stick-to-end' \| 'jump-on-scroll'` | Determines the scrolling behavior. Defaults to `'stick-to-start'`. `'stick-to-start'` and `'stick-to-end'` fix the focused item at the beginning or the end of the visible items on screen. `jump-on-scroll` jumps from `numberOfItemsVisibleOnScreen` items when needed. |
-| `height`                           | `number`                                                 | Custom height for the VirtualizedList container. Defaults to the screen height.                                                                                                                                                                                           |
-| `width`                            | `number`                                                 | Custom width for the VirtualizedList container. Defaults to the screen width.                                                                                                                                                                                             |
+| Name                               | Type                                                     | Description                                                                                                                                                                                                                                                                                                                                                         |
+| ---------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data`                             | `Array<T>`                                               | The array of data items to render. ⚠️ You should memoize this array for maximum performance. A costly memo depends on it.                                                                                                                                                                                                                                            |
+| `renderItem`                       | `(args: { item: T }) => JSX.Element`                     | A function that returns the JSX element to render for each item in the data array. The function receives an object with the item as a parameter.                                                                                                                                                                                                                    |
+| `itemSize`                         | `number \| ((item: T) => number)`                        | In case you specify a number it will behave like this : ff vertical, the height of an item; otherwise, the width. You can also specify a function which needs to return for each item of `data` its size in pixel in order for the list to handle various item sizes. ⚠️ You should memoize this function for maximal performances. An important memo depends on it. |
+| `numberOfRenderedItems`            | `number`                                                 | The number of items to be rendered (virtualization size).                                                                                                                                                                                                                                                                                                           |
+| `numberOfItemsVisibleOnScreen`     | `number`                                                 | The number of items visible on the screen. This helps determine how to slice the data and when to stop the scroll at the end of the list.                                                                                                                                                                                                                           |
+| `onEndReached`                     | `() => void`                                             | An optional callback function that is called when the user reaches the end of the list. Helps with pagination.                                                                                                                                                                                                                                                      |
+| `onEndReachedThresholdItemsNumber` | `number`                                                 | The number of items left to display before triggering the `onEndReached` callback. Defaults to 3.                                                                                                                                                                                                                                                                   |
+| `style`                            | `ViewStyle`                                              | Custom style to be applied to the VirtualizedList container.                                                                                                                                                                                                                                                                                                        |
+| `orientation`                      | `'horizontal' \| 'vertical'`                             | The orientation of the list. Defaults to `'horizontal'`.                                                                                                                                                                                                                                                                                                            |
+| `nbMaxOfItems`                     | `number`                                                 | The total number of expected items for infinite scroll. This helps with aligning items and is used for pagination. If not provided, it defaults to the length of the data array.                                                                                                                                                                                    |
+| `scrollDuration`                   | `number`                                                 | The duration of a scrolling animation inside the VirtualizedList. Defaults to 200ms.                                                                                                                                                                                                                                                                                |
+| `scrollBehavior`                   | `'stick-to-start' \| 'stick-to-end' \| 'jump-on-scroll'` | Determines the scrolling behavior. Defaults to `'stick-to-start'`. `'stick-to-start'` and `'stick-to-end'` fix the focused item at the beginning or the end of the visible items on screen. `jump-on-scroll` jumps from `numberOfItemsVisibleOnScreen` items when needed. Warning `jump-on-scroll` is not compatible with dynamic item size.                        |
 
 ## Usage
 
 ```jsx
-import { VirtualizedList } from 'path/to/VirtualizedList';
+import { SpatialNavigationVirtualizedList } from 'react-tv-spatial-navigation';
 
 // Example data
 const data = [
@@ -207,9 +205,11 @@ const renderItem = ({ item }) => {
 
 const MyComponent = () => {
   return (
-    <VirtualizedList
+    <SpatialNavigationVirtualizedList
+      // Do not forget to memoize data
       data={data}
       renderItem={renderItem}
+      // Do not forget to memoize this if you provide it as a function
       itemSize={50}
       numberOfRenderedItems={10}
       numberOfItemsVisibleOnScreen={5}
@@ -235,7 +235,7 @@ VirtualizedGrids only support vertical orientation (vertically scrollable), but 
 
 | Name                              | Type                                                     | Description                                                                                                                                                                                                                                                             |
 | --------------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data`                            | `Array<T>`                                               | The array of items to render in the grid.                                                                                                                                                                                                                               |
+| `data`                            | `Array<T>`                                               | The array of items to render in the grid.  ⚠️ You should memoize this array for maximum performance. A costly memo depends on it.                                                                                                                                        |
 | `renderItem`                      | `(args: { item: T }) => JSX.Element`                     | A function that returns the JSX element to render for each item in the data array. The function receives an object with the item as a parameter.                                                                                                                        |
 | `numberOfColumns`                 | `Number`                                                 | The number of columns in the grid or the number of items per row.                                                                                                                                                                                                       |
 | `itemHeight`                      | `Number`                                                 | The height of each item in the grid.                                                                                                                                                                                                                                    |
@@ -261,6 +261,7 @@ const renderItem = ({ item }) => {
 
 // Render the SpatialNavigationVirtualizedGrid component
 <SpatialNavigationVirtualizedGrid
+  // Do not forget to memoize data
   data={data}
   renderItem={renderItem}
   numberOfColumns={3}
@@ -353,13 +354,13 @@ The 'keydown' event listener invokes the callback with a mapped `Direction` corr
 It returns an event identifier that can be used to remove the event listener later,
 ensuring that the component will clean up after itself when it is no longer needed.
 
-
 # useSpatialNavigatorFocusableAccessibilityProps
 
 > Check out the [accessibility state of the lib](./accessibility.md) for more info and a little demo.
 
 This is a custom React hook that is used to provide suggested accessibility properties for a focusable component.
 It contains the following workaround (which is not standard at all, but the best we could achieve with TalkBack...):
+
 - if I focus an element using accessibility focus, nothing happens (unfortunately)
 - to get our custom focus, I need to press enter first
 - once our custom focus is on, if I press enter again then my element is selected
@@ -394,6 +395,6 @@ const MyComponent = () => {
   const { lock, unlock } = useLockSpatialNavigation();
 
   // Doesn't really make sense to lock after selecting a button, but you get the idea
-  return <Button onSelect={() => lock()} />
-}
+  return <Button onSelect={() => lock()} />;
+};
 ```

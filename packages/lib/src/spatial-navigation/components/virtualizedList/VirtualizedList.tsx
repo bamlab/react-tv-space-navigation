@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { Animated, StyleSheet, View, ViewStyle, Dimensions, Platform } from 'react-native';
+import { Animated, StyleSheet, View, ViewStyle, Platform } from 'react-native';
 import { getRange } from './helpers/getRange';
 import {
   useVirtualizedListAnimation,
@@ -7,8 +7,9 @@ import {
 } from './hooks/useVirtualizedListAnimation';
 import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
-
-const screen = Dimensions.get('window');
+import { getLastLeftItemIndex, getLastRightItemIndex } from './helpers/getLastItemIndex';
+import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneItemToAnother';
+import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
 
 /**
  * @TODO: VirtualizedList should be able to take any data as params.
@@ -21,10 +22,10 @@ export type ItemWithIndex = { index: number };
 
 export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
-  data: Array<T>;
+  data: T[];
   renderItem: (args: { item: T }) => JSX.Element;
   /** If vertical the height of an item, otherwise the width */
-  itemSize: number;
+  itemSize: number | ((item: T) => number);
   currentlyFocusedItemIndex: number;
   /** How many items are RENDERED (virtualization size) */
   numberOfRenderedItems: number;
@@ -45,9 +46,9 @@ export interface VirtualizedListProps<T> {
   /** Duration of a scrolling animation inside the VirtualizedList */
   scrollDuration?: number;
   /** Custom height for the VirtualizedList container */
-  height?: number;
+  height: number;
   /** Custom width for the VirtualizedList container */
-  width?: number;
+  width: number;
   scrollBehavior?: ScrollBehavior;
   testID?: string;
 }
@@ -91,21 +92,31 @@ const ItemContainerWithAnimatedStyle = typedMemo(
     renderItem,
     itemSize,
     vertical,
+    data,
   }: {
     item: T;
     renderItem: VirtualizedListProps<T>['renderItem'];
-    itemSize: number;
+    itemSize: number | ((item: T) => number);
     vertical: boolean;
+    data: T[];
   }) => {
+    const computeOffset = useCallback(
+      (item: T) =>
+        typeof itemSize === 'number'
+          ? item.index * itemSize
+          : data.slice(0, item.index).reduce((acc, item) => acc + itemSize(item), 0),
+      [data, itemSize],
+    );
+
     const style = useMemo(
       () =>
         StyleSheet.flatten([
           styles.item,
           vertical
-            ? { transform: [{ translateY: item.index * itemSize }] }
-            : { transform: [{ translateX: item.index * itemSize }] },
+            ? { transform: [{ translateY: computeOffset(item) }] }
+            : { transform: [{ translateX: computeOffset(item) }] },
         ]),
-      [item.index, itemSize, vertical],
+      [computeOffset, item, vertical],
     );
     return <View style={style}>{renderItem({ item })}</View>;
   },
@@ -135,8 +146,8 @@ export const VirtualizedList = typedMemo(
     keyExtractor,
     scrollDuration = 200,
     scrollBehavior = 'stick-to-start',
-    height = screen.height,
-    width = screen.width,
+    height,
+    width,
     testID,
   }: VirtualizedListProps<T>) => {
     const range = getRange({
@@ -148,7 +159,41 @@ export const VirtualizedList = typedMemo(
 
     const vertical = orientation === 'vertical';
 
+    const listSizeInPx = vertical ? height : width;
+
+    const totalVirtualizedListSize = useMemo(
+      () => getSizeInPxFromOneItemToAnother(data, itemSize, 0, data.length),
+      [data, itemSize],
+    );
+
     const dataSliceToRender = data.slice(range.start, range.end + 1);
+
+    const maxPossibleLeftAlignedIndex = getLastLeftItemIndex<T>(data, itemSize, listSizeInPx);
+    const maxPossibleRightAlignedIndex = getLastRightItemIndex<T>(data, itemSize, listSizeInPx);
+
+    const allScrollOffsets = useMemo(
+      () =>
+        computeAllScrollOffsets({
+          itemSize: itemSize,
+          nbMaxOfItems: nbMaxOfItems ?? data.length,
+          numberOfItemsVisibleOnScreen: numberOfItemsVisibleOnScreen,
+          scrollBehavior: scrollBehavior,
+          data: data,
+          listSizeInPx: listSizeInPx,
+          maxPossibleLeftAlignedIndex: maxPossibleLeftAlignedIndex,
+          maxPossibleRightAlignedIndex: maxPossibleRightAlignedIndex,
+        }),
+      [
+        data,
+        itemSize,
+        listSizeInPx,
+        maxPossibleLeftAlignedIndex,
+        maxPossibleRightAlignedIndex,
+        nbMaxOfItems,
+        numberOfItemsVisibleOnScreen,
+        scrollBehavior,
+      ],
+    );
 
     useOnEndReached({
       numberOfItems: data.length,
@@ -162,21 +207,15 @@ export const VirtualizedList = typedMemo(
       Platform.OS === 'web'
         ? useWebVirtualizedListAnimation({
             currentlyFocusedItemIndex,
-            itemSizeInPx: itemSize,
             vertical,
-            nbMaxOfItems: nbMaxOfItems ?? data.length,
-            numberOfItemsVisibleOnScreen,
-            scrollBehavior,
             scrollDuration,
+            scrollOffsetsArray: allScrollOffsets,
           })
         : useVirtualizedListAnimation({
             currentlyFocusedItemIndex,
-            itemSizeInPx: itemSize,
             vertical,
-            nbMaxOfItems: nbMaxOfItems ?? data.length,
-            numberOfItemsVisibleOnScreen,
-            scrollBehavior,
             scrollDuration,
+            scrollOffsetsArray: allScrollOffsets,
           });
 
     /*
@@ -214,15 +253,14 @@ export const VirtualizedList = typedMemo(
      *   RowWidth = Screen Width + size of the item on left
      * ```
      */
-
     const dimensionStyle = useMemo(
       () =>
         vertical
           ? ({
-              height: height + itemSize * currentlyFocusedItemIndex,
+              height: totalVirtualizedListSize,
             } as const)
-          : ({ width: width + itemSize * currentlyFocusedItemIndex } as const),
-      [height, width, itemSize, currentlyFocusedItemIndex, vertical],
+          : ({ width: totalVirtualizedListSize } as const),
+      [totalVirtualizedListSize, vertical],
     );
 
     return (
@@ -239,6 +277,7 @@ export const VirtualizedList = typedMemo(
                 item={item}
                 itemSize={itemSize}
                 vertical={vertical}
+                data={data}
               />
             );
           })}

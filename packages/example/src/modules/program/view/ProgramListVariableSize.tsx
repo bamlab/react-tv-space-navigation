@@ -5,10 +5,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useMemo } from 'react';
 import { SpatialNavigationVirtualizedList } from 'react-tv-space-navigation';
 import { RootStackParamList } from '../../../../App';
-import { ProgramInfo } from '../domain/programInfo';
-import { getPrograms } from '../infra/programInfos';
 import { ProgramNode } from './ProgramNode';
 import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
+import { ProgramNodeLandscape } from './ProgramNodeLandscape';
+import { getPrograms } from '../infra/programInfos';
+import { ProgramInfo } from '../domain/programInfo';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
@@ -23,18 +24,28 @@ export const ProgramList = ({
 }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+  const isItemLarge = (item: ProgramInfo) => {
+    return parseInt(item.id, 10) % 2 === 0;
+  };
+
   const renderItem = useCallback(
-    ({ item }: { item: ProgramInfo }) => (
-      <ProgramNode
-        programInfo={item}
-        onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
-      />
-    ),
+    ({ item }: { item: ProgramInfo }) =>
+      isItemLarge(item) ? (
+        <ProgramNode
+          programInfo={item}
+          onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
+        />
+      ) : (
+        <ProgramNodeLandscape
+          programInfo={item}
+          onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
+        />
+      ),
     [navigation],
   );
   const theme = useTheme();
 
-  const programInfos = useMemo(() => getPrograms(1000), []);
+  const programInfos = useMemo(() => getPrograms(10), []);
 
   return (
     <Container style={containerStyle}>
@@ -42,7 +53,11 @@ export const ProgramList = ({
         orientation={orientation}
         data={programInfos}
         renderItem={renderItem}
-        itemSize={theme.sizes.program.portrait.width + 30}
+        itemSize={(item) =>
+          isItemLarge(item)
+            ? theme.sizes.program.portrait.width + 30
+            : theme.sizes.program.landscape.width * 2 + 45
+        }
         numberOfRenderedItems={WINDOW_SIZE}
         numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
         onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
@@ -51,7 +66,7 @@ export const ProgramList = ({
   );
 };
 
-export const ProgramsRow = ({ containerStyle }: { containerStyle?: object }) => {
+export const ProgramsRowVariableSize = ({ containerStyle }: { containerStyle?: object }) => {
   const theme = useTheme();
   return (
     <ProgramList

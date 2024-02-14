@@ -191,6 +191,13 @@ const shuffleArray = <T>(array: Array<T>) => {
   return arrayCopy;
 };
 
-export const getPrograms = () => {
-  return shuffleArray(programInfos);
+export const getPrograms = (listSize?: number) => {
+  if (!listSize) return shuffleArray(programInfos);
+  const programInfosWithCustomSize: ProgramInfo[] = [];
+  for (let i = 0; i < listSize; i++) {
+    programInfosWithCustomSize.push(
+      programInfos[Math.floor(Math.random() * (programInfos.length - 1))],
+    );
+  }
+  return programInfosWithCustomSize;
 };

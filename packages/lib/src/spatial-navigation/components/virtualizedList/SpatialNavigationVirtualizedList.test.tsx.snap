@@ -2,220 +2,231 @@
 
 exports[`SpatialNavigationVirtualizedList handles correctly RIGHT and RENDERS new elements accordingly while deleting elements that are too far from scroll 1`] = `
 <View
-  collapsable={false}
+  onLayout={[Function]}
   style={
     {
-      "flex": 1,
-      "flexDirection": "row",
-      "transform": [
-        {
-          "translateX": -200,
-        },
-      ],
-      "width": 500,
+      "height": "100%",
+      "width": "100%",
     }
   }
-  testID="test-list"
+  testID="test-list-size-giver"
 >
-  <View>
-    <View
-      style={
-        {
-          "left": 0,
-          "position": "absolute",
-          "transform": [
-            {
-              "translateX": 100,
-            },
-          ],
-        }
-      }
-    >
-      <View
-        accessibilityHint="button 2"
-        accessibilityLabel="button 2"
-        accessibilityRole="button"
-        accessibilityState={
+  <View
+    collapsable={false}
+    style={
+      {
+        "flex": 1,
+        "flexDirection": "row",
+        "transform": [
           {
-            "selected": false,
+            "translateX": -200,
+          },
+        ],
+        "width": 1000,
+      }
+    }
+    testID="test-list"
+  >
+    <View>
+      <View
+        style={
+          {
+            "left": 0,
+            "position": "absolute",
+            "transform": [
+              {
+                "translateX": 100,
+              },
+            ],
           }
         }
-        accessible={true}
-        isFocused={false}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderRadius": 100,
-              "padding": 6,
-            },
-            undefined,
-          ]
-        }
       >
-        <Text>
-          button 2
-        </Text>
+        <View
+          accessibilityHint="button 2"
+          accessibilityLabel="button 2"
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "selected": false,
+            }
+          }
+          accessible={true}
+          isFocused={false}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 100,
+                "padding": 6,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text>
+            button 2
+          </Text>
+        </View>
       </View>
-    </View>
-    <View
-      style={
-        {
-          "left": 0,
-          "position": "absolute",
-          "transform": [
-            {
-              "translateX": 200,
-            },
-          ],
-        }
-      }
-    >
       <View
-        accessibilityHint="button 3"
-        accessibilityLabel="button 3"
-        accessibilityRole="button"
-        accessibilityState={
+        style={
           {
-            "selected": true,
+            "left": 0,
+            "position": "absolute",
+            "transform": [
+              {
+                "translateX": 200,
+              },
+            ],
           }
         }
-        accessible={true}
-        isFocused={true}
-        style={
-          [
-            {
-              "backgroundColor": "red",
-              "borderRadius": 100,
-              "padding": 6,
-            },
-            undefined,
-          ]
-        }
       >
-        <Text>
-          button 3
-        </Text>
+        <View
+          accessibilityHint="button 3"
+          accessibilityLabel="button 3"
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "selected": true,
+            }
+          }
+          accessible={true}
+          isFocused={true}
+          style={
+            [
+              {
+                "backgroundColor": "red",
+                "borderRadius": 100,
+                "padding": 6,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text>
+            button 3
+          </Text>
+        </View>
       </View>
-    </View>
-    <View
-      style={
-        {
-          "left": 0,
-          "position": "absolute",
-          "transform": [
-            {
-              "translateX": 300,
-            },
-          ],
-        }
-      }
-    >
       <View
-        accessibilityHint="button 4"
-        accessibilityLabel="button 4"
-        accessibilityRole="button"
-        accessibilityState={
+        style={
           {
-            "selected": false,
+            "left": 0,
+            "position": "absolute",
+            "transform": [
+              {
+                "translateX": 300,
+              },
+            ],
           }
         }
-        accessible={true}
-        isFocused={false}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderRadius": 100,
-              "padding": 6,
-            },
-            undefined,
-          ]
-        }
       >
-        <Text>
-          button 4
-        </Text>
+        <View
+          accessibilityHint="button 4"
+          accessibilityLabel="button 4"
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "selected": false,
+            }
+          }
+          accessible={true}
+          isFocused={false}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 100,
+                "padding": 6,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text>
+            button 4
+          </Text>
+        </View>
       </View>
-    </View>
-    <View
-      style={
-        {
-          "left": 0,
-          "position": "absolute",
-          "transform": [
-            {
-              "translateX": 400,
-            },
-          ],
-        }
-      }
-    >
       <View
-        accessibilityHint="button 5"
-        accessibilityLabel="button 5"
-        accessibilityRole="button"
-        accessibilityState={
+        style={
           {
-            "selected": false,
+            "left": 0,
+            "position": "absolute",
+            "transform": [
+              {
+                "translateX": 400,
+              },
+            ],
           }
         }
-        accessible={true}
-        isFocused={false}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderRadius": 100,
-              "padding": 6,
-            },
-            undefined,
-          ]
-        }
       >
-        <Text>
-          button 5
-        </Text>
+        <View
+          accessibilityHint="button 5"
+          accessibilityLabel="button 5"
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "selected": false,
+            }
+          }
+          accessible={true}
+          isFocused={false}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 100,
+                "padding": 6,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text>
+            button 5
+          </Text>
+        </View>
       </View>
-    </View>
-    <View
-      style={
-        {
-          "left": 0,
-          "position": "absolute",
-          "transform": [
-            {
-              "translateX": 500,
-            },
-          ],
-        }
-      }
-    >
       <View
-        accessibilityHint="button 6"
-        accessibilityLabel="button 6"
-        accessibilityRole="button"
-        accessibilityState={
+        style={
           {
-            "selected": false,
+            "left": 0,
+            "position": "absolute",
+            "transform": [
+              {
+                "translateX": 500,
+              },
+            ],
           }
         }
-        accessible={true}
-        isFocused={false}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderRadius": 100,
-              "padding": 6,
-            },
-            undefined,
-          ]
-        }
       >
-        <Text>
-          button 6
-        </Text>
+        <View
+          accessibilityHint="button 6"
+          accessibilityLabel="button 6"
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "selected": false,
+            }
+          }
+          accessible={true}
+          isFocused={false}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 100,
+                "padding": 6,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text>
+            button 6
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -224,220 +235,231 @@ exports[`SpatialNavigationVirtualizedList handles correctly RIGHT and RENDERS ne
 
 exports[`SpatialNavigationVirtualizedList renders the correct number of item 1`] = `
 <View
-  collapsable={false}
+  onLayout={[Function]}
   style={
     {
-      "flex": 1,
-      "flexDirection": "row",
-      "transform": [
-        {
-          "translateX": 0,
-        },
-      ],
-      "width": 300,
+      "height": "100%",
+      "width": "100%",
     }
   }
-  testID="test-list"
+  testID="test-list-size-giver"
 >
-  <View>
-    <View
-      style={
-        {
-          "left": 0,
-          "position": "absolute",
-          "transform": [
-            {
-              "translateX": 0,
-            },
-          ],
-        }
-      }
-    >
-      <View
-        accessibilityHint="button 1"
-        accessibilityLabel="button 1"
-        accessibilityRole="button"
-        accessibilityState={
+  <View
+    collapsable={false}
+    style={
+      {
+        "flex": 1,
+        "flexDirection": "row",
+        "transform": [
           {
-            "selected": true,
+            "translateX": 0,
+          },
+        ],
+        "width": 1000,
+      }
+    }
+    testID="test-list"
+  >
+    <View>
+      <View
+        style={
+          {
+            "left": 0,
+            "position": "absolute",
+            "transform": [
+              {
+                "translateX": 0,
+              },
+            ],
           }
         }
-        accessible={true}
-        isFocused={true}
-        style={
-          [
-            {
-              "backgroundColor": "red",
-              "borderRadius": 100,
-              "padding": 6,
-            },
-            undefined,
-          ]
-        }
       >
-        <Text>
-          button 1
-        </Text>
+        <View
+          accessibilityHint="button 1"
+          accessibilityLabel="button 1"
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "selected": true,
+            }
+          }
+          accessible={true}
+          isFocused={true}
+          style={
+            [
+              {
+                "backgroundColor": "red",
+                "borderRadius": 100,
+                "padding": 6,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text>
+            button 1
+          </Text>
+        </View>
       </View>
-    </View>
-    <View
-      style={
-        {
-          "left": 0,
-          "position": "absolute",
-          "transform": [
-            {
-              "translateX": 100,
-            },
-          ],
-        }
-      }
-    >
       <View
-        accessibilityHint="button 2"
-        accessibilityLabel="button 2"
-        accessibilityRole="button"
-        accessibilityState={
+        style={
           {
-            "selected": false,
+            "left": 0,
+            "position": "absolute",
+            "transform": [
+              {
+                "translateX": 100,
+              },
+            ],
           }
         }
-        accessible={true}
-        isFocused={false}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderRadius": 100,
-              "padding": 6,
-            },
-            undefined,
-          ]
-        }
       >
-        <Text>
-          button 2
-        </Text>
+        <View
+          accessibilityHint="button 2"
+          accessibilityLabel="button 2"
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "selected": false,
+            }
+          }
+          accessible={true}
+          isFocused={false}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 100,
+                "padding": 6,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text>
+            button 2
+          </Text>
+        </View>
       </View>
-    </View>
-    <View
-      style={
-        {
-          "left": 0,
-          "position": "absolute",
-          "transform": [
-            {
-              "translateX": 200,
-            },
-          ],
-        }
-      }
-    >
       <View
-        accessibilityHint="button 3"
-        accessibilityLabel="button 3"
-        accessibilityRole="button"
-        accessibilityState={
+        style={
           {
-            "selected": false,
+            "left": 0,
+            "position": "absolute",
+            "transform": [
+              {
+                "translateX": 200,
+              },
+            ],
           }
         }
-        accessible={true}
-        isFocused={false}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderRadius": 100,
-              "padding": 6,
-            },
-            undefined,
-          ]
-        }
       >
-        <Text>
-          button 3
-        </Text>
+        <View
+          accessibilityHint="button 3"
+          accessibilityLabel="button 3"
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "selected": false,
+            }
+          }
+          accessible={true}
+          isFocused={false}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 100,
+                "padding": 6,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text>
+            button 3
+          </Text>
+        </View>
       </View>
-    </View>
-    <View
-      style={
-        {
-          "left": 0,
-          "position": "absolute",
-          "transform": [
-            {
-              "translateX": 300,
-            },
-          ],
-        }
-      }
-    >
       <View
-        accessibilityHint="button 4"
-        accessibilityLabel="button 4"
-        accessibilityRole="button"
-        accessibilityState={
+        style={
           {
-            "selected": false,
+            "left": 0,
+            "position": "absolute",
+            "transform": [
+              {
+                "translateX": 300,
+              },
+            ],
           }
         }
-        accessible={true}
-        isFocused={false}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderRadius": 100,
-              "padding": 6,
-            },
-            undefined,
-          ]
-        }
       >
-        <Text>
-          button 4
-        </Text>
+        <View
+          accessibilityHint="button 4"
+          accessibilityLabel="button 4"
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "selected": false,
+            }
+          }
+          accessible={true}
+          isFocused={false}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 100,
+                "padding": 6,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text>
+            button 4
+          </Text>
+        </View>
       </View>
-    </View>
-    <View
-      style={
-        {
-          "left": 0,
-          "position": "absolute",
-          "transform": [
-            {
-              "translateX": 400,
-            },
-          ],
-        }
-      }
-    >
       <View
-        accessibilityHint="button 5"
-        accessibilityLabel="button 5"
-        accessibilityRole="button"
-        accessibilityState={
+        style={
           {
-            "selected": false,
+            "left": 0,
+            "position": "absolute",
+            "transform": [
+              {
+                "translateX": 400,
+              },
+            ],
           }
         }
-        accessible={true}
-        isFocused={false}
-        style={
-          [
-            {
-              "backgroundColor": "transparent",
-              "borderRadius": 100,
-              "padding": 6,
-            },
-            undefined,
-          ]
-        }
       >
-        <Text>
-          button 5
-        </Text>
+        <View
+          accessibilityHint="button 5"
+          accessibilityLabel="button 5"
+          accessibilityRole="button"
+          accessibilityState={
+            {
+              "selected": false,
+            }
+          }
+          accessible={true}
+          isFocused={false}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 100,
+                "padding": 6,
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text>
+            button 5
+          </Text>
+        </View>
       </View>
     </View>
   </View>
