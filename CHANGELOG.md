@@ -1,4 +1,18 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.3.1...v) (2024-02-07)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.4.0...v) (2024-02-15)
+
+## [1.4.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.3.1...v1.4.0) (2024-02-15)
+
+
+### Features
+
+* add isActive props ([8549bed](https://github.com/bamlab/react-tv-space-navigation/commit/8549bede14010abdced6c32335d0c923949ed3ac))
+* **lists:** handle different item sizes in virtualized list ([47775e3](https://github.com/bamlab/react-tv-space-navigation/commit/47775e3a54633db747adc727bb559016c5669698))
+* **lists:** remove height and width props from virtualized list ([96e13b1](https://github.com/bamlab/react-tv-space-navigation/commit/96e13b1c4b329b0242198587a5c0dcdd3e7a7167))
+
+
+### Bug Fixes
+
+* **performance:** add missing useMemo on useSpatialNavigatorFocusableAccessibilityProps ([6b759c7](https://github.com/bamlab/react-tv-space-navigation/commit/6b759c7f648e9fdd86d9a82b75b7dce21fe26572))
 
 ## [1.3.1](https://github.com/bamlab/react-tv-space-navigation/compare/v1.3.0...v1.3.1) (2024-02-07)
 
