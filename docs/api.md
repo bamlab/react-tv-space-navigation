@@ -55,6 +55,12 @@ The `SpatialNavigationNode` component receives the following props:
 | `indexRange`  | `number[]`                  | `undefined`  | Determines the indexes when using long nodes in a grid. If a grid row has one `indexRange`, you should specify each element's `indexRange`. You can check for more details in [`GridWithLongNodesPage`](https://github.com/bamlab/react-tv-space-navigation/blob/31bfe1def4a7e18e9e41f26a520090d1b7a5b149/packages/example/src/pages/GridWithLongNodesPage.tsx) example or in [lrud documentation](https://github.com/bbc/lrud/blob/master/docs/usage.md#indexrange). |
 | `children`    | `({ isFocused, isActive }: { isFocused: boolean, isActive: boolean }) => ReactNode` or `ReactNode`   | `null`       | Child elements of the component. It can be a function that returns a React element and accepts a parameter with a `isFocused` property when `isFocusable` is `true`. If `isFocusable` is `false` or not provided, it can be any valid React node.             |
 
+The `SpatialNavigationNode` component ref expose the following methods:
+
+| Name              | Type        | Description                                                                                                                                   |
+| ----------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `focus`           | `function`  | Give the focus to the selected node. |
+
 ## Usage
 
 ```jsx
