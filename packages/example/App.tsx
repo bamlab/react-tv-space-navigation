@@ -15,7 +15,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ProgramDetail } from './src/pages/ProgramDetail';
 import { NonVirtualizedGridPage } from './src/pages/NonVirtualizedGridPage';
 import { GridWithLongNodesPage } from './src/pages/GridWithLongNodesPage';
-import { useTVPanEvent } from './src/components/PanEvent/useTVPanEvent.ios';
+import { useTVPanEvent } from './src/components/PanEvent/useTVPanEvent';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
