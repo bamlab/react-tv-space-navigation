@@ -6,6 +6,7 @@ import { programInfos } from '../modules/program/infra/programInfos';
 import { ProgramNode } from '../modules/program/view/ProgramNode';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';
 import { theme } from '../design-system/theme/theme';
+import { Header } from '../modules/header/view/Header';
 
 const NUMBER_OF_ROWS_VISIBLE_ON_SCREEN = 2;
 const NUMBER_OF_RENDERED_ROWS = NUMBER_OF_ROWS_VISIBLE_ON_SCREEN + 3;
@@ -29,6 +30,14 @@ export const VirtualizedSpatialGrid = ({
     <View style={[styles.container, containerStyle]}>
       <SpatialNavigationVirtualizedGrid
         data={hardcodedRabbitsArray}
+        header={
+          <Header
+            title="Rabbit Movies"
+            description="Delve into the delightful world of Rabbit Movies, where every film celebrates the charm and whimsy of our favorite fluffy friends. This category is a haven for rabbit lovers, featuring animated escapades and heartwarming family stories starring these adorable creatures."
+            verticalSize={scaledPixels(500)}
+          />
+        }
+        headerSize={scaledPixels(500)}
         renderItem={renderItem}
         itemHeight={theme.sizes.program.portrait.height * 1.1}
         numberOfColumns={NUMBER_OF_COLUMNS}
