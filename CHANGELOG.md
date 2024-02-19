@@ -1,4 +1,18 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.4.0...v) (2024-02-15)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.5.0...v) (2024-02-19)
+
+## [1.5.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.4.0...v1.5.0) (2024-02-19)
+
+
+### Features
+
+* add alignInGrid to SpatialNavigationView ([b496427](https://github.com/bamlab/react-tv-space-navigation/commit/b496427cdc11d2eae8bca169644e7db50217e1fd))
+* add header handling to virtualized grids ([#64](https://github.com/bamlab/react-tv-space-navigation/issues/64)) ([c033b17](https://github.com/bamlab/react-tv-space-navigation/commit/c033b179cec5f8d9255b3e72512f09d8793296ed))
+* expose SpatialNavigationNode ref ([0fce024](https://github.com/bamlab/react-tv-space-navigation/commit/0fce0249564dd28e38b484017bc93a7aa0a9e405))
+
+
+### Bug Fixes
+
+* add missing display name to list components ([#71](https://github.com/bamlab/react-tv-space-navigation/issues/71)) ([681488b](https://github.com/bamlab/react-tv-space-navigation/commit/681488b0db7dd30c8b2cc054341d53eb6d2acd28))
 
 ## [1.4.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.3.1...v1.4.0) (2024-02-15)
 
