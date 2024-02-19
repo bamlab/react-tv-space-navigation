@@ -34,6 +34,7 @@ export const VirtualizedListWithSize = typedMemo(
     );
   },
 );
+VirtualizedListWithSize.displayName = 'VirtualizedListWithSize';
 
 const style = StyleSheet.create({
   container: {

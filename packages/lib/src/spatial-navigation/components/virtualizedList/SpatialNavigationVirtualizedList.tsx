@@ -29,3 +29,4 @@ export const SpatialNavigationVirtualizedList = typedMemo(
     );
   },
 );
+SpatialNavigationVirtualizedList.displayName = 'SpatialNavigationVirtualizedList';

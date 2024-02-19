@@ -128,6 +128,7 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
     </ParentIdContext.Provider>
   ),
 );
+ItemWrapperWithVirtualParentContext.displayName = 'ItemWrapperWithVirtualParentContext';
 
 export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T> = Omit<
   VirtualizedListProps<T>,
@@ -183,3 +184,5 @@ export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
     return <VirtualizedListWithSize {...props} renderItem={renderWrappedItem} />;
   },
 );
+SpatialNavigationVirtualizedListWithVirtualNodes.displayName =
+  'SpatialNavigationVirtualizedListWithVirtualNodes';
