@@ -3,15 +3,17 @@ import { SpatialNavigationNode } from './Node';
 
 export const SpatialNavigationView = ({
   direction = 'horizontal',
+  alignInGrid = false,
   children,
   style,
 }: {
   children: React.ReactNode;
   style?: ViewStyle;
   direction: 'horizontal' | 'vertical';
+  alignInGrid?: boolean;
 }) => {
   return (
-    <SpatialNavigationNode orientation={direction}>
+    <SpatialNavigationNode orientation={direction} alignInGrid={alignInGrid}>
       <View
         style={[style, direction === 'horizontal' ? styles.viewHorizontal : styles.viewVertical]}
       >

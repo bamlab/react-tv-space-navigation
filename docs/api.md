@@ -155,6 +155,7 @@ The `SpatialNavigationView` component receives the following props:
 | Name        | Type                         | Default        | Description                                                                                                |
 | ----------- | ---------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------- |
 | `direction` | `'horizontal' \| 'vertical'` | `'horizontal'` | The orientation of the `SpatialNavigationNode`.                                                            |
+| `alignInGrid` | `boolean`                  | `false`        | Determines whether child lists should behave like a grid. |                                     |
 | `style`     | `ViewStyle`                  | `null`         | Style for the View. This can be any valid React Native style object.                                       |
 | `children`  | `ReactNode`                  | `null`         | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements. |
 
