@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { useSpatialNavigatorDefaultFocus } from '../context/DefaultFocusContext';
 import { ParentIdContext, useParentId } from '../context/ParentIdContext';
@@ -8,6 +8,7 @@ import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useUniqueId } from '../hooks/useUniqueId';
 import { NodeOrientation } from '../types/orientation';
 import { NodeIndexRange } from '@bam.tech/lrud';
+import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
 
 type FocusableProps = {
   isFocusable: true;
@@ -66,81 +67,95 @@ const useBindRefToChild = () => {
   return { bindRefToChild, childRef };
 };
 
-export const SpatialNavigationNode = ({
-  onFocus,
-  onBlur,
-  onSelect,
-  orientation = 'vertical',
-  isFocusable = false,
-  alignInGrid = false,
-  indexRange,
-  children,
-}: Props) => {
-  const spatialNavigator = useSpatialNavigator();
-  const parentId = useParentId();
-  const [isFocused, setIsFocused] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  // If parent changes, we have to re-register the Node + all children -> adding the parentId to the nodeId makes the children re-register.
-  const id = useUniqueId({ prefix: `${parentId}_node_` });
-
-  const { childRef, bindRefToChild } = useBindRefToChild();
-
-  const scrollToNodeIfNeeded = useScrollToNodeIfNeeded({ childRef });
-
-  /*
-   * We don't re-register in LRUD on each render, because LRUD does not allow updating the nodes.
-   * Therefore, the SpatialNavigator Node callbacks are registered at 1st render but can change (ie. if props change) afterwards.
-   * Since we want the functions to always be up to date, we use a reference to them.
-   */
-
-  const currentOnSelect = useRef<() => void>();
-  currentOnSelect.current = onSelect;
-
-  const currentOnFocus = useRef<() => void>();
-  currentOnFocus.current = () => {
-    onFocus?.();
-    scrollToNodeIfNeeded();
-  };
-
-  const currentOnBlur = useRef<() => void>();
-  currentOnBlur.current = onBlur;
-
-  const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
-
-  useBeforeMountEffect(() => {
-    spatialNavigator.registerNode(id, {
-      parent: parentId,
-      isFocusable,
-      onBlur: () => {
-        currentOnBlur.current?.();
-        setIsFocused(false);
-      },
-      onFocus: () => {
-        currentOnFocus.current?.();
-        setIsFocused(true);
-      },
-      onSelect: () => currentOnSelect.current?.(),
-      orientation,
-      isIndexAlign: alignInGrid,
+export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>(
+  (
+    {
+      onFocus,
+      onBlur,
+      onSelect,
+      orientation = 'vertical',
+      isFocusable = false,
+      alignInGrid = false,
       indexRange,
-      onActive: () => setIsActive(true),
-      onInactive: () => setIsActive(false),
-    });
+      children,
+    }: Props,
+    ref,
+  ) => {
+    const spatialNavigator = useSpatialNavigator();
+    const parentId = useParentId();
+    const [isFocused, setIsFocused] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    // If parent changes, we have to re-register the Node + all children -> adding the parentId to the nodeId makes the children re-register.
+    const id = useUniqueId({ prefix: `${parentId}_node_` });
 
-    return () => spatialNavigator.unregisterNode(id);
-  }, [parentId]);
+    useImperativeHandle(
+      ref,
+      () => ({
+        focus: () => spatialNavigator.grabFocus(id),
+      }),
+      [spatialNavigator, id],
+    );
 
-  useEffect(() => {
-    if (shouldHaveDefaultFocus && isFocusable && !spatialNavigator.hasOneNodeFocused()) {
-      spatialNavigator.grabFocus(id);
-    }
-  }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
+    const { childRef, bindRefToChild } = useBindRefToChild();
 
-  return (
-    <ParentIdContext.Provider value={id}>
-      {typeof children === 'function'
-        ? bindRefToChild(children({ isFocused, isActive }))
-        : children}
-    </ParentIdContext.Provider>
-  );
-};
+    const scrollToNodeIfNeeded = useScrollToNodeIfNeeded({ childRef });
+
+    /*
+     * We don't re-register in LRUD on each render, because LRUD does not allow updating the nodes.
+     * Therefore, the SpatialNavigator Node callbacks are registered at 1st render but can change (ie. if props change) afterwards.
+     * Since we want the functions to always be up to date, we use a reference to them.
+     */
+
+    const currentOnSelect = useRef<() => void>();
+    currentOnSelect.current = onSelect;
+
+    const currentOnFocus = useRef<() => void>();
+    currentOnFocus.current = () => {
+      onFocus?.();
+      scrollToNodeIfNeeded();
+    };
+
+    const currentOnBlur = useRef<() => void>();
+    currentOnBlur.current = onBlur;
+
+    const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
+
+    useBeforeMountEffect(() => {
+      spatialNavigator.registerNode(id, {
+        parent: parentId,
+        isFocusable,
+        onBlur: () => {
+          currentOnBlur.current?.();
+          setIsFocused(false);
+        },
+        onFocus: () => {
+          currentOnFocus.current?.();
+          setIsFocused(true);
+        },
+        onSelect: () => currentOnSelect.current?.(),
+        orientation,
+        isIndexAlign: alignInGrid,
+        indexRange,
+        onActive: () => setIsActive(true),
+        onInactive: () => setIsActive(false),
+      });
+
+      return () => spatialNavigator.unregisterNode(id);
+    }, [parentId]);
+
+    useEffect(() => {
+      if (shouldHaveDefaultFocus && isFocusable && !spatialNavigator.hasOneNodeFocused()) {
+        spatialNavigator.grabFocus(id);
+      }
+    }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
+
+    return (
+      <ParentIdContext.Provider value={id}>
+        {typeof children === 'function'
+          ? bindRefToChild(children({ isFocused, isActive }))
+          : children}
+      </ParentIdContext.Provider>
+    );
+  },
+);
+SpatialNavigationNode.displayName = 'SpatialNavigationNode';

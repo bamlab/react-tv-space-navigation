@@ -10,10 +10,16 @@ import styled from '@emotion/native';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';
 import { LongProgramNode, ProgramNode } from '../modules/program/view/ProgramNode';
 import { theme } from '../design-system/theme/theme';
+import { MutableRefObject, forwardRef, useRef } from 'react';
+import { Button } from '../design-system/components/Button';
+import { SpatialNavigationNodeRef } from '../../../lib/src/spatial-navigation/types/SpatialNavigationNodeRef';
 
 const HEADER_SIZE = scaledPixels(400);
 
 export const GridWithLongNodesPage = () => {
+  const firstItemRef = useRef<SpatialNavigationNodeRef>(null);
+  const lastItemRef = useRef<SpatialNavigationNodeRef>(null);
+
   return (
     <Page>
       <CenteringView>
@@ -22,8 +28,9 @@ export const GridWithLongNodesPage = () => {
             <SpatialNavigationNode alignInGrid>
               <DefaultFocus>
                 <>
-                  <FirstRow />
-                  <SecondRow />
+                  <FirstRow ref={firstItemRef} />
+                  <SecondRow ref={lastItemRef} />
+                  <ButtonRow firstItemRef={firstItemRef} lastItemRef={lastItemRef} />
                 </>
               </DefaultFocus>
             </SpatialNavigationNode>
@@ -34,11 +41,11 @@ export const GridWithLongNodesPage = () => {
   );
 };
 
-const FirstRow = () => {
+const FirstRow = forwardRef<SpatialNavigationNodeRef>((_, ref) => {
   return (
     <SpatialNavigationNode orientation="horizontal">
       <ListContainer>
-        <LongProgramNode programInfo={programInfos[0]} indexRange={[0, 1]} />
+        <LongProgramNode programInfo={programInfos[0]} indexRange={[0, 1]} ref={ref} />
         <ProgramNode programInfo={programInfos[1]} indexRange={[2, 2]} />
         <ProgramNode programInfo={programInfos[2]} indexRange={[3, 3]} />
         <LongProgramNode programInfo={programInfos[3]} indexRange={[4, 5]} />
@@ -46,17 +53,41 @@ const FirstRow = () => {
       </ListContainer>
     </SpatialNavigationNode>
   );
-};
+});
+FirstRow.displayName = 'FirstRow';
 
-const SecondRow = () => {
+const SecondRow = forwardRef<SpatialNavigationNodeRef>((_, ref) => {
   const programs = programInfos.slice(6, 13);
   return (
     <SpatialNavigationNode orientation="horizontal">
       <ListContainer>
-        {/* <LongProgramNode programInfo={programInfos[0]} indexRange={[0, 1]} /> */}
-        {programs.map((program) => {
-          return <ProgramNode programInfo={program} key={program.id} />;
+        {programs.map((program, index) => {
+          return (
+            <ProgramNode
+              programInfo={program}
+              key={program.id}
+              ref={index === programs.length - 1 ? ref : null}
+            />
+          );
         })}
+      </ListContainer>
+    </SpatialNavigationNode>
+  );
+});
+SecondRow.displayName = 'SecondRow';
+
+const ButtonRow = ({
+  firstItemRef,
+  lastItemRef,
+}: {
+  firstItemRef: MutableRefObject<SpatialNavigationNodeRef>;
+  lastItemRef: MutableRefObject<SpatialNavigationNodeRef>;
+}) => {
+  return (
+    <SpatialNavigationNode orientation="horizontal">
+      <ListContainer>
+        <Button label="Go to first item" onSelect={() => firstItemRef.current.focus()} />
+        <Button label="Go to last item" onSelect={() => lastItemRef.current.focus()} />
       </ListContainer>
     </SpatialNavigationNode>
   );

@@ -9,6 +9,7 @@ export { SpatialNavigationVirtualizedList } from './spatial-navigation/component
 export { SpatialNavigationVirtualizedGrid } from './spatial-navigation/components/virtualizedGrid/SpatialNavigationVirtualizedGrid';
 export { useSpatialNavigatorFocusableAccessibilityProps } from './spatial-navigation/hooks/useSpatialNavigatorFocusableAccessibilityProps';
 export { useLockSpatialNavigation } from './spatial-navigation/context/LockSpatialNavigationContext';
+export { SpatialNavigationNodeRef } from './spatial-navigation/types/SpatialNavigationNodeRef';
 
 export const SpatialNavigation = {
   configureRemoteControl,
