@@ -121,6 +121,7 @@ const ItemContainerWithAnimatedStyle = typedMemo(
     return <View style={style}>{renderItem({ item })}</View>;
   },
 );
+ItemContainerWithAnimatedStyle.displayName = 'ItemContainerWithAnimatedStyle';
 
 /**
  * DO NOT use this component directly !
@@ -286,6 +287,7 @@ export const VirtualizedList = typedMemo(
     );
   },
 );
+VirtualizedList.displayName = 'VirtualizedList';
 
 const styles = StyleSheet.create({
   container: {

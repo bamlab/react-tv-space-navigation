@@ -92,6 +92,7 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
     </ParentIdContext.Provider>
   ),
 );
+ItemWrapperWithVirtualParentContext.displayName = 'ItemWrapperWithVirtualParentContext';
 
 const GridRow = <T extends ItemWithIndex>({
   renderItem,
@@ -216,6 +217,7 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
     );
   },
 );
+SpatialNavigationVirtualizedGrid.displayName = 'SpatialNavigationVirtualizedGrid';
 
 type HorizontalContainerProps = {
   style?: ViewStyle;

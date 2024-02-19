@@ -40,6 +40,7 @@ const ItemWrapperWithScrollContext = typedMemo(
     );
   },
 );
+ItemWrapperWithScrollContext.displayName = 'ItemWrapperWithScrollContext';
 
 export type SpatialNavigationVirtualizedListWithScrollProps<T> = Omit<
   SpatialNavigationVirtualizedListWithVirtualNodesProps<T>,
@@ -78,3 +79,5 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
     );
   },
 );
+SpatialNavigationVirtualizedListWithScroll.displayName =
+  'SpatialNavigationVirtualizedListWithScroll';
