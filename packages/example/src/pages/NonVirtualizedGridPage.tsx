@@ -1,7 +1,7 @@
 import {
   DefaultFocus,
-  SpatialNavigationNode,
   SpatialNavigationScrollView,
+  SpatialNavigationView,
 } from 'react-tv-space-navigation';
 import { Page } from '../components/Page';
 import '../components/configureRemoteControl';
@@ -36,9 +36,9 @@ export const NonVirtualizedGridPage = () => {
               description="Delve into the delightful world of Rabbit Movies, where every film celebrates the charm and whimsy of our favorite fluffy friends. This category is a haven for rabbit lovers, featuring animated escapades and heartwarming family stories starring these adorable creatures."
               verticalSize={HEADER_SIZE}
             />
-            <SpatialNavigationNode alignInGrid>
+            <SpatialNavigationView alignInGrid direction="vertical">
               <DefaultFocus>{programsLists.map(renderProgramsList)}</DefaultFocus>
-            </SpatialNavigationNode>
+            </SpatialNavigationView>
           </SpatialNavigationScrollView>
         </GridContainer>
       </CenteringView>
@@ -49,24 +49,21 @@ export const NonVirtualizedGridPage = () => {
 const ProgramRow = ({ programs }: { programs: ProgramInfo[] }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
-    <SpatialNavigationNode orientation="horizontal">
-      <ListContainer>
-        {programs.map((program) => {
-          return (
-            <ProgramNode
-              programInfo={program}
-              onSelect={() => navigation.push('ProgramDetail', { programInfo: program })}
-              key={program.id}
-            />
-          );
-        })}
-      </ListContainer>
-    </SpatialNavigationNode>
+    <ListContainer direction="horizontal">
+      {programs.map((program) => {
+        return (
+          <ProgramNode
+            programInfo={program}
+            onSelect={() => navigation.push('ProgramDetail', { programInfo: program })}
+            key={program.id}
+          />
+        );
+      })}
+    </ListContainer>
   );
 };
 
-const ListContainer = styled.View(({ theme }) => ({
-  flexDirection: 'row',
+const ListContainer = styled(SpatialNavigationView)(({ theme }) => ({
   flexWrap: 'wrap',
   gap: theme.spacings.$4,
   padding: theme.spacings.$4,
