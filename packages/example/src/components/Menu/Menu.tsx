@@ -15,6 +15,7 @@ import { Box } from '../../design-system/components/Box';
 import { useTheme } from '@emotion/react';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { MenuButton } from './MenuButton';
+import { RootTabParamList } from '../../../App';
 
 const windowDimensions = Dimensions.get('window');
 
@@ -41,6 +42,13 @@ const MenuItem = ({
       )}
     </Box>
   );
+};
+
+const menuLabels: Record<keyof RootTabParamList, string> = {
+  Home: 'Homepage',
+  ProgramGridPage: 'Virtualized Grid',
+  NonVirtualizedGridPage: 'Non-virtualized Grid',
+  GridWithLongNodesPage: 'Grid with long nodes',
 };
 
 export const Menu = ({ state, navigation }: BottomTabBarProps) => {
@@ -83,7 +91,7 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
                   return (
                     <Fragment key={route.key}>
                       <MenuItem
-                        label={route.name}
+                        label={menuLabels[route.name]}
                         isMenuOpen={isMenuOpen}
                         isActive={state.index === index}
                         onSelect={() => navigation.navigate(route.name, route.params)}
