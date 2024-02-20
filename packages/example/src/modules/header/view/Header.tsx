@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { Button } from '../../../design-system/components/Button';
 import { Typography } from '../../../design-system/components/Typography';
 import { SpatialNavigationNode } from 'react-tv-space-navigation';
@@ -7,15 +6,26 @@ import { Spacer } from '../../../design-system/components/Spacer';
 import { Image } from 'react-native';
 import styled from '@emotion/native';
 
+const images = {
+  0: require('../assets/rabbitLarge0.png'),
+  1: require('../assets/rabbitLarge1.png'),
+  2: require('../assets/rabbitLarge2.png'),
+  3: require('../assets/rabbitLarge3.png'),
+  4: require('../assets/rabbitLarge4.png'),
+  5: require('../assets/rabbitLarge5.png'),
+  6: require('../assets/rabbitLarge6.png'),
+  7: require('../assets/rabbitLarge7.png'),
+  8: require('../assets/rabbitLarge8.png'),
+};
+
 interface HeaderProps {
   title: string;
   description: string;
   verticalSize: number;
 }
 
-const imageSource = require('../assets/rabbitLarge.png');
-
 export const Header = ({ title, description, verticalSize }: HeaderProps) => {
+  const imageSource = images[Math.floor(Math.random() * 9)];
   return (
     <SpatialNavigationNode orientation="horizontal">
       <Container height={verticalSize}>
