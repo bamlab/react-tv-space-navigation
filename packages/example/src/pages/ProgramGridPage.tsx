@@ -11,7 +11,7 @@ export const ProgramGridPage = () => {
       <DefaultFocus>
         <SpatialNavigationScrollView offsetFromStart={140}>
           <View style={styles.container}>
-            <VirtualizedSpatialGrid numberOfItems={100} />
+            <VirtualizedSpatialGrid />
           </View>
         </SpatialNavigationScrollView>
       </DefaultFocus>

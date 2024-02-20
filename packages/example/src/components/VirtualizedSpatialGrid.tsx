@@ -1,29 +1,25 @@
 import { useTheme } from '@emotion/react';
-import { useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { useCallback, useMemo } from 'react';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import { SpatialNavigationVirtualizedGrid } from 'react-tv-space-navigation';
-import { programInfos } from '../modules/program/infra/programInfos';
+import { getPrograms } from '../modules/program/infra/programInfos';
 import { ProgramNode } from '../modules/program/view/ProgramNode';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';
 import { theme } from '../design-system/theme/theme';
 import { Header } from '../modules/header/view/Header';
 
 const NUMBER_OF_ROWS_VISIBLE_ON_SCREEN = 2;
-const NUMBER_OF_RENDERED_ROWS = NUMBER_OF_ROWS_VISIBLE_ON_SCREEN + 3;
+const NUMBER_OF_RENDERED_ROWS = NUMBER_OF_ROWS_VISIBLE_ON_SCREEN + 5;
 const NUMBER_OF_COLUMNS = 7;
 const INFINITE_SCROLL_ROW_THRESHOLD = 2;
 
-export const VirtualizedSpatialGrid = ({
-  numberOfItems,
-  containerStyle,
-}: {
-  numberOfItems: number;
-  containerStyle?: object;
-}) => {
-  // TODO: correct SpatialNavigationVirtualizedGrid props types
-  const renderItem = useCallback(() => <ProgramNode programInfo={programInfos[0]} />, []);
+export const VirtualizedSpatialGrid = ({ containerStyle }: { containerStyle?: ViewStyle }) => {
+  const renderItem = useCallback(({ item }) => <ProgramNode programInfo={item} />, []);
 
-  const hardcodedRabbitsArray = Array(numberOfItems).fill({});
+  const hardcodedRabbitsArray = useMemo(
+    () => getPrograms(500).map((element, index) => ({ ...element, index })),
+    [],
+  );
   const theme = useTheme();
 
   return (
