@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 type Device = 'remoteKeys' | 'remotePointer';
 
@@ -18,6 +18,18 @@ interface DeviceProviderProps {
 
 export const DeviceProvider = ({ children }: DeviceProviderProps) => {
   const [deviceType, setDeviceType] = useState<Device>('remotePointer');
+
+  useEffect(() => {
+    const callback = () => {
+      setDeviceType('remotePointer');
+    };
+
+    if (deviceType === 'remotePointer') return;
+
+    window.addEventListener('mousemove', callback);
+    return () => window.removeEventListener('mousemove', callback);
+  }, [deviceType]);
+
   return (
     <DeviceContext.Provider value={{ deviceType, setDeviceType }}>
       {children}
