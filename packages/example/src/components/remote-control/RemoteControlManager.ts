@@ -5,6 +5,9 @@ import { RemoteControlManagerInterface } from './RemoteControlManager.interface'
 class RemoteControlManager implements RemoteControlManagerInterface {
   constructor() {
     window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('mousedown', () =>
+      this.eventEmitter.emit('keyDown', SupportedKeys.Enter),
+    );
   }
 
   private eventEmitter = mitt<{ keyDown: SupportedKeys }>();
