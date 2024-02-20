@@ -104,12 +104,16 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
           currentlyFocusedItemIndex={currentlyFocusedItemIndex}
           renderItem={renderWrappedItem}
         />
-        <SpatialNavigationNode isFocusable={false} onMouseOver={onMouseOverLeft}>
-          {props.leftArrow}
-        </SpatialNavigationNode>
-        <SpatialNavigationNode isFocusable={false} onMouseOver={onMouseOverRight}>
-          {props.rightArrow}
-        </SpatialNavigationNode>
+        {deviceType === 'remotePointer' ? (
+          <>
+            <SpatialNavigationNode isFocusable={false} onMouseOver={onMouseOverLeft}>
+              {props.leftArrow}
+            </SpatialNavigationNode>
+            <SpatialNavigationNode isFocusable={false} onMouseOver={onMouseOverRight}>
+              {props.rightArrow}
+            </SpatialNavigationNode>
+          </>
+        ) : undefined}
       </>
     );
   },

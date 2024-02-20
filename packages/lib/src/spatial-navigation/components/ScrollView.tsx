@@ -104,16 +104,20 @@ export const SpatialNavigationScrollView = ({
       >
         {children}
       </ScrollView>
-      <View
-        style={{ position: 'absolute' }}
-        onMouseOver={onMouseOverTop}
-        onMouseLeave={onMouseLeave}
-      >
-        {topArrow}
-      </View>
-      <View onMouseOver={onMouseOverBottom} onMouseLeave={onMouseLeave}>
-        {bottomArrow}
-      </View>
+      {deviceType === 'remotePointer' ? (
+        <>
+          <View
+            style={{ position: 'absolute' }}
+            onMouseOver={onMouseOverTop}
+            onMouseLeave={onMouseLeave}
+          >
+            {topArrow}
+          </View>
+          <View onMouseOver={onMouseOverBottom} onMouseLeave={onMouseLeave}>
+            {bottomArrow}
+          </View>
+        </>
+      ) : undefined}
     </SpatialNavigatorParentScrollContext.Provider>
   );
 };
