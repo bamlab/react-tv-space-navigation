@@ -23,13 +23,13 @@ type DefaultProps = {
   onFocus?: () => void;
   onBlur?: () => void;
   onSelect?: () => void;
-  onMouseOver?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
   orientation?: NodeOrientation;
   /** Use this for grid alignment.
    * @see LRUD docs */
   alignInGrid?: boolean;
   indexRange?: NodeIndexRange;
-  onMouseOverInterval?: number;
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
@@ -76,13 +76,13 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       onFocus,
       onBlur,
       onSelect,
-      onMouseOver,
+      onMouseEnter: onMouseEnterProps,
+      onMouseLeave: onMouseLeaveProps,
       orientation = 'vertical',
       isFocusable = false,
       alignInGrid = false,
       indexRange,
       children,
-      onMouseOverInterval = 100,
     }: Props,
     ref,
   ) => {
@@ -124,9 +124,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     currentOnBlur.current = onBlur;
 
     const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
-
-    const { setDeviceType } = useDevice();
-    const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
+    const { deviceType } = useDevice();
 
     useBeforeMountEffect(() => {
       spatialNavigator.registerNode(id, {
@@ -161,38 +159,16 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     const webProps = Platform.select({
       web: {
         onMouseEnter: () => {
-          setDeviceType('remotePointer');
-          if (isFocusable) {
-            currentOnFocus.current?.();
+          if (onMouseEnterProps) {
+            onMouseEnterProps();
+            return;
+          }
+          if (isFocusable && deviceType === 'remotePointer') {
             spatialNavigator.grabFocus(id);
-            setIsFocused(true);
           }
         },
         onMouseLeave: () => {
-          setDeviceType('remotePointer');
-          if (isFocusable) {
-            if (spatialNavigator.getCurrentFocusNode()?.id !== id) {
-              currentOnBlur.current?.();
-              setIsFocused(false);
-            }
-          }
-          if (intervalId) {
-            clearInterval(intervalId);
-            setIntervalId(null);
-          }
-        },
-        // TODO: Remove this if it happens that events are already triggered by the RemoteControlManager
-        onMouseDown: () => {
-          currentOnSelect.current?.();
-        },
-        onMouseOver: () => {
-          if (!isFocusable) {
-            onMouseOver?.();
-            const id = setInterval(() => {
-              onMouseOver?.();
-            }, onMouseOverInterval);
-            setIntervalId(id);
-          }
+          onMouseLeaveProps?.();
         },
       },
       default: {},

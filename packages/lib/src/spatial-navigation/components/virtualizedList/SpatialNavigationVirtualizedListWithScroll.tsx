@@ -62,6 +62,7 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
     const { deviceType } = useDevice();
     const { renderItem } = props;
     const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
+    const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
 
     const setCurrentlyFocusedItemIndexCallback = useCallback(
       (index: number) => {
@@ -71,19 +72,39 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
     );
 
     const onMouseOverLeft = () => {
-      setCurrentlyFocusedItemIndex((index) => {
-        if (index > 0) {
-          return index - 1;
-        } else {
-          return index;
-        }
-      });
+      const callback = () => {
+        setCurrentlyFocusedItemIndex((index) => {
+          if (index > 0) {
+            return index - 1;
+          } else {
+            return index;
+          }
+        });
+      };
+
+      const id = setInterval(() => {
+        callback();
+      }, 100);
+      setIntervalId(id);
+    };
+
+    const onMouseLeave = () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        setIntervalId(null);
+      }
     };
 
     const onMouseOverRight = () => {
-      setCurrentlyFocusedItemIndex((index) => {
-        return index + 1;
-      });
+      const callback = () => {
+        setCurrentlyFocusedItemIndex((index) => {
+          return index + 1;
+        });
+      };
+      const id = setInterval(() => {
+        callback();
+      }, 100);
+      setIntervalId(id);
     };
 
     const renderWrappedItem: typeof props.renderItem = useCallback(
@@ -106,10 +127,18 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
         />
         {deviceType === 'remotePointer' ? (
           <>
-            <SpatialNavigationNode isFocusable={false} onMouseOver={onMouseOverLeft}>
+            <SpatialNavigationNode
+              isFocusable={false}
+              onMouseLeave={onMouseLeave}
+              onMouseEnter={onMouseOverLeft}
+            >
               {props.leftArrow}
             </SpatialNavigationNode>
-            <SpatialNavigationNode isFocusable={false} onMouseOver={onMouseOverRight}>
+            <SpatialNavigationNode
+              isFocusable={false}
+              onMouseLeave={onMouseLeave}
+              onMouseEnter={onMouseOverRight}
+            >
               {props.rightArrow}
             </SpatialNavigationNode>
           </>
