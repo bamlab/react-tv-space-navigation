@@ -82,7 +82,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       alignInGrid = false,
       indexRange,
       children,
-      onMouseOverInterval = 500,
+      onMouseOverInterval = 100,
     }: Props,
     ref,
   ) => {
