@@ -11,25 +11,22 @@ import { useState } from 'react';
  * doesn't support dynamic size changes.
  */
 export const VirtualizedListWithSize = typedMemo(
-  <T extends ItemWithIndex>(props: Omit<VirtualizedListProps<T>, 'width' | 'height'>) => {
-    const [viewHeight, setViewHeight] = useState<number | null>(null);
-    const [viewWidth, setViewWidth] = useState<number | null>(null);
-    const shouldRender = viewWidth && viewHeight;
+  <T extends ItemWithIndex>(props: Omit<VirtualizedListProps<T>, 'listSizeInPx'>) => {
+    const [listSizeInPx, setListSizeInPx] = useState<number | null>(null);
+    const isVertical = props.orientation === 'vertical';
 
     return (
       <View
         style={style.container}
         onLayout={(event) => {
-          if (!viewHeight) {
-            setViewHeight(event.nativeEvent.layout.height);
-          }
-          if (!viewWidth) {
-            setViewWidth(event.nativeEvent.layout.width);
+          if (!listSizeInPx) {
+            const sizeKey = isVertical ? 'height' : 'width';
+            setListSizeInPx(event.nativeEvent.layout[sizeKey]);
           }
         }}
         testID={props.testID ? props.testID + '-size-giver' : undefined}
       >
-        {shouldRender ? <VirtualizedList {...props} width={viewWidth} height={viewHeight} /> : null}
+        {listSizeInPx ? <VirtualizedList {...props} listSizeInPx={listSizeInPx} /> : null}
       </View>
     );
   },
