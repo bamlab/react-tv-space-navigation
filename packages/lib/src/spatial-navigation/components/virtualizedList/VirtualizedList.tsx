@@ -45,10 +45,8 @@ export interface VirtualizedListProps<T> {
   nbMaxOfItems?: number;
   /** Duration of a scrolling animation inside the VirtualizedList */
   scrollDuration?: number;
-  /** Custom height for the VirtualizedList container */
-  height: number;
-  /** Custom width for the VirtualizedList container */
-  width: number;
+  /** The size of the list in its scrollable axis */
+  listSizeInPx: number;
   scrollBehavior?: ScrollBehavior;
   testID?: string;
 }
@@ -146,9 +144,8 @@ export const VirtualizedList = typedMemo(
     nbMaxOfItems,
     keyExtractor,
     scrollDuration = 200,
+    listSizeInPx,
     scrollBehavior = 'stick-to-start',
-    height,
-    width,
     testID,
   }: VirtualizedListProps<T>) => {
     const range = getRange({
@@ -159,8 +156,6 @@ export const VirtualizedList = typedMemo(
     });
 
     const vertical = orientation === 'vertical';
-
-    const listSizeInPx = vertical ? height : width;
 
     const totalVirtualizedListSize = useMemo(
       () => getSizeInPxFromOneItemToAnother(data, itemSize, 0, data.length),

@@ -132,7 +132,7 @@ ItemWrapperWithVirtualParentContext.displayName = 'ItemWrapperWithVirtualParentC
 
 export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T> = Omit<
   VirtualizedListProps<T>,
-  'width' | 'height'
+  'listSizeInPx'
 > & {
   isGrid?: boolean;
 };
