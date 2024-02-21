@@ -14,7 +14,6 @@ export const VirtualizedListWithSize = typedMemo(
   <T extends ItemWithIndex>(props: Omit<VirtualizedListProps<T>, 'width' | 'height'>) => {
     const [viewHeight, setViewHeight] = useState<number | null>(null);
     const [viewWidth, setViewWidth] = useState<number | null>(null);
-    const shouldRender = viewWidth && viewHeight;
 
     return (
       <View
@@ -29,7 +28,7 @@ export const VirtualizedListWithSize = typedMemo(
         }}
         testID={props.testID ? props.testID + '-size-giver' : undefined}
       >
-        {shouldRender ? <VirtualizedList {...props} width={viewWidth} height={viewHeight} /> : null}
+        <VirtualizedList {...props} width={viewWidth ?? 0} height={viewHeight ?? 0} />
       </View>
     );
   },

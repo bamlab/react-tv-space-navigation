@@ -108,12 +108,12 @@ export const SpatialNavigationScrollView = ({
         <>
           <View
             style={{ position: 'absolute' }}
-            onMouseOver={onMouseOverTop}
+            onMouseEnter={onMouseOverTop}
             onMouseLeave={onMouseLeave}
           >
             {topArrow}
           </View>
-          <View onMouseOver={onMouseOverBottom} onMouseLeave={onMouseLeave}>
+          <View onMouseEnter={onMouseOverBottom} onMouseLeave={onMouseLeave}>
             {bottomArrow}
           </View>
         </>
