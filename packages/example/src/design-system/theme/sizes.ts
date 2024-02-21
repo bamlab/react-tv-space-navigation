@@ -9,5 +9,6 @@ export const sizes = {
   menu: {
     open: scaledPixels(400),
     closed: scaledPixels(100),
+    icon: scaledPixels(20),
   },
 };

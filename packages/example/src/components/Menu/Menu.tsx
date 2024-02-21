@@ -16,16 +16,19 @@ import { useTheme } from '@emotion/react';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { MenuButton } from './MenuButton';
 import { RootTabParamList } from '../../../App';
+import { IconName } from '../../design-system/helpers/IconsCatalog';
 
 const windowDimensions = Dimensions.get('window');
 
 const MenuItem = ({
   label,
+  icon,
   isMenuOpen,
   isActive,
   onSelect,
 }: {
   label: string;
+  icon: IconName;
   isMenuOpen: boolean;
   isActive: boolean;
   onSelect: () => void;
@@ -33,7 +36,7 @@ const MenuItem = ({
   return (
     <Box direction="horizontal" alignItems="center">
       <ActiveIndicator isActive={isActive} />
-      <MenuButton label={label[0]} onSelect={() => onSelect()} isMenuOpen={isMenuOpen} />
+      <MenuButton icon={icon} onSelect={() => onSelect()} isMenuOpen={isMenuOpen} />
       {isMenuOpen && (
         <>
           <Spacer direction="horizontal" gap="$2" />
@@ -44,11 +47,19 @@ const MenuItem = ({
   );
 };
 
-const menuLabels: Record<keyof RootTabParamList, string> = {
-  Home: 'Homepage',
-  ProgramGridPage: 'Virtualized Grid',
-  NonVirtualizedGridPage: 'Non-virtualized Grid',
-  GridWithLongNodesPage: 'Grid with long nodes',
+interface MenuItems {
+  label: string;
+  icon: IconName;
+}
+
+const menuItems: Record<keyof RootTabParamList, MenuItems> = {
+  Home: { label: 'Homepage', icon: 'Home' },
+  ProgramGridPage: { label: 'Virtualized Grid', icon: 'Grid3X3' },
+  NonVirtualizedGridPage: { label: 'Non-virtualized Grid', icon: 'LayoutGrid' },
+  GridWithLongNodesPage: {
+    label: 'Grid with long nodes',
+    icon: 'LayoutDashboard',
+  },
 };
 
 export const Menu = ({ state, navigation }: BottomTabBarProps) => {
@@ -91,7 +102,8 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
                   return (
                     <Fragment key={route.key}>
                       <MenuItem
-                        label={menuLabels[route.name]}
+                        label={menuItems[route.name].label}
+                        icon={menuItems[route.name].icon}
                         isMenuOpen={isMenuOpen}
                         isActive={state.index === index}
                         onSelect={() => navigation.navigate(route.name, route.params)}
