@@ -2,7 +2,7 @@ import styled from '@emotion/native';
 import { forwardRef } from 'react';
 import { Animated, View } from 'react-native';
 import {
-  SpatialNavigationNode,
+  SpatialNavigationFocusableView,
   useSpatialNavigatorFocusableAccessibilityProps,
 } from 'react-tv-space-navigation';
 import { Typography } from '../../design-system/components/Typography';
@@ -40,11 +40,11 @@ ButtonContent.displayName = 'ButtonContent';
 
 export const MenuButton = ({ label, isMenuOpen, onSelect }: ButtonProps) => {
   return (
-    <SpatialNavigationNode isFocusable onSelect={onSelect}>
+    <SpatialNavigationFocusableView onSelect={onSelect}>
       {({ isFocused }) => (
         <ButtonContent label={label} isFocused={isFocused} isMenuOpen={isMenuOpen} />
       )}
-    </SpatialNavigationNode>
+    </SpatialNavigationFocusableView>
   );
 };
 

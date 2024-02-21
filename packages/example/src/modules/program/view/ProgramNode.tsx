@@ -1,4 +1,4 @@
-import { SpatialNavigationNode } from 'react-tv-space-navigation';
+import { SpatialNavigationFocusableView } from 'react-tv-space-navigation';
 
 import { ProgramInfo } from '../domain/programInfo';
 import { Program } from './Program';
@@ -15,9 +15,9 @@ type Props = {
 export const ProgramNode = forwardRef<SpatialNavigationNodeRef, Props>(
   ({ programInfo, onSelect, indexRange }: Props, ref) => {
     return (
-      <SpatialNavigationNode isFocusable onSelect={onSelect} indexRange={indexRange} ref={ref}>
+      <SpatialNavigationFocusableView onSelect={onSelect} indexRange={indexRange} ref={ref}>
         {({ isFocused }) => <Program isFocused={isFocused} programInfo={programInfo} />}
-      </SpatialNavigationNode>
+      </SpatialNavigationFocusableView>
     );
   },
 );
@@ -26,15 +26,14 @@ ProgramNode.displayName = 'ProgramNode';
 export const LongProgramNode = forwardRef<SpatialNavigationNodeRef, Props>(
   ({ programInfo, onSelect, indexRange }: Props, ref) => {
     return (
-      <SpatialNavigationNode
-        isFocusable
+      <SpatialNavigationFocusableView
         onSelect={onSelect}
         alignInGrid
         indexRange={indexRange}
         ref={ref}
       >
         {({ isFocused }) => <LongProgram isFocused={isFocused} programInfo={programInfo} />}
-      </SpatialNavigationNode>
+      </SpatialNavigationFocusableView>
     );
   },
 );

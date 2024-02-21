@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { Animated, View } from 'react-native';
 import {
-  SpatialNavigationNode,
+  SpatialNavigationFocusableView,
   useSpatialNavigatorFocusableAccessibilityProps,
 } from 'react-tv-space-navigation';
 import { Typography } from './Typography';
@@ -29,9 +29,9 @@ ButtonContent.displayName = 'ButtonContent';
 
 export const Button = ({ label, onSelect }: ButtonProps) => {
   return (
-    <SpatialNavigationNode isFocusable onSelect={onSelect}>
+    <SpatialNavigationFocusableView onSelect={onSelect}>
       {({ isFocused }) => <ButtonContent label={label} isFocused={isFocused} />}
-    </SpatialNavigationNode>
+    </SpatialNavigationFocusableView>
   );
 };
 

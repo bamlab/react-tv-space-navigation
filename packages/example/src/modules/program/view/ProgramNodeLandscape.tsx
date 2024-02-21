@@ -1,4 +1,4 @@
-import { SpatialNavigationNode } from 'react-tv-space-navigation';
+import { SpatialNavigationFocusableView } from 'react-tv-space-navigation';
 
 import { ProgramInfo } from '../domain/programInfo';
 import { ProgramLandscape } from './ProgramLandscape';
@@ -10,8 +10,8 @@ type Props = {
 
 export const ProgramNodeLandscape = ({ programInfo, onSelect }: Props) => {
   return (
-    <SpatialNavigationNode isFocusable onSelect={onSelect}>
+    <SpatialNavigationFocusableView onSelect={onSelect}>
       {({ isFocused }) => <ProgramLandscape isFocused={isFocused} programInfo={programInfo} />}
-    </SpatialNavigationNode>
+    </SpatialNavigationFocusableView>
   );
 };
