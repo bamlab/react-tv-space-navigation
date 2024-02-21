@@ -141,6 +141,33 @@ const FocusableNode = () => (
 </SpatialNavigationScrollView>;
 ```
 
+# SpatialNavigationFocusableView
+
+The `SpatialNavigationFocusableView`component is a simple wrapper component that contains a `SpatialNavigationNode`.
+This component allows you to not forward the ref of the closest inner view.
+
+## Props
+
+The `SpatialNavigationFocusableView` component receives the following props :
+
+[SpatialNavigationNode props](#props-1) except `isFocusable` that is already set to true.
+
+| Name        | Type                         | Default        | Description                                                                                                |
+| ----------- | ---------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------- |
+| `style`     | `ViewStyle`                  | `null`         | Style for the View. This can be any valid React Native style
+
+## Usage
+
+```jsx
+<SpatialNavigationFocusableView
+  onFocus={() => console.log('Node gained focus')}
+  onSelect={() => console.log('Node was selected')}
+  orientation="horizontal"
+>
+  {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
+</SpatialNavigationFocusableView>
+```
+
 # SpatialNavigationView
 
 The `SpatialNavigationView` component is a simple wrapper component that contains a `SpatialNavigationNode`.
