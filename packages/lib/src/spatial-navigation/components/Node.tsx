@@ -30,6 +30,8 @@ type DefaultProps = {
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
+export type SpatialNavigationNodeDefaultProps = DefaultProps;
+
 const useScrollToNodeIfNeeded = ({
   childRef,
 }: {
