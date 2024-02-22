@@ -16,6 +16,7 @@ import { ProgramDetail } from './src/pages/ProgramDetail';
 import { NonVirtualizedGridPage } from './src/pages/NonVirtualizedGridPage';
 import { GridWithLongNodesPage } from './src/pages/GridWithLongNodesPage';
 import { useTVPanEvent } from './src/components/PanEvent/useTVPanEvent';
+import { DeviceProvider } from '../lib/src/spatial-navigation/context/DeviceContext';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -70,22 +71,24 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <ThemeProvider theme={theme}>
-        <GoBackConfiguration />
+        <DeviceProvider>
+          <GoBackConfiguration />
 
-        <Container width={width} height={height}>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-              contentStyle: {
-                backgroundColor: theme.colors.background.main,
-              },
-            }}
-            initialRouteName="TabNavigator"
-          >
-            <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
-          </Stack.Navigator>
-        </Container>
+          <Container width={width} height={height}>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+                contentStyle: {
+                  backgroundColor: theme.colors.background.main,
+                },
+              }}
+              initialRouteName="TabNavigator"
+            >
+              <Stack.Screen name="TabNavigator" component={TabNavigator} />
+              <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
+            </Stack.Navigator>
+          </Container>
+        </DeviceProvider>
       </ThemeProvider>
     </NavigationContainer>
   );

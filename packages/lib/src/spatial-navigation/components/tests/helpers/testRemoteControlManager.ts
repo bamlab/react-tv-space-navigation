@@ -13,46 +13,46 @@ export enum SupportedKeys {
 class TestRemoteControlManager {
   private eventEmitter = mitt<{ keyDown: SupportedKeys }>();
 
-  public handleUp = () => {
-    act(() => {
+  public handleUp = async () => {
+    await act(async () => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Up);
+      await jest.runAllTimersAsync();
     });
-    act(() => jest.runAllTimers());
   };
 
-  public handleDown = () => {
-    act(() => {
+  public handleDown = async () => {
+    await act(async () => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Down);
+      await jest.runAllTimersAsync();
     });
-    act(() => jest.runAllTimers());
   };
 
-  public handleLeft = () => {
-    act(() => {
+  public handleLeft = async () => {
+    await act(async () => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Left);
+      await jest.runAllTimersAsync();
     });
-    act(() => jest.runAllTimers());
   };
 
-  public handleRight = () => {
-    act(() => {
+  public handleRight = async () => {
+    await act(async () => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Right);
+      await jest.runAllTimersAsync();
     });
-    act(() => jest.runAllTimers());
   };
 
-  public handleEnter = () => {
-    act(() => {
+  public handleEnter = async () => {
+    await act(async () => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Enter);
+      await jest.runAllTimersAsync();
     });
-    act(() => jest.runAllTimers());
   };
 
-  public handleBackSpace = () => {
-    act(() => {
+  public handleBackSpace = async () => {
+    await act(async () => {
       this.eventEmitter.emit('keyDown', SupportedKeys.Back);
+      await jest.runAllTimersAsync();
     });
-    act(() => jest.runAllTimers());
   };
 
   addKeydownListener = (listener: (event: SupportedKeys) => void) => {

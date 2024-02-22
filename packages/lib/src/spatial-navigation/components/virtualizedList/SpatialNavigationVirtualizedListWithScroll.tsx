@@ -10,6 +10,7 @@ import {
   useSpatialNavigatorParentScroll,
 } from '../../context/ParentScrollContext';
 import { typedMemo } from '../../helpers/TypedMemo';
+import { useDevice } from '../../context/DeviceContext';
 
 const ItemWrapperWithScrollContext = typedMemo(
   <T extends ItemWithIndex>({
@@ -53,11 +54,15 @@ export type SpatialNavigationVirtualizedListWithScrollProps<T> = Omit<
 export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
   <T extends ItemWithIndex>(props: SpatialNavigationVirtualizedListWithScrollProps<T>) => {
     const { renderItem } = props;
+    const { deviceType } = useDevice();
     const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
 
-    const setCurrentlyFocusedItemIndexCallback = useCallback((index: number) => {
-      setCurrentlyFocusedItemIndex(index);
-    }, []);
+    const setCurrentlyFocusedItemIndexCallback = useCallback(
+      (index: number) => {
+        deviceType === 'remoteKeys' ? setCurrentlyFocusedItemIndex(index) : null;
+      },
+      [deviceType],
+    );
 
     const renderWrappedItem: typeof props.renderItem = useCallback(
       ({ item }) => (
