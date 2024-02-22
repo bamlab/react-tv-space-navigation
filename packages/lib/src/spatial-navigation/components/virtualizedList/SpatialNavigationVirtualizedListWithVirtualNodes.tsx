@@ -1,5 +1,5 @@
 import uniqueId from 'lodash.uniqueid';
-import { useCallback, useRef } from 'react';
+import { useCallback, useImperativeHandle, useRef } from 'react';
 import { VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
 import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
 import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
@@ -137,6 +137,10 @@ export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T> = Omit<
   isGrid?: boolean;
 };
 
+export type SpatialNavigationVirtualizedListWithVirtualNodesRef = {
+  getNthVirtualNodeID: (index: number) => string;
+};
+
 /**
  * This component wraps every item of the VirtualizedList inside a Virtual Node.
  *
@@ -162,12 +166,24 @@ export type SpatialNavigationVirtualizedListWithVirtualNodesProps<T> = Omit<
  * Framed letters correspond to rendered components.
  */
 export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
-  <T extends ItemWithIndex>(props: SpatialNavigationVirtualizedListWithVirtualNodesProps<T>) => {
+  <T extends ItemWithIndex>(
+    props: SpatialNavigationVirtualizedListWithVirtualNodesProps<T> & {
+      idRef: React.Ref<SpatialNavigationVirtualizedListWithVirtualNodesRef>;
+    },
+  ) => {
     const { getNthVirtualNodeID } = useRegisterVirtualNodes({
       allItems: props.data,
       orientation: props.orientation ?? 'horizontal',
       isGrid: props.isGrid ?? false,
     });
+
+    useImperativeHandle(
+      props.idRef,
+      () => ({
+        getNthVirtualNodeID: getNthVirtualNodeID,
+      }),
+      [getNthVirtualNodeID],
+    );
 
     const { renderItem } = props;
     const renderWrappedItem: typeof props.renderItem = useCallback(

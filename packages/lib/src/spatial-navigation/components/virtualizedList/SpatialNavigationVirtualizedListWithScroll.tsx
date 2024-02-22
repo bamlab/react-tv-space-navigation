@@ -1,8 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
+
 import {
   SpatialNavigationVirtualizedListWithVirtualNodes,
   SpatialNavigationVirtualizedListWithVirtualNodesProps,
+  SpatialNavigationVirtualizedListWithVirtualNodesRef,
 } from './SpatialNavigationVirtualizedListWithVirtualNodes';
 import {
   ScrollToNodeCallback,
@@ -12,6 +14,7 @@ import {
 import { typedMemo } from '../../helpers/TypedMemo';
 import { useDevice } from '../../context/DeviceContext';
 import { View, Platform, ViewStyle } from 'react-native';
+import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
 
 const ItemWrapperWithScrollContext = typedMemo(
   <T extends ItemWithIndex>({
@@ -65,6 +68,7 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
     props: SpatialNavigationVirtualizedListWithScrollProps<T> & PointerScrollProps,
   ) => {
     const {
+      data,
       renderItem,
       descendingArrow: descendingArrow,
       ascendingArrow: ascendingArrow,
@@ -78,7 +82,12 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       setScrollingIntervalId: setScrollingId,
     } = useDevice();
     const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
+    const navigator = useSpatialNavigator();
     const hasArrows = descendingArrow && ascendingArrow;
+
+    const idRef = useRef<SpatialNavigationVirtualizedListWithVirtualNodesRef>(null);
+    const idRefCurrent = idRef.current;
+    const grabFocus = navigator.grabFocus;
 
     const setCurrentlyFocusedItemIndexCallback = useCallback(
       (index: number) => {
@@ -91,6 +100,7 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       const callback = () => {
         setCurrentlyFocusedItemIndex((index) => {
           if (index > 0) {
+            if (idRefCurrent) grabFocus(idRefCurrent.getNthVirtualNodeID(index - 1));
             return index - 1;
           } else {
             return index;
@@ -115,7 +125,14 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
     const onMouseEnterRight = () => {
       const callback = () => {
         setCurrentlyFocusedItemIndex((index) => {
-          return index + 1;
+          if (index < data.length - 1) {
+            if (idRefCurrent) {
+              grabFocus(idRefCurrent.getNthVirtualNodeID(index + 1));
+            }
+            return index + 1;
+          } else {
+            return index;
+          }
         });
       };
       const id = setInterval(() => {
@@ -153,6 +170,7 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       <>
         <SpatialNavigationVirtualizedListWithVirtualNodes
           {...props}
+          idRef={idRef}
           currentlyFocusedItemIndex={currentlyFocusedItemIndex}
           renderItem={renderWrappedItem}
         />

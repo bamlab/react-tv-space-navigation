@@ -50,13 +50,13 @@ export default class SpatialNavigator {
     return this.lrud.getCurrentFocusNode() !== undefined;
   }
 
-  public grabFocus(id: string) {
+  public grabFocus = (id: string) => {
     return this.lrud.assignFocus(id);
-  }
+  };
 
-  public getCurrentFocusNode() {
+  public getCurrentFocusNode = () => {
     return this.lrud.currentFocusNode;
-  }
+  };
 
   private get hasRootNode(): boolean {
     try {
