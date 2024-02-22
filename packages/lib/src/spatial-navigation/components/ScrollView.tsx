@@ -1,4 +1,4 @@
-import React, { useCallback, RefObject, useRef, ReactElement, useState, ReactNode } from 'react';
+import React, { useCallback, RefObject, useRef, ReactElement, ReactNode } from 'react';
 import { ScrollView, View, ViewStyle, Platform } from 'react-native';
 import {
   SpatialNavigatorParentScrollContext,
@@ -39,9 +39,12 @@ export const SpatialNavigationScrollView = ({
   const { scrollToNodeIfNeeded: makeParentsScrollToNodeIfNeeded } =
     useSpatialNavigatorParentScroll();
   const scrollViewRef = useRef<ScrollView>(null);
-  const { deviceType } = useDevice();
+  const {
+    deviceType,
+    getScrollingIntervalId: getScrollingId,
+    setScrollingIntervalId: setScrollingId,
+  } = useDevice();
   const scrollY = useRef<number>(0);
-  const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
 
   const scrollToNode = useCallback(
     (newlyFocusedElementRef: RefObject<View>) => {
@@ -78,7 +81,7 @@ export const SpatialNavigationScrollView = ({
           animated: false,
         });
       }, 10);
-      setIntervalId(id);
+      setScrollingId(id);
     }
   };
 
@@ -93,15 +96,16 @@ export const SpatialNavigationScrollView = ({
           animated: false,
         });
       }, 10);
-      setIntervalId(id);
+      setScrollingId(id);
     }
   };
 
   const onMouseLeave = () => {
     if (deviceType === 'remotePointer') {
+      const intervalId = getScrollingId();
       if (intervalId) {
         clearInterval(intervalId);
-        setIntervalId(null);
+        setScrollingId(null);
       }
     }
   };

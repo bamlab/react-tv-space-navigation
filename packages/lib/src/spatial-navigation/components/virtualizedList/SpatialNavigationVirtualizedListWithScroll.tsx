@@ -72,9 +72,12 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       ascendingArrowContainerStyle: ascendingArrowContainerStyle,
       scrollInterval = 100,
     } = props;
-    const { deviceType } = useDevice();
+    const {
+      deviceType,
+      getScrollingIntervalId: getScrollingId,
+      setScrollingIntervalId: setScrollingId,
+    } = useDevice();
     const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
-    const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
     const hasArrows = descendingArrow && ascendingArrow;
 
     const setCurrentlyFocusedItemIndexCallback = useCallback(
@@ -98,13 +101,14 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       const id = setInterval(() => {
         callback();
       }, scrollInterval);
-      setIntervalId(id);
+      setScrollingId(id);
     };
 
     const onMouseLeave = () => {
+      const intervalId = getScrollingId();
       if (intervalId) {
         clearInterval(intervalId);
-        setIntervalId(null);
+        setScrollingId(null);
       }
     };
 
@@ -117,7 +121,7 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       const id = setInterval(() => {
         callback();
       }, scrollInterval);
-      setIntervalId(id);
+      setScrollingId(id);
     };
 
     const webPropsLeft = Platform.select({
