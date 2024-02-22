@@ -9,6 +9,8 @@ import {
   ProgramListWithTitle,
   ProgramListWithTitleAndVariableSizes,
 } from '../modules/program/view/ProgramListWithTitle';
+import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
+import { StyleSheet } from 'react-native';
 
 export const Home = () => {
   return (
@@ -17,7 +19,13 @@ export const Home = () => {
         <Title variant="title">Hoppix</Title>
       </TitleContainer>
       <DefaultFocus>
-        <SpatialNavigationScrollView offsetFromStart={140}>
+        <SpatialNavigationScrollView
+          offsetFromStart={140}
+          bottomArrow={<BottomArrow />}
+          bottomArrowContainerStyle={styles.bottomArrowContainer}
+          topArrow={<TopArrow />}
+          topArrowContainerStyle={styles.topArrowContainer}
+        >
           <Box padding="$10">
             <ProgramListWithTitle title="Popular" />
             <Spacer gap="$6" />
@@ -28,6 +36,10 @@ export const Home = () => {
             <ProgramListWithTitle title="You may also like..." />
             <Spacer gap="$6" />
             <ProgramListWithTitleAndVariableSizes title="Our selection"></ProgramListWithTitleAndVariableSizes>
+            <Spacer gap="$6" />
+            <ProgramListWithTitleAndVariableSizes title="Oscar Winners"></ProgramListWithTitleAndVariableSizes>
+            <Spacer gap="$6" />
+            <ProgramListWithTitleAndVariableSizes title="Child section"></ProgramListWithTitleAndVariableSizes>
           </Box>
         </SpatialNavigationScrollView>
       </DefaultFocus>
@@ -41,3 +53,24 @@ const Title = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
   color: theme.colors.primary.main,
 }));
+
+const styles = StyleSheet.create({
+  topArrowContainer: {
+    width: '100%',
+    height: 100,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 20,
+    left: 0,
+  },
+  bottomArrowContainer: {
+    width: '100%',
+    height: 100,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: -15,
+    left: 0,
+  },
+});

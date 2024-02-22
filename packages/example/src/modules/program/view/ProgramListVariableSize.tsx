@@ -3,13 +3,16 @@ import { useTheme } from '@emotion/react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useMemo } from 'react';
-import { SpatialNavigationVirtualizedList } from 'react-tv-space-navigation';
+import { SpatialNavigationNode, SpatialNavigationVirtualizedList } from 'react-tv-space-navigation';
 import { RootStackParamList } from '../../../../App';
 import { ProgramNode } from './ProgramNode';
 import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
 import { ProgramNodeLandscape } from './ProgramNodeLandscape';
 import { getPrograms } from '../infra/programInfos';
 import { ProgramInfo } from '../domain/programInfo';
+import { LeftArrow, RightArrow } from '../../../design-system/components/Arrows';
+import { StyleSheet } from 'react-native';
+import { theme } from '../../../design-system/theme/theme';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
@@ -48,21 +51,29 @@ export const ProgramList = ({
   const programInfos = useMemo(() => getPrograms(10), []);
 
   return (
-    <Container style={containerStyle}>
-      <SpatialNavigationVirtualizedList
-        orientation={orientation}
-        data={programInfos}
-        renderItem={renderItem}
-        itemSize={(item) =>
-          isItemLarge(item)
-            ? theme.sizes.program.portrait.width + 30
-            : theme.sizes.program.landscape.width * 2 + 45
-        }
-        numberOfRenderedItems={WINDOW_SIZE}
-        numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-        onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-      />
-    </Container>
+    <SpatialNavigationNode>
+      {({ isActive }) => (
+        <Container style={containerStyle}>
+          <SpatialNavigationVirtualizedList
+            orientation={orientation}
+            data={programInfos}
+            renderItem={renderItem}
+            itemSize={(item) =>
+              isItemLarge(item)
+                ? theme.sizes.program.portrait.width + 30
+                : theme.sizes.program.landscape.width * 2 + 45
+            }
+            numberOfRenderedItems={WINDOW_SIZE}
+            numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+            onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+            descendingArrow={isActive ? <LeftArrow /> : null}
+            descendingArrowContainerStyle={styles.leftArrowContainer}
+            ascendingArrow={isActive ? <RightArrow /> : null}
+            ascendingArrowContainerStyle={styles.rightArrowContainer}
+          />
+        </Container>
+      )}
+    </SpatialNavigationNode>
   );
 };
 
@@ -84,3 +95,24 @@ const Container = styled.View(({ theme }) => ({
   borderRadius: scaledPixels(20),
   overflow: 'hidden',
 }));
+
+const styles = StyleSheet.create({
+  leftArrowContainer: {
+    width: 120,
+    height: scaledPixels(260) + 2 * theme.spacings.$8,
+    position: 'absolute',
+    top: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    left: -theme.spacings.$8,
+  },
+  rightArrowContainer: {
+    width: 120,
+    height: scaledPixels(260) + 2 * theme.spacings.$8,
+    position: 'absolute',
+    top: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    right: -theme.spacings.$8,
+  },
+});
