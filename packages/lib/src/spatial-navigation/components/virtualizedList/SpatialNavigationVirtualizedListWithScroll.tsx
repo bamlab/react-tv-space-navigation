@@ -11,6 +11,7 @@ import {
 } from '../../context/ParentScrollContext';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { useDevice } from '../../context/DeviceContext';
+import { View, Platform, ViewStyle } from 'react-native';
 
 const ItemWrapperWithScrollContext = typedMemo(
   <T extends ItemWithIndex>({
@@ -48,14 +49,33 @@ export type SpatialNavigationVirtualizedListWithScrollProps<T> = Omit<
   'currentlyFocusedItemIndex'
 >;
 
+export type PointerScrollProps = {
+  descendingArrow?: React.ReactElement;
+  descendingArrowContainerStyle?: ViewStyle;
+  ascendingArrow?: React.ReactElement;
+  ascendingArrowContainerStyle?: ViewStyle;
+  scrollInterval?: number;
+};
+
 /**
  * This component wraps every item of a virtualizedList in a scroll handling context.
  */
 export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
-  <T extends ItemWithIndex>(props: SpatialNavigationVirtualizedListWithScrollProps<T>) => {
-    const { renderItem } = props;
+  <T extends ItemWithIndex>(
+    props: SpatialNavigationVirtualizedListWithScrollProps<T> & PointerScrollProps,
+  ) => {
+    const {
+      renderItem,
+      descendingArrow: descendingArrow,
+      ascendingArrow: ascendingArrow,
+      descendingArrowContainerStyle: descendingArrowContainerStyle,
+      ascendingArrowContainerStyle: ascendingArrowContainerStyle,
+      scrollInterval = 100,
+    } = props;
     const { deviceType } = useDevice();
     const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
+    const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
+    const hasArrows = descendingArrow && ascendingArrow;
 
     const setCurrentlyFocusedItemIndexCallback = useCallback(
       (index: number) => {
@@ -63,6 +83,56 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       },
       [deviceType],
     );
+
+    const onMouseEnterLeft = () => {
+      const callback = () => {
+        setCurrentlyFocusedItemIndex((index) => {
+          if (index > 0) {
+            return index - 1;
+          } else {
+            return index;
+          }
+        });
+      };
+
+      const id = setInterval(() => {
+        callback();
+      }, scrollInterval);
+      setIntervalId(id);
+    };
+
+    const onMouseLeave = () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        setIntervalId(null);
+      }
+    };
+
+    const onMouseEnterRight = () => {
+      const callback = () => {
+        setCurrentlyFocusedItemIndex((index) => {
+          return index + 1;
+        });
+      };
+      const id = setInterval(() => {
+        callback();
+      }, scrollInterval);
+      setIntervalId(id);
+    };
+
+    const webPropsLeft = Platform.select({
+      web: {
+        onMouseEnter: onMouseEnterLeft,
+        onMouseLeave: onMouseLeave,
+      },
+    });
+
+    const webPropsRight = Platform.select({
+      web: {
+        onMouseEnter: onMouseEnterRight,
+        onMouseLeave: onMouseLeave,
+      },
+    });
 
     const renderWrappedItem: typeof props.renderItem = useCallback(
       ({ item }) => (
@@ -76,11 +146,23 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
     );
 
     return (
-      <SpatialNavigationVirtualizedListWithVirtualNodes
-        {...props}
-        currentlyFocusedItemIndex={currentlyFocusedItemIndex}
-        renderItem={renderWrappedItem}
-      />
+      <>
+        <SpatialNavigationVirtualizedListWithVirtualNodes
+          {...props}
+          currentlyFocusedItemIndex={currentlyFocusedItemIndex}
+          renderItem={renderWrappedItem}
+        />
+        {deviceType === 'remotePointer' && hasArrows ? (
+          <>
+            <View style={descendingArrowContainerStyle} {...webPropsLeft}>
+              {descendingArrow}
+            </View>
+            <View style={ascendingArrowContainerStyle} {...webPropsRight}>
+              {ascendingArrow}
+            </View>
+          </>
+        ) : undefined}
+      </>
     );
   },
 );

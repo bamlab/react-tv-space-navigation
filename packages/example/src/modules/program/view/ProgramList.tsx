@@ -9,6 +9,9 @@ import { ProgramInfo } from '../domain/programInfo';
 import { getPrograms } from '../infra/programInfos';
 import { ProgramNode } from './ProgramNode';
 import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
+import { LeftArrow, RightArrow } from '../../../design-system/components/Arrows';
+import { StyleSheet } from 'react-native';
+import { theme } from '../../../design-system/theme/theme';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
@@ -48,6 +51,10 @@ export const ProgramList = ({
             numberOfRenderedItems={WINDOW_SIZE}
             numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
             onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+            descendingArrow={isActive ? <LeftArrow /> : null}
+            descendingArrowContainerStyle={styles.leftArrowContainer}
+            ascendingArrow={isActive ? <RightArrow /> : null}
+            ascendingArrowContainerStyle={styles.rightArrowContainer}
           />
         </Container>
       )}
@@ -75,3 +82,24 @@ const Container = styled.View<{ isActive: boolean }>(({ isActive, theme }) => ({
   borderRadius: scaledPixels(20),
   overflow: 'hidden',
 }));
+
+const styles = StyleSheet.create({
+  leftArrowContainer: {
+    width: 120,
+    height: scaledPixels(260) + 2 * theme.spacings.$8,
+    position: 'absolute',
+    top: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    left: -theme.spacings.$8,
+  },
+  rightArrowContainer: {
+    width: 120,
+    height: scaledPixels(260) + 2 * theme.spacings.$8,
+    position: 'absolute',
+    top: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    right: -theme.spacings.$8,
+  },
+});
