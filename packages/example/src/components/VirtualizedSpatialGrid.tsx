@@ -28,8 +28,8 @@ export const VirtualizedSpatialGrid = ({ containerStyle }: { containerStyle?: Vi
         data={hardcodedRabbitsArray}
         header={
           <Header
-            title="Rabbit Movies"
-            description="Delve into the delightful world of Rabbit Movies, where every film celebrates the charm and whimsy of our favorite fluffy friends. This category is a haven for rabbit lovers, featuring animated escapades and heartwarming family stories starring these adorable creatures."
+            title="Example of a virtualized grid with spatial navigation"
+            description="The grid shown on this page is virtualized, which means that when scrolling, the elements not shown in the screen are not rendered, improving performance. The items are also recycled when scrolling, which means that the same components are reused when scrolling, reducing the re-rendering time."
             verticalSize={scaledPixels(500)}
           />
         }

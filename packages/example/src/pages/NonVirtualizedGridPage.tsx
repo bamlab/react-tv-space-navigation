@@ -32,8 +32,8 @@ export const NonVirtualizedGridPage = () => {
         <GridContainer>
           <SpatialNavigationScrollView offsetFromStart={HEADER_SIZE + 20}>
             <Header
-              title="Rabbit Movies"
-              description="Delve into the delightful world of Rabbit Movies, where every film celebrates the charm and whimsy of our favorite fluffy friends. This category is a haven for rabbit lovers, featuring animated escapades and heartwarming family stories starring these adorable creatures."
+              title="Example of a non-virtualized grid with spatial navigation"
+              description="The grid shown on this page is NOT virtualized, which means that when scrolling, the elements not shown in the screen ARE rendered."
               verticalSize={HEADER_SIZE}
             />
             <SpatialNavigationView alignInGrid direction="vertical">
