@@ -16,6 +16,8 @@ import chunk from 'lodash/chunk';
 import { ProgramInfo } from '../modules/program/domain/programInfo';
 import { theme } from '../design-system/theme/theme';
 import { Header } from '../modules/header/view/Header';
+import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
+import { StyleSheet } from 'react-native';
 
 const ROW_SIZE = 7;
 const HEADER_SIZE = scaledPixels(400);
@@ -30,7 +32,13 @@ export const NonVirtualizedGridPage = () => {
     <Page>
       <CenteringView>
         <GridContainer>
-          <SpatialNavigationScrollView offsetFromStart={HEADER_SIZE + 20}>
+          <SpatialNavigationScrollView
+            offsetFromStart={HEADER_SIZE + 20}
+            topArrow={<TopArrow />}
+            bottomArrow={<BottomArrow />}
+            topArrowContainerStyle={styles.topArrowContainer}
+            bottomArrowContainerStyle={styles.bottomArrowContainer}
+          >
             <Header
               title="Example of a non-virtualized grid with spatial navigation"
               description="The grid shown on this page is NOT virtualized, which means that when scrolling, the elements not shown in the screen ARE rendered."
@@ -82,4 +90,25 @@ const CenteringView = styled.View({
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
+});
+
+const styles = StyleSheet.create({
+  topArrowContainer: {
+    width: '100%',
+    height: 100,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: -15,
+    left: 0,
+  },
+  bottomArrowContainer: {
+    width: '100%',
+    height: 100,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: -15,
+    left: 0,
+  },
 });
