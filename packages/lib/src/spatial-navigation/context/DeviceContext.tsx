@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { Platform } from 'react-native';
 
 type Device = 'remoteKeys' | 'remotePointer';
 
@@ -42,11 +43,11 @@ export const SpatialNavigationDeviceTypeProvider = ({ children }: DeviceProvider
   const getScrollingIntervalId = useCallback(() => scrollingId.current, []);
 
   useEffect(() => {
+    if (deviceType === 'remotePointer' || Platform.OS !== 'web') return;
+
     const callback = () => {
       setDeviceType('remotePointer');
     };
-
-    if (deviceType === 'remotePointer') return;
 
     window.addEventListener('mousemove', callback);
     return () => window.removeEventListener('mousemove', callback);
