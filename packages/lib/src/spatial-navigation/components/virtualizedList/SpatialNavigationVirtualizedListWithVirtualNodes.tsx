@@ -168,7 +168,7 @@ export type SpatialNavigationVirtualizedListWithVirtualNodesRef = {
 export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
   <T extends ItemWithIndex>(
     props: SpatialNavigationVirtualizedListWithVirtualNodesProps<T> & {
-      idRef: React.Ref<SpatialNavigationVirtualizedListWithVirtualNodesRef>;
+      getNodeIdRef: React.Ref<SpatialNavigationVirtualizedListWithVirtualNodesRef>;
     },
   ) => {
     const { getNthVirtualNodeID } = useRegisterVirtualNodes({
@@ -178,7 +178,7 @@ export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
     });
 
     useImperativeHandle(
-      props.idRef,
+      props.getNodeIdRef,
       () => ({
         getNthVirtualNodeID: getNthVirtualNodeID,
       }),

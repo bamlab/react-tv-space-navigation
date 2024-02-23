@@ -1,7 +1,7 @@
 import SpatialNavigator from '../SpatialNavigator';
 import { useEffect } from 'react';
 import { remoteControlSubscriber, remoteControlUnsubscriber } from '../configureRemoteControl';
-import { useDevice } from '../context/DeviceContext';
+import { useSpatialNavigationDeviceType } from '../context/DeviceContext';
 
 export const useRemoteControl = ({
   spatialNavigator,
@@ -10,7 +10,8 @@ export const useRemoteControl = ({
   spatialNavigator: SpatialNavigator;
   isActive: boolean;
 }) => {
-  const { setDeviceType, setScrollingIntervalId: setScrollingId } = useDevice();
+  const { setDeviceType, setScrollingIntervalId: setScrollingId } =
+    useSpatialNavigationDeviceType();
   useEffect(() => {
     if (!remoteControlSubscriber) {
       console.warn(

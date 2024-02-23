@@ -1,4 +1,12 @@
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 type Device = 'remoteKeys' | 'remotePointer';
 
@@ -20,18 +28,18 @@ interface DeviceProviderProps {
   children: React.ReactNode;
 }
 
-export const DeviceProvider = ({ children }: DeviceProviderProps) => {
-  const [deviceType, setDeviceType] = useState<Device>('remotePointer');
+export const SpatialNavigationDeviceTypeProvider = ({ children }: DeviceProviderProps) => {
+  const [deviceType, setDeviceType] = useState<Device>('remoteKeys');
   const scrollingId = useRef<NodeJS.Timer | null>(null);
 
-  const setScrollingIntervalId = (id: NodeJS.Timer | null) => {
+  const setScrollingIntervalId = useCallback((id: NodeJS.Timer | null) => {
     if (scrollingId.current) {
       clearInterval(scrollingId.current);
     }
     scrollingId.current = id;
-  };
+  }, []);
 
-  const getScrollingIntervalId = () => scrollingId.current;
+  const getScrollingIntervalId = useCallback(() => scrollingId.current, []);
 
   useEffect(() => {
     const callback = () => {
@@ -44,18 +52,17 @@ export const DeviceProvider = ({ children }: DeviceProviderProps) => {
     return () => window.removeEventListener('mousemove', callback);
   }, [deviceType]);
 
-  return (
-    <DeviceContext.Provider
-      value={{
-        deviceType,
-        setDeviceType,
-        getScrollingIntervalId,
-        setScrollingIntervalId,
-      }}
-    >
-      {children}
-    </DeviceContext.Provider>
+  const value = useMemo(
+    () => ({
+      deviceType,
+      setDeviceType,
+      getScrollingIntervalId,
+      setScrollingIntervalId,
+    }),
+    [deviceType, setDeviceType, getScrollingIntervalId, setScrollingIntervalId],
   );
+
+  return <DeviceContext.Provider value={value}>{children}</DeviceContext.Provider>;
 };
 
-export const useDevice = () => useContext(DeviceContext);
+export const useSpatialNavigationDeviceType = () => useContext(DeviceContext);

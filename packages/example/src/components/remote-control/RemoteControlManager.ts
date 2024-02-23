@@ -5,6 +5,7 @@ import { RemoteControlManagerInterface } from './RemoteControlManager.interface'
 class RemoteControlManager implements RemoteControlManagerInterface {
   constructor() {
     window.addEventListener('keydown', this.handleKeyDown);
+    // For cursor support on web TVs
     window.addEventListener('mousedown', () =>
       this.eventEmitter.emit('keyDown', SupportedKeys.Enter),
     );

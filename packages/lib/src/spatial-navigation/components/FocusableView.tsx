@@ -2,7 +2,7 @@ import { SpatialNavigationNode, SpatialNavigationNodeDefaultProps } from './Node
 import { Platform, View, ViewStyle } from 'react-native';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
-import { useDevice } from '../context/DeviceContext';
+import { useSpatialNavigationDeviceType } from '../context/DeviceContext';
 
 type Props = SpatialNavigationNodeDefaultProps & {
   style?: ViewStyle;
@@ -15,7 +15,7 @@ type Props = SpatialNavigationNodeDefaultProps & {
 
 export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRef, Props>(
   ({ children, style, onMouseEnterProps, onMouseLeaveProps, ...props }: Props, ref) => {
-    const { deviceType } = useDevice();
+    const { deviceType } = useSpatialNavigationDeviceType();
     const nodeRef = useRef<SpatialNavigationNodeRef>(null);
 
     useImperativeHandle(

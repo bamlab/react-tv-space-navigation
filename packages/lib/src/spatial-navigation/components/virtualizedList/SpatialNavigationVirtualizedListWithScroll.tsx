@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
 
 import {
@@ -12,9 +12,10 @@ import {
   useSpatialNavigatorParentScroll,
 } from '../../context/ParentScrollContext';
 import { typedMemo } from '../../helpers/TypedMemo';
-import { useDevice } from '../../context/DeviceContext';
+import { useSpatialNavigationDeviceType } from '../../context/DeviceContext';
 import { View, Platform, ViewStyle } from 'react-native';
 import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
+import React from 'react';
 
 const ItemWrapperWithScrollContext = typedMemo(
   <T extends ItemWithIndex>({
@@ -60,6 +61,102 @@ export type PointerScrollProps = {
   scrollInterval?: number;
 };
 
+const useRemotePointerVirtualizedListScrollProps = ({
+  setCurrentlyFocusedItemIndex,
+  scrollInterval,
+  data,
+}: {
+  setCurrentlyFocusedItemIndex: React.Dispatch<React.SetStateAction<number>>;
+  scrollInterval: number;
+  data: ItemWithIndex[];
+}) => {
+  const {
+    deviceType,
+    getScrollingIntervalId: getScrollingId,
+    setScrollingIntervalId: setScrollingId,
+  } = useSpatialNavigationDeviceType();
+
+  const navigator = useSpatialNavigator();
+
+  const idRef = useRef<SpatialNavigationVirtualizedListWithVirtualNodesRef>(null);
+
+  const grabFocus = navigator.grabFocus;
+
+  const onMouseEnterLeft = useCallback(() => {
+    const callback = () => {
+      setCurrentlyFocusedItemIndex((index) => {
+        if (index > 0) {
+          if (idRef.current) grabFocus(idRef.current.getNthVirtualNodeID(index - 1));
+          return index - 1;
+        } else {
+          return index;
+        }
+      });
+    };
+
+    const id = setInterval(() => {
+      callback();
+    }, scrollInterval);
+    setScrollingId(id);
+  }, [grabFocus, scrollInterval, setCurrentlyFocusedItemIndex, setScrollingId]);
+
+  const onMouseLeave = useCallback(() => {
+    const intervalId = getScrollingId();
+    if (intervalId) {
+      clearInterval(intervalId);
+      setScrollingId(null);
+    }
+  }, [getScrollingId, setScrollingId]);
+
+  const onMouseEnterRight = useCallback(() => {
+    const callback = () => {
+      setCurrentlyFocusedItemIndex((index) => {
+        if (index < data.length - 1) {
+          if (idRef.current) {
+            grabFocus(idRef.current.getNthVirtualNodeID(index + 1));
+          }
+          return index + 1;
+        } else {
+          return index;
+        }
+      });
+    };
+    const id = setInterval(() => {
+      callback();
+    }, scrollInterval);
+    setScrollingId(id);
+  }, [data.length, grabFocus, scrollInterval, setCurrentlyFocusedItemIndex, setScrollingId]);
+
+  const webPropsLeft = useMemo(
+    () =>
+      Platform.select({
+        web: {
+          onMouseEnter: onMouseEnterLeft,
+          onMouseLeave: onMouseLeave,
+        },
+      }),
+    [onMouseEnterLeft, onMouseLeave],
+  );
+
+  const webPropsRight = useMemo(
+    () =>
+      Platform.select({
+        web: {
+          onMouseEnter: onMouseEnterRight,
+          onMouseLeave: onMouseLeave,
+        },
+      }),
+    [onMouseEnterRight, onMouseLeave],
+  );
+
+  return {
+    webPropsLeft,
+    webPropsRight,
+    idRef,
+    deviceType,
+  };
+};
+
 /**
  * This component wraps every item of a virtualizedList in a scroll handling context.
  */
@@ -76,18 +173,13 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       ascendingArrowContainerStyle: ascendingArrowContainerStyle,
       scrollInterval = 100,
     } = props;
-    const {
-      deviceType,
-      getScrollingIntervalId: getScrollingId,
-      setScrollingIntervalId: setScrollingId,
-    } = useDevice();
     const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
-    const navigator = useSpatialNavigator();
-    const hasArrows = descendingArrow && ascendingArrow;
-
-    const idRef = useRef<SpatialNavigationVirtualizedListWithVirtualNodesRef>(null);
-    const idRefCurrent = idRef.current;
-    const grabFocus = navigator.grabFocus;
+    const { deviceType, webPropsLeft, webPropsRight, idRef } =
+      useRemotePointerVirtualizedListScrollProps({
+        setCurrentlyFocusedItemIndex,
+        scrollInterval,
+        data,
+      });
 
     const setCurrentlyFocusedItemIndexCallback = useCallback(
       (index: number) => {
@@ -95,65 +187,6 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       },
       [deviceType],
     );
-
-    const onMouseEnterLeft = () => {
-      const callback = () => {
-        setCurrentlyFocusedItemIndex((index) => {
-          if (index > 0) {
-            if (idRefCurrent) grabFocus(idRefCurrent.getNthVirtualNodeID(index - 1));
-            return index - 1;
-          } else {
-            return index;
-          }
-        });
-      };
-
-      const id = setInterval(() => {
-        callback();
-      }, scrollInterval);
-      setScrollingId(id);
-    };
-
-    const onMouseLeave = () => {
-      const intervalId = getScrollingId();
-      if (intervalId) {
-        clearInterval(intervalId);
-        setScrollingId(null);
-      }
-    };
-
-    const onMouseEnterRight = () => {
-      const callback = () => {
-        setCurrentlyFocusedItemIndex((index) => {
-          if (index < data.length - 1) {
-            if (idRefCurrent) {
-              grabFocus(idRefCurrent.getNthVirtualNodeID(index + 1));
-            }
-            return index + 1;
-          } else {
-            return index;
-          }
-        });
-      };
-      const id = setInterval(() => {
-        callback();
-      }, scrollInterval);
-      setScrollingId(id);
-    };
-
-    const webPropsLeft = Platform.select({
-      web: {
-        onMouseEnter: onMouseEnterLeft,
-        onMouseLeave: onMouseLeave,
-      },
-    });
-
-    const webPropsRight = Platform.select({
-      web: {
-        onMouseEnter: onMouseEnterRight,
-        onMouseLeave: onMouseLeave,
-      },
-    });
 
     const renderWrappedItem: typeof props.renderItem = useCallback(
       ({ item }) => (
@@ -170,19 +203,19 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       <>
         <SpatialNavigationVirtualizedListWithVirtualNodes
           {...props}
-          idRef={idRef}
+          getNodeIdRef={idRef}
           currentlyFocusedItemIndex={currentlyFocusedItemIndex}
           renderItem={renderWrappedItem}
         />
-        {deviceType === 'remotePointer' && hasArrows ? (
-          <>
-            <View style={descendingArrowContainerStyle} {...webPropsLeft}>
-              {descendingArrow}
-            </View>
-            <View style={ascendingArrowContainerStyle} {...webPropsRight}>
-              {ascendingArrow}
-            </View>
-          </>
+        {deviceType === 'remotePointer' ? (
+          <PointerScrollArrows
+            descendingArrowContainerStyle={descendingArrowContainerStyle}
+            webPropsLeft={webPropsLeft}
+            descendingArrow={descendingArrow}
+            ascendingArrowContainerStyle={ascendingArrowContainerStyle}
+            webPropsRight={webPropsRight}
+            ascendingArrow={ascendingArrow}
+          />
         ) : undefined}
       </>
     );
@@ -190,3 +223,29 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
 );
 SpatialNavigationVirtualizedListWithScroll.displayName =
   'SpatialNavigationVirtualizedListWithScroll';
+
+const PointerScrollArrows = React.memo(
+  ({
+    descendingArrowContainerStyle,
+    webPropsLeft,
+    descendingArrow,
+    ascendingArrowContainerStyle,
+    webPropsRight,
+    ascendingArrow,
+  }: PointerScrollProps & {
+    webPropsLeft?: { onMouseEnter: () => void; onMouseLeave: () => void };
+    webPropsRight?: { onMouseEnter: () => void; onMouseLeave: () => void };
+  }) => {
+    return (
+      <>
+        <View style={descendingArrowContainerStyle} {...webPropsLeft}>
+          {descendingArrow}
+        </View>
+        <View style={ascendingArrowContainerStyle} {...webPropsRight}>
+          {ascendingArrow}
+        </View>
+      </>
+    );
+  },
+);
+PointerScrollArrows.displayName = 'PointerScrollArrows';
