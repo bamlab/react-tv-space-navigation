@@ -9,12 +9,13 @@ type Props = SpatialNavigationNodeDefaultProps & {
   children:
     | React.ReactElement
     | ((props: { isFocused: boolean; isActive: boolean }) => React.ReactElement);
-  onMouseEnterProps?: () => void;
-  onMouseLeaveProps?: () => void;
+  /** return true if you want to ignore the focus */
+  onMouseEnter?: () => void | boolean;
+  onMouseLeave?: () => void;
 };
 
 export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRef, Props>(
-  ({ children, style, onMouseEnterProps, onMouseLeaveProps, ...props }: Props, ref) => {
+  ({ children, style, onMouseEnter, onMouseLeave, ...props }: Props, ref) => {
     const { deviceType } = useSpatialNavigationDeviceType();
     const nodeRef = useRef<SpatialNavigationNodeRef>(null);
 
@@ -29,16 +30,16 @@ export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRe
     const webProps = Platform.select({
       web: {
         onMouseEnter: () => {
-          if (onMouseEnterProps) {
-            onMouseEnterProps();
-            return;
+          if (onMouseEnter) {
+            onMouseEnter();
+            if (onMouseEnter() === true) return;
           }
           if (deviceType === 'remotePointer') {
             nodeRef.current?.focus();
           }
         },
         onMouseLeave: () => {
-          onMouseLeaveProps?.();
+          onMouseLeave?.();
         },
       },
       default: {},
