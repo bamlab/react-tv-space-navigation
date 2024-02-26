@@ -18,6 +18,7 @@ export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRe
   ({ children, style, onMouseEnter, onMouseLeave, ...props }: Props, ref) => {
     const { deviceType } = useSpatialNavigationDeviceType();
     const nodeRef = useRef<SpatialNavigationNodeRef>(null);
+    const onSelect = props.onSelect;
 
     useImperativeHandle(
       ref,
@@ -40,6 +41,9 @@ export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRe
         },
         onMouseLeave: () => {
           onMouseLeave?.();
+        },
+        onClick: () => {
+          onSelect?.();
         },
       },
       default: {},
