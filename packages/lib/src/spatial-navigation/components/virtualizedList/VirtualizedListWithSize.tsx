@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { ItemWithIndex, VirtualizedList, VirtualizedListProps } from './VirtualizedList';
 import { useState } from 'react';
@@ -12,16 +12,20 @@ import { useState } from 'react';
  */
 export const VirtualizedListWithSize = typedMemo(
   <T extends ItemWithIndex>(props: Omit<VirtualizedListProps<T>, 'listSizeInPx'>) => {
-    const [listSizeInPx, setListSizeInPx] = useState<number | null>(null);
     const isVertical = props.orientation === 'vertical';
+    const [listSizeInPx, setListSizeInPx] = useState<number>(
+      isVertical ? Dimensions.get('window').height : Dimensions.get('window').width,
+    );
+    const [hasAlreadyRendered, setHasAlreadyRendered] = useState<boolean>(false);
 
     return (
       <View
         style={style.container}
         onLayout={(event) => {
-          if (!listSizeInPx) {
+          if (!hasAlreadyRendered) {
             const sizeKey = isVertical ? 'height' : 'width';
             setListSizeInPx(event.nativeEvent.layout[sizeKey]);
+            setHasAlreadyRendered(true);
           }
         }}
         testID={props.testID ? props.testID + '-size-giver' : undefined}
