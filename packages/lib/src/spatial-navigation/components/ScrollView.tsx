@@ -18,13 +18,13 @@ type Props = {
   children: React.ReactNode;
   style?: ViewStyle;
   /** Arrow that will show up only when web cursor pointer is active  */
-  topArrow?: ReactNode;
+  descendingArrow?: ReactElement;
   /** Arrow that will show up only when web cursor pointer is active  */
-  bottomArrow?: ReactElement;
+  ascendingArrow?: ReactElement;
   /** Style props for the arrow container, basically the area hoverable that triggers a scroll  */
-  topArrowContainerStyle?: ViewStyle;
+  descendingArrowContainerStyle?: ViewStyle;
   /** Style props for the arrow container, basically the area hoverable that triggers a scroll  */
-  bottomArrowContainerStyle?: ViewStyle;
+  ascendingArrowContainerStyle?: ViewStyle;
   /** Number of pixels scrolled every 10ms - only when using web cursor pointer to scroll */
   pointerScrollSpeed?: number;
 };
@@ -43,6 +43,7 @@ const useRemotePointerScrollviewScrollProps = ({
     getScrollingIntervalId: getScrollingId,
     setScrollingIntervalId: setScrollingId,
   } = useSpatialNavigationDeviceType();
+
   const onMouseEnterTop = useCallback(() => {
     if (deviceType === 'remotePointer') {
       let currentScrollPosition = scrollY.current;
@@ -82,20 +83,27 @@ const useRemotePointerScrollviewScrollProps = ({
     }
   }, [deviceType, getScrollingId, setScrollingId]);
 
-  const webProps = useCallback(
-    (onMouseEnter: () => void) => {
-      return Platform.select({
-        web: {
-          onMouseEnter,
-          onMouseLeave,
-        },
-        default: {},
-      });
-    },
-    [onMouseLeave],
+  const ascendingArrowProps = useMemo(
+    () =>
+      Platform.select({
+        web: { onMouseEnter: onMouseEnterBottom, onMouseLeave: onMouseLeave },
+      }),
+    [onMouseEnterBottom, onMouseLeave],
   );
 
-  return { onMouseEnterTop, onMouseEnterBottom, webProps, deviceType };
+  const descendingArrowProps = useMemo(
+    () =>
+      Platform.select({
+        web: { onMouseEnter: onMouseEnterTop, onMouseLeave: onMouseLeave },
+      }),
+    [onMouseEnterTop, onMouseLeave],
+  );
+
+  return {
+    deviceType,
+    ascendingArrowProps,
+    descendingArrowProps,
+  };
 };
 
 export const SpatialNavigationScrollView = ({
@@ -103,11 +111,11 @@ export const SpatialNavigationScrollView = ({
   style,
   offsetFromStart = 0,
   children,
-  topArrow,
-  bottomArrow,
-  topArrowContainerStyle,
-  bottomArrowContainerStyle,
-  pointerScrollSpeed: pointerScrollSpeed = 10,
+  ascendingArrow,
+  ascendingArrowContainerStyle,
+  descendingArrow,
+  descendingArrowContainerStyle,
+  pointerScrollSpeed = 10,
 }: Props) => {
   const { scrollToNodeIfNeeded: makeParentsScrollToNodeIfNeeded } =
     useSpatialNavigatorParentScroll();
@@ -115,7 +123,7 @@ export const SpatialNavigationScrollView = ({
 
   const scrollY = useRef<number>(0);
 
-  const { onMouseEnterTop, onMouseEnterBottom, webProps, deviceType } =
+  const { ascendingArrowProps, descendingArrowProps, deviceType } =
     useRemotePointerScrollviewScrollProps({ pointerScrollSpeed, scrollY, scrollViewRef });
 
   const scrollToNode = useCallback(
@@ -161,68 +169,51 @@ export const SpatialNavigationScrollView = ({
       </ScrollView>
       {deviceType === 'remotePointer' ? (
         <PointerScrollArrows
-          topArrow={topArrow}
-          bottomArrow={bottomArrow}
-          topArrowContainerStyle={topArrowContainerStyle}
-          bottomArrowContainerStyle={bottomArrowContainerStyle}
-          onMouseEnterTop={onMouseEnterTop}
-          onMouseEnterBottom={onMouseEnterBottom}
-          webProps={webProps}
+          descendingArrow={descendingArrow}
+          ascendingArrow={ascendingArrow}
+          descendingArrowContainerStyle={descendingArrowContainerStyle}
+          ascendingArrowContainerStyle={ascendingArrowContainerStyle}
+          ascendingArrowProps={ascendingArrowProps}
+          descendingArrowProps={descendingArrowProps}
         />
       ) : undefined}
     </SpatialNavigatorParentScrollContext.Provider>
   );
 };
 
-type WebProps = (onMouseEnter: () => void) =>
-  | {
-      onMouseEnter: () => void;
-      onMouseLeave: () => void;
-    }
-  | {
-      onMouseEnter?: undefined;
-      onMouseLeave?: undefined;
-    };
-
 const PointerScrollArrows = React.memo(
   ({
-    topArrow,
-    bottomArrow,
-    topArrowContainerStyle,
-    bottomArrowContainerStyle,
-    onMouseEnterTop,
-    onMouseEnterBottom,
-    webProps,
+    ascendingArrow,
+    descendingArrowProps,
+    ascendingArrowContainerStyle,
+    descendingArrow,
+    ascendingArrowProps,
+    descendingArrowContainerStyle,
   }: {
-    topArrow?: ReactNode;
-    bottomArrow?: ReactElement;
-    topArrowContainerStyle?: ViewStyle;
-    bottomArrowContainerStyle?: ViewStyle;
-    onMouseEnterTop: () => void;
-    onMouseEnterBottom: () => void;
-    webProps: WebProps;
+    ascendingArrow?: ReactElement;
+    ascendingArrowProps?: {
+      onMouseEnter: () => void;
+      onMouseLeave: () => void;
+    };
+    ascendingArrowContainerStyle?: ViewStyle;
+    descendingArrow?: ReactNode;
+    descendingArrowProps?: {
+      onMouseEnter: () => void;
+      onMouseLeave: () => void;
+    };
+    descendingArrowContainerStyle?: ViewStyle;
   }) => {
-    const TopArrowContainer = styled.View({
+    const DescendingArrowContainer = styled.View({
       position: 'absolute',
     });
 
-    const onMouseEnterTopWebProps = useMemo(
-      () => webProps(onMouseEnterTop),
-      [webProps, onMouseEnterTop],
-    );
-
-    const onMouseEnterBottomWebProps = useMemo(
-      () => webProps(onMouseEnterBottom),
-      [webProps, onMouseEnterBottom],
-    );
-
     return (
       <>
-        <TopArrowContainer style={topArrowContainerStyle} {...onMouseEnterTopWebProps}>
-          {topArrow}
-        </TopArrowContainer>
-        <View style={bottomArrowContainerStyle} {...onMouseEnterBottomWebProps}>
-          {bottomArrow}
+        <DescendingArrowContainer style={descendingArrowContainerStyle} {...descendingArrowProps}>
+          {descendingArrow}
+        </DescendingArrowContainer>
+        <View style={ascendingArrowContainerStyle} {...ascendingArrowProps}>
+          {ascendingArrow}
         </View>
       </>
     );

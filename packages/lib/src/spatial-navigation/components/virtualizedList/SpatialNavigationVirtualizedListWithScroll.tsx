@@ -82,7 +82,7 @@ const useRemotePointerVirtualizedListScrollProps = ({
 
   const grabFocus = navigator.grabFocus;
 
-  const onMouseEnterLeft = useCallback(() => {
+  const onMouseEnterDescending = useCallback(() => {
     const callback = () => {
       setCurrentlyFocusedItemIndex((index) => {
         if (index > 0) {
@@ -108,7 +108,7 @@ const useRemotePointerVirtualizedListScrollProps = ({
     }
   }, [getScrollingId, setScrollingId]);
 
-  const onMouseEnterRight = useCallback(() => {
+  const onMouseEnterAscending = useCallback(() => {
     const callback = () => {
       setCurrentlyFocusedItemIndex((index) => {
         if (index < data.length - 1) {
@@ -127,31 +127,31 @@ const useRemotePointerVirtualizedListScrollProps = ({
     setScrollingId(id);
   }, [data.length, grabFocus, scrollInterval, setCurrentlyFocusedItemIndex, setScrollingId]);
 
-  const webPropsLeft = useMemo(
+  const descendingArrowProps = useMemo(
     () =>
       Platform.select({
         web: {
-          onMouseEnter: onMouseEnterLeft,
+          onMouseEnter: onMouseEnterDescending,
           onMouseLeave: onMouseLeave,
         },
       }),
-    [onMouseEnterLeft, onMouseLeave],
+    [onMouseEnterDescending, onMouseLeave],
   );
 
-  const webPropsRight = useMemo(
+  const ascendingArrowProps = useMemo(
     () =>
       Platform.select({
         web: {
-          onMouseEnter: onMouseEnterRight,
+          onMouseEnter: onMouseEnterAscending,
           onMouseLeave: onMouseLeave,
         },
       }),
-    [onMouseEnterRight, onMouseLeave],
+    [onMouseEnterAscending, onMouseLeave],
   );
 
   return {
-    webPropsLeft,
-    webPropsRight,
+    descendingArrowProps,
+    ascendingArrowProps,
     idRef,
     deviceType,
   };
@@ -169,12 +169,12 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       renderItem,
       descendingArrow: descendingArrow,
       ascendingArrow: ascendingArrow,
-      descendingArrowContainerStyle: descendingArrowContainerStyle,
-      ascendingArrowContainerStyle: ascendingArrowContainerStyle,
+      descendingArrowContainerStyle,
+      ascendingArrowContainerStyle,
       scrollInterval = 100,
     } = props;
     const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
-    const { deviceType, webPropsLeft, webPropsRight, idRef } =
+    const { deviceType, descendingArrowProps, ascendingArrowProps, idRef } =
       useRemotePointerVirtualizedListScrollProps({
         setCurrentlyFocusedItemIndex,
         scrollInterval,
@@ -210,10 +210,10 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
         {deviceType === 'remotePointer' ? (
           <PointerScrollArrows
             descendingArrowContainerStyle={descendingArrowContainerStyle}
-            webPropsLeft={webPropsLeft}
+            descendingArrowProps={descendingArrowProps}
             descendingArrow={descendingArrow}
             ascendingArrowContainerStyle={ascendingArrowContainerStyle}
-            webPropsRight={webPropsRight}
+            ascendingArrowProps={ascendingArrowProps}
             ascendingArrow={ascendingArrow}
           />
         ) : undefined}
@@ -226,22 +226,22 @@ SpatialNavigationVirtualizedListWithScroll.displayName =
 
 const PointerScrollArrows = React.memo(
   ({
-    descendingArrowContainerStyle,
-    webPropsLeft,
-    descendingArrow,
-    ascendingArrowContainerStyle,
-    webPropsRight,
     ascendingArrow,
+    ascendingArrowProps,
+    ascendingArrowContainerStyle,
+    descendingArrow,
+    descendingArrowProps,
+    descendingArrowContainerStyle,
   }: PointerScrollProps & {
-    webPropsLeft?: { onMouseEnter: () => void; onMouseLeave: () => void };
-    webPropsRight?: { onMouseEnter: () => void; onMouseLeave: () => void };
+    descendingArrowProps?: { onMouseEnter: () => void; onMouseLeave: () => void };
+    ascendingArrowProps?: { onMouseEnter: () => void; onMouseLeave: () => void };
   }) => {
     return (
       <>
-        <View style={descendingArrowContainerStyle} {...webPropsLeft}>
+        <View style={descendingArrowContainerStyle} {...descendingArrowProps}>
           {descendingArrow}
         </View>
-        <View style={ascendingArrowContainerStyle} {...webPropsRight}>
+        <View style={ascendingArrowContainerStyle} {...ascendingArrowProps}>
           {ascendingArrow}
         </View>
       </>

@@ -21,10 +21,10 @@ export const Home = () => {
       <DefaultFocus>
         <SpatialNavigationScrollView
           offsetFromStart={140}
-          bottomArrow={<BottomArrow />}
-          bottomArrowContainerStyle={styles.bottomArrowContainer}
-          topArrow={<TopArrow />}
-          topArrowContainerStyle={styles.topArrowContainer}
+          ascendingArrow={<BottomArrow />}
+          ascendingArrowContainerStyle={styles.bottomArrowContainer}
+          descendingArrow={<TopArrow />}
+          descendingArrowContainerStyle={styles.topArrowContainer}
         >
           <Box padding="$10">
             <ProgramListWithTitle title="Popular" />

@@ -34,10 +34,10 @@ export const NonVirtualizedGridPage = () => {
         <GridContainer>
           <SpatialNavigationScrollView
             offsetFromStart={HEADER_SIZE + 20}
-            topArrow={<TopArrow />}
-            bottomArrow={<BottomArrow />}
-            topArrowContainerStyle={styles.topArrowContainer}
-            bottomArrowContainerStyle={styles.bottomArrowContainer}
+            descendingArrow={<TopArrow />}
+            ascendingArrow={<BottomArrow />}
+            descendingArrowContainerStyle={styles.topArrowContainer}
+            ascendingArrowContainerStyle={styles.bottomArrowContainer}
           >
             <Header
               title="Example of a non-virtualized grid with spatial navigation"
