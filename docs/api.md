@@ -119,17 +119,17 @@ It also ensures that the scroll event is propagated properly for parent ScrollVi
 
 The `SpatialNavigationScrollView` component receives the following props:
 
-| Name                            | Type           | Default | Description                                                                                                                                               |
-| ------------------------------- | -------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `horizontal`                    | `boolean`      | `false` | Determines if the scrolling orientation is horizontal. If `false`, the scrolling orientation will be vertical.                                            |
-| `offsetFromStart`               | `number`       | `0`     | This offset is used to prevent the element from sticking too closely to the edges of the screen during scrolling. This is a margin in pixels.             |
-| `style`                         | `ViewStyle`    | `null`  | Style for the ScrollView. This can be any valid React Native style object.                                                                                |
-| `children`                      | `ReactNode`    | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                                |
-| `ascendingArrow`                | `ReactElement` | `null`  | Optional component to display as the arrow to scroll on the ascending order. Used only with pointers.                                                     |
-| `ascendingArrowContainerStyle`  | `ViewStyle`    | `null`  | Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll. Used only with pointers.                                      |
-| `descendingArrow`               | `ReactElement` | `null`  | Optional component to display as the arrow to scroll on the descending order. Used only with pointers.                                                    |
-| `descendingArrowContainerStyle` | `ViewStyle`    | `null`  | Style of the view which wraps the descending arrow. Hover this view will trigger the scroll. Used only with pointers.                                     |
-| `pointerScrollSpeed`            | `number`       | `10`    | Speed of the pointer scroll. It represents the number of pixels scrolled every 10ms when hovering a scroll arrow with a pointer. Used only with pointers. |
+| Name                            | Type           | Default | Description                                                                                                                                                   |
+| ------------------------------- | -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `horizontal`                    | `boolean`      | `false` | Determines if the scrolling orientation is horizontal. If `false`, the scrolling orientation will be vertical.                                                |
+| `offsetFromStart`               | `number`       | `0`     | This offset is used to prevent the element from sticking too closely to the edges of the screen during scrolling. This is a margin in pixels.                 |
+| `style`                         | `ViewStyle`    | `null`  | Style for the ScrollView. This can be any valid React Native style object.                                                                                    |
+| `children`                      | `ReactNode`    | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                                    |
+| `ascendingArrow`                | `ReactElement` | `null`  | For web TVs cursor handling. Optional component to display as the arrow to scroll on the ascending order.                                                     |
+| `ascendingArrowContainerStyle`  | `ViewStyle`    | `null`  | For web TVs cursor handling. Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll.                                      |
+| `descendingArrow`               | `ReactElement` | `null`  | For web TVs cursor handling. Optional component to display as the arrow to scroll on the descending order.                                                    |
+| `descendingArrowContainerStyle` | `ViewStyle`    | `null`  | For web TVs cursor handling. Style of the view which wraps the descending arrow. Hover this view will trigger the scroll.                                     |
+| `pointerScrollSpeed`            | `number`       | `10`    | For web TVs cursor handling. Speed of the pointer scroll. It represents the number of pixels scrolled every 10ms when hovering a scroll arrow with a pointer. |
 
 ## Usage
 
@@ -157,12 +157,12 @@ This component allows you to grab the focus to it when hovering it with a pointe
 
 The `SpatialNavigationFocusableView` component receives the following props:
 
-| Name           | Type        | Default                 | Description                                                                                                                                                                  |
-| -------------- | ----------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `style`        | `ViewStyle` | `null`                  | Style for the View. This can be any valid React Native style object.                                                                                                         |
-| `children`     | `ReactNode` | `null`                  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                                                   |
-| `onMouseEnter` | `ReactNode` | `() => void \| boolean` | A function which is triggered when a pointer enters the `SpatialNavigationFocusableView`. To bypass the focus of the node when hovering it, the function must return `true`. |
-| `onMouseLeave` | `ReactNode` | `() => void`            | A function which is triggered when a pointer leaves the `SpatialNavigationFocusableView`.                                                                                    |
+| Name           | Type        | Default                 | Description                                                                                                                                                                                               |
+| -------------- | ----------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `style`        | `ViewStyle` | `null`                  | Style for the View. This can be any valid React Native style object.                                                                                                                                      |
+| `children`     | `ReactNode` | `null`                  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                                                                                |
+| `onMouseEnter` | `ReactNode` | `() => void \| boolean` | For web TVs cursor handling. A function which is triggered when a pointer enters the `SpatialNavigationFocusableView`. To bypass the focus of the node when hovering it, the function must return `true`. |
+| `onMouseLeave` | `ReactNode` | `() => void`            | For web TVs cursor handling. A function which is triggered when a pointer leaves the `SpatialNavigationFocusableView`.                                                                                    |
 
 ## Usage
 
@@ -179,23 +179,6 @@ The `SpatialNavigationFocusableView` component receives the following props:
 ```
 
 In this example above, the `onMouseEnter` function also triggers the focus of the element.
-
-```jsx
-<SpatialNavigationFocusableView
-  onFocus={() => console.log('Node gained focus')}
-  onSelect={() => console.log('Node was selected')}
-  onMouseEnter={() => {
-    console.log('The view has been entered by a pointer and the element has NOT been focused');
-    return true;
-  }}
-  onMouseLeave={() => console.log('The view has been left by a pointer')}
-  orientation="horizontal"
->
-  {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
-</SpatialNavigationFocusableView>
-```
-
-In this example above, the `onMouseEnter` function does not triggers the focus of the element.
 
 # SpatialNavigationView
 
@@ -254,11 +237,11 @@ It also ensures that the scroll event is propagated properly to parent ScrollVie
 | `nbMaxOfItems`                     | `number`                                                 | The total number of expected items for infinite scroll. This helps with aligning items and is used for pagination. If not provided, it defaults to the length of the data array.                                                                                                                                                                                     |
 | `scrollDuration`                   | `number`                                                 | The duration of a scrolling animation inside the VirtualizedList. Defaults to 200ms.                                                                                                                                                                                                                                                                                 |
 | `scrollBehavior`                   | `'stick-to-start' \| 'stick-to-end' \| 'jump-on-scroll'` | Determines the scrolling behavior. Defaults to `'stick-to-start'`. `'stick-to-start'` and `'stick-to-end'` fix the focused item at the beginning or the end of the visible items on screen. `jump-on-scroll` jumps from `numberOfItemsVisibleOnScreen` items when needed. Warning `jump-on-scroll` is not compatible with dynamic item size.                         |
-| `ascendingArrow`                   | `ReactElement`                                           | Optional component to display as the arrow to scroll on the ascending order. Used only with pointers.                                                                                                                                                                                                                                                                |
-| `ascendingArrowContainerStyle`     | `ViewStyle`                                              | Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll. Used only with pointers.                                                                                                                                                                                                                                                 |
-| `descendingArrow`                  | `ReactElement`                                           | Optional component to display as the arrow to scroll on the descending order. Used only with pointers.                                                                                                                                                                                                                                                               |
-| `descendingArrowContainerStyle`    | `ViewStyle`                                              | Style of the view which wraps the descending arrow. Hover this view will trigger the scroll. Used only with pointers.                                                                                                                                                                                                                                                |
-| `scrollInterval`                   | `number`                                                 | Speed of the pointer scroll. It represents the interval in ms between every item scrolled. Default value is set to 100. Used only with pointers.                                                                                                                                                                                                                     |
+| `ascendingArrow`                   | `ReactElement`                                           | For web TVs cursor handling. Optional component to display as the arrow to scroll on the ascending order.                                                                                                                                                                                                                                                            |
+| `ascendingArrowContainerStyle`     | `ViewStyle`                                              | For web TVs cursor handling. Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll.                                                                                                                                                                                                                                             |
+| `descendingArrow`                  | `ReactElement`                                           | For web TVs cursor handling. Optional component to display as the arrow to scroll on the descending order.                                                                                                                                                                                                                                                           |
+| `descendingArrowContainerStyle`    | `ViewStyle`                                              | For web TVs cursor handling. Style of the view which wraps the descending arrow. Hover this view will trigger the scroll.                                                                                                                                                                                                                                            |
+| `scrollInterval`                   | `number`                                                 | For web TVs cursor handling. Speed of the pointer scroll. It represents the interval in ms between every item scrolled. Default value is set to 100.                                                                                                                                                                                                                 |
 
 ## Usage
 
@@ -327,11 +310,11 @@ VirtualizedGrids only support vertical orientation (vertically scrollable), but 
 | `rowContainerStyle`               | `Object`                                                 | Used to modify the style of each row in the grid.                                                                                                                                                                                                                       |
 | `scrollDuration`                  | `number`                                                 | The duration of a scrolling animation inside the VirtualizedList. Defaults to `200` (ms).                                                                                                                                                                               |
 | `scrollBehavior`                  | `'stick-to-start' \| 'stick-to-end' \| 'jump-on-scroll'` | Determines the scrolling behavior. Defaults to `'stick-to-start'`. `'stick-to-start'` and `'stick-to-end'` fix the focused row at the beginning or the end of the visible items on screen. `jump-on-scroll` jumps from `numberOfItemsVisibleOnScreen` rows when needed. |
-| `ascendingArrow`                  | `ReactElement`                                           | Optional component to display as the arrow to scroll on the ascending order. Used only with pointers.                                                                                                                                                                   |
-| `ascendingArrowContainerStyle`    | `ViewStyle`                                              | Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll. Used only with pointers.                                                                                                                                                    |
-| `descendingArrow`                 | `ReactElement`                                           | Optional component to display as the arrow to scroll on the descending order. Used only with pointers.                                                                                                                                                                  |
-| `descendingArrowContainerStyle`   | `ViewStyle`                                              | Style of the view which wraps the descending arrow. Hover this view will trigger the scroll. Used only with pointers.                                                                                                                                                   |
-| `scrollInterval`                  | `number`                                                 | Speed of the pointer scroll. It represents the interval in ms between every item scrolled. Default value is set to 100. Used only with pointers.                                                                                                                        |
+| `ascendingArrow`                  | `ReactElement`                                           | For web TVs cursor handling. Optional component to display as the arrow to scroll on the ascending order.                                                                                                                                                               |
+| `ascendingArrowContainerStyle`    | `ViewStyle`                                              | For web TVs cursor handling. Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll.                                                                                                                                                |
+| `descendingArrow`                 | `ReactElement`                                           | For web TVs cursor handling. Optional component to display as the arrow to scroll on the descending order.                                                                                                                                                              |
+| `descendingArrowContainerStyle`   | `ViewStyle`                                              | For web TVs cursor handling. Style of the view which wraps the descending arrow. Hover this view will trigger the scroll.                                                                                                                                               |
+| `scrollInterval`                  | `number`                                                 | For web TVs cursor handling. Speed of the pointer scroll. It represents the interval in ms between every item scrolled. Default value is set to 100.                                                                                                                    |
 
 ## Example Usage
 
@@ -409,31 +392,14 @@ Every time an input is made on a device which is different from the one specifie
 
 ## Usage
 
-```jsx
+```tsx
 function App(): JSX.Element {
   return (
-    <NavigationContainer>
-      <ThemeProvider theme={theme}>
-        <SpatialNavigationDeviceTypeProvider>
-          <GoBackConfiguration />
-
-          <Container width={width} height={height}>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-                contentStyle: {
-                  backgroundColor: theme.colors.background.main,
-                },
-              }}
-              initialRouteName="TabNavigator"
-            >
-              <Stack.Screen name="TabNavigator" component={TabNavigator} />
-              <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
-            </Stack.Navigator>
-          </Container>
-        </SpatialNavigationDeviceTypeProvider>
-      </ThemeProvider>
-    </NavigationContainer>
+    <SomeOtherProviders>
+      <SpatialNavigationDeviceTypeProvider>
+        <YourApp />
+      </SpatialNavigationDeviceTypeProvider>
+    </SomeOtherProviders>
   );
 }
 ```

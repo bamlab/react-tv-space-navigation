@@ -1,5 +1,12 @@
 import React, { useCallback, RefObject, useRef, ReactElement, ReactNode, useMemo } from 'react';
-import { ScrollView, View, ViewStyle, Platform } from 'react-native';
+import {
+  ScrollView,
+  View,
+  ViewStyle,
+  Platform,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from 'react-native';
 import {
   SpatialNavigatorParentScrollContext,
   useSpatialNavigatorParentScroll,
@@ -17,9 +24,9 @@ type Props = {
   offsetFromStart?: number;
   children: React.ReactNode;
   style?: ViewStyle;
-  /** Arrow that will show up only when web cursor pointer is active  */
+  /** Arrow that will show up inside the arrowContainer */
   descendingArrow?: ReactElement;
-  /** Arrow that will show up only when web cursor pointer is active  */
+  /** Arrow that will show up inside the arrowContainer */
   ascendingArrow?: ReactElement;
   /** Style props for the arrow container, basically the area hoverable that triggers a scroll  */
   descendingArrowContainerStyle?: ViewStyle;
@@ -151,6 +158,13 @@ export const SpatialNavigationScrollView = ({
     [makeParentsScrollToNodeIfNeeded, horizontal, offsetFromStart, deviceType],
   );
 
+  const onScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      scrollY.current = event.nativeEvent.contentOffset.y;
+    },
+    [scrollY],
+  );
+
   return (
     <SpatialNavigatorParentScrollContext.Provider value={scrollToNode}>
       <ScrollView
@@ -160,9 +174,7 @@ export const SpatialNavigationScrollView = ({
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         scrollEnabled={false}
-        onScroll={(event) => {
-          scrollY.current = event.nativeEvent.contentOffset.y;
-        }}
+        onScroll={onScroll}
         scrollEventThrottle={16}
       >
         {children}
@@ -203,10 +215,6 @@ const PointerScrollArrows = React.memo(
     };
     descendingArrowContainerStyle?: ViewStyle;
   }) => {
-    const DescendingArrowContainer = styled.View({
-      position: 'absolute',
-    });
-
     return (
       <>
         <DescendingArrowContainer style={descendingArrowContainerStyle} {...descendingArrowProps}>
@@ -220,3 +228,7 @@ const PointerScrollArrows = React.memo(
   },
 );
 PointerScrollArrows.displayName = 'PointerScrollArrows';
+
+const DescendingArrowContainer = styled.View({
+  position: 'absolute',
+});

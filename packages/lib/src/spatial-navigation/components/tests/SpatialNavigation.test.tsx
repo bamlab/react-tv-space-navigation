@@ -34,7 +34,7 @@ export const expectButtonToHaveFocus = (component: RenderResult, text: string) =
 };
 
 describe('Spatial Navigation Movement', () => {
-  jest.setTimeout(10000); // This test suite has became slow after the introduction of the new movement detection logic which is async
+  jest.setTimeout(10000); // This test suite has become slow after the introduction of the new movement detection logic which is async. It fails in CI only...
   it('handles correctly RIGHT LEFT LEFT', async () => {
     const component = render(<TestScreen />);
 

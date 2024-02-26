@@ -80,40 +80,15 @@ const Page = () => {
 };
 ```
 
-### Add spatial navigation nodes
+### Add spatial navigation focusable view
 
 ```diff
 const Element = () => (
-+  <SpatialNavigationNode>
++  <SpatialNavigationFocusableView>
     <View>
       <Text>Page element</Text>
     </View>
-+  </SpatialNavigationNode>
-);
-
-const Page = () => {
-  return (
-    <SpatialNavigationRoot>
-      <Element />
-      <Element />
-    </SpatialNavigationRoot>
-  );
-};
-```
-
-### Make them focusable
-
-```diff
-const Element = () => (
--  <SpatialNavigationNode>
-+  <SpatialNavigationNode isFocusable>
-+    {({ isFocused }) => (
--      <View>
-+      <View style={isFocused && { backgroundColor: 'green' }}>
-        <Text>Page element</Text>
-      </View>
-+    )}
-  </SpatialNavigationNode>
++  </SpatialNavigationFocusableView>
 );
 
 const Page = () => {
@@ -132,14 +107,14 @@ Simply add an `onSelect` props to a node, very similarly as if you were adding a
 
 ```diff
 const Element = ({ onSelect }) => (
--  <SpatialNavigationNode isFocusable>
-+  <SpatialNavigationNode isFocusable onSelect={onSelect}>
+-  <SpatialNavigationFocusableView>
++  <SpatialNavigationFocusableView onSelect={onSelect}>
     {({ isFocused }) => (
       <View style={isFocused && { backgroundColor: 'green' }}>
         <Text>Page element</Text>
       </View>
     )}
-  </SpatialNavigationNode>
+  </SpatialNavigationFocusableView>
 );
 
 const Page = () => {
@@ -160,13 +135,13 @@ To add a default focus, wrap the group of elements that you want the default foc
 
 ```diff
 const Element = ({ onSelect }) => (
-  <SpatialNavigationNode isFocusable onSelect={onSelect}>
+  <SpatialNavigationFocusableView onSelect={onSelect}>
     {({ isFocused }) => (
       <View style={isFocused && { backgroundColor: 'green' }}>
         <Text>Page element</Text>
       </View>
     )}
-  </SpatialNavigationNode>
+  </SpatialNavigationFocusableView>
 );
 
 const Page = () => {
@@ -263,7 +238,7 @@ const SomeFocusableComponent = ({ onSelect }: Props) => {
 };
 ```
 
-This way, when hovering `SomeFocusableElement` with a pointer, the focus will be triggered.
+This way, when hovering `SomeFocusableElement` with a pointer, the focus will be triggered. This is done thanks to the `SpatialNavigationFocusableView` component, which handles the hovering with a pointer. This single component is the key to make the pointer work.
 
 ### Handling scroll in virtualized lists and grids
 
@@ -283,7 +258,7 @@ Example of a working virtualized list :
 />
 ```
 
-Here is also handled the hiding of the arrows when the list is not hovered.
+Here is also handled the hiding of the arrows when the list is not hovered, thanks to the `isActive` state !
 
 ### Handling scroll in SpatialNavigationScrollView
 
