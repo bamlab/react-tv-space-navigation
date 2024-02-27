@@ -40,6 +40,7 @@ const Container = styled(Animated.View)<{ isFocused: boolean }>(({ isFocused, th
   backgroundColor: isFocused ? 'white' : 'black',
   padding: theme.spacings.$4,
   borderRadius: scaledPixels(12),
+  cursor: 'pointer',
 }));
 
 const ColoredTypography = styled(Typography)<{ isFocused: boolean }>(({ isFocused }) => ({
