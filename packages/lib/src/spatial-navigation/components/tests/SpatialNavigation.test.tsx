@@ -34,71 +34,72 @@ export const expectButtonToHaveFocus = (component: RenderResult, text: string) =
 };
 
 describe('Spatial Navigation Movement', () => {
-  it('handles correctly RIGHT LEFT LEFT', () => {
+  jest.setTimeout(10000); // This test suite has become slow after the introduction of the new movement detection logic which is async. It fails in CI only...
+  it('handles correctly RIGHT LEFT LEFT', async () => {
     const component = render(<TestScreen />);
 
     expectButtonToHaveFocus(component, 'button 1');
-    testRemoteControlManager.handleRight();
+    await testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 2');
-    testRemoteControlManager.handleLeft();
+    await testRemoteControlManager.handleLeft();
     expectButtonToHaveFocus(component, 'button 1');
-    testRemoteControlManager.handleLeft();
+    await testRemoteControlManager.handleLeft();
     expectButtonToHaveFocus(component, 'button 1');
   });
 
-  it('handles correctly RIGHT DOWN DOWN UP', () => {
+  it('handles correctly RIGHT DOWN DOWN UP', async () => {
     const component = render(<TestScreen />);
 
     expectButtonToHaveFocus(component, 'button 1');
 
-    testRemoteControlManager.handleRight();
+    await testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 2');
-    testRemoteControlManager.handleDown();
+    await testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 4');
-    testRemoteControlManager.handleDown();
+    await testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 4');
-    testRemoteControlManager.handleUp();
+    await testRemoteControlManager.handleUp();
     expectButtonToHaveFocus(component, 'button 2');
   });
 
-  it('handles correctly DOWN RIGHT UP DOWN', () => {
+  it('handles correctly DOWN RIGHT UP DOWN', async () => {
     const component = render(<TestScreen />);
 
     expectButtonToHaveFocus(component, 'button 1');
 
-    testRemoteControlManager.handleDown();
+    await testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 4');
-    testRemoteControlManager.handleRight();
+    await testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 5');
-    testRemoteControlManager.handleUp();
+    await testRemoteControlManager.handleUp();
     expectButtonToHaveFocus(component, 'button 1');
-    testRemoteControlManager.handleDown();
+    await testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 5');
   });
 
-  it('handles correctly out-of-screen movement detection', () => {
+  it('handles correctly out-of-screen movement detection', async () => {
     const mock = jest.fn();
     const component = render(<TestScreen onDirectionHandledWithoutMovement={mock} />);
 
     expectButtonToHaveFocus(component, 'button 1');
-    testRemoteControlManager.handleLeft();
+    await testRemoteControlManager.handleLeft();
     expectButtonToHaveFocus(component, 'button 1');
     expect(mock).toHaveBeenCalledWith('left');
     mock.mockReset();
 
-    testRemoteControlManager.handleDown();
-    testRemoteControlManager.handleUp();
-    testRemoteControlManager.handleRight();
-    testRemoteControlManager.handleDown();
+    await testRemoteControlManager.handleDown();
+    await testRemoteControlManager.handleUp();
+    await testRemoteControlManager.handleRight();
+    await testRemoteControlManager.handleDown();
     expect(mock).not.toHaveBeenCalled();
 
-    testRemoteControlManager.handleDown();
+    await testRemoteControlManager.handleDown();
     expect(mock).toHaveBeenCalledWith('down');
     mock.mockReset();
 
-    testRemoteControlManager.handleRight();
-    testRemoteControlManager.handleRight();
-    testRemoteControlManager.handleRight();
+    await testRemoteControlManager.handleRight();
+    await testRemoteControlManager.handleRight();
+    await testRemoteControlManager.handleRight();
     expect(mock).toHaveBeenCalledWith('right');
   });
 });

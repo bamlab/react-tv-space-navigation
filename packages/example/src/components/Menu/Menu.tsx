@@ -5,9 +5,8 @@ import {
   SpatialNavigationView,
 } from 'react-tv-space-navigation';
 import { useMenuContext } from './MenuContext';
-
 import { Fragment, useCallback, useEffect, useRef } from 'react';
-import { Animated, Dimensions, View } from 'react-native';
+import { Animated, Dimensions, Platform, View } from 'react-native';
 import styled from '@emotion/native';
 import { Typography } from '../../design-system/components/Typography';
 import { Spacer } from '../../design-system/components/Spacer';
@@ -15,11 +14,10 @@ import { Box } from '../../design-system/components/Box';
 import { useTheme } from '@emotion/react';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { MenuButton } from './MenuButton';
-import { RootTabParamList } from '../../../App';
 import { IconName } from '../../design-system/helpers/IconsCatalog';
+import { RootTabParamList } from '../../../App';
 
 const windowDimensions = Dimensions.get('window');
-
 const MenuItem = ({
   label,
   icon,
@@ -68,7 +66,6 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
   const animatedWidth = useRef(
     new Animated.Value(isMenuOpen ? theme.sizes.menu.open : theme.sizes.menu.closed),
   ).current;
-
   const onDirectionHandledWithoutMovement = useCallback(
     (movement: Direction) => {
       if (movement === 'right') {
@@ -78,6 +75,18 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
     [toggleMenu],
   );
 
+  const menuWebProps = Platform.select({
+    web: {
+      onMouseEnter: () => {
+        toggleMenu(true);
+      },
+      onMouseLeave: () => {
+        toggleMenu(false);
+      },
+    },
+    default: {},
+  });
+
   useEffect(() => {
     Animated.timing(animatedWidth, {
       toValue: isMenuOpen ? theme.sizes.menu.open : theme.sizes.menu.closed,
@@ -85,7 +94,6 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
       useNativeDriver: false,
     }).start();
   }, [animatedWidth, isMenuOpen, theme.sizes.menu.closed, theme.sizes.menu.open]);
-
   return (
     <SpatialNavigationRoot
       isActive={isMenuOpen}
@@ -95,7 +103,7 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
         <SpatialNavigationView direction="vertical">
           <MenuSpacer />
           <MenuOverlay style={{ width: animatedWidth }} />
-          <MenuContainer>
+          <MenuContainer isOpen={isMenuOpen} {...menuWebProps}>
             <DefaultFocus>
               <View>
                 {state.routes.map((route, index) => {
@@ -121,11 +129,11 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
   );
 };
 
-const MenuContainer = styled.View(({ theme }) => ({
+const MenuContainer = styled.View<{ isOpen: boolean }>(({ isOpen, theme }) => ({
   position: 'absolute',
   left: 0,
   backgroundColor: 'transparent',
-  width: theme.sizes.menu.open,
+  width: isOpen ? theme.sizes.menu.open : theme.sizes.menu.closed,
   height: windowDimensions.height,
   paddingLeft: theme.spacings.$4,
   justifyContent: 'center',

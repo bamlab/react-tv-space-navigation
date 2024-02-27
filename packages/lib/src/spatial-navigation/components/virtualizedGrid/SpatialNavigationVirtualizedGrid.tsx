@@ -4,7 +4,10 @@ import range from 'lodash/range';
 
 import { ItemWithIndex } from '../virtualizedList/VirtualizedList';
 import { SpatialNavigationVirtualizedList } from '../virtualizedList/SpatialNavigationVirtualizedList';
-import { SpatialNavigationVirtualizedListWithScrollProps } from '../virtualizedList/SpatialNavigationVirtualizedListWithScroll';
+import {
+  PointerScrollProps,
+  SpatialNavigationVirtualizedListWithScrollProps,
+} from '../virtualizedList/SpatialNavigationVirtualizedListWithScroll';
 import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
 import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
 import { useBeforeMountEffect } from '../../hooks/useBeforeMountEffect';
@@ -21,21 +24,22 @@ type SpatialNavigationVirtualizedGridProps<T extends ItemWithIndex> = Pick<
   | 'scrollBehavior'
   | 'scrollDuration'
   | 'testID'
-> & {
-  itemHeight: number;
-  header?: JSX.Element;
-  headerSize?: number;
-  /** How many rows are RENDERED (virtualization size) */
-  numberOfRenderedRows: number;
-  /** How many rows are visible on screen (helps with knowing how to slice our data and to stop the scroll at the end of the list) */
-  numberOfRowsVisibleOnScreen: number;
-  /** Number of rows left to display before triggering onEndReached */
-  onEndReachedThresholdRowsNumber?: number;
-  /** Number of columns in the grid OR number of items per rows */
-  numberOfColumns: number;
-  /** Used to modify every row style */
-  rowContainerStyle?: ViewStyle;
-};
+> &
+  PointerScrollProps & {
+    itemHeight: number;
+    header?: JSX.Element;
+    headerSize?: number;
+    /** How many rows are RENDERED (virtualization size) */
+    numberOfRenderedRows: number;
+    /** How many rows are visible on screen (helps with knowing how to slice our data and to stop the scroll at the end of the list) */
+    numberOfRowsVisibleOnScreen: number;
+    /** Number of rows left to display before triggering onEndReached */
+    onEndReachedThresholdRowsNumber?: number;
+    /** Number of columns in the grid OR number of items per rows */
+    numberOfColumns: number;
+    /** Used to modify every row style */
+    rowContainerStyle?: ViewStyle;
+  };
 
 export type GridRowType<T extends ItemWithIndex> = {
   items: T[];

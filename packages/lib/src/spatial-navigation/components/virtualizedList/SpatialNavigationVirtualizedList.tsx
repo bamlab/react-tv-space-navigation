@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { SpatialNavigationNode } from '../Node';
 import {
+  PointerScrollProps,
   SpatialNavigationVirtualizedListWithScroll,
   SpatialNavigationVirtualizedListWithScrollProps,
 } from './SpatialNavigationVirtualizedListWithScroll';
@@ -13,7 +14,7 @@ import { ItemWithIndex } from './VirtualizedList';
  * This component wraps the virtualized list inside a parent navigation node.
  * */
 export const SpatialNavigationVirtualizedList = typedMemo(
-  <T,>(props: SpatialNavigationVirtualizedListWithScrollProps<T>) => {
+  <T,>(props: SpatialNavigationVirtualizedListWithScrollProps<T> & PointerScrollProps) => {
     const indexedData = useMemo(() => addIndex(props.data), [props.data]);
 
     return (

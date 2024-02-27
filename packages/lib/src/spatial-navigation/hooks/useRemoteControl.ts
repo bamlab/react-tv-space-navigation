@@ -1,6 +1,7 @@
 import SpatialNavigator from '../SpatialNavigator';
 import { useEffect } from 'react';
 import { remoteControlSubscriber, remoteControlUnsubscriber } from '../configureRemoteControl';
+import { useSpatialNavigationDeviceType } from '../context/DeviceContext';
 
 export const useRemoteControl = ({
   spatialNavigator,
@@ -9,6 +10,8 @@ export const useRemoteControl = ({
   spatialNavigator: SpatialNavigator;
   isActive: boolean;
 }) => {
+  const { setDeviceType, setScrollingIntervalId: setScrollingId } =
+    useSpatialNavigationDeviceType();
   useEffect(() => {
     if (!remoteControlSubscriber) {
       console.warn(
@@ -22,9 +25,12 @@ export const useRemoteControl = ({
       return () => undefined;
     }
 
-    const listener = remoteControlSubscriber((direction) =>
-      spatialNavigator.handleKeyDown(direction),
-    );
+    const listener = remoteControlSubscriber(async (direction) => {
+      setDeviceType('remoteKeys');
+      await 0; // State update is async, but we need to wait for it to be done in order to handle the key event correctly
+      spatialNavigator.handleKeyDown(direction);
+      setScrollingId(null);
+    });
     return () => {
       if (!remoteControlUnsubscriber) {
         console.warn(
@@ -35,5 +41,5 @@ export const useRemoteControl = ({
       }
       remoteControlUnsubscriber(listener);
     };
-  }, [spatialNavigator, isActive]);
+  }, [spatialNavigator, isActive, setDeviceType, setScrollingId]);
 };

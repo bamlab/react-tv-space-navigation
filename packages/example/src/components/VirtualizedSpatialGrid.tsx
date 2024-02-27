@@ -7,6 +7,7 @@ import { ProgramNode } from '../modules/program/view/ProgramNode';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';
 import { theme } from '../design-system/theme/theme';
 import { Header } from '../modules/header/view/Header';
+import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
 
 const NUMBER_OF_ROWS_VISIBLE_ON_SCREEN = 2;
 const NUMBER_OF_RENDERED_ROWS = NUMBER_OF_ROWS_VISIBLE_ON_SCREEN + 5;
@@ -41,6 +42,11 @@ export const VirtualizedSpatialGrid = ({ containerStyle }: { containerStyle?: Vi
         numberOfRowsVisibleOnScreen={NUMBER_OF_ROWS_VISIBLE_ON_SCREEN}
         onEndReachedThresholdRowsNumber={INFINITE_SCROLL_ROW_THRESHOLD}
         rowContainerStyle={styles.rowStyle}
+        ascendingArrow={<BottomArrow />}
+        ascendingArrowContainerStyle={styles.bottomArrowContainer}
+        descendingArrow={<TopArrow />}
+        descendingArrowContainerStyle={styles.topArrowContainer}
+        scrollInterval={150}
       />
     </View>
   );
@@ -56,4 +62,22 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   rowStyle: { gap: scaledPixels(30) },
+  topArrowContainer: {
+    width: '100%',
+    height: 100,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 0,
+    left: 0,
+  },
+  bottomArrowContainer: {
+    width: '100%',
+    height: 100,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: -15,
+    left: 0,
+  },
 });

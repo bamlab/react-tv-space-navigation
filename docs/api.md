@@ -4,9 +4,11 @@
 - [SpatialNavigationNode](#spatialnavigationnode)
 - [SpatialNavigationScrollView](#spatialnavigationscrollview)
 - [SpatialNavigationView](#spatialnavigationview)
+- [SpatialNavigationFocusableView](#spatialnavigationfocusableview)
 - [SpatialNavigationVirtualizedList](#spatialnavigationvirtualizedlist)
 - [SpatialNavigationVirtualizedGrid](#spatialnavigationvirtualizedgrid)
 - [DefaultFocus](#defaultfocus)
+- [DeviceProvider](#deviceprovider)
 - [configureRemoteControl](#configureremotecontrol)
 - [useSpatialNavigatorFocusableAccessibilityProps](#usespatialnavigatorfocusableaccessibilityprops)
 - [useLockSpatialNavigation](#uselockspatialnavigation)
@@ -44,16 +46,16 @@ It helps with describing the spatial layout of the components, and what to do wh
 
 The `SpatialNavigationNode` component receives the following props:
 
-| Name          | Type                        | Default      | Description                                                                                                                                                                                                                                                   |
-| ------------- | --------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `onFocus`     | `function`                  | `undefined`  | Callback function to be called when the node gains focus.                                                                                                                                                                                                     |
-| `onBlur`      | `function`                  | `undefined`  | Callback function to be called when the node loses focus.                                                                                                                                                                                                     |
-| `onSelect`    | `function`                  | `undefined`  | Callback function to be called when the node is selected.                                                                                                                                                                                                     |
-| `orientation` | `'vertical' \| 'horizontal` | `'vertical'` | Determines the orientation of the node.                                                                                                                                                                                                                       |
-| `isFocusable` | `boolean`                   | `false`      | Determines if the node is focusable or not. If it's `true`, the `children` prop must be a function that returns a React element and accepts a parameter with a `isFocused` property. If it's `false` or not provided, `children` can be any valid React node. |
-| `alignInGrid` | `boolean`                   |  `false`      | Determines whether child lists should behave like a grid. |
-| `indexRange`  | `number[]`                  | `undefined`    | Determines the indexes when using long nodes in a grid. If a grid row has one `indexRange`, you should specify each element's `indexRange`. You can check for more details in [`GridWithLongNodesPage`](https://github.com/bamlab/react-tv-space-navigation/blob/31bfe1def4a7e18e9e41f26a520090d1b7a5b149/packages/example/src/pages/GridWithLongNodesPage.tsx) example or in [lrud documentation](https://github.com/bbc/lrud/blob/master/docs/usage.md#indexrange). |
-| `children` | `({ isFocused, isActive }: { isFocused: boolean, isActive: boolean }) => ReactNode` or `ReactNode` | `null` | Child elements of the component. It can be a function that returns a React element and accepts a parameter with a `isFocused` property when `isFocusable` is `true`. If `isFocusable` is `false` or not provided, it can be any valid React node. |
+| Name          | Type                                                                                               | Default      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ------------- | -------------------------------------------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `onFocus`     | `function`                                                                                         | `undefined`  | Callback function to be called when the node gains focus.                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `onBlur`      | `function`                                                                                         | `undefined`  | Callback function to be called when the node loses focus.                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `onSelect`    | `function`                                                                                         | `undefined`  | Callback function to be called when the node is selected.                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `orientation` | `'vertical' \| 'horizontal`                                                                        | `'vertical'` | Determines the orientation of the node.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `isFocusable` | `boolean`                                                                                          | `false`      | Determines if the node is focusable or not. If it's `true`, the `children` prop must be a function that returns a React element and accepts a parameter with a `isFocused` property. If it's `false` or not provided, `children` can be any valid React node.                                                                                                                                                                                                         |
+| `alignInGrid` | `boolean`                                                                                          | `false`      | Determines whether child lists should behave like a grid.                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `indexRange`  | `number[]`                                                                                         | `undefined`  | Determines the indexes when using long nodes in a grid. If a grid row has one `indexRange`, you should specify each element's `indexRange`. You can check for more details in [`GridWithLongNodesPage`](https://github.com/bamlab/react-tv-space-navigation/blob/31bfe1def4a7e18e9e41f26a520090d1b7a5b149/packages/example/src/pages/GridWithLongNodesPage.tsx) example or in [lrud documentation](https://github.com/bbc/lrud/blob/master/docs/usage.md#indexrange). |
+| `children`    | `({ isFocused, isActive }: { isFocused: boolean, isActive: boolean }) => ReactNode` or `ReactNode` | `null`       | Child elements of the component. It can be a function that returns a React element and accepts a parameter with a `isFocused` property when `isFocusable` is `true`. If `isFocusable` is `false` or not provided, it can be any valid React node.                                                                                                                                                                                                                     |
 
 The `SpatialNavigationNode` component ref expose the following methods:
 
@@ -117,12 +119,17 @@ It also ensures that the scroll event is propagated properly for parent ScrollVi
 
 The `SpatialNavigationScrollView` component receives the following props:
 
-| Name              | Type        | Default | Description                                                                                                                                   |
-| ----------------- | ----------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `horizontal`      | `boolean`   | `false` | Determines if the scrolling orientation is horizontal. If `false`, the scrolling orientation will be vertical.                                |
-| `offsetFromStart` | `number`    | `0`     | This offset is used to prevent the element from sticking too closely to the edges of the screen during scrolling. This is a margin in pixels. |
-| `style`           | `ViewStyle` | `null`  | Style for the ScrollView. This can be any valid React Native style object.                                                                    |
-| `children`        | `ReactNode` | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                    |
+| Name                            | Type           | Default | Description                                                                                                                                                   |
+| ------------------------------- | -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `horizontal`                    | `boolean`      | `false` | Determines if the scrolling orientation is horizontal. If `false`, the scrolling orientation will be vertical.                                                |
+| `offsetFromStart`               | `number`       | `0`     | This offset is used to prevent the element from sticking too closely to the edges of the screen during scrolling. This is a margin in pixels.                 |
+| `style`                         | `ViewStyle`    | `null`  | Style for the ScrollView. This can be any valid React Native style object.                                                                                    |
+| `children`                      | `ReactNode`    | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                                    |
+| `ascendingArrow`                | `ReactElement` | `null`  | For web TVs cursor handling. Optional component to display as the arrow to scroll on the ascending order.                                                     |
+| `ascendingArrowContainerStyle`  | `ViewStyle`    | `null`  | For web TVs cursor handling. Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll.                                      |
+| `descendingArrow`               | `ReactElement` | `null`  | For web TVs cursor handling. Optional component to display as the arrow to scroll on the descending order.                                                    |
+| `descendingArrowContainerStyle` | `ViewStyle`    | `null`  | For web TVs cursor handling. Style of the view which wraps the descending arrow. Hover this view will trigger the scroll.                                     |
+| `pointerScrollSpeed`            | `number`       | `10`    | For web TVs cursor handling. Speed of the pointer scroll. It represents the number of pixels scrolled every 10ms when hovering a scroll arrow with a pointer. |
 
 ## Usage
 
@@ -143,18 +150,18 @@ const FocusableNode = () => (
 
 # SpatialNavigationFocusableView
 
-The `SpatialNavigationFocusableView`component is a simple wrapper component that contains a `SpatialNavigationNode`.
-This component allows you to not forward the ref of the closest inner view.
+The `SpatialNavigationFocusableView` component is a wrapper component that contains a `SpatialNavigationNode` with the props `isFocusable`.
+This component allows you to grab the focus to it when hovering it with a pointer, and to describe the orientation along with the style of the `SpatialNavigationNode` and its children.
 
 ## Props
 
-The `SpatialNavigationFocusableView` component receives the following props :
+The `SpatialNavigationFocusableView` component receives the following props:
 
-[SpatialNavigationNode props](#props-1) except `isFocusable` that is already set to true.
-
-| Name        | Type                         | Default        | Description                                                                                                |
-| ----------- | ---------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------- |
-| `style`     | `ViewStyle`                  | `null`         | Style for the View. This can be any valid React Native style
+| Name        | Type        | Default | Description                                                                                                |
+| ----------- | ----------- | ------- | ---------------------------------------------------------------------------------------------------------- |
+| `style`     | `ViewStyle` | `null`  | Style for the View. This can be any valid React Native style object.                                       |
+| `children`  | `ReactNode` | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements. |
+| `viewProps` | `ViewProps` | `null`  | You can provide props that will be given to the view wrapped in the node.                                  |
 
 ## Usage
 
@@ -163,10 +170,13 @@ The `SpatialNavigationFocusableView` component receives the following props :
   onFocus={() => console.log('Node gained focus')}
   onSelect={() => console.log('Node was selected')}
   orientation="horizontal"
+  viewProps={{ role: 'This is my role' }}
 >
   {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
 </SpatialNavigationFocusableView>
 ```
+
+In this example above, the `onMouseEnter` function also triggers the focus of the element.
 
 # SpatialNavigationView
 
@@ -177,12 +187,12 @@ This component allows you to describe the orientation along with the style of th
 
 The `SpatialNavigationView` component receives the following props:
 
-| Name        | Type                         | Default        | Description                                                                                                |
-| ----------- | ---------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------- |
-| `direction` | `'horizontal' \| 'vertical'` | `'horizontal'` | The orientation of the `SpatialNavigationNode`.                                                            |
-| `alignInGrid` | `boolean`                  | `false`        | Determines whether child lists should behave like a grid. |                                     |
-| `style`     | `ViewStyle`                  | `null`         | Style for the View. This can be any valid React Native style object.                                       |
-| `children`  | `ReactNode`                  | `null`         | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements. |
+| Name          | Type                         | Default        | Description                                                                                                |
+| ------------- | ---------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------- |
+| `direction`   | `'horizontal' \| 'vertical'` | `'horizontal'` | The orientation of the `SpatialNavigationNode`.                                                            |
+| `alignInGrid` | `boolean`                    | `false`        | Determines whether child lists should behave like a grid.                                                  |
+| `style`       | `ViewStyle`                  | `null`         | Style for the View. This can be any valid React Native style object.                                       |
+| `children`    | `ReactNode`                  | `null`         | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements. |
 
 ## Usage
 
@@ -225,6 +235,11 @@ It also ensures that the scroll event is propagated properly to parent ScrollVie
 | `nbMaxOfItems`                     | `number`                                                 | The total number of expected items for infinite scroll. This helps with aligning items and is used for pagination. If not provided, it defaults to the length of the data array.                                                                                                                                                                                     |
 | `scrollDuration`                   | `number`                                                 | The duration of a scrolling animation inside the VirtualizedList. Defaults to 200ms.                                                                                                                                                                                                                                                                                 |
 | `scrollBehavior`                   | `'stick-to-start' \| 'stick-to-end' \| 'jump-on-scroll'` | Determines the scrolling behavior. Defaults to `'stick-to-start'`. `'stick-to-start'` and `'stick-to-end'` fix the focused item at the beginning or the end of the visible items on screen. `jump-on-scroll` jumps from `numberOfItemsVisibleOnScreen` items when needed. Warning `jump-on-scroll` is not compatible with dynamic item size.                         |
+| `ascendingArrow`                   | `ReactElement`                                           | For web TVs cursor handling. Optional component to display as the arrow to scroll on the ascending order.                                                                                                                                                                                                                                                            |
+| `ascendingArrowContainerStyle`     | `ViewStyle`                                              | For web TVs cursor handling. Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll.                                                                                                                                                                                                                                             |
+| `descendingArrow`                  | `ReactElement`                                           | For web TVs cursor handling. Optional component to display as the arrow to scroll on the descending order.                                                                                                                                                                                                                                                           |
+| `descendingArrowContainerStyle`    | `ViewStyle`                                              | For web TVs cursor handling. Style of the view which wraps the descending arrow. Hover this view will trigger the scroll.                                                                                                                                                                                                                                            |
+| `scrollInterval`                   | `number`                                                 | For web TVs cursor handling. Speed of the pointer scroll. It represents the interval in ms between every item scrolled. Default value is set to 100.                                                                                                                                                                                                                 |
 
 ## Usage
 
@@ -293,6 +308,11 @@ VirtualizedGrids only support vertical orientation (vertically scrollable), but 
 | `rowContainerStyle`               | `Object`                                                 | Used to modify the style of each row in the grid.                                                                                                                                                                                                                       |
 | `scrollDuration`                  | `number`                                                 | The duration of a scrolling animation inside the VirtualizedList. Defaults to `200` (ms).                                                                                                                                                                               |
 | `scrollBehavior`                  | `'stick-to-start' \| 'stick-to-end' \| 'jump-on-scroll'` | Determines the scrolling behavior. Defaults to `'stick-to-start'`. `'stick-to-start'` and `'stick-to-end'` fix the focused row at the beginning or the end of the visible items on screen. `jump-on-scroll` jumps from `numberOfItemsVisibleOnScreen` rows when needed. |
+| `ascendingArrow`                  | `ReactElement`                                           | For web TVs cursor handling. Optional component to display as the arrow to scroll on the ascending order.                                                                                                                                                               |
+| `ascendingArrowContainerStyle`    | `ViewStyle`                                              | For web TVs cursor handling. Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll.                                                                                                                                                |
+| `descendingArrow`                 | `ReactElement`                                           | For web TVs cursor handling. Optional component to display as the arrow to scroll on the descending order.                                                                                                                                                              |
+| `descendingArrowContainerStyle`   | `ViewStyle`                                              | For web TVs cursor handling. Style of the view which wraps the descending arrow. Hover this view will trigger the scroll.                                                                                                                                               |
+| `scrollInterval`                  | `number`                                                 | For web TVs cursor handling. Speed of the pointer scroll. It represents the interval in ms between every item scrolled. Default value is set to 100.                                                                                                                    |
 
 ## Example Usage
 
@@ -353,6 +373,36 @@ const FocusableNode = () => (
 ```
 
 In the example above, the third node will get the default focus when mounting our page.
+
+# SpatialNavigationDeviceTypeProvider
+
+This context allows to know what devices is used to control the focus. It handles two type of device :
+
+- `remoteKeys` which represents the TV remote's buttons
+- `remotePointer` which represents the TV remote pointer (available on certain TVs, like LG and their Magic Remote for example). It is also triggered by a mouse on the web.
+
+These values are used by the components of the library to handle inputs. On your side, you only need to put the provider in your app, as shown below.
+
+## How does it work
+
+By default, the context provides the value `remoteKeys` as it is the most widely use type of device.
+Every time an input is made on a device which is different from the one specified in the context, its value changes to represent the most recent device used by the user.
+
+## Usage
+
+```tsx
+function App(): JSX.Element {
+  return (
+    <SomeOtherProviders>
+      <SpatialNavigationDeviceTypeProvider>
+        <YourApp />
+      </SpatialNavigationDeviceTypeProvider>
+    </SomeOtherProviders>
+  );
+}
+```
+
+In the example above, every component of the app will be able to subscribe to the `DeviceContext`.
 
 # configureRemoteControl
 

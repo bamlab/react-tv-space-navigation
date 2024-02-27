@@ -35,4 +35,6 @@ const setupPermanentMocks = () => {
 setupPermanentMocks();
 
 // And then this one is needed to re-set the mocks after the automatic `clearMocks`
-beforeEach(setupPermanentMocks);
+beforeEach(() => {
+  setupPermanentMocks();
+});
