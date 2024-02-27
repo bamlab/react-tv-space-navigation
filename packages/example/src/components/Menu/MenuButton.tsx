@@ -62,5 +62,6 @@ const Container = styled(Animated.View)<{ isFocused: boolean; isMenuOpen: boolea
     backgroundColor: isFocused && isMenuOpen ? 'white' : 'black',
     padding: theme.spacings.$4,
     borderRadius: scaledPixels(12),
+    cursor: 'pointer',
   }),
 );

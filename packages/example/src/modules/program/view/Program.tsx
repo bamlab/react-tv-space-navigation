@@ -40,6 +40,7 @@ const ProgramContainer = styled(Animated.View)<{ isFocused: boolean }>(({ isFocu
   borderRadius: 20,
   borderColor: isFocused ? theme.colors.primary.light : 'transparent',
   borderWidth: 3,
+  cursor: 'pointer',
 }));
 
 const ProgramImage = styled(Image)({
