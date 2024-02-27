@@ -85,9 +85,12 @@ const Page = () => {
 ```diff
 const Element = () => (
 +  <SpatialNavigationFocusableView>
-    <View>
-      <Text>Page element</Text>
-    </View>
++    {({ isFocused }) => (
+-     <View>
++     <View style={isFocused && { backgroundColor: 'green' }}>
+        <Text>Page element</Text>
+      </View>
++    )}
 +  </SpatialNavigationFocusableView>
 );
 

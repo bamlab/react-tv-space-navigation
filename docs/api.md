@@ -381,7 +381,7 @@ This context allows to know what devices is used to control the focus. It handle
 - `remoteKeys` which represents the TV remote's buttons
 - `remotePointer` which represents the TV remote pointer (available on certain TVs, like LG and their Magic Remote for example). It is also triggered by a mouse on the web.
 
-These values are used by the components of the library to handle inputs. On the user-side, you only need to put the provider in your app, as shown below.
+These values are used by the components of the library to handle inputs. On your side, you only need to put the provider in your app, as shown below.
 
 ## How does it work
 
