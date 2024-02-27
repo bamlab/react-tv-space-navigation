@@ -157,12 +157,11 @@ This component allows you to grab the focus to it when hovering it with a pointe
 
 The `SpatialNavigationFocusableView` component receives the following props:
 
-| Name           | Type        | Default                 | Description                                                                                                                                                                                               |
-| -------------- | ----------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `style`        | `ViewStyle` | `null`                  | Style for the View. This can be any valid React Native style object.                                                                                                                                      |
-| `children`     | `ReactNode` | `null`                  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                                                                                |
-| `onMouseEnter` | `ReactNode` | `() => void \| boolean` | For web TVs cursor handling. A function which is triggered when a pointer enters the `SpatialNavigationFocusableView`. To bypass the focus of the node when hovering it, the function must return `true`. |
-| `onMouseLeave` | `ReactNode` | `() => void`            | For web TVs cursor handling. A function which is triggered when a pointer leaves the `SpatialNavigationFocusableView`.                                                                                    |
+| Name        | Type        | Default | Description                                                                                                |
+| ----------- | ----------- | ------- | ---------------------------------------------------------------------------------------------------------- |
+| `style`     | `ViewStyle` | `null`  | Style for the View. This can be any valid React Native style object.                                       |
+| `children`  | `ReactNode` | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements. |
+| `viewProps` | `ViewProps` | `null`  | You can provide props that will be given to the view wrapped in the node.                                  |
 
 ## Usage
 
@@ -170,9 +169,8 @@ The `SpatialNavigationFocusableView` component receives the following props:
 <SpatialNavigationFocusableView
   onFocus={() => console.log('Node gained focus')}
   onSelect={() => console.log('Node was selected')}
-  onMouseEnter={() => console.log('The view has been entered by a pointer and the element has been focused'')}
-  onMouseLeave={() => console.log('The view has been left by a pointer')}
   orientation="horizontal"
+  viewProps={{ role: 'This is my role' }}
 >
   {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
 </SpatialNavigationFocusableView>

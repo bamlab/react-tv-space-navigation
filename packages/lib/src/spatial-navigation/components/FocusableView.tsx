@@ -1,5 +1,5 @@
 import { SpatialNavigationNode, SpatialNavigationNodeDefaultProps } from './Node';
-import { Platform, View, ViewStyle } from 'react-native';
+import { Platform, View, ViewStyle, ViewProps } from 'react-native';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
 import { useSpatialNavigationDeviceType } from '../context/DeviceContext';
@@ -9,16 +9,13 @@ type Props = SpatialNavigationNodeDefaultProps & {
   children:
     | React.ReactElement
     | ((props: { isFocused: boolean; isActive: boolean }) => React.ReactElement);
-  /** return true if you want to ignore the focus */
-  onMouseEnter?: () => void | boolean;
-  onMouseLeave?: () => void;
+  viewProps?: ViewProps & { onMouseEnter?: () => void };
 };
 
 export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRef, Props>(
-  ({ children, style, onMouseEnter, onMouseLeave, ...props }: Props, ref) => {
+  ({ children, style, viewProps, ...props }: Props, ref) => {
     const { deviceType } = useSpatialNavigationDeviceType();
     const nodeRef = useRef<SpatialNavigationNodeRef>(null);
-    const onSelect = props.onSelect;
 
     useImperativeHandle(
       ref,
@@ -31,19 +28,15 @@ export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRe
     const webProps = Platform.select({
       web: {
         onMouseEnter: () => {
-          if (onMouseEnter) {
-            onMouseEnter();
-            if (onMouseEnter() === true) return;
+          if (viewProps?.onMouseEnter) {
+            viewProps?.onMouseEnter();
           }
           if (deviceType === 'remotePointer') {
             nodeRef.current?.focus();
           }
         },
-        onMouseLeave: () => {
-          onMouseLeave?.();
-        },
         onClick: () => {
-          onSelect?.();
+          props.onSelect?.();
         },
       },
       default: {},
@@ -52,7 +45,7 @@ export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRe
     return (
       <SpatialNavigationNode isFocusable {...props} ref={nodeRef}>
         {({ isFocused, isActive }) => (
-          <View style={style} {...webProps}>
+          <View style={style} {...viewProps} {...webProps}>
             {typeof children === 'function' ? children({ isFocused, isActive }) : children}
           </View>
         )}
