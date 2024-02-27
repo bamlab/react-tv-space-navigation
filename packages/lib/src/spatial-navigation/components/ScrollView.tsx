@@ -3,6 +3,7 @@ import {
   ScrollView,
   View,
   ViewStyle,
+  StyleSheet,
   Platform,
   NativeSyntheticEvent,
   NativeScrollEvent,
@@ -13,7 +14,6 @@ import {
 } from '../context/ParentScrollContext';
 import { scrollToNewlyFocusedElement } from '../helpers/scrollToNewlyfocusedElement';
 import { useSpatialNavigationDeviceType } from '../context/DeviceContext';
-import styled from '@emotion/native';
 
 type Props = {
   horizontal?: boolean;
@@ -69,7 +69,6 @@ const useRemotePointerScrollviewScrollProps = ({
     if (deviceType === 'remotePointer') {
       let currentScrollPosition = scrollY.current;
       const id = setInterval(() => {
-        // console.log('scrolling bottom', id);
         currentScrollPosition += pointerScrollSpeed;
         scrollViewRef.current?.scrollTo({
           y: currentScrollPosition,
@@ -217,9 +216,12 @@ const PointerScrollArrows = React.memo(
   }) => {
     return (
       <>
-        <DescendingArrowContainer style={descendingArrowContainerStyle} {...descendingArrowProps}>
+        <View
+          style={[styles.arrowContainer, descendingArrowContainerStyle]}
+          {...descendingArrowProps}
+        >
           {descendingArrow}
-        </DescendingArrowContainer>
+        </View>
         <View style={ascendingArrowContainerStyle} {...ascendingArrowProps}>
           {ascendingArrow}
         </View>
@@ -229,6 +231,8 @@ const PointerScrollArrows = React.memo(
 );
 PointerScrollArrows.displayName = 'PointerScrollArrows';
 
-const DescendingArrowContainer = styled.View({
-  position: 'absolute',
+const styles = StyleSheet.create({
+  arrowContainer: {
+    position: 'absolute',
+  },
 });
