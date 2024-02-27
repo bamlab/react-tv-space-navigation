@@ -159,6 +159,41 @@ const Page = () => {
 };
 ```
 
+### Handle two rows of elements
+
+To handle this case, `SpatialNavigationView` is the privileged solution. It allows to wrap elements in a spatial navigation node.
+
+Let's say we would like two rows of element in our page :
+
+```diff
+const Element = ({ onSelect }) => (
+  <SpatialNavigationFocusableView onSelect={onSelect}>
+    {({ isFocused }) => (
+      <View style={isFocused && { backgroundColor: 'green' }}>
+        <Text>Page element</Text>
+      </View>
+    )}
+  </SpatialNavigationFocusableView>
+);
+
+const Page = () => {
+  return (
+    <SpatialNavigationRoot>
++     <SpatialNavigationView direction='horizontal' >
+        <Element onSelect={() => console.log('selected first element')} />
+        <DefaultFocus>
+          <Element onSelect={() => console.log('selected second element')} />
+        </DefaultFocus>
++     </SpatialNavigationView>
++     <SpatialNavigationView direction='horizontal' >
++       <Element onSelect={() => console.log('selected third element')} />
++       <Element onSelect={() => console.log('selected fourth element')} />
++     </SpatialNavigationView>
+    </SpatialNavigationRoot>
+  );
+};
+```
+
 ### Add a ScrollView
 
 You will probably need an app where your content is larger than your screen. You can use the spatial scroll view to handle this.
@@ -281,3 +316,7 @@ The principle is the same as above and the API is also the same.
   {...}
 </SpatialNavigationScrollView>
 ```
+
+### Advanced usage
+
+`SpatialNavigationNode` can be used in specific situations, such as conditional rendering. For more information, see [here](./pitfalls.md#conditional-rendering).
