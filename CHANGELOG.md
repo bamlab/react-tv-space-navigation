@@ -1,4 +1,18 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v1.5.0...v) (2024-02-19)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v2.0.0...v) (2024-02-28)
+
+## [2.0.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.5.0...v2.0.0) (2024-02-28)
+
+
+### Features
+
+* add SpatialNavigationFocusableView ([fa62c33](https://github.com/bamlab/react-tv-space-navigation/commit/fa62c33fd00c36d2cbe0372e924941e1c8ee75fd))
+* **core:** handle accessibility in focusable views ([#79](https://github.com/bamlab/react-tv-space-navigation/issues/79)) ([1d4bdcf](https://github.com/bamlab/react-tv-space-navigation/commit/1d4bdcfa622ca13fc7f215bf46aeb03997e26aac))
+* **web:** handle TVs with web pointers ([111a375](https://github.com/bamlab/react-tv-space-navigation/commit/111a3753169f1461447826e5e8a86eeedccb546a))
+
+
+### Bug Fixes
+
+* **tests:** add default value to list size to not break list tests ([#77](https://github.com/bamlab/react-tv-space-navigation/issues/77)) ([3d02c5e](https://github.com/bamlab/react-tv-space-navigation/commit/3d02c5e9acb010681f658a530f5ea0eadf206822))
 
 ## [1.5.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.4.0...v1.5.0) (2024-02-19)
 
