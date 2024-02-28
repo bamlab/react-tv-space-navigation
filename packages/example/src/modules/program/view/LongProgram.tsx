@@ -21,7 +21,7 @@ export const LongProgram = React.forwardRef<View, LongProgramProps>(
         ref={ref}
         isFocused={isFocused}
       >
-        <LongProgramImage source={imageSource} />
+        <LongProgramImage source={imageSource} accessible />
       </LongProgramContainer>
     );
   },

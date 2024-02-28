@@ -21,7 +21,7 @@ export const Program = React.forwardRef<View, ProgramProps>(
         ref={ref}
         isFocused={isFocused}
       >
-        <ProgramImage source={imageSource} />
+        <ProgramImage source={imageSource} accessible />
       </ProgramContainer>
     );
   },
