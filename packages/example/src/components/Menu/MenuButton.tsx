@@ -1,10 +1,7 @@
 import styled from '@emotion/native';
 import { forwardRef } from 'react';
 import { Animated, View } from 'react-native';
-import {
-  SpatialNavigationFocusableView,
-  useSpatialNavigatorFocusableAccessibilityProps,
-} from 'react-tv-space-navigation';
+import { SpatialNavigationFocusableView } from 'react-tv-space-navigation';
 import { scaledPixels } from '../../design-system/helpers/scaledPixels';
 import { useFocusAnimation } from '../../design-system/helpers/useFocusAnimation';
 import { theme } from '../../design-system/theme/theme';
@@ -21,15 +18,8 @@ const ButtonContent = forwardRef<View, { icon: IconName; isFocused: boolean; isM
   (props, ref) => {
     const { isFocused, icon, isMenuOpen } = props;
     const anim = useFocusAnimation(isFocused && isMenuOpen);
-    const accessibilityProps = useSpatialNavigatorFocusableAccessibilityProps();
     return (
-      <Container
-        style={anim}
-        isFocused={isFocused}
-        isMenuOpen={isMenuOpen}
-        ref={ref}
-        {...accessibilityProps}
-      >
+      <Container style={anim} isFocused={isFocused} isMenuOpen={isMenuOpen} ref={ref}>
         <Icon
           icon={icon}
           size={theme.sizes.menu.icon}

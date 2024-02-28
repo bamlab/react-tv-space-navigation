@@ -1,9 +1,6 @@
 import { forwardRef } from 'react';
 import { Animated, View } from 'react-native';
-import {
-  SpatialNavigationFocusableView,
-  useSpatialNavigatorFocusableAccessibilityProps,
-} from 'react-tv-space-navigation';
+import { SpatialNavigationFocusableView } from 'react-tv-space-navigation';
 import { Typography } from './Typography';
 import styled from '@emotion/native';
 import { useFocusAnimation } from '../helpers/useFocusAnimation';
@@ -17,9 +14,8 @@ type ButtonProps = {
 const ButtonContent = forwardRef<View, { label: string; isFocused: boolean }>((props, ref) => {
   const { isFocused, label } = props;
   const anim = useFocusAnimation(isFocused);
-  const accessibilityProps = useSpatialNavigatorFocusableAccessibilityProps();
   return (
-    <Container style={anim} isFocused={isFocused} ref={ref} {...accessibilityProps}>
+    <Container style={anim} isFocused={isFocused} ref={ref}>
       <ColoredTypography isFocused={isFocused}>{label}</ColoredTypography>
     </Container>
   );

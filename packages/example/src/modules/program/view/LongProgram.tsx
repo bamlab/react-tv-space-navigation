@@ -3,7 +3,6 @@ import React from 'react';
 import { Animated, Image, View } from 'react-native';
 import { ProgramInfo } from '../domain/programInfo';
 import { useFocusAnimation } from '../../../design-system/helpers/useFocusAnimation';
-import { useSpatialNavigatorFocusableAccessibilityProps } from 'react-tv-space-navigation';
 
 type LongProgramProps = {
   isFocused?: boolean;
@@ -16,14 +15,11 @@ export const LongProgram = React.forwardRef<View, LongProgramProps>(
 
     const scaleAnimation = useFocusAnimation(isFocused);
 
-    const accessibilityProps = useSpatialNavigatorFocusableAccessibilityProps();
-
     return (
       <LongProgramContainer
         style={scaleAnimation} // Apply the animated scale transform
         ref={ref}
         isFocused={isFocused}
-        {...accessibilityProps}
       >
         <LongProgramImage source={imageSource} />
       </LongProgramContainer>
