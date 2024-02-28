@@ -15,7 +15,12 @@ type Props = {
 export const ProgramNode = forwardRef<SpatialNavigationNodeRef, Props>(
   ({ programInfo, onSelect, indexRange }: Props, ref) => {
     return (
-      <SpatialNavigationFocusableView onSelect={onSelect} indexRange={indexRange} ref={ref}>
+      <SpatialNavigationFocusableView
+        onSelect={onSelect}
+        indexRange={indexRange}
+        viewProps={{ accessibilityLabel: programInfo.title }}
+        ref={ref}
+      >
         {({ isFocused }) => <Program isFocused={isFocused} programInfo={programInfo} />}
       </SpatialNavigationFocusableView>
     );
