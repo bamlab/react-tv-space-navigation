@@ -58,7 +58,7 @@
     "test:example": "yarn workspace hoppixtv jest",
     "test:types": "yarn workspaces foreach run test:types",
     "test:lint": "eslint . --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --max-warnings 0 --cache --cache-strategy content --cache-location .cache/eslint.json",
-    "test": "yarn test:lint && yarn test:types && yarn test:core",
+    "test": "yarn test:lint && yarn test:types && yarn test:core && yarn test:example",
     "build:core": "yarn workspace react-tv-space-navigation build",
     "postinstall": "patch-package"
   }
