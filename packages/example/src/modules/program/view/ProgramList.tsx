@@ -1,8 +1,8 @@
 import styled from '@emotion/native';
 import { useTheme } from '@emotion/react';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MutableRefObject, useCallback, useMemo } from 'react';
+import { MutableRefObject, useCallback, useMemo, useRef } from 'react';
 import {
   SpatialNavigationNode,
   SpatialNavigationVirtualizedList,
@@ -16,6 +16,8 @@ import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
 import { LeftArrow, RightArrow } from '../../../design-system/components/Arrows';
 import { StyleSheet } from 'react-native';
 import { theme } from '../../../design-system/theme/theme';
+import { SupportedKeys } from '../../../components/remote-control/SupportedKeys';
+import { useKey } from '../../../hooks/useKey';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
@@ -30,6 +32,8 @@ type ProgramListProps = {
   data?: ProgramInfo[];
   listSize?: number;
   variant?: 'normal' | 'variable-size';
+  parentRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
+  isActive: boolean;
 };
 
 const isItemLarge = (item: { id: string }) => {
@@ -39,13 +43,15 @@ const isItemLarge = (item: { id: string }) => {
 export const ProgramList = ({
   orientation = 'horizontal',
   containerStyle,
-  listRef,
   data,
   variant = 'normal',
   listSize = 1000,
+  parentRef,
+  isActive,
 }: ProgramListProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
+  const listRef = useRef<SpatialNavigationVirtualizedListRef>(null);
 
   const renderItem = useCallback(
     ({ item, index }: { item: ProgramInfo; index: number }) => (
@@ -58,6 +64,7 @@ export const ProgramList = ({
     ),
     [navigation, variant],
   );
+  const isScreenFocused = useIsFocused();
 
   const programInfos = useMemo(() => data ?? getPrograms(listSize), [data, listSize]);
 
@@ -75,52 +82,74 @@ export const ProgramList = ({
     [theme.sizes.program.landscape.width, theme.sizes.program.portrait.width, variant],
   );
 
+  const goToFirstItem = useCallback(
+    (pressedKey: SupportedKeys) => {
+      const isBackKey = pressedKey === SupportedKeys.Back;
+      const isRowActive = isActive && isScreenFocused;
+      const isFirstElementFocused = listRef.current.currentlyFocusedItemIndex === 0;
+
+      if (!isBackKey || !isRowActive || isFirstElementFocused) {
+        return false;
+      }
+
+      listRef.current.focus(0);
+      return true;
+    },
+    [isActive, isScreenFocused, listRef],
+  );
+
+  useKey(SupportedKeys.Back, goToFirstItem);
+
   return (
-    <SpatialNavigationNode>
-      {({ isActive }) => (
-        <Container isActive={isActive} style={containerStyle}>
-          <SpatialNavigationVirtualizedList
-            orientation={orientation}
-            data={programInfos}
-            renderItem={renderItem}
-            itemSize={itemSize}
-            numberOfRenderedItems={WINDOW_SIZE}
-            numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-            onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-            descendingArrow={isActive ? <LeftArrow /> : null}
-            descendingArrowContainerStyle={styles.leftArrowContainer}
-            ascendingArrow={isActive ? <RightArrow /> : null}
-            ascendingArrowContainerStyle={styles.rightArrowContainer}
-            ref={listRef}
-          />
-        </Container>
-      )}
-    </SpatialNavigationNode>
+    <Container isActive={isActive} style={containerStyle}>
+      <SpatialNavigationVirtualizedList
+        orientation={orientation}
+        data={programInfos}
+        renderItem={renderItem}
+        itemSize={itemSize}
+        numberOfRenderedItems={WINDOW_SIZE}
+        numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+        onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+        descendingArrow={isActive ? <LeftArrow /> : null}
+        descendingArrowContainerStyle={styles.leftArrowContainer}
+        ascendingArrow={isActive ? <RightArrow /> : null}
+        ascendingArrowContainerStyle={styles.rightArrowContainer}
+        ref={(elementRef) => {
+          if (parentRef) parentRef.current = elementRef;
+          listRef.current = elementRef;
+        }}
+      />
+    </Container>
   );
 };
 
 export const ProgramsRow = ({
   containerStyle,
-  listRef,
   variant = 'normal',
   listSize,
+  parentRef,
 }: {
   containerStyle?: object;
-  listRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
   variant?: 'normal' | 'variable-size';
   listSize?: number;
+  parentRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
 }) => {
   const theme = useTheme();
   return (
-    <ProgramList
-      containerStyle={{
-        ...containerStyle,
-        height: theme.sizes.program.portrait.height + ROW_PADDING,
-      }}
-      listRef={listRef}
-      variant={variant}
-      listSize={listSize}
-    />
+    <SpatialNavigationNode>
+      {({ isActive }) => (
+        <ProgramList
+          containerStyle={{
+            ...containerStyle,
+            height: theme.sizes.program.portrait.height + ROW_PADDING,
+          }}
+          variant={variant}
+          listSize={listSize}
+          parentRef={parentRef}
+          isActive={isActive}
+        />
+      )}
+    </SpatialNavigationNode>
   );
 };
 

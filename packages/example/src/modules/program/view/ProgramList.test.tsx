@@ -24,14 +24,14 @@ describe('ProgramList', () => {
   jest.spyOn(programInfos, 'getPrograms').mockReturnValue(programsFixture);
 
   it('renders the list with every items', () => {
-    const screen = renderWithProviders(<ProgramList />);
+    const screen = renderWithProviders(<ProgramList isActive={true} />);
 
     screen.getByLabelText('Program 1');
     screen.getByLabelText('Program 2');
   });
 
   it('renders the list and focus elements accordingly with inputs', () => {
-    const screen = renderWithProviders(<ProgramList />);
+    const screen = renderWithProviders(<ProgramList isActive={true} />);
 
     const program1 = screen.getByLabelText('Program 1');
     expect(program1).toBeSelected();

@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useLockSpatialNavigation } from '../../../../../lib/src/spatial-navigation/context/LockSpatialNavigationContext';
-import { EventArg, useNavigation } from '@react-navigation/native';
+import { useKey } from '../../../hooks/useKey';
+import { SupportedKeys } from '../../remote-control/SupportedKeys';
 
 interface UseLockProps {
   isModalVisible: boolean;
@@ -27,17 +28,12 @@ const useLockParentSpatialNavigator = (isModalVisible: boolean) => {
 };
 
 const usePreventNavigationGoBack = (isModalVisible: boolean, hideModal: () => void) => {
-  const navigation = useNavigation();
-  useEffect(() => {
+  const hideModalListener = useCallback(() => {
     if (isModalVisible) {
-      const navigationListener = (e: EventArg<'beforeRemove', true>) => {
-        e.preventDefault();
-        hideModal();
-      };
-      navigation.addListener('beforeRemove', navigationListener);
-      return () => {
-        navigation.removeListener('beforeRemove', navigationListener);
-      };
+      hideModal();
+      return true;
     }
-  }, [navigation, isModalVisible, hideModal]);
+    return false;
+  }, [isModalVisible, hideModal]);
+  useKey(SupportedKeys.Back, hideModalListener);
 };
