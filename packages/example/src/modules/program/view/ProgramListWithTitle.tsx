@@ -8,17 +8,17 @@ import { SpatialNavigationVirtualizedListRef } from '../../../../../lib/src/spat
 
 type Props = {
   title: string;
-  listRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
+  parentRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
 };
 
-export const ProgramListWithTitle = ({ title, listRef }: Props) => {
+export const ProgramListWithTitle = ({ title, parentRef }: Props) => {
   return (
     <Box direction="vertical">
       <Typography variant="body" fontWeight="strong">
         {title}
       </Typography>
       <Spacer direction="vertical" gap="$2" />
-      <ProgramsRow listRef={listRef ?? null} />
+      <ProgramsRow parentRef={parentRef} />
     </Box>
   );
 };

@@ -1,13 +1,13 @@
-import mitt from 'mitt';
 import { SupportedKeys } from './SupportedKeys';
 import { RemoteControlManagerInterface } from './RemoteControlManager.interface';
+import CustomEventEmitter from './CustomEventEmitter';
 
 class RemoteControlManager implements RemoteControlManagerInterface {
   constructor() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
 
-  private eventEmitter = mitt<{ keyDown: SupportedKeys }>();
+  private eventEmitter = new CustomEventEmitter<{ keyDown: SupportedKeys }>();
 
   private handleKeyDown = (event: KeyboardEvent) => {
     const mappedKey = {
@@ -26,12 +26,12 @@ class RemoteControlManager implements RemoteControlManagerInterface {
     this.eventEmitter.emit('keyDown', mappedKey);
   };
 
-  addKeydownListener = (listener: (event: SupportedKeys) => void) => {
+  addKeydownListener = (listener: (event: SupportedKeys) => boolean) => {
     this.eventEmitter.on('keyDown', listener);
     return listener;
   };
 
-  removeKeydownListener = (listener: (event: SupportedKeys) => void) => {
+  removeKeydownListener = (listener: (event: SupportedKeys) => boolean) => {
     this.eventEmitter.off('keyDown', listener);
   };
 
