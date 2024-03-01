@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { ForwardedRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
 
 import {
@@ -16,6 +16,8 @@ import { useSpatialNavigationDeviceType } from '../../context/DeviceContext';
 import { View, Platform, ViewStyle } from 'react-native';
 import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
 import React from 'react';
+import { typedForwardRef } from '../../helpers/TypedForwardRef';
+import { SpatialNavigationVirtualizedListRef } from '../../types/SpatialNavigationVirtualizedListRef';
 
 const ItemWrapperWithScrollContext = typedMemo(
   <T extends ItemWithIndex>({
@@ -163,65 +165,83 @@ const useRemotePointerVirtualizedListScrollProps = ({
  * This component wraps every item of a virtualizedList in a scroll handling context.
  */
 export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
-  <T extends ItemWithIndex>(
-    props: SpatialNavigationVirtualizedListWithScrollProps<T> & PointerScrollProps,
-  ) => {
-    const {
-      data,
-      renderItem,
-      descendingArrow: descendingArrow,
-      ascendingArrow: ascendingArrow,
-      descendingArrowContainerStyle,
-      ascendingArrowContainerStyle,
-      scrollInterval = 100,
-    } = props;
-    const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
-    const { deviceType, deviceTypeRef, descendingArrowProps, ascendingArrowProps, idRef } =
-      useRemotePointerVirtualizedListScrollProps({
-        setCurrentlyFocusedItemIndex,
-        scrollInterval,
+  typedForwardRef(
+    <T extends ItemWithIndex>(
+      props: SpatialNavigationVirtualizedListWithScrollProps<T> & PointerScrollProps,
+      ref: ForwardedRef<SpatialNavigationVirtualizedListRef>,
+    ) => {
+      const {
         data,
-      });
+        renderItem,
+        descendingArrow: descendingArrow,
+        ascendingArrow: ascendingArrow,
+        descendingArrowContainerStyle,
+        ascendingArrowContainerStyle,
+        scrollInterval = 100,
+      } = props;
+      const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
+      const spatialNavigator = useSpatialNavigator();
+      const { deviceType, deviceTypeRef, descendingArrowProps, ascendingArrowProps, idRef } =
+        useRemotePointerVirtualizedListScrollProps({
+          setCurrentlyFocusedItemIndex,
+          scrollInterval,
+          data,
+        });
 
-    const setCurrentlyFocusedItemIndexCallback = useCallback(
-      (index: number) => {
-        deviceTypeRef.current === 'remoteKeys' ? setCurrentlyFocusedItemIndex(index) : null;
-      },
-      [deviceTypeRef],
-    );
+      const setCurrentlyFocusedItemIndexCallback = useCallback(
+        (index: number) => {
+          deviceTypeRef.current === 'remoteKeys' ? setCurrentlyFocusedItemIndex(index) : null;
+        },
+        [deviceTypeRef],
+      );
 
-    const renderWrappedItem: typeof props.renderItem = useCallback(
-      ({ item }) => (
-        <ItemWrapperWithScrollContext
-          setCurrentlyFocusedItemIndex={setCurrentlyFocusedItemIndexCallback}
-          renderItem={renderItem}
-          item={item}
-        />
-      ),
-      [setCurrentlyFocusedItemIndexCallback, renderItem],
-    );
+      useImperativeHandle(
+        ref,
+        () => ({
+          focus: async (index: number) => {
+            setCurrentlyFocusedItemIndex(index);
+            await 0; // State update is async, but we need to wait for it to be done in order to handle the grab focus correctly
+            if (idRef.current) {
+              spatialNavigator.grabFocus(idRef.current.getNthVirtualNodeID(index));
+            }
+          },
+        }),
+        [idRef, spatialNavigator],
+      );
 
-    return (
-      <>
-        <SpatialNavigationVirtualizedListWithVirtualNodes
-          {...props}
-          getNodeIdRef={idRef}
-          currentlyFocusedItemIndex={currentlyFocusedItemIndex}
-          renderItem={renderWrappedItem}
-        />
-        {deviceType === 'remotePointer' ? (
-          <PointerScrollArrows
-            descendingArrowContainerStyle={descendingArrowContainerStyle}
-            descendingArrowProps={descendingArrowProps}
-            descendingArrow={descendingArrow}
-            ascendingArrowContainerStyle={ascendingArrowContainerStyle}
-            ascendingArrowProps={ascendingArrowProps}
-            ascendingArrow={ascendingArrow}
+      const renderWrappedItem: typeof props.renderItem = useCallback(
+        ({ item }) => (
+          <ItemWrapperWithScrollContext
+            setCurrentlyFocusedItemIndex={setCurrentlyFocusedItemIndexCallback}
+            renderItem={renderItem}
+            item={item}
           />
-        ) : undefined}
-      </>
-    );
-  },
+        ),
+        [setCurrentlyFocusedItemIndexCallback, renderItem],
+      );
+
+      return (
+        <>
+          <SpatialNavigationVirtualizedListWithVirtualNodes
+            {...props}
+            getNodeIdRef={idRef}
+            currentlyFocusedItemIndex={currentlyFocusedItemIndex}
+            renderItem={renderWrappedItem}
+          />
+          {deviceType === 'remotePointer' ? (
+            <PointerScrollArrows
+              descendingArrowContainerStyle={descendingArrowContainerStyle}
+              descendingArrowProps={descendingArrowProps}
+              descendingArrow={descendingArrow}
+              ascendingArrowContainerStyle={ascendingArrowContainerStyle}
+              ascendingArrowProps={ascendingArrowProps}
+              ascendingArrow={ascendingArrow}
+            />
+          ) : undefined}
+        </>
+      );
+    },
+  ),
 );
 SpatialNavigationVirtualizedListWithScroll.displayName =
   'SpatialNavigationVirtualizedListWithScroll';

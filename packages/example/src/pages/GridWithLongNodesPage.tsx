@@ -2,6 +2,8 @@ import {
   DefaultFocus,
   SpatialNavigationNode,
   SpatialNavigationScrollView,
+  SpatialNavigationView,
+  SpatialNavigationVirtualizedListRef,
 } from 'react-tv-space-navigation';
 import { Page } from '../components/Page';
 import '../components/configureRemoteControl';
@@ -11,20 +13,31 @@ import { scaledPixels } from '../design-system/helpers/scaledPixels';
 import { LongProgramNode, ProgramNode } from '../modules/program/view/ProgramNode';
 import { theme } from '../design-system/theme/theme';
 import { MutableRefObject, forwardRef, useRef } from 'react';
+import { StyleSheet } from 'react-native';
 import { Button } from '../design-system/components/Button';
 import { SpatialNavigationNodeRef } from '../../../lib/src/spatial-navigation/types/SpatialNavigationNodeRef';
+import { Spacer } from '../design-system/components/Spacer';
+import { ProgramListWithTitle } from '../modules/program/view/ProgramListWithTitle';
+import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
 
 const HEADER_SIZE = scaledPixels(400);
 
 export const GridWithLongNodesPage = () => {
   const firstItemRef = useRef<SpatialNavigationNodeRef>(null);
   const lastItemRef = useRef<SpatialNavigationNodeRef>(null);
+  const listRef = useRef<SpatialNavigationVirtualizedListRef>(null);
 
   return (
     <Page>
       <CenteringView>
         <GridContainer>
-          <SpatialNavigationScrollView offsetFromStart={HEADER_SIZE + 20}>
+          <SpatialNavigationScrollView
+            offsetFromStart={HEADER_SIZE + 20}
+            ascendingArrow={<BottomArrow />}
+            ascendingArrowContainerStyle={styles.bottomArrowContainer}
+            descendingArrow={<TopArrow />}
+            descendingArrowContainerStyle={styles.topArrowContainer}
+          >
             <SpatialNavigationNode alignInGrid>
               <DefaultFocus>
                 <>
@@ -34,6 +47,23 @@ export const GridWithLongNodesPage = () => {
                 </>
               </DefaultFocus>
             </SpatialNavigationNode>
+            <Spacer gap="$6" />
+            <ProgramListWithTitle title="Imperative focus on virtualized list" listRef={listRef} />
+            <Row direction="horizontal">
+              <Button
+                label="Go to first"
+                onSelect={() => {
+                  listRef.current.focus(0);
+                }}
+              />
+              <Button
+                label="Go to last"
+                onSelect={() => {
+                  listRef.current.focus(999);
+                }}
+              />
+            </Row>
+            <Spacer gap="$20" />
           </SpatialNavigationScrollView>
         </GridContainer>
       </CenteringView>
@@ -113,4 +143,31 @@ const CenteringView = styled.View({
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
+});
+
+const Row = styled(SpatialNavigationView)({
+  flexDirection: 'row',
+  gap: theme.spacings.$4,
+  padding: theme.spacings.$4,
+});
+
+const styles = StyleSheet.create({
+  topArrowContainer: {
+    width: '100%',
+    height: 100,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 20,
+    left: 0,
+  },
+  bottomArrowContainer: {
+    width: '100%',
+    height: 100,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: -15,
+    left: 0,
+  },
 });

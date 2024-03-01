@@ -2,8 +2,12 @@ import styled from '@emotion/native';
 import { useTheme } from '@emotion/react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useCallback, useMemo } from 'react';
-import { SpatialNavigationNode, SpatialNavigationVirtualizedList } from 'react-tv-space-navigation';
+import { MutableRefObject, useCallback, useMemo } from 'react';
+import {
+  SpatialNavigationNode,
+  SpatialNavigationVirtualizedList,
+  SpatialNavigationVirtualizedListRef,
+} from 'react-tv-space-navigation';
 import { RootStackParamList } from '../../../../App';
 import { ProgramInfo } from '../domain/programInfo';
 import { getPrograms } from '../infra/programInfos';
@@ -20,9 +24,11 @@ const ROW_PADDING = scaledPixels(70);
 export const ProgramList = ({
   orientation,
   containerStyle,
+  listRef,
 }: {
   orientation?: 'vertical' | 'horizontal';
   containerStyle?: object;
+  listRef: MutableRefObject<SpatialNavigationVirtualizedListRef>;
 }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -55,6 +61,7 @@ export const ProgramList = ({
             descendingArrowContainerStyle={styles.leftArrowContainer}
             ascendingArrow={isActive ? <RightArrow /> : null}
             ascendingArrowContainerStyle={styles.rightArrowContainer}
+            ref={listRef}
           />
         </Container>
       )}
@@ -62,7 +69,13 @@ export const ProgramList = ({
   );
 };
 
-export const ProgramsRow = ({ containerStyle }: { containerStyle?: object }) => {
+export const ProgramsRow = ({
+  containerStyle,
+  listRef,
+}: {
+  containerStyle?: object;
+  listRef: MutableRefObject<SpatialNavigationVirtualizedListRef>;
+}) => {
   const theme = useTheme();
   return (
     <ProgramList
@@ -70,6 +83,7 @@ export const ProgramsRow = ({ containerStyle }: { containerStyle?: object }) => 
         ...containerStyle,
         height: theme.sizes.program.portrait.height + ROW_PADDING,
       }}
+      listRef={listRef}
     />
   );
 };
