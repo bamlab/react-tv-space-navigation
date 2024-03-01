@@ -25,9 +25,8 @@ export const useRemoteControl = ({
       return () => undefined;
     }
 
-    const listener = remoteControlSubscriber(async (direction) => {
+    const listener = remoteControlSubscriber((direction) => {
       setDeviceType('remoteKeys');
-      await 0; // State update is async, but we need to wait for it to be done in order to handle the key event correctly
       spatialNavigator.handleKeyDown(direction);
       setScrollingId(null);
     });

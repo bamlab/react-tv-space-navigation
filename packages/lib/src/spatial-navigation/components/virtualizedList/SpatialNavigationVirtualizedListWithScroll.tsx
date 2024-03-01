@@ -72,6 +72,7 @@ const useRemotePointerVirtualizedListScrollProps = ({
 }) => {
   const {
     deviceType,
+    deviceTypeRef,
     getScrollingIntervalId: getScrollingId,
     setScrollingIntervalId: setScrollingId,
   } = useSpatialNavigationDeviceType();
@@ -154,6 +155,7 @@ const useRemotePointerVirtualizedListScrollProps = ({
     ascendingArrowProps,
     idRef,
     deviceType,
+    deviceTypeRef,
   };
 };
 
@@ -174,7 +176,7 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       scrollInterval = 100,
     } = props;
     const [currentlyFocusedItemIndex, setCurrentlyFocusedItemIndex] = useState(0);
-    const { deviceType, descendingArrowProps, ascendingArrowProps, idRef } =
+    const { deviceType, deviceTypeRef, descendingArrowProps, ascendingArrowProps, idRef } =
       useRemotePointerVirtualizedListScrollProps({
         setCurrentlyFocusedItemIndex,
         scrollInterval,
@@ -183,9 +185,9 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
 
     const setCurrentlyFocusedItemIndexCallback = useCallback(
       (index: number) => {
-        deviceType === 'remoteKeys' ? setCurrentlyFocusedItemIndex(index) : null;
+        deviceTypeRef.current === 'remoteKeys' ? setCurrentlyFocusedItemIndex(index) : null;
       },
-      [deviceType],
+      [deviceTypeRef],
     );
 
     const renderWrappedItem: typeof props.renderItem = useCallback(

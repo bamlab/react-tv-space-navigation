@@ -12,7 +12,10 @@ import { Platform } from 'react-native';
 type Device = 'remoteKeys' | 'remotePointer';
 
 interface DeviceContextProps {
+  /** Use `deviceType` only if you need a render, otherwise use `deviceTypeRef` */
   deviceType: Device;
+  /** Use `deviceTypeRef` for user events or if you don't need render, otherwise use `deviceType` */
+  deviceTypeRef: React.MutableRefObject<Device>;
   setDeviceType: (deviceType: Device) => void;
   getScrollingIntervalId: () => NodeJS.Timer | null;
   setScrollingIntervalId: (scrollingId: NodeJS.Timer | null) => void;
@@ -20,6 +23,7 @@ interface DeviceContextProps {
 
 export const DeviceContext = createContext<DeviceContextProps>({
   deviceType: 'remoteKeys',
+  deviceTypeRef: { current: 'remoteKeys' },
   setDeviceType: () => {},
   getScrollingIntervalId: () => null,
   setScrollingIntervalId: () => {},
@@ -30,8 +34,15 @@ interface DeviceProviderProps {
 }
 
 export const SpatialNavigationDeviceTypeProvider = ({ children }: DeviceProviderProps) => {
-  const [deviceType, setDeviceType] = useState<Device>('remoteKeys');
+  const [deviceType, setDeviceTypeWithoutRef] = useState<Device>('remoteKeys');
+
+  const deviceTypeRef = useRef<Device>(deviceType);
   const scrollingId = useRef<NodeJS.Timer | null>(null);
+
+  const setDeviceType = useCallback((deviceType: Device) => {
+    deviceTypeRef.current = deviceType;
+    setDeviceTypeWithoutRef(deviceType);
+  }, []);
 
   const setScrollingIntervalId = useCallback((id: NodeJS.Timer | null) => {
     if (scrollingId.current) {
@@ -51,11 +62,12 @@ export const SpatialNavigationDeviceTypeProvider = ({ children }: DeviceProvider
 
     window.addEventListener('mousemove', callback);
     return () => window.removeEventListener('mousemove', callback);
-  }, [deviceType]);
+  }, [deviceType, setDeviceType]);
 
   const value = useMemo(
     () => ({
       deviceType,
+      deviceTypeRef,
       setDeviceType,
       getScrollingIntervalId,
       setScrollingIntervalId,
@@ -66,4 +78,4 @@ export const SpatialNavigationDeviceTypeProvider = ({ children }: DeviceProvider
   return <DeviceContext.Provider value={value}>{children}</DeviceContext.Provider>;
 };
 
-export const useSpatialNavigationDeviceType = () => useContext(DeviceContext);
+export const useSpatialNavigationDeviceType = (): DeviceContextProps => useContext(DeviceContext);
