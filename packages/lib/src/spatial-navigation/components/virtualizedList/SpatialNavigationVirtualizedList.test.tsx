@@ -7,6 +7,9 @@ import { SpatialNavigationVirtualizedList } from './SpatialNavigationVirtualized
 import { DefaultFocus } from '../../context/DefaultFocusContext';
 import testRemoteControlManager from '../tests/helpers/testRemoteControlManager';
 import { setComponentLayoutSize } from '../../../testing/setComponentLayoutSize';
+import { useRef } from 'react';
+import { SpatialNavigationVirtualizedListRef } from '../../types/SpatialNavigationVirtualizedListRef';
+import { SpatialNavigationNode } from '../Node';
 
 export const expectButtonToHaveFocus = (component: RenderResult, text: string) => {
   const element = component.getByRole('button', { name: text });
@@ -64,6 +67,34 @@ describe('SpatialNavigationVirtualizedList', () => {
         </DefaultFocus>
       </SpatialNavigationRoot>,
     );
+
+  const VirtualizedListWithNavigationButtons = () => {
+    const listRef = useRef<SpatialNavigationVirtualizedListRef>(null);
+    return (
+      <SpatialNavigationRoot>
+        <SpatialNavigationNode orientation="vertical">
+          <>
+            <DefaultFocus>
+              <SpatialNavigationVirtualizedList
+                testID={listTestId}
+                renderItem={renderItem}
+                data={data}
+                itemSize={100}
+                numberOfRenderedItems={5}
+                numberOfItemsVisibleOnScreen={3}
+                ref={listRef}
+              />
+            </DefaultFocus>
+            <TestButton title="Go to first" onSelect={() => listRef.current?.focus(0)} />
+            <TestButton title="Go to last" onSelect={() => listRef.current?.focus(9)} />
+          </>
+        </SpatialNavigationNode>
+      </SpatialNavigationRoot>
+    );
+  };
+
+  const renderVirtualizedListWithNavigationButtons = () =>
+    render(<VirtualizedListWithNavigationButtons />);
 
   it('renders the correct number of item', async () => {
     const component = renderList();
@@ -408,5 +439,47 @@ describe('SpatialNavigationVirtualizedList', () => {
     expect(screen.getByText('button 3')).toBeTruthy();
     expect(screen.getByText('button 7')).toBeTruthy();
     expect(screen.queryByText('button 8')).toBeFalsy();
+  });
+
+  it('jumps to first element on go to first button press', async () => {
+    const component = renderVirtualizedListWithNavigationButtons();
+    act(() => jest.runAllTimers());
+
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+    const listElement = await component.findByTestId(listTestId);
+
+    await testRemoteControlManager.handleRight();
+    await testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 3');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -200 }] });
+
+    await testRemoteControlManager.handleDown();
+    expectButtonToHaveFocus(component, 'Go to first');
+
+    await testRemoteControlManager.handleEnter();
+    expectButtonToHaveFocus(component, 'button 1');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
+  });
+
+  it('jumps to last element on go to last button press', async () => {
+    const component = renderVirtualizedListWithNavigationButtons();
+    act(() => jest.runAllTimers());
+
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+    const listElement = await component.findByTestId(listTestId);
+
+    await testRemoteControlManager.handleRight();
+    await testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 3');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -200 }] });
+
+    await testRemoteControlManager.handleDown();
+    await testRemoteControlManager.handleDown();
+    expectButtonToHaveFocus(component, 'Go to last');
+
+    await testRemoteControlManager.handleEnter();
+
+    expectButtonToHaveFocus(component, 'button 10');
+    expect(listElement).toHaveStyle({ transform: [{ translateX: -700 }] });
   });
 });
