@@ -1,4 +1,17 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v2.0.0...v) (2024-02-28)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v2.1.0...v) (2024-03-01)
+
+## [2.1.0](https://github.com/bamlab/react-tv-space-navigation/compare/v2.0.0...v2.1.0) (2024-03-01)
+
+
+### Features
+
+* **accessibility:** add accessibility state to focusable views ([#80](https://github.com/bamlab/react-tv-space-navigation/issues/80)) ([375d01b](https://github.com/bamlab/react-tv-space-navigation/commit/375d01b0f83da245dbe7df59b4bb993e8faa5c3a))
+* **lists:** add SpatialNavigationVirtualizedList ref ([75e5059](https://github.com/bamlab/react-tv-space-navigation/commit/75e5059b162982ec95fc390588ce49301fecfb2f))
+
+
+### Bug Fixes
+
+* **core:** Fix additional click on some tvs ([54d5e11](https://github.com/bamlab/react-tv-space-navigation/commit/54d5e110f0134c8ffa887cd9d15f911e66ea193d))
 
 ## [2.0.0](https://github.com/bamlab/react-tv-space-navigation/compare/v1.5.0...v2.0.0) (2024-02-28)
 
