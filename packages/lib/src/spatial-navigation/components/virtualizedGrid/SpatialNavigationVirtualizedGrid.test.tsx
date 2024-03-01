@@ -50,7 +50,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
       </SpatialNavigationRoot>,
     );
 
-  it('renders the correct number of item', async () => {
+  it('renders the correct number of item', () => {
     const component = renderGrid();
     setComponentLayoutSize(gridTestId, component, { width: 300, height: 300 });
 
@@ -78,7 +78,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(screen.queryByText('button 16')).toBeFalsy();
   });
 
-  it('handles correctly RIGHT & DOWN and RENDERS new elements accordingly while deleting elements that are too far from scroll when on stick to start scroll', async () => {
+  it('handles correctly RIGHT & DOWN and RENDERS new elements accordingly while deleting elements that are too far from scroll when on stick to start scroll', () => {
     const component = renderGrid();
     setComponentLayoutSize(gridTestId, component, { width: 300, height: 300 });
     act(() => jest.runAllTimers());
@@ -87,7 +87,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
     expect(listElement).toHaveStyle({ height: 700 });
 
-    await testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
 
     expect(screen.getByText('button 1')).toBeTruthy();
     expect(screen.getByText('button 2')).toBeTruthy();
@@ -107,7 +107,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(screen.getByText('button 15')).toBeTruthy();
     expect(screen.queryByText('button 16')).toBeFalsy();
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expect(listElement).toHaveStyle({ transform: [{ translateY: -100 }] });
 
     expect(screen.getByText('button 1')).toBeTruthy();
@@ -128,7 +128,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(screen.getByText('button 15')).toBeTruthy();
     expect(screen.queryByText('button 16')).toBeFalsy();
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expect(listElement).toHaveStyle({ transform: [{ translateY: -200 }] });
 
     expect(screen.queryByText('button 1')).toBeFalsy();
@@ -154,24 +154,24 @@ describe('SpatialNavigationVirtualizedGrid', () => {
 
     expect(screen).toMatchSnapshot();
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expect(listElement).toHaveStyle({ transform: [{ translateY: -300 }] });
     expectButtonToHaveFocus(component, 'button 11');
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expect(listElement).toHaveStyle({ transform: [{ translateY: -400 }] });
     expectButtonToHaveFocus(component, 'button 14');
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expect(listElement).toHaveStyle({ transform: [{ translateY: -400 }] });
     expectButtonToHaveFocus(component, 'button 17');
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expect(listElement).toHaveStyle({ transform: [{ translateY: -400 }] });
     expectButtonToHaveFocus(component, 'button 19');
   });
 
-  it('handles correctly RIGHT & DOWN and RENDERS new elements accordingly while deleting elements that are too far from scroll when on stick to end scroll', async () => {
+  it('handles correctly RIGHT & DOWN and RENDERS new elements accordingly while deleting elements that are too far from scroll when on stick to end scroll', () => {
     const component = render(
       <SpatialNavigationRoot>
         <DefaultFocus>
@@ -195,36 +195,36 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
     expect(listElement).toHaveStyle({ height: 700 });
 
-    await testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 2');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 5');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 8');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 11');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -100 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 14');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -200 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 17');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -300 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 19');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -400 }] });
   });
 
-  it('handles correctly RIGHT & DOWN and RENDERS new elements accordingly while deleting elements that are too far from scroll when on jump on scroll scroll', async () => {
+  it('handles correctly RIGHT & DOWN and RENDERS new elements accordingly while deleting elements that are too far from scroll when on jump on scroll scroll', () => {
     const component = render(
       <SpatialNavigationRoot>
         <DefaultFocus>
@@ -248,31 +248,31 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
     expect(listElement).toHaveStyle({ height: 700 });
 
-    await testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 2');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 5');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 8');
     expect(listElement).toHaveStyle({ transform: [{ translateY: 0 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 11');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -300 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 14');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -300 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 17');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -300 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 19');
     expect(listElement).toHaveStyle({ transform: [{ translateY: -400 }] });
   });

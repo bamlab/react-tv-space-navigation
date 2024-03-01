@@ -19,7 +19,7 @@ type Props = SpatialNavigationNodeDefaultProps & FocusableViewProps;
 
 export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRef, Props>(
   ({ children, style, viewProps, ...props }, ref) => {
-    const { deviceType } = useSpatialNavigationDeviceType();
+    const { deviceTypeRef } = useSpatialNavigationDeviceType();
     const nodeRef = useRef<SpatialNavigationNodeRef>(null);
 
     useImperativeHandle(
@@ -36,7 +36,7 @@ export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRe
           if (viewProps?.onMouseEnter) {
             viewProps?.onMouseEnter();
           }
-          if (deviceType === 'remotePointer') {
+          if (deviceTypeRef.current === 'remotePointer') {
             nodeRef.current?.focus();
           }
         },

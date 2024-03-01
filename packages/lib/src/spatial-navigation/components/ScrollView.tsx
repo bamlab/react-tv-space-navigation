@@ -47,12 +47,13 @@ const useRemotePointerScrollviewScrollProps = ({
 }) => {
   const {
     deviceType,
+    deviceTypeRef,
     getScrollingIntervalId: getScrollingId,
     setScrollingIntervalId: setScrollingId,
   } = useSpatialNavigationDeviceType();
 
   const onMouseEnterTop = useCallback(() => {
-    if (deviceType === 'remotePointer') {
+    if (deviceTypeRef.current === 'remotePointer') {
       let currentScrollPosition = scrollY.current;
       const id = setInterval(() => {
         currentScrollPosition -= pointerScrollSpeed;
@@ -63,10 +64,10 @@ const useRemotePointerScrollviewScrollProps = ({
       }, 10);
       setScrollingId(id);
     }
-  }, [deviceType, pointerScrollSpeed, scrollY, scrollViewRef, setScrollingId]);
+  }, [deviceTypeRef, pointerScrollSpeed, scrollY, scrollViewRef, setScrollingId]);
 
   const onMouseEnterBottom = useCallback(() => {
-    if (deviceType === 'remotePointer') {
+    if (deviceTypeRef.current === 'remotePointer') {
       let currentScrollPosition = scrollY.current;
       const id = setInterval(() => {
         currentScrollPosition += pointerScrollSpeed;
@@ -77,17 +78,17 @@ const useRemotePointerScrollviewScrollProps = ({
       }, 10);
       setScrollingId(id);
     }
-  }, [deviceType, pointerScrollSpeed, scrollY, scrollViewRef, setScrollingId]);
+  }, [deviceTypeRef, pointerScrollSpeed, scrollY, scrollViewRef, setScrollingId]);
 
   const onMouseLeave = useCallback(() => {
-    if (deviceType === 'remotePointer') {
+    if (deviceTypeRef.current === 'remotePointer') {
       const intervalId = getScrollingId();
       if (intervalId) {
         clearInterval(intervalId);
         setScrollingId(null);
       }
     }
-  }, [deviceType, getScrollingId, setScrollingId]);
+  }, [deviceTypeRef, getScrollingId, setScrollingId]);
 
   const ascendingArrowProps = useMemo(
     () =>
@@ -107,6 +108,7 @@ const useRemotePointerScrollviewScrollProps = ({
 
   return {
     deviceType,
+    deviceTypeRef,
     ascendingArrowProps,
     descendingArrowProps,
   };
@@ -129,13 +131,13 @@ export const SpatialNavigationScrollView = ({
 
   const scrollY = useRef<number>(0);
 
-  const { ascendingArrowProps, descendingArrowProps, deviceType } =
+  const { ascendingArrowProps, descendingArrowProps, deviceType, deviceTypeRef } =
     useRemotePointerScrollviewScrollProps({ pointerScrollSpeed, scrollY, scrollViewRef });
 
   const scrollToNode = useCallback(
     (newlyFocusedElementRef: RefObject<View>) => {
       try {
-        if (deviceType === 'remoteKeys') {
+        if (deviceTypeRef.current === 'remoteKeys') {
           newlyFocusedElementRef?.current?.measureLayout(
             scrollViewRef?.current?.getInnerViewNode(),
             (left, top) =>
@@ -154,7 +156,7 @@ export const SpatialNavigationScrollView = ({
       }
       makeParentsScrollToNodeIfNeeded(newlyFocusedElementRef); // We need to propagate the scroll event for parents if we have nested ScrollViews/VirtualizedLists.
     },
-    [makeParentsScrollToNodeIfNeeded, horizontal, offsetFromStart, deviceType],
+    [makeParentsScrollToNodeIfNeeded, horizontal, offsetFromStart, deviceTypeRef],
   );
 
   const onScroll = useCallback(

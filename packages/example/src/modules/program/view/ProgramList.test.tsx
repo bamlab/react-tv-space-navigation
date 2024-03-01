@@ -23,24 +23,24 @@ const renderWithProviders = (component: JSX.Element) => {
 describe('ProgramList', () => {
   jest.spyOn(programInfos, 'getPrograms').mockReturnValue(programsFixture);
 
-  it('renders the list with every items', async () => {
+  it('renders the list with every items', () => {
     const screen = renderWithProviders(<ProgramList />);
 
     screen.getByLabelText('Program 1');
     screen.getByLabelText('Program 2');
   });
 
-  it('renders the list and focus elements accordingly with inputs', async () => {
+  it('renders the list and focus elements accordingly with inputs', () => {
     const screen = renderWithProviders(<ProgramList />);
 
     const program1 = screen.getByLabelText('Program 1');
     expect(program1).toBeSelected();
 
-    await testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
     const program2 = screen.getByLabelText('Program 2');
     expect(program2).toBeSelected();
 
-    await testRemoteControlManager.handleLeft();
+    testRemoteControlManager.handleLeft();
     expect(program1).toBeSelected();
   });
 });
