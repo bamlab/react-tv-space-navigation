@@ -35,12 +35,12 @@ Here's the kind of code you'll be able to achieve:
 ```tsx
 /**
  * A simple component that shows a rabbit program
- * We plug it to the Spatial Navigation easily using a Node
+ * We plug it to the Spatial Navigation easily using a FocusableView
  */
 const Rabbit = ({ onSelect }) => (
-  <SpatialNavigationNode isFocusable onSelect={onSelect}>
+  <SpatialNavigationFocusableView onSelect={onSelect}>
     {({ isFocused }) => <RabbitLayout isFocused={isFocused} />}
-  </SpatialNavigationNode>
+  </SpatialNavigationFocusableView>
 );
 
 /**
