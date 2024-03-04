@@ -207,8 +207,9 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
               spatialNavigator.grabFocusDeferred(newId);
             }
           },
+          currentlyFocusedItemIndex,
         }),
-        [idRef, spatialNavigator],
+        [currentlyFocusedItemIndex, idRef, spatialNavigator],
       );
 
       const renderWrappedItem: typeof props.renderItem = useCallback(
