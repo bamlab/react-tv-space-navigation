@@ -448,15 +448,17 @@ describe('SpatialNavigationVirtualizedList', () => {
     setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
     const listElement = await component.findByTestId(listTestId);
 
-    await testRemoteControlManager.handleRight();
-    await testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 3');
     expect(listElement).toHaveStyle({ transform: [{ translateX: -200 }] });
 
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'Go to first');
 
-    await testRemoteControlManager.handleEnter();
+    testRemoteControlManager.handleEnter();
+    await act(() => jest.runAllTimersAsync()); // Imperative focus is async
+
     expectButtonToHaveFocus(component, 'button 1');
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
   });
@@ -468,16 +470,17 @@ describe('SpatialNavigationVirtualizedList', () => {
     setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
     const listElement = await component.findByTestId(listTestId);
 
-    await testRemoteControlManager.handleRight();
-    await testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 3');
     expect(listElement).toHaveStyle({ transform: [{ translateX: -200 }] });
 
-    await testRemoteControlManager.handleDown();
-    await testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'Go to last');
 
-    await testRemoteControlManager.handleEnter();
+    testRemoteControlManager.handleEnter();
+    await act(() => jest.runAllTimersAsync()); // Imperative focus is async
 
     expectButtonToHaveFocus(component, 'button 10');
     expect(listElement).toHaveStyle({ transform: [{ translateX: -700 }] });
