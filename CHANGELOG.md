@@ -1,4 +1,12 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v2.1.0...v) (2024-03-01)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v2.1.1...v) (2024-03-11)
+
+## [2.1.1](https://github.com/bamlab/react-tv-space-navigation/compare/v2.1.0...v2.1.1) (2024-03-11)
+
+
+### Bug Fixes
+
+* **core:** export device type provider ([b99002c](https://github.com/bamlab/react-tv-space-navigation/commit/b99002c6bdec30b8732efae496bfdbc6b31d87f0))
+* **core:** improve scroll view scrolling compatibility across platforms ([cc715e7](https://github.com/bamlab/react-tv-space-navigation/commit/cc715e73dd1aa983fbe1a77e213e8bee86968431))
 
 ## [2.1.0](https://github.com/bamlab/react-tv-space-navigation/compare/v2.0.0...v2.1.0) (2024-03-01)
 
