@@ -114,6 +114,14 @@ const useRemotePointerScrollviewScrollProps = ({
   };
 };
 
+const getNodeRef = (node: ScrollView | null | undefined) => {
+  if (Platform.OS === 'web') {
+    return node?.getInnerViewNode();
+  }
+
+  return node;
+};
+
 export const SpatialNavigationScrollView = ({
   horizontal = false,
   style,
@@ -139,7 +147,7 @@ export const SpatialNavigationScrollView = ({
       try {
         if (deviceTypeRef.current === 'remoteKeys') {
           newlyFocusedElementRef?.current?.measureLayout(
-            scrollViewRef?.current?.getInnerViewNode(),
+            getNodeRef(scrollViewRef?.current),
             (left, top) =>
               scrollToNewlyFocusedElement({
                 newlyFocusedElementDistanceToLeftRelativeToLayout: left,
