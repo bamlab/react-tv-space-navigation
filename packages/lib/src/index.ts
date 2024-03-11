@@ -12,6 +12,7 @@ export { useLockSpatialNavigation } from './spatial-navigation/context/LockSpati
 export { SpatialNavigationNodeRef } from './spatial-navigation/types/SpatialNavigationNodeRef';
 export { SpatialNavigationVirtualizedListRef } from './spatial-navigation/types/SpatialNavigationVirtualizedListRef';
 export { SpatialNavigationFocusableView } from './spatial-navigation/components/FocusableView';
+export { SpatialNavigationDeviceTypeProvider } from './spatial-navigation/context/DeviceContext';
 
 export const SpatialNavigation = {
   configureRemoteControl,
