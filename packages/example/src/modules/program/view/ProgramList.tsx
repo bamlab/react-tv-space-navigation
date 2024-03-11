@@ -2,9 +2,10 @@ import styled from '@emotion/native';
 import { useTheme } from '@emotion/react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { MutableRefObject, useCallback, useMemo } from 'react';
+import { MutableRefObject, forwardRef, useCallback, useMemo } from 'react';
 import {
   SpatialNavigationNode,
+  SpatialNavigationNodeRef,
   SpatialNavigationVirtualizedList,
   SpatialNavigationVirtualizedListRef,
 } from 'react-tv-space-navigation';
@@ -21,53 +22,56 @@ const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 const ROW_PADDING = scaledPixels(70);
 
-export const ProgramList = ({
-  orientation,
-  containerStyle,
-  listRef,
-}: {
+type ProgramListProps = {
   orientation?: 'vertical' | 'horizontal';
   containerStyle?: object;
   listRef: MutableRefObject<SpatialNavigationVirtualizedListRef>;
-}) => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-  const renderItem = useCallback(
-    ({ item }: { item: ProgramInfo }) => (
-      <ProgramNode
-        programInfo={item}
-        onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
-      />
-    ),
-    [navigation],
-  );
-  const theme = useTheme();
-
-  const programInfos = useMemo(() => getPrograms(1000), []);
-
-  return (
-    <SpatialNavigationNode>
-      {({ isActive }) => (
-        <Container isActive={isActive} style={containerStyle}>
-          <SpatialNavigationVirtualizedList
-            orientation={orientation}
-            data={programInfos}
-            renderItem={renderItem}
-            itemSize={theme.sizes.program.portrait.width + 30}
-            numberOfRenderedItems={WINDOW_SIZE}
-            numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-            onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-            descendingArrow={isActive ? <LeftArrow /> : null}
-            descendingArrowContainerStyle={styles.leftArrowContainer}
-            ascendingArrow={isActive ? <RightArrow /> : null}
-            ascendingArrowContainerStyle={styles.rightArrowContainer}
-            ref={listRef}
-          />
-        </Container>
-      )}
-    </SpatialNavigationNode>
-  );
 };
+
+export const ProgramList = forwardRef<SpatialNavigationNodeRef, ProgramListProps>(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ({ orientation, containerStyle, listRef }, ref) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+    const renderItem = useCallback(
+      ({ item }: { item: ProgramInfo }) => (
+        <ProgramNode
+          programInfo={item}
+          onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
+        />
+      ),
+      [navigation],
+    );
+    const theme = useTheme();
+
+    const programInfos = useMemo(() => getPrograms(1000), []);
+
+    return (
+      <SpatialNavigationNode>
+        {({ isActive }) => (
+          <Container isActive={isActive} style={containerStyle}>
+            <SpatialNavigationVirtualizedList
+              orientation={orientation}
+              data={programInfos}
+              renderItem={renderItem}
+              itemSize={theme.sizes.program.portrait.width + 30}
+              numberOfRenderedItems={WINDOW_SIZE}
+              numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+              onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+              descendingArrow={isActive ? <LeftArrow /> : null}
+              descendingArrowContainerStyle={styles.leftArrowContainer}
+              ascendingArrow={isActive ? <RightArrow /> : null}
+              ascendingArrowContainerStyle={styles.rightArrowContainer}
+              ref={listRef}
+            />
+          </Container>
+        )}
+      </SpatialNavigationNode>
+    );
+  },
+);
+
+ProgramList.displayName = 'ProgramList';
 
 export const ProgramsRow = ({
   containerStyle,
