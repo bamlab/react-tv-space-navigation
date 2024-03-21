@@ -200,9 +200,9 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
         () => ({
           focus: async (index: number) => {
             setCurrentlyFocusedItemIndex(index);
-            await 0; // State update is async, but we need to wait for it to be done in order to handle the grab focus correctly
             if (idRef.current) {
-              spatialNavigator.grabFocus(idRef.current.getNthVirtualNodeID(index));
+              const newId = idRef.current.getNthVirtualNodeID(index);
+              spatialNavigator.queueFocus(newId);
             }
           },
         }),

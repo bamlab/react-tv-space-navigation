@@ -457,7 +457,6 @@ describe('SpatialNavigationVirtualizedList', () => {
     expectButtonToHaveFocus(component, 'Go to first');
 
     testRemoteControlManager.handleEnter();
-    await act(() => jest.runAllTimersAsync()); // Imperative focus is async
 
     expectButtonToHaveFocus(component, 'button 1');
     expect(listElement).toHaveStyle({ transform: [{ translateX: 0 }] });
@@ -480,7 +479,6 @@ describe('SpatialNavigationVirtualizedList', () => {
     expectButtonToHaveFocus(component, 'Go to last');
 
     testRemoteControlManager.handleEnter();
-    await act(() => jest.runAllTimersAsync()); // Imperative focus is async
 
     expectButtonToHaveFocus(component, 'button 10');
     expect(listElement).toHaveStyle({ transform: [{ translateX: -700 }] });

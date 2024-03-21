@@ -1,10 +1,9 @@
 import uniqueId from 'lodash.uniqueid';
-import { useCallback, useImperativeHandle, useRef } from 'react';
+import { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 import { VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
 import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
 import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
 import { updateVirtualNodeRegistration } from './helpers/updateVirtualNodeRegistration';
-import { useBeforeMountEffect } from '../../hooks/useBeforeMountEffect';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { useCachedValues } from './hooks/useCachedValues';
 import { NodeOrientation } from '../../types/orientation';
@@ -38,10 +37,11 @@ const useRegisterInitialAndUnregisterFinalVirtualNodes = <T,>({
   const currentAllItems = useRef<Array<T>>(allItems);
   currentAllItems.current = allItems;
 
-  useBeforeMountEffect(() => {
+  useEffect(() => {
     currentAllItems.current.forEach((_, n) => registerNthVirtualNode(n));
 
     return () => currentAllItems.current.forEach((_, n) => unregisterNthVirtualNode(n));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- unfortunately, we can't have clean effects with lrud for now
   }, [parentId]);
 };
 
@@ -55,7 +55,7 @@ const useUpdateRegistration = <T,>({
   const previousAllItems = useRef<Array<T>>();
 
   // useBeforeMountEffect done every time allItems is changing to change the way the allItems is register in the spatialNavigator
-  useBeforeMountEffect(() => {
+  useEffect(() => {
     const previousAllItemsList = previousAllItems.current;
     const isFirstRender = previousAllItemsList === undefined;
     if (!isFirstRender) {
@@ -66,6 +66,7 @@ const useUpdateRegistration = <T,>({
       });
     }
     previousAllItems.current = allItems;
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- unfortunately, we can't have clean effects with lrud for now
   }, [allItems]);
 };
 

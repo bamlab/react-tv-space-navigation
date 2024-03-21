@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useMemo } from 'react';
+import React, { ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { View, ViewStyle, StyleSheet } from 'react-native';
 import range from 'lodash/range';
 
@@ -10,7 +10,6 @@ import {
 } from '../virtualizedList/SpatialNavigationVirtualizedListWithScroll';
 import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
 import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
-import { useBeforeMountEffect } from '../../hooks/useBeforeMountEffect';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { convertToGrid } from './helpers/convertToGrid';
 
@@ -75,9 +74,10 @@ const useRegisterGridRowVirtualNodes = ({ numberOfColumns }: { numberOfColumns: 
     [spatialNavigator, getNthVirtualNodeID],
   );
 
-  useBeforeMountEffect(() => {
+  useEffect(() => {
     range(numberOfColumns).forEach((i) => registerNthVirtualNode(i));
     return () => range(numberOfColumns).forEach((i) => unregisterNthVirtualNode(i));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- unfortunately, we can't have clean effects with lrud for now
   }, [parentId]);
 
   return { getNthVirtualNodeID };
