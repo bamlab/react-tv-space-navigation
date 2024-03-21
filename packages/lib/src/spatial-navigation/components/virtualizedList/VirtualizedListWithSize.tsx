@@ -24,8 +24,10 @@ export const VirtualizedListWithSize = typedMemo(
         onLayout={(event) => {
           if (!hasAlreadyRendered) {
             const sizeKey = isVertical ? 'height' : 'width';
-            setListSizeInPx(event.nativeEvent.layout[sizeKey]);
-            setHasAlreadyRendered(true);
+            if (event.nativeEvent.layout[sizeKey] !== 0) {
+              setListSizeInPx(event.nativeEvent.layout[sizeKey]);
+              setHasAlreadyRendered(true);
+            }
           }
         }}
         testID={props.testID ? props.testID + '-size-giver' : undefined}
