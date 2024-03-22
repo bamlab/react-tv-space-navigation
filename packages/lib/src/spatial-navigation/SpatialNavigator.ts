@@ -18,9 +18,37 @@ export default class SpatialNavigator {
     this.onDirectionHandledWithoutMovementRef = onDirectionHandledWithoutMovementRef;
   }
 
+  private registerMap: { [key: string]: Array<Parameters<Lrud['registerNode']>> } = {};
+
   public registerNode(...params: Parameters<Lrud['registerNode']>) {
     try {
-      this.lrud.registerNode(...params);
+      const parent = params[1]?.parent;
+      const id = params[0];
+
+      // If no parent is given, we are talking about a root node. We want to register it.
+      // If a parent is given, we need the node to exist. Otherwise, we'll pass and queue the node for later registration.
+      if (parent === undefined || this.lrud.getNode(parent)) {
+        this.lrud.registerNode(...params);
+
+        // After we successfully register a node, we need to check whether it needs to grab the focus or not.
+        this.handleQueuedFocus();
+
+        // OK, we successfully registered an element.
+        // Now, we check if some other elements were depending on us to be registered.
+        // ...and we do it recursively.
+        const potentialNodesToRegister = this.registerMap[id];
+        if (!potentialNodesToRegister || potentialNodesToRegister.length === 0) return;
+
+        potentialNodesToRegister.forEach((node) => {
+          this.registerNode(...node);
+        });
+      } else {
+        // If the parent is not registered yet, we queue the node for later registration.
+        if (!this.registerMap[parent]) {
+          this.registerMap[parent] = [];
+        }
+        this.registerMap[parent].push(params);
+      }
     } catch (e) {
       console.error(e);
     }
@@ -49,6 +77,56 @@ export default class SpatialNavigator {
   public hasOneNodeFocused() {
     return this.lrud.getCurrentFocusNode() !== undefined;
   }
+
+  /**
+   * Sometimes we need to focus an element, but it is not registered yet.
+   * That's where we put this waiting element.
+   */
+  private focusQueue: string | null = null;
+
+  /**
+   * To handle the default focus, we want to queue the element to be focused.
+   * We queue it because it might not be registered yet when it asks for focus.
+   *
+   * We queue it only if there is no currently focused element already (or currently queued),
+   * because multiple elements might try to take the focus (DefaultFocus is a context, so all its children
+   * will try to grab it). We only want the first of these element to grab it.
+   */
+  public queueDefaultFocus = (id: string) => {
+    if (this.getCurrentFocusNode()) return;
+    if (this.focusQueue) return;
+    this.focusQueue = id;
+  };
+
+  /**
+   * Sometimes we want to queue focus an element, even if one is already focused.
+   * That happens with an imperative focus for example. I can force a focus to an element,
+   * even though another one is already focused.
+   *
+   * Still, I want to queue it, because the element might not be registered yet (example: in the case of virtualized lists)
+   */
+  public queueFocus = (id: string) => {
+    if (this.focusQueue) return;
+    this.focusQueue = id;
+  };
+
+  /**
+   * This will focus the currently queued element if it exists.
+   * Otherwise, it will do nothing.
+   *
+   * This function will eventually be called with the proper element
+   * when the element is finally registered.
+   */
+  private handleQueuedFocus = () => {
+    if (this.focusQueue && this.lrud.getNode(this.focusQueue)) {
+      try {
+        this.lrud.assignFocus(this.focusQueue);
+        this.focusQueue = null;
+      } catch (e) {
+        // pass
+      }
+    }
+  };
 
   public grabFocus = (id: string) => {
     return this.lrud.assignFocus(id);

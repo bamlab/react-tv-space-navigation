@@ -1,7 +1,6 @@
-import { ReactNode, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { ParentIdContext } from '../context/ParentIdContext';
 import { SpatialNavigatorContext } from '../context/SpatialNavigatorContext';
-import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useCreateSpatialNavigator } from '../hooks/useCreateSpatialNavigator';
 import { useRemoteControl } from '../hooks/useRemoteControl';
 import { OnDirectionHandledWithoutMovement } from '../SpatialNavigator';
@@ -48,10 +47,10 @@ export const SpatialNavigationRoot = ({
 
   useRemoteControl({ spatialNavigator, isActive: isActive && !isLocked });
 
-  useBeforeMountEffect(() => {
+  useEffect(() => {
     spatialNavigator.registerNode(ROOT_ID, { orientation: 'vertical' });
     return () => spatialNavigator.unregisterNode(ROOT_ID);
-  }, []);
+  }, [spatialNavigator]);
 
   return (
     <SpatialNavigatorContext.Provider value={spatialNavigator}>

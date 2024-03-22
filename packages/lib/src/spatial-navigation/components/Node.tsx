@@ -4,7 +4,6 @@ import { useSpatialNavigatorDefaultFocus } from '../context/DefaultFocusContext'
 import { ParentIdContext, useParentId } from '../context/ParentIdContext';
 import { useSpatialNavigatorParentScroll } from '../context/ParentScrollContext';
 import { useSpatialNavigator } from '../context/SpatialNavigatorContext';
-import { useBeforeMountEffect } from '../hooks/useBeforeMountEffect';
 import { useUniqueId } from '../hooks/useUniqueId';
 import { NodeOrientation } from '../types/orientation';
 import { NodeIndexRange } from '@bam.tech/lrud';
@@ -122,7 +121,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
 
     const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
 
-    useBeforeMountEffect(() => {
+    useEffect(() => {
       spatialNavigator.registerNode(id, {
         parent: parentId,
         isFocusable,
@@ -143,11 +142,12 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       });
 
       return () => spatialNavigator.unregisterNode(id);
+      // eslint-disable-next-line react-hooks/exhaustive-deps -- unfortunately, we can't have clean effects with lrud for now
     }, [parentId]);
 
     useEffect(() => {
       if (shouldHaveDefaultFocus && isFocusable && !spatialNavigator.hasOneNodeFocused()) {
-        spatialNavigator.grabFocus(id);
+        spatialNavigator.queueDefaultFocus(id);
       }
     }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
 
