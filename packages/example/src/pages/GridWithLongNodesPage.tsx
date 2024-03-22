@@ -25,7 +25,7 @@ const HEADER_SIZE = scaledPixels(400);
 export const GridWithLongNodesPage = () => {
   const firstItemRef = useRef<SpatialNavigationNodeRef>(null);
   const lastItemRef = useRef<SpatialNavigationNodeRef>(null);
-  const listRef = useRef<SpatialNavigationVirtualizedListRef>(null);
+  const parentRef = useRef<SpatialNavigationVirtualizedListRef>(null);
 
   return (
     <Page>
@@ -48,18 +48,21 @@ export const GridWithLongNodesPage = () => {
               </DefaultFocus>
             </SpatialNavigationNode>
             <Spacer gap="$6" />
-            <ProgramListWithTitle title="Imperative focus on virtualized list" listRef={listRef} />
+            <ProgramListWithTitle
+              title="Imperative focus on virtualized list"
+              parentRef={parentRef}
+            />
             <Row direction="horizontal">
               <Button
                 label="Go to first"
                 onSelect={() => {
-                  listRef.current.focus(0);
+                  parentRef.current.focus(0);
                 }}
               />
               <Button
                 label="Go to last"
                 onSelect={() => {
-                  listRef.current.focus(999);
+                  parentRef.current.focus(999);
                 }}
               />
             </Row>

@@ -1,7 +1,7 @@
-import mitt from 'mitt';
 import { SupportedKeys } from './SupportedKeys';
 import { HWEvent, TVEventHandler } from 'react-native';
 import { RemoteControlManagerInterface } from './RemoteControlManager.interface';
+import CustomEventEmitter from './CustomEventEmitter';
 
 class RemoteControlManager implements RemoteControlManagerInterface {
   constructor() {
@@ -9,7 +9,7 @@ class RemoteControlManager implements RemoteControlManagerInterface {
     _tvEventHandler.enable(undefined, this.handleKeyDown);
   }
 
-  private eventEmitter = mitt<{ keyDown: SupportedKeys }>();
+  private eventEmitter = new CustomEventEmitter<{ keyDown: SupportedKeys }>();
 
   private handleKeyDown = (_: unknown, evt: HWEvent) => {
     if (!evt) return;
@@ -29,12 +29,12 @@ class RemoteControlManager implements RemoteControlManagerInterface {
     this.eventEmitter.emit('keyDown', mappedKey);
   };
 
-  addKeydownListener = (listener: (event: SupportedKeys) => void) => {
+  addKeydownListener = (listener: (event: SupportedKeys) => boolean) => {
     this.eventEmitter.on('keyDown', listener);
     return listener;
   };
 
-  removeKeydownListener = (listener: (event: SupportedKeys) => void) => {
+  removeKeydownListener = (listener: (event: SupportedKeys) => boolean) => {
     this.eventEmitter.off('keyDown', listener);
   };
 

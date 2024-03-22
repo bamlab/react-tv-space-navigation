@@ -14,6 +14,7 @@ SpatialNavigation.configureRemoteControl({
 
     const remoteControlListener = (keyEvent: SupportedKeys) => {
       callback(mapping[keyEvent]);
+      return false;
     };
 
     return TestRemoteControlManager.addKeydownListener(remoteControlListener);
