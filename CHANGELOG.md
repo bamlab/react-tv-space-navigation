@@ -1,4 +1,16 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v2.1.1...v) (2024-03-11)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.0.0...v) (2024-03-22)
+
+## [3.0.0](https://github.com/bamlab/react-tv-space-navigation/compare/v2.1.1...v3.0.0) (2024-03-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **core:** remove side effects from rendering cycles
+
+### Bug Fixes
+
+* **core:** remove side effects from rendering cycles ([d2a0ef2](https://github.com/bamlab/react-tv-space-navigation/commit/d2a0ef25f3df480aaa5818791ec7b8029d4f4d5a))
+* prevent setting virtualized list size to zero ([df9d1c1](https://github.com/bamlab/react-tv-space-navigation/commit/df9d1c1a4b83c2ab49aa046b364fa08675f52e02))
 
 ## [2.1.1](https://github.com/bamlab/react-tv-space-navigation/compare/v2.1.0...v2.1.1) (2024-03-11)
 
