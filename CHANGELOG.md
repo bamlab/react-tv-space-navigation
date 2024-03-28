@@ -1,4 +1,11 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.0.0...v) (2024-03-22)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.1.0...v) (2024-03-28)
+
+## [3.1.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.0.0...v3.1.0) (2024-03-28)
+
+
+### Features
+
+* Add imperative focus to SpatialNavigationView ([cad3e80](https://github.com/bamlab/react-tv-space-navigation/commit/cad3e80d4f31b9853bb95f3faa4439fac5c19940))
 
 ## [3.0.0](https://github.com/bamlab/react-tv-space-navigation/compare/v2.1.1...v3.0.0) (2024-03-22)
 
