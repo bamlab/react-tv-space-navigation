@@ -143,7 +143,7 @@ export const SpatialNavigationScrollView = ({
     useRemotePointerScrollviewScrollProps({ pointerScrollSpeed, scrollY, scrollViewRef });
 
   const scrollToNode = useCallback(
-    (newlyFocusedElementRef: RefObject<View>) => {
+    (newlyFocusedElementRef: RefObject<View>, additionalOffset = 0) => {
       try {
         if (deviceTypeRef.current === 'remoteKeys') {
           newlyFocusedElementRef?.current?.measureLayout(
@@ -153,7 +153,7 @@ export const SpatialNavigationScrollView = ({
                 newlyFocusedElementDistanceToLeftRelativeToLayout: left,
                 newlyFocusedElementDistanceToTopRelativeToLayout: top,
                 horizontal,
-                offsetFromStart,
+                offsetFromStart: offsetFromStart + additionalOffset,
                 scrollViewRef,
               }),
             () => {},
@@ -162,7 +162,7 @@ export const SpatialNavigationScrollView = ({
       } catch {
         // A crash can happen when calling measureLayout when a page unmounts. No impact on focus detected in regular use cases.
       }
-      makeParentsScrollToNodeIfNeeded(newlyFocusedElementRef); // We need to propagate the scroll event for parents if we have nested ScrollViews/VirtualizedLists.
+      makeParentsScrollToNodeIfNeeded(newlyFocusedElementRef, additionalOffset); // We need to propagate the scroll event for parents if we have nested ScrollViews/VirtualizedLists.
     },
     [makeParentsScrollToNodeIfNeeded, horizontal, offsetFromStart, deviceTypeRef],
   );

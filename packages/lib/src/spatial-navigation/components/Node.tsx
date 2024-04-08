@@ -26,6 +26,10 @@ type DefaultProps = {
    * @see LRUD docs */
   alignInGrid?: boolean;
   indexRange?: NodeIndexRange;
+  /**
+   * This is an additional offset useful only for the scrollview. It adds up to the offsetFromStart of the scrollview.
+   */
+  additionalOffset?: number;
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
@@ -33,12 +37,14 @@ export type SpatialNavigationNodeDefaultProps = DefaultProps;
 
 const useScrollToNodeIfNeeded = ({
   childRef,
+  additionalOffset,
 }: {
   childRef: React.MutableRefObject<View | null>;
+  additionalOffset?: number;
 }) => {
   const { scrollToNodeIfNeeded } = useSpatialNavigatorParentScroll();
 
-  return () => scrollToNodeIfNeeded(childRef);
+  return () => scrollToNodeIfNeeded(childRef, additionalOffset);
 };
 
 const useBindRefToChild = () => {
@@ -79,6 +85,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       alignInGrid = false,
       indexRange,
       children,
+      additionalOffset = 0,
     }: Props,
     ref,
   ) => {
@@ -99,7 +106,10 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
 
     const { childRef, bindRefToChild } = useBindRefToChild();
 
-    const scrollToNodeIfNeeded = useScrollToNodeIfNeeded({ childRef });
+    const scrollToNodeIfNeeded = useScrollToNodeIfNeeded({
+      childRef,
+      additionalOffset,
+    });
 
     /*
      * We don't re-register in LRUD on each render, because LRUD does not allow updating the nodes.
