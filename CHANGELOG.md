@@ -1,4 +1,12 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.1.0...v) (2024-03-28)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.2.0...v) (2024-04-09)
+
+## [3.2.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.1.0...v3.2.0) (2024-04-09)
+
+
+### Features
+
+* Add onActive and onInactive props to SpatialNavigationNode ([e79c480](https://github.com/bamlab/react-tv-space-navigation/commit/e79c4804a088c47cc8060e927f52b151b658e1f8))
+* nodes can take an additional scrolloffset ([b87654b](https://github.com/bamlab/react-tv-space-navigation/commit/b87654bb95137e83400204feea1cba2caef01248))
 
 ## [3.1.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.0.0...v3.1.0) (2024-03-28)
 
