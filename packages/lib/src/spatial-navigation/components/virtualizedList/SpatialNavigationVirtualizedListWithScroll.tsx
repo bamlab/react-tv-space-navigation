@@ -33,10 +33,10 @@ const ItemWrapperWithScrollContext = typedMemo(
       useSpatialNavigatorParentScroll();
 
     const scrollToItem: ScrollToNodeCallback = useCallback(
-      (newlyFocusedElementRef) => {
+      (newlyFocusedElementRef, additionalOffset) => {
         setCurrentlyFocusedItemIndex(item.index);
         // We need to propagate the scroll event for parents if we have nested ScrollViews/VirtualizedLists.
-        makeParentsScrollToNodeIfNeeded(newlyFocusedElementRef);
+        makeParentsScrollToNodeIfNeeded(newlyFocusedElementRef, additionalOffset);
       },
       [makeParentsScrollToNodeIfNeeded, setCurrentlyFocusedItemIndex, item.index],
     );
