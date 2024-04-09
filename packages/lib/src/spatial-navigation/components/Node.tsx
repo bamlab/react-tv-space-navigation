@@ -21,6 +21,8 @@ type DefaultProps = {
   onFocus?: () => void;
   onBlur?: () => void;
   onSelect?: () => void;
+  onActive?: () => void;
+  onInactive?: () => void;
   orientation?: NodeOrientation;
   /** Use this for grid alignment.
    * @see LRUD docs */
@@ -80,6 +82,8 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       onFocus,
       onBlur,
       onSelect,
+      onActive,
+      onInactive,
       orientation = 'vertical',
       isFocusable = false,
       alignInGrid = false,
@@ -129,6 +133,12 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     const currentOnBlur = useRef<() => void>();
     currentOnBlur.current = onBlur;
 
+    const currentOnActive = useRef<() => void>();
+    currentOnActive.current = onActive;
+
+    const currentOnInactive = useRef<() => void>();
+    currentOnInactive.current = onInactive;
+
     const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
 
     useEffect(() => {
@@ -147,8 +157,14 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
         orientation,
         isIndexAlign: alignInGrid,
         indexRange,
-        onActive: () => setIsActive(true),
-        onInactive: () => setIsActive(false),
+        onActive: () => {
+          currentOnActive.current?.();
+          setIsActive(true);
+        },
+        onInactive: () => {
+          currentOnInactive.current?.();
+          setIsActive(false);
+        },
       });
 
       return () => spatialNavigator.unregisterNode(id);
