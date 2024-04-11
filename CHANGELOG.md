@@ -1,4 +1,12 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.2.0...v) (2024-04-09)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.3.0...v) (2024-04-11)
+
+## [3.3.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.2.0...v3.3.0) (2024-04-11)
+
+
+### Bug Fixes
+
+* **core:** fix double registering of elements ([ac64a63](https://github.com/bamlab/react-tv-space-navigation/commit/ac64a6384659dd9edebe4234c4ebd02c601c89db))
+* race conditions with default focus ([656738d](https://github.com/bamlab/react-tv-space-navigation/commit/656738d00a05a739f58d560900808757e39a6cf5))
 
 ## [3.2.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.1.0...v3.2.0) (2024-04-09)
 
