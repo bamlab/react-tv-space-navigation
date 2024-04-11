@@ -173,7 +173,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
 
     useEffect(() => {
       if (shouldHaveDefaultFocus && isFocusable && !spatialNavigator.hasOneNodeFocused()) {
-        spatialNavigator.queueDefaultFocus(id);
+        spatialNavigator.handleOrQueueDefaultFocus(id);
       }
     }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
 

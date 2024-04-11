@@ -92,9 +92,13 @@ export default class SpatialNavigator {
    * because multiple elements might try to take the focus (DefaultFocus is a context, so all its children
    * will try to grab it). We only want the first of these element to grab it.
    */
-  public queueDefaultFocus = (id: string) => {
+  public handleOrQueueDefaultFocus = (id: string) => {
     if (this.getCurrentFocusNode()) return;
     if (this.focusQueue) return;
+    if (this.lrud.getNode(id)) {
+      this.lrud.assignFocus(id);
+      return;
+    }
     this.focusQueue = id;
   };
 
