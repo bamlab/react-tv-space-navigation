@@ -42,6 +42,7 @@ export default class SpatialNavigator {
         potentialNodesToRegister.forEach((node) => {
           this.registerNode(...node);
         });
+        delete this.registerMap[id];
       } else {
         // If the parent is not registered yet, we queue the node for later registration.
         if (!this.registerMap[parent]) {
