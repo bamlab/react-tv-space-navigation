@@ -26,6 +26,7 @@ export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRe
       ref,
       () => ({
         focus: () => nodeRef.current?.focus(),
+        triggerScroll: () => nodeRef.current?.triggerScroll(),
       }),
       [nodeRef],
     );

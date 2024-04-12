@@ -1,4 +1,11 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import { View } from 'react-native';
 import { useSpatialNavigatorDefaultFocus } from '../context/DefaultFocusContext';
 import { ParentIdContext, useParentId } from '../context/ParentIdContext';
@@ -46,7 +53,10 @@ const useScrollToNodeIfNeeded = ({
 }) => {
   const { scrollToNodeIfNeeded } = useSpatialNavigatorParentScroll();
 
-  return () => scrollToNodeIfNeeded(childRef, additionalOffset);
+  return useCallback(
+    () => scrollToNodeIfNeeded(childRef, additionalOffset),
+    [additionalOffset, childRef, scrollToNodeIfNeeded],
+  );
 };
 
 const useBindRefToChild = () => {
@@ -100,20 +110,20 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     // If parent changes, we have to re-register the Node + all children -> adding the parentId to the nodeId makes the children re-register.
     const id = useUniqueId({ prefix: `${parentId}_node_` });
 
-    useImperativeHandle(
-      ref,
-      () => ({
-        focus: () => spatialNavigator.grabFocus(id),
-      }),
-      [spatialNavigator, id],
-    );
-
     const { childRef, bindRefToChild } = useBindRefToChild();
-
     const scrollToNodeIfNeeded = useScrollToNodeIfNeeded({
       childRef,
       additionalOffset,
     });
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        focus: () => spatialNavigator.grabFocus(id),
+        triggerScroll: () => scrollToNodeIfNeeded(),
+      }),
+      [spatialNavigator, id, scrollToNodeIfNeeded],
+    );
 
     /*
      * We don't re-register in LRUD on each render, because LRUD does not allow updating the nodes.
