@@ -24,6 +24,9 @@ type DefaultProps = {
   onActive?: () => void;
   onInactive?: () => void;
   orientation?: NodeOrientation;
+  /** Use this for nodes alignment.
+   * @see LRUD docs */
+  index?: number;
   /** Use this for grid alignment.
    * @see LRUD docs */
   alignInGrid?: boolean;
@@ -85,6 +88,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       onActive,
       onInactive,
       orientation = 'vertical',
+      index,
       isFocusable = false,
       alignInGrid = false,
       indexRange,
@@ -155,6 +159,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
         },
         onSelect: () => currentOnSelect.current?.(),
         orientation,
+        index,
         isIndexAlign: alignInGrid,
         indexRange,
         onActive: () => {

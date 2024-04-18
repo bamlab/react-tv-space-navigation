@@ -16,7 +16,8 @@ import { ProgramDetail } from './src/pages/ProgramDetail';
 import { NonVirtualizedGridPage } from './src/pages/NonVirtualizedGridPage';
 import { GridWithLongNodesPage } from './src/pages/GridWithLongNodesPage';
 import { useTVPanEvent } from './src/components/PanEvent/useTVPanEvent';
-import { SpatialNavigationDeviceTypeProvider } from '../lib/src/spatial-navigation/context/DeviceContext';
+import { SpatialNavigationDeviceTypeProvider } from 'react-tv-space-navigation';
+import { NodeFocusExample } from './src/pages/NodeFocusExample';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -27,6 +28,7 @@ export type RootTabParamList = {
   ProgramGridPage: undefined;
   NonVirtualizedGridPage: undefined;
   GridWithLongNodesPage: undefined;
+  NodeFocusExample: undefined;
 };
 
 export type RootStackParamList = {
@@ -54,6 +56,7 @@ const TabNavigator = () => {
         <Tab.Screen name="ProgramGridPage" component={ProgramGridPage} />
         <Tab.Screen name="NonVirtualizedGridPage" component={NonVirtualizedGridPage} />
         <Tab.Screen name="GridWithLongNodesPage" component={GridWithLongNodesPage} />
+        <Tab.Screen name="NodeFocusExample" component={NodeFocusExample} />
       </Tab.Navigator>
     </MenuProvider>
   );

@@ -58,6 +58,7 @@ const menuItems: Record<keyof RootTabParamList, MenuItems> = {
     label: 'Grid with long nodes',
     icon: 'LayoutDashboard',
   },
+  NodeFocusExample: { label: 'Node Focus Example', icon: 'LayoutGrid' },
 };
 
 export const Menu = ({ state, navigation }: BottomTabBarProps) => {

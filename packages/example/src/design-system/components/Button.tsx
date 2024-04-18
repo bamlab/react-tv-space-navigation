@@ -9,6 +9,7 @@ import { scaledPixels } from '../helpers/scaledPixels';
 type ButtonProps = {
   label: string;
   onSelect?: () => void;
+  index?: number;
 };
 
 const ButtonContent = forwardRef<View, { label: string; isFocused: boolean }>((props, ref) => {
@@ -23,9 +24,9 @@ const ButtonContent = forwardRef<View, { label: string; isFocused: boolean }>((p
 
 ButtonContent.displayName = 'ButtonContent';
 
-export const Button = ({ label, onSelect }: ButtonProps) => {
+export const Button = ({ label, onSelect, index }: ButtonProps) => {
   return (
-    <SpatialNavigationFocusableView onSelect={onSelect}>
+    <SpatialNavigationFocusableView index={index} onSelect={onSelect}>
       {({ isFocused }) => <ButtonContent label={label} isFocused={isFocused} />}
     </SpatialNavigationFocusableView>
   );
