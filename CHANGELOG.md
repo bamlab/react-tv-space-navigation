@@ -1,4 +1,11 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.3.0...v) (2024-04-11)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.4.0...v) (2024-04-19)
+
+## [3.4.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.3.0...v3.4.0) (2024-04-19)
+
+
+### Features
+
+* expose ScrollView ref ([5f2bb3c](https://github.com/bamlab/react-tv-space-navigation/commit/5f2bb3c0ed616d07b80e08901f3ad11e0bfdc267))
 
 ## [3.3.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.2.0...v3.3.0) (2024-04-11)
 
