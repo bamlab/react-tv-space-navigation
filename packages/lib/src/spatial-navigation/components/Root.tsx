@@ -5,6 +5,7 @@ import { useCreateSpatialNavigator } from '../hooks/useCreateSpatialNavigator';
 import { useRemoteControl } from '../hooks/useRemoteControl';
 import { OnDirectionHandledWithoutMovement } from '../SpatialNavigator';
 import { LockSpatialNavigationContext, useIsLocked } from '../context/LockSpatialNavigationContext';
+import { IsRootActiveContext } from '../context/IsRootActiveContext';
 
 const ROOT_ID = 'root';
 
@@ -13,6 +14,8 @@ type Props = {
    * Determines if the spatial navigation is active.
    * If false, the spatial navigation will be locked, and no nodes can be focused.
    * This is useful to handle a multi page app: you can disable the non-focused pages' spatial navigation roots.
+   *
+   * Note: this is a little redundant with the lock system, but it's useful to have a way to disable the spatial navigation from above AND from below.
    */
   isActive?: boolean;
   /**
@@ -45,7 +48,8 @@ export const SpatialNavigationRoot = ({
 
   const { isLocked, lockActions } = useIsLocked();
 
-  useRemoteControl({ spatialNavigator, isActive: isActive && !isLocked });
+  const isRootActive = isActive && !isLocked;
+  useRemoteControl({ spatialNavigator, isActive: isRootActive });
 
   useEffect(() => {
     spatialNavigator.registerNode(ROOT_ID, { orientation: 'vertical' });
@@ -55,7 +59,9 @@ export const SpatialNavigationRoot = ({
   return (
     <SpatialNavigatorContext.Provider value={spatialNavigator}>
       <LockSpatialNavigationContext.Provider value={lockActions}>
-        <ParentIdContext.Provider value={ROOT_ID}>{children}</ParentIdContext.Provider>
+        <IsRootActiveContext.Provider value={isRootActive}>
+          <ParentIdContext.Provider value={ROOT_ID}>{children}</ParentIdContext.Provider>
+        </IsRootActiveContext.Provider>
       </LockSpatialNavigationContext.Provider>
     </SpatialNavigatorContext.Provider>
   );

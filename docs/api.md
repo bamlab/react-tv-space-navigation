@@ -57,7 +57,7 @@ The `SpatialNavigationNode` component receives the following props:
 | `isFocusable` | `boolean`                                                                                          | `false`      | Determines if the node is focusable or not. If it's `true`, the `children` prop must be a function that returns a React element and accepts a parameter with a `isFocused` property. If it's `false` or not provided, `children` can be any valid React node.                                                                                                                                                                                                         |
 | `alignInGrid` | `boolean`                                                                                          | `false`      | Determines whether child lists should behave like a grid.                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `indexRange`  | `number[]`                                                                                         | `undefined`  | Determines the indexes when using long nodes in a grid. If a grid row has one `indexRange`, you should specify each element's `indexRange`. You can check for more details in [`GridWithLongNodesPage`](https://github.com/bamlab/react-tv-space-navigation/blob/31bfe1def4a7e18e9e41f26a520090d1b7a5b149/packages/example/src/pages/GridWithLongNodesPage.tsx) example or in [lrud documentation](https://github.com/bbc/lrud/blob/master/docs/usage.md#indexrange). |
-| `children`    | `({ isFocused, isActive }: { isFocused: boolean, isActive: boolean }) => ReactNode` or `ReactNode` | `null`       | Child elements of the component. It can be a function that returns a React element and accepts a parameter with a `isFocused` property when `isFocusable` is `true`. If `isFocusable` is `false` or not provided, it can be any valid React node.                                                                                                                                                                                                                     |
+| `children`    | `({ isFocused, isActive, isRootActive }: { isFocused: boolean, isActive: boolean, isRootActive: boolean }) => ReactNode` or `ReactNode` | `null`       | See details of the different parameters below. Child elements of the component. It can be a function that returns a React element and accepts a parameter with a `isFocused` property when `isFocusable` is `true`. If `isFocusable` is `false` or not provided, it can be any valid React node.                                                                                                                                                                                                                     |
 | `additionalOffset`    | `number` | `0`       | An additional offset used when the node is a children of a scrollview. If specified, this offset will be added to the `offsetFromStart` of the ScrollView. It allows a fine grained scroll for each scrollview item.                                                                                                                                                                                                                    |
 
 The `SpatialNavigationNode` component ref expose the following methods:
@@ -65,6 +65,14 @@ The `SpatialNavigationNode` component ref expose the following methods:
 | Name    | Type       | Description                          |
 | ------- | ---------- | ------------------------------------ |
 | `focus` | `function` | Give the focus to the selected node. |
+
+The child function that is given as child has the following callback parameters:
+
+| Name    | Type       | Description                          |
+| ------- | ---------- | ------------------------------------ |
+| `isFocused` | `boolean` | Returns whether the node is focused right now or not. |
+| `isActive` | `boolean` | Returns whether the node is active right now or not. An active node is active if one of its children is focused. |
+| `isRootActive` | `boolean` | Returns whether the root is active or not. This is very handy if you want to hide the focus on your page elements when the side-menu is focused (since it is a different root navigator) |
 
 ## Usage
 
@@ -75,7 +83,7 @@ The `SpatialNavigationNode` component ref expose the following methods:
   orientation="horizontal"
   isFocusable={true}
 >
-  {({ isFocused }) => <Text style={{ color: isFocused ? 'red' : 'black' }}>Hello World!</Text>}
+  {({ isFocused, isRootActive }) => <Text style={{ color: (isFocused && isRootActive) ? 'red' : 'black' }}>Hello World!</Text>}
 </SpatialNavigationNode>
 ```
 

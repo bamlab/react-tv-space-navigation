@@ -9,7 +9,16 @@ type FocusableViewProps = {
   style?: ViewStyle;
   children:
     | React.ReactElement
-    | ((props: { isFocused: boolean; isActive: boolean }) => React.ReactElement);
+    | ((props: {
+        /** Returns whether the root is focused or not. */
+        isFocused: boolean;
+        /** Returns whether the root is active or not. An active node is active if one of its children is focused. */
+        isActive: boolean;
+        /** Returns whether the root is active or not.
+         * This is very handy if you want to hide the focus on your page elements when
+         * the side-menu is focused (since it is a different root navigator) */
+        isRootActive: boolean;
+      }) => React.ReactElement);
   viewProps?: ViewProps & {
     onMouseEnter?: () => void;
   };
@@ -49,13 +58,14 @@ export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRe
 
     return (
       <SpatialNavigationNode isFocusable {...props} ref={nodeRef}>
-        {({ isFocused, isActive }) => (
+        {({ isFocused, isActive, isRootActive }) => (
           <InnerFocusableView
             viewProps={viewProps}
             webProps={webProps}
             style={style}
             isActive={isActive}
             isFocused={isFocused}
+            isRootActive={isRootActive}
           >
             {children}
           </InnerFocusableView>
@@ -78,10 +88,11 @@ type InnerFocusableViewProps = FocusableViewProps & {
       };
   isActive: boolean;
   isFocused: boolean;
+  isRootActive: boolean;
 };
 
 const InnerFocusableView = forwardRef<View, InnerFocusableViewProps>(
-  ({ viewProps, webProps, children, isActive, isFocused, style }, ref) => {
+  ({ viewProps, webProps, children, isActive, isFocused, isRootActive, style }, ref) => {
     const accessibilityProps = useSpatialNavigatorFocusableAccessibilityProps();
     const accessibilityState = useMemo(() => ({ selected: isFocused }), [isFocused]);
 
@@ -94,7 +105,9 @@ const InnerFocusableView = forwardRef<View, InnerFocusableViewProps>(
         {...viewProps}
         {...webProps}
       >
-        {typeof children === 'function' ? children({ isFocused, isActive }) : children}
+        {typeof children === 'function'
+          ? children({ isFocused, isActive, isRootActive })
+          : children}
       </View>
     );
   },

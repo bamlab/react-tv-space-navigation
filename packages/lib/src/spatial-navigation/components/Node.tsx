@@ -8,14 +8,33 @@ import { useUniqueId } from '../hooks/useUniqueId';
 import { NodeOrientation } from '../types/orientation';
 import { NodeIndexRange } from '@bam.tech/lrud';
 import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
+import { useIsRootActive } from '../context/IsRootActiveContext';
 
 type FocusableProps = {
   isFocusable: true;
-  children: (props: { isFocused: boolean; isActive: boolean }) => React.ReactElement;
+  children: (props: {
+    /** Returns whether the root is focused or not. */
+    isFocused: boolean;
+    /** Returns whether the root is active or not. An active node is active if one of its children is focused. */
+    isActive: boolean;
+    /** Returns whether the root is active or not.
+     * This is very handy if you want to hide the focus on your page elements when
+     * the side-menu is focused (since it is a different root navigator) */
+    isRootActive: boolean;
+  }) => React.ReactElement;
 };
 type NonFocusableProps = {
   isFocusable?: false;
-  children: React.ReactElement | ((props: { isActive: boolean }) => React.ReactElement);
+  children:
+    | React.ReactElement
+    | ((props: {
+        /** Returns whether the root is active or not. An active node is active if one of its children is focused. */
+        isActive: boolean;
+        /** Returns whether the root is active or not.
+         * This is very handy if you want to hide the focus on your page elements when
+         * the side-menu is focused (since it is a different root navigator) */
+        isRootActive: boolean;
+      }) => React.ReactElement);
 };
 type DefaultProps = {
   onFocus?: () => void;
@@ -95,6 +114,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
   ) => {
     const spatialNavigator = useSpatialNavigator();
     const parentId = useParentId();
+    const isRootActive = useIsRootActive();
     const [isFocused, setIsFocused] = useState(false);
     const [isActive, setIsActive] = useState(false);
     // If parent changes, we have to re-register the Node + all children -> adding the parentId to the nodeId makes the children re-register.
@@ -180,7 +200,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     return (
       <ParentIdContext.Provider value={id}>
         {typeof children === 'function'
-          ? bindRefToChild(children({ isFocused, isActive }))
+          ? bindRefToChild(children({ isFocused, isActive, isRootActive }))
           : children}
       </ParentIdContext.Provider>
     );
