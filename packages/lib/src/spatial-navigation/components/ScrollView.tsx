@@ -1,4 +1,12 @@
-import React, { useCallback, RefObject, useRef, ReactElement, ReactNode, useMemo } from 'react';
+import React, {
+  useCallback,
+  RefObject,
+  useRef,
+  ReactElement,
+  ReactNode,
+  useMemo,
+  forwardRef,
+} from 'react';
 import {
   ScrollView,
   View,
@@ -14,6 +22,7 @@ import {
 } from '../context/ParentScrollContext';
 import { scrollToNewlyFocusedElement } from '../helpers/scrollToNewlyfocusedElement';
 import { useSpatialNavigationDeviceType } from '../context/DeviceContext';
+import { mergeRefs } from '../helpers/mergeRefs';
 
 type Props = {
   horizontal?: boolean;
@@ -122,85 +131,91 @@ const getNodeRef = (node: ScrollView | null | undefined) => {
   return node;
 };
 
-export const SpatialNavigationScrollView = ({
-  horizontal = false,
-  style,
-  offsetFromStart = 0,
-  children,
-  ascendingArrow,
-  ascendingArrowContainerStyle,
-  descendingArrow,
-  descendingArrowContainerStyle,
-  pointerScrollSpeed = 10,
-}: Props) => {
-  const { scrollToNodeIfNeeded: makeParentsScrollToNodeIfNeeded } =
-    useSpatialNavigatorParentScroll();
-  const scrollViewRef = useRef<ScrollView>(null);
+export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
+  (
+    {
+      horizontal = false,
+      style,
+      offsetFromStart = 0,
+      children,
+      ascendingArrow,
+      ascendingArrowContainerStyle,
+      descendingArrow,
+      descendingArrowContainerStyle,
+      pointerScrollSpeed = 10,
+    },
+    ref,
+  ) => {
+    const { scrollToNodeIfNeeded: makeParentsScrollToNodeIfNeeded } =
+      useSpatialNavigatorParentScroll();
+    const scrollViewRef = useRef<ScrollView>(null);
 
-  const scrollY = useRef<number>(0);
+    const scrollY = useRef<number>(0);
 
-  const { ascendingArrowProps, descendingArrowProps, deviceType, deviceTypeRef } =
-    useRemotePointerScrollviewScrollProps({ pointerScrollSpeed, scrollY, scrollViewRef });
+    const { ascendingArrowProps, descendingArrowProps, deviceType, deviceTypeRef } =
+      useRemotePointerScrollviewScrollProps({ pointerScrollSpeed, scrollY, scrollViewRef });
 
-  const scrollToNode = useCallback(
-    (newlyFocusedElementRef: RefObject<View>, additionalOffset = 0) => {
-      try {
-        if (deviceTypeRef.current === 'remoteKeys') {
-          newlyFocusedElementRef?.current?.measureLayout(
-            getNodeRef(scrollViewRef?.current),
-            (left, top) =>
-              scrollToNewlyFocusedElement({
-                newlyFocusedElementDistanceToLeftRelativeToLayout: left,
-                newlyFocusedElementDistanceToTopRelativeToLayout: top,
-                horizontal,
-                offsetFromStart: offsetFromStart + additionalOffset,
-                scrollViewRef,
-              }),
-            () => {},
-          );
+    const scrollToNode = useCallback(
+      (newlyFocusedElementRef: RefObject<View>, additionalOffset = 0) => {
+        try {
+          if (deviceTypeRef.current === 'remoteKeys') {
+            newlyFocusedElementRef?.current?.measureLayout(
+              getNodeRef(scrollViewRef?.current),
+              (left, top) =>
+                scrollToNewlyFocusedElement({
+                  newlyFocusedElementDistanceToLeftRelativeToLayout: left,
+                  newlyFocusedElementDistanceToTopRelativeToLayout: top,
+                  horizontal,
+                  offsetFromStart: offsetFromStart + additionalOffset,
+                  scrollViewRef,
+                }),
+              () => {},
+            );
+          }
+        } catch {
+          // A crash can happen when calling measureLayout when a page unmounts. No impact on focus detected in regular use cases.
         }
-      } catch {
-        // A crash can happen when calling measureLayout when a page unmounts. No impact on focus detected in regular use cases.
-      }
-      makeParentsScrollToNodeIfNeeded(newlyFocusedElementRef, additionalOffset); // We need to propagate the scroll event for parents if we have nested ScrollViews/VirtualizedLists.
-    },
-    [makeParentsScrollToNodeIfNeeded, horizontal, offsetFromStart, deviceTypeRef],
-  );
+        makeParentsScrollToNodeIfNeeded(newlyFocusedElementRef, additionalOffset); // We need to propagate the scroll event for parents if we have nested ScrollViews/VirtualizedLists.
+      },
+      [makeParentsScrollToNodeIfNeeded, horizontal, offsetFromStart, deviceTypeRef],
+    );
 
-  const onScroll = useCallback(
-    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-      scrollY.current = event.nativeEvent.contentOffset.y;
-    },
-    [scrollY],
-  );
+    const onScroll = useCallback(
+      (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        scrollY.current = event.nativeEvent.contentOffset.y;
+      },
+      [scrollY],
+    );
 
-  return (
-    <SpatialNavigatorParentScrollContext.Provider value={scrollToNode}>
-      <ScrollView
-        ref={scrollViewRef}
-        horizontal={horizontal}
-        style={style}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        scrollEnabled={false}
-        onScroll={onScroll}
-        scrollEventThrottle={16}
-      >
-        {children}
-      </ScrollView>
-      {deviceType === 'remotePointer' ? (
-        <PointerScrollArrows
-          descendingArrow={descendingArrow}
-          ascendingArrow={ascendingArrow}
-          descendingArrowContainerStyle={descendingArrowContainerStyle}
-          ascendingArrowContainerStyle={ascendingArrowContainerStyle}
-          ascendingArrowProps={ascendingArrowProps}
-          descendingArrowProps={descendingArrowProps}
-        />
-      ) : undefined}
-    </SpatialNavigatorParentScrollContext.Provider>
-  );
-};
+    return (
+      <SpatialNavigatorParentScrollContext.Provider value={scrollToNode}>
+        <ScrollView
+          ref={mergeRefs([ref, scrollViewRef])}
+          horizontal={horizontal}
+          style={style}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={false}
+          onScroll={onScroll}
+          scrollEventThrottle={16}
+        >
+          {children}
+        </ScrollView>
+        {deviceType === 'remotePointer' ? (
+          <PointerScrollArrows
+            descendingArrow={descendingArrow}
+            ascendingArrow={ascendingArrow}
+            descendingArrowContainerStyle={descendingArrowContainerStyle}
+            ascendingArrowContainerStyle={ascendingArrowContainerStyle}
+            ascendingArrowProps={ascendingArrowProps}
+            descendingArrowProps={descendingArrowProps}
+          />
+        ) : undefined}
+      </SpatialNavigatorParentScrollContext.Provider>
+    );
+  },
+);
+SpatialNavigationScrollView.displayName = 'SpatialNavigationScrollView';
 
 const PointerScrollArrows = React.memo(
   ({
