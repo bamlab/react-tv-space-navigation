@@ -7,7 +7,7 @@
 - [How to use](#how-to-use)
 - [How to run the example](#how-to-run-the-example)
 - [API documentation](#api-documentation)
-- [Pitfalls](#pitfalls)
+- [Pitfalls](#pitfalls--troubleshooting)
 - [Accessibility support](#accessibility-support)
 - [Contributing](#contributing)
 
