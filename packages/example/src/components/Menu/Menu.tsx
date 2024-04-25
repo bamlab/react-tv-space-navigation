@@ -58,6 +58,7 @@ const menuItems: Record<keyof RootTabParamList, MenuItems> = {
     label: 'Grid with long nodes',
     icon: 'LayoutDashboard',
   },
+  ListWithVariableSize: { label: 'List with variable size', icon: 'LayoutDashboard' },
 };
 
 export const Menu = ({ state, navigation }: BottomTabBarProps) => {
