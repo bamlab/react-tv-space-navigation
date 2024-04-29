@@ -52,7 +52,4 @@ export const updateVirtualNodeRegistration = <T>({
 
   // Step 2 : removeVirtualNode for every from previousItems that aren't there anymore in currentItems
   unregisterOldNode({ currentItems, previousItems, removeVirtualNode });
-
-  // Step 3 : re-order all the items
-  // TODO
 };
