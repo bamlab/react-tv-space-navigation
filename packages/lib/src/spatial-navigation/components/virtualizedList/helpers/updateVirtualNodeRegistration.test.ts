@@ -11,6 +11,7 @@ describe('updateVirtualNodeRegistration', () => {
       previousItems,
       currentItems,
       addVirtualNode: mockAddNode,
+      removeVirtualNode: jest.fn(),
     });
 
     expect(mockAddNode).toHaveBeenCalledTimes(2);
@@ -24,6 +25,7 @@ describe('updateVirtualNodeRegistration', () => {
       previousItems,
       currentItems,
       addVirtualNode: mockAddNode,
+      removeVirtualNode: jest.fn(),
     });
 
     expect(mockAddNode).not.toHaveBeenCalled();
