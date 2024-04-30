@@ -1,4 +1,16 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.4.0...v) (2024-04-19)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.5.0...v) (2024-04-30)
+
+## [3.5.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.4.0...v3.5.0) (2024-04-30)
+
+
+### Features
+
+* **lists:** add index in renderItem arguments ([91e35df](https://github.com/bamlab/react-tv-space-navigation/commit/91e35dfcb24bcc6289672146ff5b421d6ec27210))
+
+
+### Bug Fixes
+
+* **lists:** fix lists not working properly with few elements with stick-to-start ([bd9d139](https://github.com/bamlab/react-tv-space-navigation/commit/bd9d1394759a399696d97041e2aee97e575aa256))
 
 ## [3.4.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.3.0...v3.4.0) (2024-04-19)
 
