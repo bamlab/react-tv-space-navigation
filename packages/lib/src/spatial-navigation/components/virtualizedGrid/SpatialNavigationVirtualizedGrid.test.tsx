@@ -1,6 +1,5 @@
 import { RenderResult, act, render, screen } from '@testing-library/react-native';
-import { ItemWithIndex } from '../virtualizedList/VirtualizedList';
-import { PropsTestButton, TestButton } from '../tests/TestButton';
+import { TestButton } from '../tests/TestButton';
 import { SpatialNavigationRoot } from '../Root';
 import { ReactTestInstance } from 'react-test-renderer';
 import '../tests/helpers/configureTestRemoteControl';
@@ -19,18 +18,14 @@ const expectListToHaveScroll = (listElement: ReactTestInstance, scrollValue: num
   expect(listElement).toHaveStyle({ transform: [{ translateY: scrollValue }] });
 
 describe('SpatialNavigationVirtualizedGrid', () => {
-  const renderItem = ({ item }: { item: PropsTestButton & ItemWithIndex }) => (
-    <TestButton title={item.title} onSelect={item.onSelect} />
+  const renderItem = ({ item, index }: { item: { onSelect: () => void }; index: number }) => (
+    <TestButton title={`button ${index + 1}`} onSelect={item.onSelect} />
   );
 
   function createDataArray(numberOfItems: number) {
     const data = [];
     for (let i = 0; i < numberOfItems; i++) {
-      data.push({
-        title: `button ${i + 1}`,
-        onSelect: () => undefined,
-        index: i,
-      });
+      data.push({ onSelect: () => undefined, index: i });
     }
     return data;
   }

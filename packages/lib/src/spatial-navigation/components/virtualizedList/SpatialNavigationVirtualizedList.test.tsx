@@ -1,7 +1,6 @@
 import { RenderResult, act, render, screen } from '@testing-library/react-native';
 import { ReactTestInstance } from 'react-test-renderer';
-import { ItemWithIndex } from '../virtualizedList/VirtualizedList';
-import { PropsTestButton, TestButton } from '../tests/TestButton';
+import { TestButton } from '../tests/TestButton';
 import { SpatialNavigationRoot } from '../Root';
 import '../tests/helpers/configureTestRemoteControl';
 import { SpatialNavigationVirtualizedList } from './SpatialNavigationVirtualizedList';
@@ -20,39 +19,24 @@ export const expectButtonToHaveFocus = (component: RenderResult, text: string) =
 const expectListToHaveScroll = (listElement: ReactTestInstance, scrollValue: number) =>
   expect(listElement).toHaveStyle({ transform: [{ translateX: scrollValue }] });
 
+type ItemType = { onSelect: () => void; currentItemSize: number };
+
 describe('SpatialNavigationVirtualizedList', () => {
-  const renderItem = ({ item }: { item: PropsTestButton & ItemWithIndex }) => (
-    <TestButton title={item.title} onSelect={item.onSelect} />
+  const renderItem = ({ item, index }: { item: ItemType; index: number }) => (
+    <TestButton title={`button ${index + 1}`} onSelect={item.onSelect} />
   );
 
-  const data = [
-    { title: 'button 1', onSelect: () => undefined, index: 0 },
-    { title: 'button 2', onSelect: () => undefined, index: 1 },
-    { title: 'button 3', onSelect: () => undefined, index: 2 },
-    { title: 'button 4', onSelect: () => undefined, index: 3 },
-    { title: 'button 5', onSelect: () => undefined, index: 4 },
-    { title: 'button 6', onSelect: () => undefined, index: 5 },
-    { title: 'button 7', onSelect: () => undefined, index: 6 },
-    { title: 'button 8', onSelect: () => undefined, index: 7 },
-    { title: 'button 9', onSelect: () => undefined, index: 8 },
-    { title: 'button 10', onSelect: () => undefined, index: 9 },
-  ];
+  const data = Array.from({ length: 10 }, (_, index) => ({
+    onSelect: () => undefined,
+    currentItemSize: index % 2 === 0 ? 100 : 200,
+  }));
 
-  const dataWithVariableSizes = [
-    { title: 'button 1', onSelect: () => undefined, index: 0 },
-    { title: 'button 2', onSelect: () => undefined, index: 1 },
-    { title: 'button 3', onSelect: () => undefined, index: 2 },
-    { title: 'button 4', onSelect: () => undefined, index: 3 },
-    { title: 'button 5', onSelect: () => undefined, index: 4 },
-    { title: 'button 6', onSelect: () => undefined, index: 5 },
-    { title: 'button 7', onSelect: () => undefined, index: 6 },
-    { title: 'button 8', onSelect: () => undefined, index: 7 },
-    { title: 'button 9', onSelect: () => undefined, index: 8 },
-    { title: 'button 10', onSelect: () => undefined, index: 9 },
-  ];
+  const dataWithVariableSizes = Array.from({ length: 10 }, (_, index) => ({
+    onSelect: () => undefined,
+    currentItemSize: index % 2 === 0 ? 100 : 200,
+  }));
 
-  const itemSize = (item: { title: string; onSelect: () => undefined; index: number }) =>
-    item.index % 2 === 0 ? 100 : 200;
+  const itemSize = (item: ItemType) => item.currentItemSize;
 
   const listTestId = 'test-list';
 
