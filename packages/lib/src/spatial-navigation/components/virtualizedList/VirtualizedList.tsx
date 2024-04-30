@@ -23,7 +23,7 @@ export type ItemWithIndex = { index: number };
 export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
   data: T[];
-  renderItem: (args: { item: T }) => JSX.Element;
+  renderItem: (args: { item: T; index: number }) => JSX.Element;
   /** If vertical the height of an item, otherwise the width */
   itemSize: number | ((item: T) => number);
   currentlyFocusedItemIndex: number;
@@ -116,7 +116,7 @@ const ItemContainerWithAnimatedStyle = typedMemo(
         ]),
       [computeOffset, item, vertical],
     );
-    return <View style={style}>{renderItem({ item })}</View>;
+    return <View style={style}>{renderItem({ item, index: item.index })}</View>;
   },
 );
 ItemContainerWithAnimatedStyle.displayName = 'ItemContainerWithAnimatedStyle';

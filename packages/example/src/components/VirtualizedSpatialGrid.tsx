@@ -15,7 +15,10 @@ const NUMBER_OF_COLUMNS = 7;
 const INFINITE_SCROLL_ROW_THRESHOLD = 2;
 
 export const VirtualizedSpatialGrid = ({ containerStyle }: { containerStyle?: ViewStyle }) => {
-  const renderItem = useCallback(({ item }) => <ProgramNode programInfo={item} />, []);
+  const renderItem = useCallback(
+    ({ item, index }) => <ProgramNode programInfo={item} label={index?.toString?.()} />,
+    [],
+  );
 
   const hardcodedRabbitsArray = useMemo(
     () => getPrograms(500).map((element, index) => ({ ...element, index })),

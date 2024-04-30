@@ -33,10 +33,11 @@ export const ProgramList = ({
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const renderItem = useCallback(
-    ({ item }: { item: ProgramInfo }) => (
+    ({ item, index }: { item: ProgramInfo; index: number }) => (
       <ProgramNode
         programInfo={item}
         onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
+        label={index.toString()}
       />
     ),
     [navigation],

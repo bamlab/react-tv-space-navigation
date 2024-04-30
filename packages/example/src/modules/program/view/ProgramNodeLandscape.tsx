@@ -6,12 +6,15 @@ import { ProgramLandscape } from './ProgramLandscape';
 type Props = {
   programInfo: ProgramInfo;
   onSelect?: () => void;
+  label?: string;
 };
 
-export const ProgramNodeLandscape = ({ programInfo, onSelect }: Props) => {
+export const ProgramNodeLandscape = ({ programInfo, onSelect, label }: Props) => {
   return (
     <SpatialNavigationFocusableView onSelect={onSelect}>
-      {({ isFocused }) => <ProgramLandscape isFocused={isFocused} programInfo={programInfo} />}
+      {({ isFocused }) => (
+        <ProgramLandscape isFocused={isFocused} programInfo={programInfo} label={label} />
+      )}
     </SpatialNavigationFocusableView>
   );
 };

@@ -32,16 +32,18 @@ export const ProgramList = ({
   };
 
   const renderItem = useCallback(
-    ({ item }: { item: ProgramInfo }) =>
+    ({ item, index }: { item: ProgramInfo; index: number }) =>
       isItemLarge(item) ? (
         <ProgramNode
           programInfo={item}
           onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
+          label={index.toString()}
         />
       ) : (
         <ProgramNodeLandscape
           programInfo={item}
           onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
+          label={index.toString()}
         />
       ),
     [navigation],

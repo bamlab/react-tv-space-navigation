@@ -91,10 +91,10 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
   }: {
     virtualParentID: string;
     item: T;
-    renderItem: (args: { item: T }) => JSX.Element;
+    renderItem: (args: { item: T; index: number }) => JSX.Element;
   }) => (
     <ParentIdContext.Provider value={virtualParentID}>
-      {renderItem({ item })}
+      {renderItem({ item, index: item.index })}
     </ParentIdContext.Provider>
   ),
 );
@@ -106,7 +106,7 @@ const GridRow = <T extends ItemWithIndex>({
   row,
   rowContainerStyle,
 }: {
-  renderItem: (args: { item: T }) => JSX.Element;
+  renderItem: (args: { item: T; index: number }) => JSX.Element;
   numberOfColumns: number;
   row: GridRowType<T>;
   rowContainerStyle?: ViewStyle;
