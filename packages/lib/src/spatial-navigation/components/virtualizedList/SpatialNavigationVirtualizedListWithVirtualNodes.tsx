@@ -125,7 +125,7 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
     renderItem: VirtualizedListProps<T>['renderItem'];
   }) => (
     <ParentIdContext.Provider value={virtualParentID}>
-      {renderItem({ item })}
+      {renderItem({ item, index: item.index })}
     </ParentIdContext.Provider>
   ),
 );

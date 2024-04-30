@@ -43,7 +43,7 @@ const ItemWrapperWithScrollContext = typedMemo(
 
     return (
       <SpatialNavigatorParentScrollContext.Provider value={scrollToItem}>
-        {renderItem({ item })}
+        {renderItem({ item, index: item.index })}
       </SpatialNavigatorParentScrollContext.Provider>
     );
   },
