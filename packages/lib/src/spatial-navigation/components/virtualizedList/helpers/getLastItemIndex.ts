@@ -41,7 +41,13 @@ export const getLastLeftItemIndex = <T>(
 
     return 0;
   }
-  return data.length - Math.floor(listSizeInPx / itemSizeInPx);
+
+  const result = data.length - Math.floor(listSizeInPx / itemSizeInPx);
+
+  if (result < 0) {
+    return 0;
+  }
+  return result;
 };
 
 /**
@@ -88,6 +94,11 @@ export const getLastRightItemIndex = <T>(
 
     return data.length - 1;
   }
-  // We substract 1 because index starts from 0
-  return Math.floor(listSizeInPx / itemSizeInPx) - 1;
+  const result = Math.floor(listSizeInPx / itemSizeInPx) - 1;
+
+  if (result > data.length - 1) {
+    // We substract 1 because index starts from 0
+    return data.length - 1;
+  }
+  return result;
 };

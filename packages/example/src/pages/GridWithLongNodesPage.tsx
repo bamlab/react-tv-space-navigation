@@ -125,7 +125,6 @@ const ButtonRow = ({
 
 const ListContainer = styled.View(({ theme }) => ({
   flexDirection: 'row',
-  flexWrap: 'wrap',
   gap: theme.spacings.$4,
   padding: theme.spacings.$4,
 }));

@@ -72,7 +72,6 @@ const ProgramRow = ({ programs }: { programs: ProgramInfo[] }) => {
 };
 
 const ListContainer = styled(SpatialNavigationView)(({ theme }) => ({
-  flexWrap: 'wrap',
   gap: theme.spacings.$4,
   padding: theme.spacings.$4,
 }));
