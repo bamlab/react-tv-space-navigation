@@ -274,5 +274,33 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     testRemoteControlManager.handleDown();
     expectButtonToHaveFocus(component, 'button 19');
     expectListToHaveScroll(listElement, -400);
+
+    testRemoteControlManager.handleUp();
+    expectButtonToHaveFocus(component, 'button 16');
+    expectListToHaveScroll(listElement, -300);
+
+    testRemoteControlManager.handleUp();
+    expectButtonToHaveFocus(component, 'button 13');
+    expectListToHaveScroll(listElement, -300);
+
+    testRemoteControlManager.handleUp();
+    expectButtonToHaveFocus(component, 'button 10');
+    expectListToHaveScroll(listElement, -300);
+
+    testRemoteControlManager.handleUp();
+    expectButtonToHaveFocus(component, 'button 7');
+    expectListToHaveScroll(listElement, 0);
+
+    testRemoteControlManager.handleUp();
+    expectButtonToHaveFocus(component, 'button 4');
+    expectListToHaveScroll(listElement, 0);
+
+    testRemoteControlManager.handleUp();
+    expectButtonToHaveFocus(component, 'button 1');
+    expectListToHaveScroll(listElement, 0);
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 2');
+    expectListToHaveScroll(listElement, 0);
   });
 });
