@@ -59,6 +59,7 @@ const menuItems: Record<keyof RootTabParamList, MenuItems> = {
     icon: 'LayoutDashboard',
   },
   ListWithVariableSize: { label: 'List with variable size', icon: 'LayoutDashboard' },
+  AsynchronousContent: { label: 'Asynchronous content', icon: 'Timer' },
 };
 
 export const Menu = ({ state, navigation }: BottomTabBarProps) => {
