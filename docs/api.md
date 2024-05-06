@@ -105,6 +105,8 @@ Note : It is not recommend to use isActive on virtualized focusable nodes, as th
 The SpatialNavigationNode will use the ref of your component to handle the scrolling.
 You might need to forward the ref to the closest inner view of your component.
 
+To avoid this issue, you can simply use SpatialNavigationFocusableView.
+
 ```tsx
 export const MyFocusableComponent = React.forwardRef<View, MyFocusableComponentProps>(
   ({ isFocused }, ref) => {
