@@ -22,8 +22,8 @@ export const ProgramNode = forwardRef<SpatialNavigationNodeRef, Props>(
         viewProps={{ accessibilityLabel: programInfo.title }}
         ref={ref}
       >
-        {({ isFocused }) => (
-          <Program isFocused={isFocused} programInfo={programInfo} label={label} />
+        {({ isFocused, isRootActive }) => (
+          <Program isFocused={isFocused && isRootActive} programInfo={programInfo} label={label} />
         )}
       </SpatialNavigationFocusableView>
     );

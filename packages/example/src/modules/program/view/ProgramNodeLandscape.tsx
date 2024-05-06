@@ -12,8 +12,12 @@ type Props = {
 export const ProgramNodeLandscape = ({ programInfo, onSelect, label }: Props) => {
   return (
     <SpatialNavigationFocusableView onSelect={onSelect}>
-      {({ isFocused }) => (
-        <ProgramLandscape isFocused={isFocused} programInfo={programInfo} label={label} />
+      {({ isFocused, isRootActive }) => (
+        <ProgramLandscape
+          isFocused={isFocused && isRootActive}
+          programInfo={programInfo}
+          label={label}
+        />
       )}
     </SpatialNavigationFocusableView>
   );
