@@ -25,10 +25,12 @@ export const ProgramList = ({
   orientation,
   containerStyle,
   listRef,
+  data,
 }: {
   orientation?: 'vertical' | 'horizontal';
   containerStyle?: object;
   listRef: MutableRefObject<SpatialNavigationVirtualizedListRef>;
+  data?: ProgramInfo[];
 }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -52,7 +54,7 @@ export const ProgramList = ({
         <Container isActive={isActive} style={containerStyle}>
           <SpatialNavigationVirtualizedList
             orientation={orientation}
-            data={programInfos}
+            data={data ?? programInfos}
             renderItem={renderItem}
             itemSize={theme.sizes.program.portrait.width + 30}
             numberOfRenderedItems={WINDOW_SIZE}

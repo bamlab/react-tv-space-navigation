@@ -15,6 +15,20 @@ const registerNewNode = <T>({
   });
 };
 
+const unregisterOldNode = <T>({
+  currentItems,
+  previousItems,
+  removeVirtualNode,
+}: {
+  currentItems: Array<T>;
+  previousItems: Array<T>;
+  removeVirtualNode: (index: number) => void;
+}) => {
+  for (let index = previousItems.length - 1; index > currentItems.length - 1; index--) {
+    removeVirtualNode(index);
+  }
+};
+
 /**
  * This function aims to compare 2 arrays of items : currentItems and previousItems and :
  * - addVirtualNode for every item from currentItems that weren't in previousItems
@@ -26,17 +40,16 @@ export const updateVirtualNodeRegistration = <T>({
   currentItems,
   previousItems,
   addVirtualNode,
+  removeVirtualNode,
 }: {
   currentItems: Array<T>;
   previousItems: Array<T>;
   addVirtualNode: (index: number) => void;
+  removeVirtualNode: (index: number) => void;
 }) => {
   // Step 1 : addVirtualNode for every item from currentItems that weren't in previousItems
   registerNewNode({ currentItems, previousItems, addVirtualNode });
 
   // Step 2 : removeVirtualNode for every from previousItems that aren't there anymore in currentItems
-  // TODO
-
-  // Step 3 : re-order all the items
-  // TODO
+  unregisterOldNode({ currentItems, previousItems, removeVirtualNode });
 };

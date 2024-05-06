@@ -48,9 +48,11 @@ const useRegisterInitialAndUnregisterFinalVirtualNodes = <T,>({
 const useUpdateRegistration = <T,>({
   allItems,
   registerNthVirtualNode,
+  unregisterNthVirtualNode,
 }: {
   allItems: Array<T>;
   registerNthVirtualNode: (index: number) => void;
+  unregisterNthVirtualNode: (index: number) => void;
 }) => {
   const previousAllItems = useRef<Array<T>>();
 
@@ -63,6 +65,7 @@ const useUpdateRegistration = <T,>({
         currentItems: allItems,
         previousItems: previousAllItemsList,
         addVirtualNode: registerNthVirtualNode,
+        removeVirtualNode: unregisterNthVirtualNode,
       });
     }
     previousAllItems.current = allItems;
@@ -109,7 +112,7 @@ const useRegisterVirtualNodes = <T extends ItemWithIndex>({
     unregisterNthVirtualNode,
   });
 
-  useUpdateRegistration({ allItems, registerNthVirtualNode });
+  useUpdateRegistration({ allItems, registerNthVirtualNode, unregisterNthVirtualNode });
 
   return { getNthVirtualNodeID };
 };
