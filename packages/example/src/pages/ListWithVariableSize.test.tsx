@@ -6,6 +6,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import '../components/tests/helpers/configureTestRemoteControl';
 import testRemoteControlManager from '../components/tests/helpers/testRemoteControlManager';
 
+jest.mock('../modules/program/infra/programInfos', () => ({
+  getPrograms: () => {
+    return jest.requireActual('../modules/program/infra/programInfos').programInfos;
+  },
+}));
+
 const renderWithProviders = (page: JSX.Element) => {
   return render(
     <NavigationContainer>
@@ -30,11 +36,13 @@ describe('ListWithVariableSize', () => {
 
     // Remove last item
     testRemoteControlManager.handleDown();
+    testRemoteControlManager.handleDown();
     testRemoteControlManager.handleEnter();
 
     expect(screen.queryByLabelText('Program 4')).not.toBeOnTheScreen();
 
     // Add back last item
+    testRemoteControlManager.handleUp();
     testRemoteControlManager.handleEnter();
     expect(screen.getByLabelText('Program 4')).toBeOnTheScreen();
 

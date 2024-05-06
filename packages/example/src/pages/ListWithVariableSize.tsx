@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import { Page } from '../components/Page';
-import { programInfos } from '../modules/program/infra/programInfos';
+import { getPrograms } from '../modules/program/infra/programInfos';
 import { SpatialNavigationView } from '../../../lib/src/spatial-navigation/components/View';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';
 import { DefaultFocus } from '../../../lib/src/spatial-navigation/context/DefaultFocusContext';
@@ -13,17 +13,34 @@ import { useTheme } from '@emotion/react';
 
 const ROW_PADDING = scaledPixels(70);
 
+const MAX = 1000;
+
 export const ListWithVariableSize = () => {
   const theme = useTheme();
-  const [programs, setPrograms] = useState(programInfos.slice(0, 4));
+  const [programsBase, setProgramsBase] = useState(getPrograms(MAX));
 
-  const addOrRemoveLastItem = () => {
-    if (programs.length === 4) {
-      setPrograms(programInfos.slice(0, 3));
-    } else {
-      setPrograms(programInfos.slice(0, 4));
-    }
+  const [numberOfPrograms, setNumberOfPrograms] = useState(4);
+
+  const addItem = () => {
+    setNumberOfPrograms((prev) => {
+      if (prev === MAX) return prev;
+
+      return prev + 1;
+    });
   };
+
+  const removeItem = () => {
+    setNumberOfPrograms((prev) => {
+      if (prev === 0) return prev;
+      return prev - 1;
+    });
+  };
+
+  const shuffleItems = () => {
+    setProgramsBase((prev) => [...prev].sort(() => Math.random() - 0.5));
+  };
+
+  const programs = programsBase.slice(0, numberOfPrograms);
 
   return (
     <Page>
@@ -40,7 +57,9 @@ export const ListWithVariableSize = () => {
           </SpatialNavigationNode>
           <Spacer gap="$6" />
           <SpatialNavigationView direction="vertical">
-            <Button label="Add/Remove last item" onSelect={addOrRemoveLastItem} />
+            <Button label="Add item" onSelect={addItem} />
+            <Button label="Remove item" onSelect={removeItem} />
+            <Button label="Shuffle items" onSelect={shuffleItems} />
           </SpatialNavigationView>
         </Container>
       </DefaultFocus>
