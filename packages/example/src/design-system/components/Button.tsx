@@ -26,7 +26,9 @@ ButtonContent.displayName = 'ButtonContent';
 export const Button = ({ label, onSelect }: ButtonProps) => {
   return (
     <SpatialNavigationFocusableView onSelect={onSelect}>
-      {({ isFocused }) => <ButtonContent label={label} isFocused={isFocused} />}
+      {({ isFocused, isRootActive }) => (
+        <ButtonContent label={label} isFocused={isFocused && isRootActive} />
+      )}
     </SpatialNavigationFocusableView>
   );
 };
