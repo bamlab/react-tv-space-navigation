@@ -1,4 +1,16 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.5.0...v) (2024-04-30)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.6.0...v) (2024-05-06)
+
+## [3.6.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.5.0...v3.6.0) (2024-05-06)
+
+
+### Features
+
+* **core:** add isRootActive mechanism ([0d6d8f0](https://github.com/bamlab/react-tv-space-navigation/commit/0d6d8f0f44675bd19cd6886a4f7cee771c89763b))
+
+
+### Bug Fixes
+
+* remove error when recreating node ([c0f0e3d](https://github.com/bamlab/react-tv-space-navigation/commit/c0f0e3d7a1c2cb2febf2a7406281023e928216a8))
 
 ## [3.5.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.4.0...v3.5.0) (2024-04-30)
 
