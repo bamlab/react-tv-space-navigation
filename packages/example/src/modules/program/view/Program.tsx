@@ -11,9 +11,10 @@ type ProgramProps = {
   label?: string;
 };
 
-const Label = ({ label }: { label: string }) => {
+const Label = React.memo(({ label }: { label: string }) => {
   return <Typography>{label}</Typography>;
-};
+});
+Label.displayName = 'Label';
 
 export const Program = React.forwardRef<View, ProgramProps>(
   ({ isFocused = false, programInfo, label }, ref) => {
@@ -50,13 +51,17 @@ const ProgramContainer = styled(Animated.View)<{ isFocused: boolean }>(({ isFocu
   cursor: 'pointer',
 }));
 
-const ProgramImage = styled(Image)({
-  height: '100%',
-  width: '100%',
-});
+const ProgramImage = React.memo(
+  styled(Image)({
+    height: '100%',
+    width: '100%',
+  }),
+);
 
-const Overlay = styled.View({
-  position: 'absolute',
-  bottom: 12,
-  left: 12,
-});
+const Overlay = React.memo(
+  styled.View({
+    position: 'absolute',
+    bottom: 12,
+    left: 12,
+  }),
+);
