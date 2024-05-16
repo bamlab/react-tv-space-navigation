@@ -40,6 +40,8 @@ export const useWebVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
     transitionTimingFunction: 'ease-out',
     transform: [
       vertical ? { translateY: newTranslationValue } : { translateX: newTranslationValue },
+      { translateZ: 0 },
     ],
+    willChange: 'transform',
   };
 };

@@ -111,8 +111,14 @@ const ItemContainerWithAnimatedStyle = typedMemo(
         StyleSheet.flatten([
           styles.item,
           vertical
-            ? { transform: [{ translateY: computeOffset(item) }] }
-            : { transform: [{ translateX: computeOffset(item) }] },
+            ? {
+                transform: [{ translateY: computeOffset(item) }, { translateZ: 0 }],
+                willChange: 'transform',
+              }
+            : {
+                transform: [{ translateX: computeOffset(item) }, { translateZ: 0 }],
+                willChange: 'transform',
+              },
         ]),
       [computeOffset, item, vertical],
     );
