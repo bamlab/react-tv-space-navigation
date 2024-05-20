@@ -7,15 +7,7 @@ import React, {
   useMemo,
   forwardRef,
 } from 'react';
-import {
-  ScrollView,
-  View,
-  ViewStyle,
-  StyleSheet,
-  Platform,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-} from 'react-native';
+import { View, ViewStyle, StyleSheet, Platform } from 'react-native';
 import {
   SpatialNavigatorParentScrollContext,
   useSpatialNavigatorParentScroll,
@@ -23,6 +15,7 @@ import {
 import { scrollToNewlyFocusedElement } from '../helpers/scrollToNewlyfocusedElement';
 import { useSpatialNavigationDeviceType } from '../context/DeviceContext';
 import { mergeRefs } from '../helpers/mergeRefs';
+import { CustomScrollView, ScrollViewRef } from './CustomScrollView';
 
 type Props = {
   horizontal?: boolean;
@@ -52,7 +45,7 @@ const useRemotePointerScrollviewScrollProps = ({
 }: {
   pointerScrollSpeed: number;
   scrollY: React.MutableRefObject<number>;
-  scrollViewRef: React.MutableRefObject<ScrollView | null>;
+  scrollViewRef: React.MutableRefObject<ScrollViewRef | null>;
 }) => {
   const {
     deviceType,
@@ -67,7 +60,7 @@ const useRemotePointerScrollviewScrollProps = ({
       const id = setInterval(() => {
         currentScrollPosition -= pointerScrollSpeed;
         scrollViewRef.current?.scrollTo({
-          y: currentScrollPosition,
+          value: currentScrollPosition,
           animated: false,
         });
       }, 10);
@@ -81,7 +74,7 @@ const useRemotePointerScrollviewScrollProps = ({
       const id = setInterval(() => {
         currentScrollPosition += pointerScrollSpeed;
         scrollViewRef.current?.scrollTo({
-          y: currentScrollPosition,
+          value: currentScrollPosition,
           animated: false,
         });
       }, 10);
@@ -123,7 +116,7 @@ const useRemotePointerScrollviewScrollProps = ({
   };
 };
 
-const getNodeRef = (node: ScrollView | null | undefined) => {
+const getNodeRef = (node: ScrollViewRef | null | undefined) => {
   if (Platform.OS === 'web') {
     return node?.getInnerViewNode();
   }
@@ -131,7 +124,7 @@ const getNodeRef = (node: ScrollView | null | undefined) => {
   return node;
 };
 
-export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
+export const SpatialNavigationScrollView = forwardRef<ScrollViewRef, Props>(
   (
     {
       horizontal = false,
@@ -148,7 +141,7 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
   ) => {
     const { scrollToNodeIfNeeded: makeParentsScrollToNodeIfNeeded } =
       useSpatialNavigatorParentScroll();
-    const scrollViewRef = useRef<ScrollView>(null);
+    const scrollViewRef = useRef<ScrollViewRef>(null);
 
     const scrollY = useRef<number>(0);
 
@@ -161,14 +154,15 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
           if (deviceTypeRef.current === 'remoteKeys') {
             newlyFocusedElementRef?.current?.measureLayout(
               getNodeRef(scrollViewRef?.current),
-              (left, top) =>
+              (left, top) => {
                 scrollToNewlyFocusedElement({
                   newlyFocusedElementDistanceToLeftRelativeToLayout: left,
                   newlyFocusedElementDistanceToTopRelativeToLayout: top,
                   horizontal,
                   offsetFromStart: offsetFromStart + additionalOffset,
                   scrollViewRef,
-                }),
+                });
+              },
               () => {},
             );
           }
@@ -181,26 +175,22 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
     );
 
     const onScroll = useCallback(
-      (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        scrollY.current = event.nativeEvent.contentOffset.y;
+      (value: number) => {
+        scrollY.current = value;
       },
       [scrollY],
     );
 
     return (
       <SpatialNavigatorParentScrollContext.Provider value={scrollToNode}>
-        <ScrollView
+        <CustomScrollView
           ref={mergeRefs([ref, scrollViewRef])}
           horizontal={horizontal}
           style={style}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          scrollEnabled={false}
           onScroll={onScroll}
-          scrollEventThrottle={16}
         >
           {children}
-        </ScrollView>
+        </CustomScrollView>
         {deviceType === 'remotePointer' ? (
           <PointerScrollArrows
             descendingArrow={descendingArrow}

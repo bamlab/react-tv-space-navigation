@@ -1,12 +1,12 @@
 import { RefObject } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollViewRef } from '../components/CustomScrollView';
 
 export type Props = {
   newlyFocusedElementDistanceToLeftRelativeToLayout: number;
   newlyFocusedElementDistanceToTopRelativeToLayout: number;
   horizontal?: boolean;
   offsetFromStart: number;
-  scrollViewRef: RefObject<ScrollView>;
+  scrollViewRef: RefObject<ScrollViewRef>;
 };
 
 export const scrollToNewlyFocusedElement = ({
@@ -18,13 +18,13 @@ export const scrollToNewlyFocusedElement = ({
 }: Props) => {
   if (horizontal) {
     scrollViewRef?.current?.scrollTo({
-      x: newlyFocusedElementDistanceToLeftRelativeToLayout - offsetFromStart,
+      value: newlyFocusedElementDistanceToLeftRelativeToLayout - offsetFromStart,
       // @todo make this a props of the component
       animated: true,
     });
   } else {
     scrollViewRef?.current?.scrollTo({
-      y: newlyFocusedElementDistanceToTopRelativeToLayout - offsetFromStart,
+      value: newlyFocusedElementDistanceToTopRelativeToLayout - offsetFromStart,
       // @todo make this a props of the component
       animated: true,
     });
