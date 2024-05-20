@@ -116,7 +116,10 @@ export const Menu = ({ state, navigation }: BottomTabBarProps) => {
                         icon={menuItems[route.name].icon}
                         isMenuOpen={isMenuOpen}
                         isActive={state.index === index}
-                        onSelect={() => navigation.navigate(route.name, route.params)}
+                        onSelect={() => {
+                          toggleMenu(false);
+                          navigation.navigate(route.name, route.params);
+                        }}
                       />
                       <Spacer direction="vertical" gap={'$4'} />
                     </Fragment>
