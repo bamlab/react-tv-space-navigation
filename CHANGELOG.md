@@ -1,4 +1,11 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.6.0...v) (2024-05-06)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.6.1...v) (2024-05-27)
+
+## [3.6.1](https://github.com/bamlab/react-tv-space-navigation/compare/v3.6.0...v3.6.1) (2024-05-27)
+
+
+### Bug Fixes
+
+* **lists:** fix imperative focus not always working on virtualized lists ([bec7a62](https://github.com/bamlab/react-tv-space-navigation/commit/bec7a62be5ba0d152b26a923e6cb3670fa7a3d8f))
 
 ## [3.6.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.5.0...v3.6.0) (2024-05-06)
 
