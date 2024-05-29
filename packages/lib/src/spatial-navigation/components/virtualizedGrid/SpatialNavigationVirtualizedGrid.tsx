@@ -87,14 +87,16 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
   <T extends ItemWithIndex>({
     virtualParentID,
     item,
+    index,
     renderItem,
   }: {
     virtualParentID: string;
     item: T;
+    index: number;
     renderItem: (args: { item: T; index: number }) => JSX.Element;
   }) => (
     <ParentIdContext.Provider value={virtualParentID}>
-      {renderItem({ item, index: item.index })}
+      {renderItem({ item, index })}
     </ParentIdContext.Provider>
   ),
 );
@@ -104,25 +106,29 @@ const GridRow = <T extends ItemWithIndex>({
   renderItem,
   numberOfColumns,
   row,
+  rowIndex,
   rowContainerStyle,
 }: {
   renderItem: (args: { item: T; index: number }) => JSX.Element;
   numberOfColumns: number;
   row: GridRowType<T>;
+  rowIndex: number;
   rowContainerStyle?: ViewStyle;
 }) => {
   const { getNthVirtualNodeID } = useRegisterGridRowVirtualNodes({ numberOfColumns });
 
   return (
     <HorizontalContainer style={rowContainerStyle}>
-      {row.items.map((item, index) => {
+      {row.items.map((item, columnIndex) => {
+        const itemIndex = rowIndex * numberOfColumns + columnIndex;
         return (
           /* This view is important to reset flex direction to vertical */
-          <View key={index}>
+          <View key={columnIndex}>
             <ItemWrapperWithVirtualParentContext
-              virtualParentID={getNthVirtualNodeID(index)}
+              virtualParentID={getNthVirtualNodeID(columnIndex)}
               renderItem={renderItem}
               item={item}
+              index={itemIndex}
             />
           </View>
         );
@@ -221,22 +227,23 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
     const itemSize = hasHeader ? itemSizeAsAFunction : itemHeight;
 
     const renderRow = useCallback(
-      ({ item: row }: { item: GridRowType<T> }) => (
+      ({ item: row, index }: { item: GridRowType<T>; index: number }) => (
         <GridRow
           renderItem={renderItem}
           numberOfColumns={numberOfColumns}
           row={row}
+          rowIndex={index}
           rowContainerStyle={rowContainerStyle}
         />
       ),
       [renderItem, numberOfColumns, rowContainerStyle],
     );
     const renderHeaderThenRows = useCallback(
-      ({ item }: { item: GridRowType<T> | JSX.Element }) => {
+      ({ item, index }: { item: GridRowType<T> | JSX.Element; index: number }) => {
         if (React.isValidElement(item)) {
           return item;
         }
-        return renderRow({ item: item as GridRowType<T> });
+        return renderRow({ item: item as GridRowType<T>, index });
       },
       [renderRow],
     );
