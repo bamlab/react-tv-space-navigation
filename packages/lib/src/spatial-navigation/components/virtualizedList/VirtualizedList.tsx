@@ -11,15 +11,6 @@ import { getLastLeftItemIndex, getLastRightItemIndex } from './helpers/getLastIt
 import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneItemToAnother';
 import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
 
-/**
- * @TODO: VirtualizedList should be able to take any data as params.
- * We shouldn't restrict the use to a data that is indexed -> a mistake can be made on usage
- * if the data is not indexed properly for example.
- * The indexing should be done inside VirtualizedList directly & VirtualizedListProps
- * should accept any generic type T.
- */
-export type ItemWithIndex = { index: number };
-
 export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
   data: T[];
