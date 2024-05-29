@@ -120,15 +120,17 @@ const useRegisterVirtualNodes = <T extends ItemWithIndex>({
 const ItemWrapperWithVirtualParentContext = typedMemo(
   <T extends ItemWithIndex>({
     virtualParentID,
+    index,
     item,
     renderItem,
   }: {
     virtualParentID: string;
     item: T;
+    index: number;
     renderItem: VirtualizedListProps<T>['renderItem'];
   }) => (
     <ParentIdContext.Provider value={virtualParentID}>
-      {renderItem({ item, index: item.index })}
+      {renderItem({ item, index: index })}
     </ParentIdContext.Provider>
   ),
 );
@@ -191,11 +193,12 @@ export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
 
     const { renderItem } = props;
     const renderWrappedItem: typeof props.renderItem = useCallback(
-      ({ item }) => (
+      ({ item, index }) => (
         <ItemWrapperWithVirtualParentContext
-          virtualParentID={getNthVirtualNodeID(item.index)}
+          virtualParentID={getNthVirtualNodeID(index)}
           renderItem={renderItem}
           item={item}
+          index={index}
         />
       ),
       [getNthVirtualNodeID, renderItem],
