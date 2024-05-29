@@ -23,10 +23,12 @@ const ItemWrapperWithScrollContext = typedMemo(
   <T extends ItemWithIndex>({
     setCurrentlyFocusedItemIndex,
     item,
+    index,
     renderItem,
   }: {
     setCurrentlyFocusedItemIndex: (i: number) => void;
     item: T;
+    index: number;
     renderItem: VirtualizedListProps<T>['renderItem'];
   }) => {
     const { scrollToNodeIfNeeded: makeParentsScrollToNodeIfNeeded } =
@@ -34,16 +36,16 @@ const ItemWrapperWithScrollContext = typedMemo(
 
     const scrollToItem: ScrollToNodeCallback = useCallback(
       (newlyFocusedElementRef, additionalOffset) => {
-        setCurrentlyFocusedItemIndex(item.index);
+        setCurrentlyFocusedItemIndex(index);
         // We need to propagate the scroll event for parents if we have nested ScrollViews/VirtualizedLists.
         makeParentsScrollToNodeIfNeeded(newlyFocusedElementRef, additionalOffset);
       },
-      [makeParentsScrollToNodeIfNeeded, setCurrentlyFocusedItemIndex, item.index],
+      [makeParentsScrollToNodeIfNeeded, setCurrentlyFocusedItemIndex, index],
     );
 
     return (
       <SpatialNavigatorParentScrollContext.Provider value={scrollToItem}>
-        {renderItem({ item, index: item.index })}
+        {renderItem({ item, index })}
       </SpatialNavigatorParentScrollContext.Provider>
     );
   },
@@ -210,11 +212,12 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       );
 
       const renderWrappedItem: typeof props.renderItem = useCallback(
-        ({ item }) => (
+        ({ item, index }) => (
           <ItemWrapperWithScrollContext
             setCurrentlyFocusedItemIndex={setCurrentlyFocusedItemIndexCallback}
             renderItem={renderItem}
             item={item}
+            index={index}
           />
         ),
         [setCurrentlyFocusedItemIndexCallback, renderItem],
