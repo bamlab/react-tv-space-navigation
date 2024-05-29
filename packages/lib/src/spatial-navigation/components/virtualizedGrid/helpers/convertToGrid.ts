@@ -1,9 +1,9 @@
 import chunk from 'lodash/chunk';
 import { GridRowType } from '../SpatialNavigationVirtualizedGrid';
-import { ItemWithIndex } from '../../virtualizedList/VirtualizedList';
+
 import { NodeOrientation } from '../../../types/orientation';
 
-export const convertToGrid = <T extends ItemWithIndex>(
+export const convertToGrid = <T>(
   data: T[],
   numberOfColumns: number,
   header?: JSX.Element,

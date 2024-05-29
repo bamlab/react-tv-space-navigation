@@ -2,7 +2,6 @@ import React, { ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { View, ViewStyle, StyleSheet } from 'react-native';
 import range from 'lodash/range';
 
-import { ItemWithIndex } from '../virtualizedList/VirtualizedList';
 import { SpatialNavigationVirtualizedList } from '../virtualizedList/SpatialNavigationVirtualizedList';
 import {
   PointerScrollProps,
@@ -13,7 +12,7 @@ import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { convertToGrid } from './helpers/convertToGrid';
 
-type SpatialNavigationVirtualizedGridProps<T extends ItemWithIndex> = Pick<
+type SpatialNavigationVirtualizedGridProps<T> = Pick<
   SpatialNavigationVirtualizedListWithScrollProps<T>,
   | 'data'
   | 'renderItem'
@@ -40,9 +39,8 @@ type SpatialNavigationVirtualizedGridProps<T extends ItemWithIndex> = Pick<
     rowContainerStyle?: ViewStyle;
   };
 
-export type GridRowType<T extends ItemWithIndex> = {
+export type GridRowType<T> = {
   items: T[];
-  index: number;
 };
 
 const useRegisterGridRowVirtualNodes = ({ numberOfColumns }: { numberOfColumns: number }) => {
@@ -84,7 +82,7 @@ const useRegisterGridRowVirtualNodes = ({ numberOfColumns }: { numberOfColumns: 
 };
 
 const ItemWrapperWithVirtualParentContext = typedMemo(
-  <T extends ItemWithIndex>({
+  <T,>({
     virtualParentID,
     item,
     index,
@@ -102,7 +100,7 @@ const ItemWrapperWithVirtualParentContext = typedMemo(
 );
 ItemWrapperWithVirtualParentContext.displayName = 'ItemWrapperWithVirtualParentContext';
 
-const GridRow = <T extends ItemWithIndex>({
+const GridRow = <T,>({
   renderItem,
   numberOfColumns,
   row,
@@ -187,7 +185,7 @@ const GridRow = <T extends ItemWithIndex>({
  */
 
 export const SpatialNavigationVirtualizedGrid = typedMemo(
-  <T extends ItemWithIndex>({
+  <T,>({
     renderItem,
     data,
     numberOfColumns,
