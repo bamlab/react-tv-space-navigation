@@ -1,5 +1,5 @@
 import { ForwardedRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
+import { VirtualizedListProps } from './VirtualizedList';
 
 import {
   SpatialNavigationVirtualizedListWithVirtualNodes,
@@ -20,7 +20,7 @@ import { typedForwardRef } from '../../helpers/TypedForwardRef';
 import { SpatialNavigationVirtualizedListRef } from '../../types/SpatialNavigationVirtualizedListRef';
 
 const ItemWrapperWithScrollContext = typedMemo(
-  <T extends ItemWithIndex>({
+  <T,>({
     setCurrentlyFocusedItemIndex,
     item,
     index,
@@ -65,14 +65,14 @@ export type PointerScrollProps = {
   scrollInterval?: number;
 };
 
-const useRemotePointerVirtualizedListScrollProps = ({
+const useRemotePointerVirtualizedListScrollProps = <T,>({
   setCurrentlyFocusedItemIndex,
   scrollInterval,
   data,
 }: {
   setCurrentlyFocusedItemIndex: React.Dispatch<React.SetStateAction<number>>;
   scrollInterval: number;
-  data: ItemWithIndex[];
+  data: T[];
 }) => {
   const {
     deviceType,
@@ -168,7 +168,7 @@ const useRemotePointerVirtualizedListScrollProps = ({
  */
 export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
   typedForwardRef(
-    <T extends ItemWithIndex>(
+    <T,>(
       props: SpatialNavigationVirtualizedListWithScrollProps<T> & PointerScrollProps,
       ref: ForwardedRef<SpatialNavigationVirtualizedListRef>,
     ) => {

@@ -7,7 +7,6 @@ import {
 } from './SpatialNavigationVirtualizedListWithScroll';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { addIndex } from './helpers/addIndex';
-import { ItemWithIndex } from './VirtualizedList';
 import { typedForwardRef } from '../../helpers/TypedForwardRef';
 import { SpatialNavigationVirtualizedListRef } from '../../types/SpatialNavigationVirtualizedListRef';
 
@@ -28,11 +27,7 @@ export const SpatialNavigationVirtualizedList = typedMemo(
           alignInGrid={props.isGrid ?? false}
           orientation={props.orientation ?? 'horizontal'}
         >
-          <SpatialNavigationVirtualizedListWithScroll<T & ItemWithIndex>
-            {...props}
-            data={indexedData}
-            ref={ref}
-          />
+          <SpatialNavigationVirtualizedListWithScroll<T> {...props} data={indexedData} ref={ref} />
         </SpatialNavigationNode>
       );
     },

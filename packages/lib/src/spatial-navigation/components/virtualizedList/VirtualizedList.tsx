@@ -85,7 +85,7 @@ const useOnEndReached = ({
 };
 
 const ItemContainerWithAnimatedStyle = typedMemo(
-  <T extends ItemWithIndex>({
+  <T,>({
     item,
     index,
     renderItem,
@@ -132,7 +132,7 @@ ItemContainerWithAnimatedStyle.displayName = 'ItemContainerWithAnimatedStyle';
  *   - it is way more performant than a FlatList
  */
 export const VirtualizedList = typedMemo(
-  <T extends ItemWithIndex>({
+  <T,>({
     data,
     renderItem,
     itemSize,
