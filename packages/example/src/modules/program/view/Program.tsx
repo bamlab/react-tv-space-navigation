@@ -16,8 +16,8 @@ const Label = React.memo(({ label }: { label: string }) => {
 });
 Label.displayName = 'Label';
 
-export const Program = React.forwardRef<View, ProgramProps>(
-  ({ isFocused = false, programInfo, label }, ref) => {
+export const Program = React.memo(
+  React.forwardRef<View, ProgramProps>(({ isFocused = false, programInfo, label }, ref) => {
     const imageSource = programInfo.image;
 
     const scaleAnimation = useFocusAnimation(isFocused);
@@ -36,7 +36,7 @@ export const Program = React.forwardRef<View, ProgramProps>(
         ) : null}
       </ProgramContainer>
     );
-  },
+  }),
 );
 
 Program.displayName = 'Program';
