@@ -12,8 +12,8 @@
     "@babel/preset-typescript": "^7.22.5",
     "@react-native-community/eslint-config": "^3.2.0",
     "@testing-library/react-native": "^12.4.3",
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
+    "@types/react": "~18.2.79",
+    "@types/react-dom": "~18.2.25",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "@typescript-eslint/typescript-estree": "^5.61.0",
@@ -34,7 +34,7 @@
     "prettier": "^2.8.8",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.4.4",
-    "typescript": "^5.1.6",
+    "typescript": "~5.3.3",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
@@ -42,8 +42,8 @@
   "dependencies": {
     "@react-native-tvos/config-tv": "^0.0.4",
     "@react-navigation/bottom-tabs": "^6.5.11",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-native-modal": "^13.0.1",
     "react-native-web": "^0.19.6"
   },
