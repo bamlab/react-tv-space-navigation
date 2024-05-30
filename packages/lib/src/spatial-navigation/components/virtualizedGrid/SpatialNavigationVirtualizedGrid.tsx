@@ -241,9 +241,11 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
         if (React.isValidElement(item)) {
           return item;
         }
-        return renderRow({ item: item as GridRowType<T>, index });
+        //We do this to have index taking into account the header
+        const computedIndex = hasHeader ? index - 1 : index;
+        return renderRow({ item: item as GridRowType<T>, index: computedIndex });
       },
-      [renderRow],
+      [hasHeader, renderRow],
     );
 
     return (
