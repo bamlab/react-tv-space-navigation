@@ -16,6 +16,7 @@ const packagesToTransform = [
   'react-native-(.*)',
   '@react-native',
   '@react-native-community',
+  '@react-native-tvos',
   '@react-navigation',
 ];
 

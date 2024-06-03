@@ -17,8 +17,8 @@ interface DeviceContextProps {
   /** Use `deviceTypeRef` for user events or if you don't need render, otherwise use `deviceType` */
   deviceTypeRef: React.MutableRefObject<Device>;
   setDeviceType: (deviceType: Device) => void;
-  getScrollingIntervalId: () => NodeJS.Timer | null;
-  setScrollingIntervalId: (scrollingId: NodeJS.Timer | null) => void;
+  getScrollingIntervalId: () => NodeJS.Timeout | null;
+  setScrollingIntervalId: (scrollingId: NodeJS.Timeout | null) => void;
 }
 
 export const DeviceContext = createContext<DeviceContextProps>({
@@ -37,14 +37,14 @@ export const SpatialNavigationDeviceTypeProvider = ({ children }: DeviceProvider
   const [deviceType, setDeviceTypeWithoutRef] = useState<Device>('remoteKeys');
 
   const deviceTypeRef = useRef<Device>(deviceType);
-  const scrollingId = useRef<NodeJS.Timer | null>(null);
+  const scrollingId = useRef<NodeJS.Timeout | null>(null);
 
   const setDeviceType = useCallback((deviceType: Device) => {
     deviceTypeRef.current = deviceType;
     setDeviceTypeWithoutRef(deviceType);
   }, []);
 
-  const setScrollingIntervalId = useCallback((id: NodeJS.Timer | null) => {
+  const setScrollingIntervalId = useCallback((id: NodeJS.Timeout | null) => {
     if (scrollingId.current) {
       clearInterval(scrollingId.current);
     }
