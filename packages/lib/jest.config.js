@@ -16,6 +16,7 @@ const packagesToTransform = [
   'react-native-(.*)',
   '@react-native',
   '@react-native-community',
+  '@react-native-tvos',
   '@react-navigation',
 ];
 
@@ -39,7 +40,7 @@ const config = {
       { configFile: path.resolve(__dirname, './babel.jest.config.js') },
     ],
   },
-  transformIgnorePatterns: [`node_modules/(?!${packagesToTransform.join('|')})`],
+  transformIgnorePatterns: [`node_modules/(?!(${packagesToTransform.join('|')})/)`],
   cacheDirectory: '.cache/jest',
   // coverage
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
