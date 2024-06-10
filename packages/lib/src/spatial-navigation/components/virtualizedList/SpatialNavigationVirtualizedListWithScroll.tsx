@@ -1,5 +1,5 @@
 import { ForwardedRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
+import { VirtualizedListProps } from './VirtualizedList';
 
 import {
   SpatialNavigationVirtualizedListWithVirtualNodes,
@@ -20,13 +20,15 @@ import { typedForwardRef } from '../../helpers/TypedForwardRef';
 import { SpatialNavigationVirtualizedListRef } from '../../types/SpatialNavigationVirtualizedListRef';
 
 const ItemWrapperWithScrollContext = typedMemo(
-  <T extends ItemWithIndex>({
+  <T,>({
     setCurrentlyFocusedItemIndex,
     item,
+    index,
     renderItem,
   }: {
     setCurrentlyFocusedItemIndex: (i: number) => void;
     item: T;
+    index: number;
     renderItem: VirtualizedListProps<T>['renderItem'];
   }) => {
     const { scrollToNodeIfNeeded: makeParentsScrollToNodeIfNeeded } =
@@ -34,16 +36,16 @@ const ItemWrapperWithScrollContext = typedMemo(
 
     const scrollToItem: ScrollToNodeCallback = useCallback(
       (newlyFocusedElementRef, additionalOffset) => {
-        setCurrentlyFocusedItemIndex(item.index);
+        setCurrentlyFocusedItemIndex(index);
         // We need to propagate the scroll event for parents if we have nested ScrollViews/VirtualizedLists.
         makeParentsScrollToNodeIfNeeded(newlyFocusedElementRef, additionalOffset);
       },
-      [makeParentsScrollToNodeIfNeeded, setCurrentlyFocusedItemIndex, item.index],
+      [makeParentsScrollToNodeIfNeeded, setCurrentlyFocusedItemIndex, index],
     );
 
     return (
       <SpatialNavigatorParentScrollContext.Provider value={scrollToItem}>
-        {renderItem({ item, index: item.index })}
+        {renderItem({ item, index })}
       </SpatialNavigatorParentScrollContext.Provider>
     );
   },
@@ -63,14 +65,14 @@ export type PointerScrollProps = {
   scrollInterval?: number;
 };
 
-const useRemotePointerVirtualizedListScrollProps = ({
+const useRemotePointerVirtualizedListScrollProps = <T,>({
   setCurrentlyFocusedItemIndex,
   scrollInterval,
   data,
 }: {
   setCurrentlyFocusedItemIndex: React.Dispatch<React.SetStateAction<number>>;
   scrollInterval: number;
-  data: ItemWithIndex[];
+  data: T[];
 }) => {
   const {
     deviceType,
@@ -166,7 +168,7 @@ const useRemotePointerVirtualizedListScrollProps = ({
  */
 export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
   typedForwardRef(
-    <T extends ItemWithIndex>(
+    <T,>(
       props: SpatialNavigationVirtualizedListWithScrollProps<T> & PointerScrollProps,
       ref: ForwardedRef<SpatialNavigationVirtualizedListRef>,
     ) => {
@@ -210,11 +212,12 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
       );
 
       const renderWrappedItem: typeof props.renderItem = useCallback(
-        ({ item }) => (
+        ({ item, index }) => (
           <ItemWrapperWithScrollContext
             setCurrentlyFocusedItemIndex={setCurrentlyFocusedItemIndexCallback}
             renderItem={renderItem}
             item={item}
+            index={index}
           />
         ),
         [setCurrentlyFocusedItemIndexCallback, renderItem],

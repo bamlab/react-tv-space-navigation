@@ -11,15 +11,6 @@ import { getLastLeftItemIndex, getLastRightItemIndex } from './helpers/getLastIt
 import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneItemToAnother';
 import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
 
-/**
- * @TODO: VirtualizedList should be able to take any data as params.
- * We shouldn't restrict the use to a data that is indexed -> a mistake can be made on usage
- * if the data is not indexed properly for example.
- * The indexing should be done inside VirtualizedList directly & VirtualizedListProps
- * should accept any generic type T.
- */
-export type ItemWithIndex = { index: number };
-
 export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
   data: T[];
@@ -85,24 +76,26 @@ const useOnEndReached = ({
 };
 
 const ItemContainerWithAnimatedStyle = typedMemo(
-  <T extends ItemWithIndex>({
+  <T,>({
     item,
+    index,
     renderItem,
     itemSize,
     vertical,
     data,
   }: {
     item: T;
+    index: number;
     renderItem: VirtualizedListProps<T>['renderItem'];
     itemSize: number | ((item: T) => number);
     vertical: boolean;
     data: T[];
   }) => {
     const computeOffset = useCallback(
-      (item: T) =>
+      (item: T, index: number) =>
         typeof itemSize === 'number'
-          ? item.index * itemSize
-          : data.slice(0, item.index).reduce((acc, item) => acc + itemSize(item), 0),
+          ? index * itemSize
+          : data.slice(0, index).reduce((acc, item) => acc + itemSize(item), 0),
       [data, itemSize],
     );
 
@@ -111,12 +104,12 @@ const ItemContainerWithAnimatedStyle = typedMemo(
         StyleSheet.flatten([
           styles.item,
           vertical
-            ? { transform: [{ translateY: computeOffset(item) }] }
-            : { transform: [{ translateX: computeOffset(item) }] },
+            ? { transform: [{ translateY: computeOffset(item, index) }] }
+            : { transform: [{ translateX: computeOffset(item, index) }] },
         ]),
-      [computeOffset, item, vertical],
+      [computeOffset, item, index, vertical],
     );
-    return <View style={style}>{renderItem({ item, index: item.index })}</View>;
+    return <View style={style}>{renderItem({ item, index })}</View>;
   },
 );
 ItemContainerWithAnimatedStyle.displayName = 'ItemContainerWithAnimatedStyle';
@@ -130,7 +123,7 @@ ItemContainerWithAnimatedStyle.displayName = 'ItemContainerWithAnimatedStyle';
  *   - it is way more performant than a FlatList
  */
 export const VirtualizedList = typedMemo(
-  <T extends ItemWithIndex>({
+  <T,>({
     data,
     renderItem,
     itemSize,
@@ -265,12 +258,14 @@ export const VirtualizedList = typedMemo(
         testID={testID}
       >
         <View>
-          {dataSliceToRender.map((item) => {
+          {dataSliceToRender.map((item, virtualIndex) => {
+            const index = range.start + virtualIndex;
             return (
               <ItemContainerWithAnimatedStyle<T>
-                key={keyExtractor ? keyExtractor(item.index) : recycledKeyExtractor(item.index)}
+                key={keyExtractor ? keyExtractor(index) : recycledKeyExtractor(index)}
                 renderItem={renderItem}
                 item={item}
+                index={index}
                 itemSize={itemSize}
                 vertical={vertical}
                 data={data}

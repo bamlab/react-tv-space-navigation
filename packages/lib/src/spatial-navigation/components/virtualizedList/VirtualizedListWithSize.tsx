@@ -1,6 +1,6 @@
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { typedMemo } from '../../helpers/TypedMemo';
-import { ItemWithIndex, VirtualizedList, VirtualizedListProps } from './VirtualizedList';
+import { VirtualizedList, VirtualizedListProps } from './VirtualizedList';
 import { useState } from 'react';
 
 /**
@@ -11,7 +11,7 @@ import { useState } from 'react';
  * doesn't support dynamic size changes.
  */
 export const VirtualizedListWithSize = typedMemo(
-  <T extends ItemWithIndex>(props: Omit<VirtualizedListProps<T>, 'listSizeInPx'>) => {
+  <T,>(props: Omit<VirtualizedListProps<T>, 'listSizeInPx'>) => {
     const isVertical = props.orientation === 'vertical';
     const [listSizeInPx, setListSizeInPx] = useState<number>(
       isVertical ? Dimensions.get('window').height : Dimensions.get('window').width,

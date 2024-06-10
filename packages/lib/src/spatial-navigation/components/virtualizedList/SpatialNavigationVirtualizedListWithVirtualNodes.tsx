@@ -1,6 +1,6 @@
 import uniqueId from 'lodash.uniqueid';
 import { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
-import { VirtualizedListProps, ItemWithIndex } from './VirtualizedList';
+import { VirtualizedListProps } from './VirtualizedList';
 import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
 import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
 import { updateVirtualNodeRegistration } from './helpers/updateVirtualNodeRegistration';
@@ -73,7 +73,7 @@ const useUpdateRegistration = <T,>({
   }, [allItems]);
 };
 
-const useRegisterVirtualNodes = <T extends ItemWithIndex>({
+const useRegisterVirtualNodes = <T,>({
   allItems,
   orientation,
   isGrid,
@@ -118,17 +118,19 @@ const useRegisterVirtualNodes = <T extends ItemWithIndex>({
 };
 
 const ItemWrapperWithVirtualParentContext = typedMemo(
-  <T extends ItemWithIndex>({
+  <T,>({
     virtualParentID,
+    index,
     item,
     renderItem,
   }: {
     virtualParentID: string;
     item: T;
+    index: number;
     renderItem: VirtualizedListProps<T>['renderItem'];
   }) => (
     <ParentIdContext.Provider value={virtualParentID}>
-      {renderItem({ item, index: item.index })}
+      {renderItem({ item, index: index })}
     </ParentIdContext.Provider>
   ),
 );
@@ -170,7 +172,7 @@ export type SpatialNavigationVirtualizedListWithVirtualNodesRef = {
  * Framed letters correspond to rendered components.
  */
 export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
-  <T extends ItemWithIndex>(
+  <T,>(
     props: SpatialNavigationVirtualizedListWithVirtualNodesProps<T> & {
       getNodeIdRef: React.Ref<SpatialNavigationVirtualizedListWithVirtualNodesRef>;
     },
@@ -191,11 +193,12 @@ export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
 
     const { renderItem } = props;
     const renderWrappedItem: typeof props.renderItem = useCallback(
-      ({ item }) => (
+      ({ item, index }) => (
         <ItemWrapperWithVirtualParentContext
-          virtualParentID={getNthVirtualNodeID(item.index)}
+          virtualParentID={getNthVirtualNodeID(index)}
           renderItem={renderItem}
           item={item}
+          index={index}
         />
       ),
       [getNthVirtualNodeID, renderItem],

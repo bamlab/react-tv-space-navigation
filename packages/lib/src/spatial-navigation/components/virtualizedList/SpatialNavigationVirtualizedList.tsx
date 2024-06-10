@@ -1,4 +1,4 @@
-import { ForwardedRef, useMemo } from 'react';
+import { ForwardedRef } from 'react';
 import { SpatialNavigationNode } from '../Node';
 import {
   PointerScrollProps,
@@ -6,8 +6,7 @@ import {
   SpatialNavigationVirtualizedListWithScrollProps,
 } from './SpatialNavigationVirtualizedListWithScroll';
 import { typedMemo } from '../../helpers/TypedMemo';
-import { addIndex } from './helpers/addIndex';
-import { ItemWithIndex } from './VirtualizedList';
+
 import { typedForwardRef } from '../../helpers/TypedForwardRef';
 import { SpatialNavigationVirtualizedListRef } from '../../types/SpatialNavigationVirtualizedListRef';
 
@@ -21,18 +20,12 @@ export const SpatialNavigationVirtualizedList = typedMemo(
       props: SpatialNavigationVirtualizedListWithScrollProps<T> & PointerScrollProps,
       ref: ForwardedRef<SpatialNavigationVirtualizedListRef>,
     ) => {
-      const indexedData = useMemo(() => addIndex(props.data), [props.data]);
-
       return (
         <SpatialNavigationNode
           alignInGrid={props.isGrid ?? false}
           orientation={props.orientation ?? 'horizontal'}
         >
-          <SpatialNavigationVirtualizedListWithScroll<T & ItemWithIndex>
-            {...props}
-            data={indexedData}
-            ref={ref}
-          />
+          <SpatialNavigationVirtualizedListWithScroll<T> {...props} ref={ref} />
         </SpatialNavigationNode>
       );
     },
