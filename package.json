@@ -1,7 +1,7 @@
 {
   "name": "react-tv-space-navigation-monorepo",
   "workspaces": [
-    "packages/**"
+    "packages/*"
   ],
   "private": true,
   "packageManager": "yarn@3.5.1",
