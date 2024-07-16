@@ -1,3 +1,5 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { ThemeProvider } from '@emotion/react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useWindowDimensions } from 'react-native';
@@ -65,6 +67,8 @@ const TabNavigator = () => {
   );
 };
 
+const queryClient = new QueryClient();
+
 function App(): JSX.Element {
   useTVPanEvent();
   const { height, width } = useWindowDimensions();
@@ -75,28 +79,30 @@ function App(): JSX.Element {
   }
 
   return (
-    <NavigationContainer>
-      <ThemeProvider theme={theme}>
-        <SpatialNavigationDeviceTypeProvider>
-          <GoBackConfiguration />
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <ThemeProvider theme={theme}>
+          <SpatialNavigationDeviceTypeProvider>
+            <GoBackConfiguration />
 
-          <Container width={width} height={height}>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-                contentStyle: {
-                  backgroundColor: theme.colors.background.main,
-                },
-              }}
-              initialRouteName="TabNavigator"
-            >
-              <Stack.Screen name="TabNavigator" component={TabNavigator} />
-              <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
-            </Stack.Navigator>
-          </Container>
-        </SpatialNavigationDeviceTypeProvider>
-      </ThemeProvider>
-    </NavigationContainer>
+            <Container width={width} height={height}>
+              <Stack.Navigator
+                screenOptions={{
+                  headerShown: false,
+                  contentStyle: {
+                    backgroundColor: theme.colors.background.main,
+                  },
+                }}
+                initialRouteName="TabNavigator"
+              >
+                <Stack.Screen name="TabNavigator" component={TabNavigator} />
+                <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
+              </Stack.Navigator>
+            </Container>
+          </SpatialNavigationDeviceTypeProvider>
+        </ThemeProvider>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 
