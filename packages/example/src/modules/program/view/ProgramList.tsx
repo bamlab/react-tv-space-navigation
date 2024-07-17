@@ -26,11 +26,13 @@ export const ProgramList = ({
   containerStyle,
   listRef,
   data,
+  onEndReached = () => {},
 }: {
   orientation?: 'vertical' | 'horizontal';
   containerStyle?: object;
   listRef: MutableRefObject<SpatialNavigationVirtualizedListRef>;
   data?: ProgramInfo[];
+  onEndReached?: () => void;
 }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -65,6 +67,7 @@ export const ProgramList = ({
             ascendingArrow={isActive ? <RightArrow /> : null}
             ascendingArrowContainerStyle={styles.rightArrowContainer}
             ref={listRef}
+            onEndReached={onEndReached}
           />
         </Container>
       )}
@@ -75,9 +78,13 @@ export const ProgramList = ({
 export const ProgramsRow = ({
   containerStyle,
   listRef,
+  data,
+  onEndReached = () => {},
 }: {
   containerStyle?: object;
   listRef: MutableRefObject<SpatialNavigationVirtualizedListRef>;
+  data: any;
+  onEndReached?: () => void;
 }) => {
   const theme = useTheme();
   return (
@@ -87,6 +94,8 @@ export const ProgramsRow = ({
         height: theme.sizes.program.portrait.height + ROW_PADDING,
       }}
       listRef={listRef}
+      data={data ?? []}
+      onEndReached={onEndReached}
     />
   );
 };
