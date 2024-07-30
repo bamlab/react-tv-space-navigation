@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
-import { ScrollView, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { useSpatialNavigationDeviceType } from '../../context/DeviceContext';
+import { CustomScrollViewRef } from './types';
 
 export const useRemotePointerScrollviewScrollProps = ({
   pointerScrollSpeed,
@@ -9,7 +10,7 @@ export const useRemotePointerScrollviewScrollProps = ({
 }: {
   pointerScrollSpeed: number;
   scrollY: React.MutableRefObject<number>;
-  scrollViewRef: React.MutableRefObject<ScrollView | null>;
+  scrollViewRef: React.MutableRefObject<CustomScrollViewRef | null>;
 }) => {
   const {
     deviceType,

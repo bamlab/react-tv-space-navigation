@@ -1,12 +1,5 @@
 import React, { useCallback, RefObject, useRef, ReactElement, forwardRef } from 'react';
-import {
-  ScrollView,
-  View,
-  ViewStyle,
-  Platform,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
-} from 'react-native';
+import { ScrollView, View, ViewStyle, Platform } from 'react-native';
 import {
   SpatialNavigatorParentScrollContext,
   useSpatialNavigatorParentScroll,
@@ -15,6 +8,8 @@ import { scrollToNewlyFocusedElement } from '../../helpers/scrollToNewlyfocusedE
 import { mergeRefs } from '../../helpers/mergeRefs';
 import { useRemotePointerScrollviewScrollProps } from './useRemotePointerScrollviewScrollProps';
 import { PointerScrollArrows } from './PointerScrollArrows';
+import { CustomScrollViewRef } from './types';
+import { AnyScrollView } from './AnyScrollView';
 
 type Props = {
   horizontal?: boolean;
@@ -25,6 +20,7 @@ type Props = {
   offsetFromStart?: number;
   children: React.ReactNode;
   style?: ViewStyle;
+  contentContainerStyle?: ViewStyle;
   /** Arrow that will show up inside the arrowContainer */
   descendingArrow?: ReactElement;
   /** Arrow that will show up inside the arrowContainer */
@@ -35,9 +31,13 @@ type Props = {
   ascendingArrowContainerStyle?: ViewStyle;
   /** Number of pixels scrolled every 10ms - only when using web cursor pointer to scroll */
   pointerScrollSpeed?: number;
+  /** Toggles the CSS scrolling version of the scroll view */
+  useCssScroll?: boolean;
+  /** Configures the scroll duration in the case of CSS scroll */
+  scrollDuration?: number;
 };
 
-const getNodeRef = (node: ScrollView | null | undefined) => {
+const getNodeRef = (node: CustomScrollViewRef | null | undefined) => {
   if (Platform.OS === 'web') {
     return node?.getInnerViewNode();
   }
@@ -57,12 +57,15 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
       descendingArrow,
       descendingArrowContainerStyle,
       pointerScrollSpeed = 10,
+      contentContainerStyle,
+      useCssScroll = false,
+      scrollDuration = 200,
     },
     ref,
   ) => {
     const { scrollToNodeIfNeeded: makeParentsScrollToNodeIfNeeded } =
       useSpatialNavigatorParentScroll();
-    const scrollViewRef = useRef<ScrollView>(null);
+    const scrollViewRef = useRef<CustomScrollViewRef>(null);
 
     const scrollY = useRef<number>(0);
 
@@ -95,7 +98,7 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
     );
 
     const onScroll = useCallback(
-      (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      (event: { nativeEvent: { contentOffset: { y: number; x: number } } }) => {
         scrollY.current = event.nativeEvent.contentOffset.y;
       },
       [scrollY],
@@ -103,18 +106,17 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
 
     return (
       <SpatialNavigatorParentScrollContext.Provider value={scrollToNode}>
-        <ScrollView
+        <AnyScrollView
+          useCssScroll={useCssScroll}
+          scrollDuration={scrollDuration}
           ref={mergeRefs([ref, scrollViewRef])}
           horizontal={horizontal}
           style={style}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          scrollEnabled={false}
+          contentContainerStyle={contentContainerStyle}
           onScroll={onScroll}
-          scrollEventThrottle={16}
         >
           {children}
-        </ScrollView>
+        </AnyScrollView>
         {deviceType === 'remotePointer' ? (
           <PointerScrollArrows
             descendingArrow={descendingArrow}

@@ -1,12 +1,12 @@
 import { RefObject } from 'react';
-import { ScrollView } from 'react-native';
+import { CustomScrollViewRef } from '../components/ScrollView/types';
 
 export type Props = {
   newlyFocusedElementDistanceToLeftRelativeToLayout: number;
   newlyFocusedElementDistanceToTopRelativeToLayout: number;
   horizontal?: boolean;
   offsetFromStart: number;
-  scrollViewRef: RefObject<ScrollView>;
+  scrollViewRef: RefObject<CustomScrollViewRef>;
 };
 
 export const scrollToNewlyFocusedElement = ({
