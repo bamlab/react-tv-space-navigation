@@ -19,10 +19,10 @@ import {
 import {
   SpatialNavigatorParentScrollContext,
   useSpatialNavigatorParentScroll,
-} from '../context/ParentScrollContext';
-import { scrollToNewlyFocusedElement } from '../helpers/scrollToNewlyfocusedElement';
-import { useSpatialNavigationDeviceType } from '../context/DeviceContext';
-import { mergeRefs } from '../helpers/mergeRefs';
+} from '../../context/ParentScrollContext';
+import { scrollToNewlyFocusedElement } from '../../helpers/scrollToNewlyfocusedElement';
+import { useSpatialNavigationDeviceType } from '../../context/DeviceContext';
+import { mergeRefs } from '../../helpers/mergeRefs';
 
 type Props = {
   horizontal?: boolean;

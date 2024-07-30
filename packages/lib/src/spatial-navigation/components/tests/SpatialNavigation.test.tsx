@@ -7,7 +7,7 @@ import './helpers/configureTestRemoteControl';
 import testRemoteControlManager from './helpers/testRemoteControlManager';
 import { render } from '@testing-library/react-native';
 import { SpatialNavigationView } from '../View';
-import { SpatialNavigationScrollView } from '../ScrollView';
+import { SpatialNavigationScrollView } from '../ScrollView/ScrollView';
 
 const TestScreen = ({ onDirectionHandledWithoutMovement = () => undefined }) => (
   <SpatialNavigationRoot onDirectionHandledWithoutMovement={onDirectionHandledWithoutMovement}>
