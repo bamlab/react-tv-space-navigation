@@ -1,17 +1,8 @@
-import React, {
-  useCallback,
-  RefObject,
-  useRef,
-  ReactElement,
-  ReactNode,
-  useMemo,
-  forwardRef,
-} from 'react';
+import React, { useCallback, RefObject, useRef, ReactElement, forwardRef } from 'react';
 import {
   ScrollView,
   View,
   ViewStyle,
-  StyleSheet,
   Platform,
   NativeSyntheticEvent,
   NativeScrollEvent,
@@ -21,8 +12,9 @@ import {
   useSpatialNavigatorParentScroll,
 } from '../../context/ParentScrollContext';
 import { scrollToNewlyFocusedElement } from '../../helpers/scrollToNewlyfocusedElement';
-import { useSpatialNavigationDeviceType } from '../../context/DeviceContext';
 import { mergeRefs } from '../../helpers/mergeRefs';
+import { useRemotePointerScrollviewScrollProps } from './useRemotePointerScrollviewScrollProps';
+import { PointerScrollArrows } from './PointerScrollArrows';
 
 type Props = {
   horizontal?: boolean;
@@ -43,84 +35,6 @@ type Props = {
   ascendingArrowContainerStyle?: ViewStyle;
   /** Number of pixels scrolled every 10ms - only when using web cursor pointer to scroll */
   pointerScrollSpeed?: number;
-};
-
-const useRemotePointerScrollviewScrollProps = ({
-  pointerScrollSpeed,
-  scrollY,
-  scrollViewRef,
-}: {
-  pointerScrollSpeed: number;
-  scrollY: React.MutableRefObject<number>;
-  scrollViewRef: React.MutableRefObject<ScrollView | null>;
-}) => {
-  const {
-    deviceType,
-    deviceTypeRef,
-    getScrollingIntervalId: getScrollingId,
-    setScrollingIntervalId: setScrollingId,
-  } = useSpatialNavigationDeviceType();
-
-  const onMouseEnterTop = useCallback(() => {
-    if (deviceTypeRef.current === 'remotePointer') {
-      let currentScrollPosition = scrollY.current;
-      const id = setInterval(() => {
-        currentScrollPosition -= pointerScrollSpeed;
-        scrollViewRef.current?.scrollTo({
-          y: currentScrollPosition,
-          animated: false,
-        });
-      }, 10);
-      setScrollingId(id);
-    }
-  }, [deviceTypeRef, pointerScrollSpeed, scrollY, scrollViewRef, setScrollingId]);
-
-  const onMouseEnterBottom = useCallback(() => {
-    if (deviceTypeRef.current === 'remotePointer') {
-      let currentScrollPosition = scrollY.current;
-      const id = setInterval(() => {
-        currentScrollPosition += pointerScrollSpeed;
-        scrollViewRef.current?.scrollTo({
-          y: currentScrollPosition,
-          animated: false,
-        });
-      }, 10);
-      setScrollingId(id);
-    }
-  }, [deviceTypeRef, pointerScrollSpeed, scrollY, scrollViewRef, setScrollingId]);
-
-  const onMouseLeave = useCallback(() => {
-    if (deviceTypeRef.current === 'remotePointer') {
-      const intervalId = getScrollingId();
-      if (intervalId) {
-        clearInterval(intervalId);
-        setScrollingId(null);
-      }
-    }
-  }, [deviceTypeRef, getScrollingId, setScrollingId]);
-
-  const ascendingArrowProps = useMemo(
-    () =>
-      Platform.select({
-        web: { onMouseEnter: onMouseEnterBottom, onMouseLeave: onMouseLeave },
-      }),
-    [onMouseEnterBottom, onMouseLeave],
-  );
-
-  const descendingArrowProps = useMemo(
-    () =>
-      Platform.select({
-        web: { onMouseEnter: onMouseEnterTop, onMouseLeave: onMouseLeave },
-      }),
-    [onMouseEnterTop, onMouseLeave],
-  );
-
-  return {
-    deviceType,
-    deviceTypeRef,
-    ascendingArrowProps,
-    descendingArrowProps,
-  };
 };
 
 const getNodeRef = (node: ScrollView | null | undefined) => {
@@ -216,48 +130,3 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
   },
 );
 SpatialNavigationScrollView.displayName = 'SpatialNavigationScrollView';
-
-const PointerScrollArrows = React.memo(
-  ({
-    ascendingArrow,
-    descendingArrowProps,
-    ascendingArrowContainerStyle,
-    descendingArrow,
-    ascendingArrowProps,
-    descendingArrowContainerStyle,
-  }: {
-    ascendingArrow?: ReactElement;
-    ascendingArrowProps?: {
-      onMouseEnter: () => void;
-      onMouseLeave: () => void;
-    };
-    ascendingArrowContainerStyle?: ViewStyle;
-    descendingArrow?: ReactNode;
-    descendingArrowProps?: {
-      onMouseEnter: () => void;
-      onMouseLeave: () => void;
-    };
-    descendingArrowContainerStyle?: ViewStyle;
-  }) => {
-    return (
-      <>
-        <View
-          style={[styles.arrowContainer, descendingArrowContainerStyle]}
-          {...descendingArrowProps}
-        >
-          {descendingArrow}
-        </View>
-        <View style={ascendingArrowContainerStyle} {...ascendingArrowProps}>
-          {ascendingArrow}
-        </View>
-      </>
-    );
-  },
-);
-PointerScrollArrows.displayName = 'PointerScrollArrows';
-
-const styles = StyleSheet.create({
-  arrowContainer: {
-    position: 'absolute',
-  },
-});
