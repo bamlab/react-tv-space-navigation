@@ -29,7 +29,7 @@ const TestPage = () => {
   return (
     <SpatialNavigationRoot>
       <DefaultFocus>
-        <SpatialNavigationScrollView testID="scrollview" useCssScroll>
+        <SpatialNavigationScrollView testID="scrollview">
           <SpatialNavigationView direction="vertical">
             <TestButton title="1" />
             <TestButton title="2" />

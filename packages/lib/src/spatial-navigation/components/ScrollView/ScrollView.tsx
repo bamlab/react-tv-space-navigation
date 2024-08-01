@@ -31,8 +31,8 @@ type Props = {
   ascendingArrowContainerStyle?: ViewStyle;
   /** Number of pixels scrolled every 10ms - only when using web cursor pointer to scroll */
   pointerScrollSpeed?: number;
-  /** Toggles the CSS scrolling version of the scroll view */
-  useCssScroll?: boolean;
+  /** Toggles the native scrolling version of the scroll view instead of the CSS scroll */
+  useNativeScroll?: boolean;
   /** Configures the scroll duration in the case of CSS scroll */
   scrollDuration?: number;
   testID?: string;
@@ -59,7 +59,7 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
       descendingArrowContainerStyle,
       pointerScrollSpeed = 10,
       contentContainerStyle,
-      useCssScroll = false,
+      useNativeScroll = false,
       scrollDuration = 200,
       testID,
     },
@@ -109,7 +109,7 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
     return (
       <SpatialNavigatorParentScrollContext.Provider value={scrollToNode}>
         <AnyScrollView
-          useCssScroll={useCssScroll}
+          useNativeScroll={useNativeScroll}
           scrollDuration={scrollDuration}
           ref={mergeRefs([ref, scrollViewRef])}
           horizontal={horizontal}

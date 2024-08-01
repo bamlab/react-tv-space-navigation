@@ -4,7 +4,7 @@ import { CustomScrollView } from './CustomScrollView/CustomScrollView';
 import { CustomScrollViewRef } from './types';
 
 type Props = {
-  useCssScroll: boolean;
+  useNativeScroll: boolean;
 
   horizontal?: boolean;
   children: React.ReactNode;
@@ -16,21 +16,21 @@ type Props = {
 };
 
 export const AnyScrollView = React.forwardRef<CustomScrollViewRef, Props>(
-  ({ useCssScroll, ...props }: Props, ref) => {
-    if (useCssScroll) {
-      return <CustomScrollView ref={ref} {...props} />;
+  ({ useNativeScroll, ...props }: Props, ref) => {
+    if (useNativeScroll) {
+      return (
+        <ScrollView
+          ref={ref as React.RefObject<ScrollView>}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={false}
+          scrollEventThrottle={16}
+          {...props}
+        />
+      );
     }
 
-    return (
-      <ScrollView
-        ref={ref as React.RefObject<ScrollView>}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        scrollEnabled={false}
-        scrollEventThrottle={16}
-        {...props}
-      />
-    );
+    return <CustomScrollView ref={ref} {...props} />;
   },
 );
 
