@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { SpatialNavigationNode } from '../Node';
 
 export type PropsTestButton = {
-  onSelect: () => void;
+  onSelect?: () => void;
   title: string;
 };
 

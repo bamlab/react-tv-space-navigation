@@ -32,6 +32,7 @@ export const GridWithLongNodesPage = () => {
       <CenteringView>
         <GridContainer>
           <SpatialNavigationScrollView
+            useCssScroll
             offsetFromStart={HEADER_SIZE + 20}
             ascendingArrow={<BottomArrow />}
             ascendingArrowContainerStyle={styles.bottomArrowContainer}

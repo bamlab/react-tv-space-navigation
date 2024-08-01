@@ -132,17 +132,18 @@ It also ensures that the scroll event is propagated properly for parent ScrollVi
 
 The `SpatialNavigationScrollView` component receives the following props:
 
-| Name                            | Type           | Default | Description                                                                                                                                                   |
-| ------------------------------- | -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `horizontal`                    | `boolean`      | `false` | Determines if the scrolling orientation is horizontal. If `false`, the scrolling orientation will be vertical.                                                |
-| `offsetFromStart`               | `number`       | `0`     | This offset is used to prevent the element from sticking too closely to the edges of the screen during scrolling. This is a margin in pixels.                 |
-| `style`                         | `ViewStyle`    | `null`  | Style for the ScrollView. This can be any valid React Native style object.                                                                                    |
-| `children`                      | `ReactNode`    | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                                    |
-| `ascendingArrow`                | `ReactElement` | `null`  | For web TVs cursor handling. Optional component to display as the arrow to scroll on the ascending order.                                                     |
-| `ascendingArrowContainerStyle`  | `ViewStyle`    | `null`  | For web TVs cursor handling. Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll.                                      |
-| `descendingArrow`               | `ReactElement` | `null`  | For web TVs cursor handling. Optional component to display as the arrow to scroll on the descending order.                                                    |
-| `descendingArrowContainerStyle` | `ViewStyle`    | `null`  | For web TVs cursor handling. Style of the view which wraps the descending arrow. Hover this view will trigger the scroll.                                     |
-| `pointerScrollSpeed`            | `number`       | `10`    | For web TVs cursor handling. Speed of the pointer scroll. It represents the number of pixels scrolled every 10ms when hovering a scroll arrow with a pointer. |
+| Name                            | Type           | Default | Description                                                                                                                                                                        |
+| ------------------------------- | -------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `horizontal`                    | `boolean`      | `false` | Determines if the scrolling orientation is horizontal. If `false`, the scrolling orientation will be vertical.                                                                     |
+| `offsetFromStart`               | `number`       | `0`     | This offset is used to prevent the element from sticking too closely to the edges of the screen during scrolling. This is a margin in pixels.                                      |
+| `style`                         | `ViewStyle`    | `null`  | Style for the ScrollView. This can be any valid React Native style object.                                                                                                         |
+| `children`                      | `ReactNode`    | `null`  | Child elements of the component. They are expected to be one or multiple `SpatialNavigationNode` elements.                                                                         |
+| `ascendingArrow`                | `ReactElement` | `null`  | For web TVs cursor handling. Optional component to display as the arrow to scroll on the ascending order.                                                                          |
+| `ascendingArrowContainerStyle`  | `ViewStyle`    | `null`  | For web TVs cursor handling. Style of the view which wraps the ascending arrow. Hover this view will trigger the scroll.                                                           |
+| `descendingArrow`               | `ReactElement` | `null`  | For web TVs cursor handling. Optional component to display as the arrow to scroll on the descending order.                                                                         |
+| `descendingArrowContainerStyle` | `ViewStyle`    | `null`  | For web TVs cursor handling. Style of the view which wraps the descending arrow. Hover this view will trigger the scroll.                                                          |
+| `pointerScrollSpeed`            | `number`       | `10`    | For web TVs cursor handling. Speed of the pointer scroll. It represents the number of pixels scrolled every 10ms when hovering a scroll arrow with a pointer.                      |
+| `useNativeScroll`               | `boolean`      | `false` | Not recommended. Setting this to true disables the use of CSS scroll. It will scroll using the native ScrollView from React Native. CSS scrolling should be snappier and smoother. |
 
 ## Usage
 
@@ -153,7 +154,7 @@ const FocusableNode = () => (
   </SpatialNavigationNode>
 );
 
-<SpatialNavigationScrollView horizontal={true} style={{ padding: 20 }} offsetFromStart={10}>
+<SpatialNavigationScrollView horizontal style={{ padding: 20 }} offsetFromStart={10}>
   <FocusableNode />
   <FocusableNode />
   <FocusableNode />

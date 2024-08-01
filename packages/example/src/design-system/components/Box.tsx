@@ -22,6 +22,7 @@ interface Props {
   paddingTop?: keyof Theme['spacings'];
   padding?: keyof Theme['spacings'];
   testID?: string;
+  style?: ViewStyle;
   children: ReactNode;
 }
 
@@ -64,6 +65,5 @@ const StyledView = styled(View, {
     paddingLeft: paddingLeft && theme.spacings[paddingLeft],
     paddingTop: paddingTop && theme.spacings[paddingTop],
     padding: padding && theme.spacings[padding],
-    alignSelf: 'stretch',
   }),
 );

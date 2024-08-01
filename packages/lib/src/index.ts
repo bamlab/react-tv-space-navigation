@@ -2,7 +2,7 @@ import { configureRemoteControl } from './spatial-navigation/configureRemoteCont
 export { Directions } from '@bam.tech/lrud';
 export { SpatialNavigationNode } from './spatial-navigation/components/Node';
 export { SpatialNavigationRoot } from './spatial-navigation/components/Root';
-export { SpatialNavigationScrollView } from './spatial-navigation/components/ScrollView';
+export { SpatialNavigationScrollView } from './spatial-navigation/components/ScrollView/ScrollView';
 export { SpatialNavigationView } from './spatial-navigation/components/View';
 export { DefaultFocus } from './spatial-navigation/context/DefaultFocusContext';
 export { SpatialNavigationVirtualizedList } from './spatial-navigation/components/virtualizedList/SpatialNavigationVirtualizedList';
