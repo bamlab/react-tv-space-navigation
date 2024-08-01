@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { Animated, LayoutChangeEvent, View, ViewStyle } from 'react-native';
 import { forwardRef, useCallback, useRef, useState } from 'react';
-import { CustomScrollViewRef } from './types';
+import { CustomScrollViewRef } from '../types';
 import { useStyle } from './CustomScrollView.hooks';
 
 type Props = {

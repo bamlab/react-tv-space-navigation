@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewStyle, ScrollView } from 'react-native';
-import { CustomScrollView } from './CustomScrollView';
+import { CustomScrollView } from './CustomScrollView/CustomScrollView';
 import { CustomScrollViewRef } from './types';
 
 type Props = {

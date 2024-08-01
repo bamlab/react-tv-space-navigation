@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { Platform } from 'react-native';
-import { useSpatialNavigationDeviceType } from '../../context/DeviceContext';
-import { CustomScrollViewRef } from './types';
+import { useSpatialNavigationDeviceType } from '../../../context/DeviceContext';
+import { CustomScrollViewRef } from '../types';
 
 export const useRemotePointerScrollviewScrollProps = ({
   pointerScrollSpeed,

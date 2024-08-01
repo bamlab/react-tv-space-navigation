@@ -6,8 +6,8 @@ import {
 } from '../../context/ParentScrollContext';
 import { scrollToNewlyFocusedElement } from '../../helpers/scrollToNewlyfocusedElement';
 import { mergeRefs } from '../../helpers/mergeRefs';
-import { useRemotePointerScrollviewScrollProps } from './useRemotePointerScrollviewScrollProps';
-import { PointerScrollArrows } from './PointerScrollArrows';
+import { useRemotePointerScrollviewScrollProps } from './pointer/useRemotePointerScrollviewScrollProps';
+import { PointerScrollArrows } from './pointer/PointerScrollArrows';
 import { CustomScrollViewRef } from './types';
 import { AnyScrollView } from './AnyScrollView';
 
