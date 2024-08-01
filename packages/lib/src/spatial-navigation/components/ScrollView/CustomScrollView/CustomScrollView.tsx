@@ -11,11 +11,20 @@ type Props = {
   contentContainerStyle?: ViewStyle;
   scrollDuration?: number;
   onScroll?: (event: { nativeEvent: { contentOffset: { y: number; x: number } } }) => void;
+  testID?: string;
 };
 
 export const CustomScrollView = forwardRef<CustomScrollViewRef, Props>(
   (
-    { style, contentContainerStyle, children, onScroll, horizontal = false, scrollDuration = 200 },
+    {
+      style,
+      contentContainerStyle,
+      children,
+      onScroll,
+      horizontal = false,
+      scrollDuration = 200,
+      testID,
+    },
     ref,
   ) => {
     const [scroll, setScroll] = useState(0);
@@ -71,11 +80,13 @@ export const CustomScrollView = forwardRef<CustomScrollViewRef, Props>(
           style,
         ]}
         onLayout={onParentLayout}
+        testID={testID}
       >
         <Animated.View
           onLayout={onContentContainerLayout}
           style={[contentContainerStyle, animationStyle]}
           ref={updateRef}
+          testID={testID ? `${testID}-content` : undefined}
         >
           {children}
         </Animated.View>

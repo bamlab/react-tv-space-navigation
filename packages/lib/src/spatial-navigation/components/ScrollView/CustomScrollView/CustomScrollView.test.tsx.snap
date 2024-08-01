@@ -1,0 +1,254 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomScrollView scrolls properly upon focus and stops when overflowing 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    [
+      {
+        "flex": 1,
+        "flexDirection": "column",
+        "overflow": "hidden",
+      },
+      undefined,
+    ]
+  }
+  testID="scrollview"
+>
+  <View
+    collapsable={false}
+    onLayout={[Function]}
+    style={
+      {
+        "transform": [
+          {
+            "translateY": -500,
+          },
+        ],
+      }
+    }
+    testID="scrollview-content"
+  >
+    <View
+      style={
+        [
+          undefined,
+          {
+            "display": "flex",
+            "flexDirection": "column",
+          },
+        ]
+      }
+    >
+      <View
+        accessibilityHint="1"
+        accessibilityLabel="1"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "selected": false,
+          }
+        }
+        accessible={true}
+        isFocused={false}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderRadius": 100,
+              "padding": 6,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text>
+          1
+        </Text>
+      </View>
+      <View
+        accessibilityHint="2"
+        accessibilityLabel="2"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "selected": false,
+          }
+        }
+        accessible={true}
+        isFocused={false}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderRadius": 100,
+              "padding": 6,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text>
+          2
+        </Text>
+      </View>
+      <View
+        accessibilityHint="3"
+        accessibilityLabel="3"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "selected": false,
+          }
+        }
+        accessible={true}
+        isFocused={false}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderRadius": 100,
+              "padding": 6,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text>
+          3
+        </Text>
+      </View>
+      <View
+        accessibilityHint="4"
+        accessibilityLabel="4"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "selected": false,
+          }
+        }
+        accessible={true}
+        isFocused={false}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderRadius": 100,
+              "padding": 6,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text>
+          4
+        </Text>
+      </View>
+      <View
+        accessibilityHint="5"
+        accessibilityLabel="5"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "selected": false,
+          }
+        }
+        accessible={true}
+        isFocused={false}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderRadius": 100,
+              "padding": 6,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text>
+          5
+        </Text>
+      </View>
+      <View
+        accessibilityHint="6"
+        accessibilityLabel="6"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "selected": false,
+          }
+        }
+        accessible={true}
+        isFocused={false}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderRadius": 100,
+              "padding": 6,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text>
+          6
+        </Text>
+      </View>
+      <View
+        accessibilityHint="7"
+        accessibilityLabel="7"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "selected": false,
+          }
+        }
+        accessible={true}
+        isFocused={false}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderRadius": 100,
+              "padding": 6,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text>
+          7
+        </Text>
+      </View>
+      <View
+        accessibilityHint="8"
+        accessibilityLabel="8"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "selected": true,
+          }
+        }
+        accessible={true}
+        isFocused={true}
+        style={
+          [
+            {
+              "backgroundColor": "red",
+              "borderRadius": 100,
+              "padding": 6,
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text>
+          8
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

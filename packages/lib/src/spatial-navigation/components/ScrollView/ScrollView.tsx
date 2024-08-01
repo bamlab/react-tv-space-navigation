@@ -35,6 +35,7 @@ type Props = {
   useCssScroll?: boolean;
   /** Configures the scroll duration in the case of CSS scroll */
   scrollDuration?: number;
+  testID?: string;
 };
 
 const getNodeRef = (node: CustomScrollViewRef | null | undefined) => {
@@ -60,6 +61,7 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
       contentContainerStyle,
       useCssScroll = false,
       scrollDuration = 200,
+      testID,
     },
     ref,
   ) => {
@@ -114,6 +116,7 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
           style={style}
           contentContainerStyle={contentContainerStyle}
           onScroll={onScroll}
+          testID={testID}
         >
           {children}
         </AnyScrollView>

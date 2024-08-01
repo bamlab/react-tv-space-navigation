@@ -12,6 +12,7 @@ type Props = {
   contentContainerStyle?: ViewStyle;
   scrollDuration?: number;
   onScroll?: (event: { nativeEvent: { contentOffset: { y: number; x: number } } }) => void;
+  testID?: string;
 };
 
 export const AnyScrollView = React.forwardRef<CustomScrollViewRef, Props>(
