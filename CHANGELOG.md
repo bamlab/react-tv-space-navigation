@@ -1,4 +1,15 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v3.6.1...v) (2024-05-27)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v4.0.0...v) (2024-08-01)
+
+## [4.0.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.6.1...v4.0.0) (2024-08-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **scrollview:** add CSS scroll on ScrollView (#146)
+
+### Features
+
+* **scrollview:** add CSS scroll on ScrollView ([#146](https://github.com/bamlab/react-tv-space-navigation/issues/146)) ([cc9e4cd](https://github.com/bamlab/react-tv-space-navigation/commit/cc9e4cd35ea45be9959e0dcfbe057ecb40dae3df))
 
 ## [3.6.1](https://github.com/bamlab/react-tv-space-navigation/compare/v3.6.0...v3.6.1) (2024-05-27)
 
