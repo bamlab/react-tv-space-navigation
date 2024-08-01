@@ -33,6 +33,7 @@ export const NonVirtualizedGridPage = () => {
       <CenteringView>
         <GridContainer>
           <SpatialNavigationScrollView
+            useCssScroll
             offsetFromStart={HEADER_SIZE + 20}
             descendingArrow={<TopArrow />}
             ascendingArrow={<BottomArrow />}

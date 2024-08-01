@@ -20,6 +20,7 @@ export const Home = () => {
       </TitleContainer>
       <DefaultFocus>
         <SpatialNavigationScrollView
+          useCssScroll
           offsetFromStart={140}
           ascendingArrow={<BottomArrow />}
           ascendingArrowContainerStyle={styles.bottomArrowContainer}
