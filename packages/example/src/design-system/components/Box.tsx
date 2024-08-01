@@ -22,6 +22,7 @@ interface Props {
   paddingTop?: keyof Theme['spacings'];
   padding?: keyof Theme['spacings'];
   testID?: string;
+  style?: ViewStyle;
   children: ReactNode;
 }
 
