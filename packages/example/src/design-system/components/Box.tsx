@@ -64,6 +64,5 @@ const StyledView = styled(View, {
     paddingLeft: paddingLeft && theme.spacings[paddingLeft],
     paddingTop: paddingTop && theme.spacings[paddingTop],
     padding: padding && theme.spacings[padding],
-    alignSelf: 'stretch',
   }),
 );
