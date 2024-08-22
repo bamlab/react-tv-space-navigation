@@ -6,7 +6,7 @@
   - [Explanations](#explanations)
 - [Accessibility](#accessibility)
 
-## Conditional rendering
+## Conditional rendering & dynamic ordering
 
 ### TLDR
 
@@ -23,6 +23,26 @@ If navigation elements are conditionnally visible, it is necessary to wrap them 
 <View>
   <Text>Title</Text>
   <SpatialNavigationNode>{isVisible && <Element />}</SpatialNavigationNode>
+</View>
+```
+
+The same goes for mapping over a list of elements that can change. The trick in that case is to wrap the elements with a SpatialNavigationNode that is keyed by the list index.
+Yes, this is bad practice in general, but it is justified here because we really want the SpatialNavigationNode components to never change even if the list moves.
+It will force the children to re-render but we have no better recommendation yet!
+
+```tsx
+// DON'T ❌
+<View>
+  {elements.map((element) => <Element element={element} />)}
+</View>
+
+// DO ✅
+<View>
+  {elements.map((element, index) =>
+    <SpatialNavigationNode key={index}>
+      <Element element={element} />)
+    </SpatialNavigationNode>
+  }
 </View>
 ```
 
