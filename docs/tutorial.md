@@ -104,6 +104,16 @@ const Page = () => {
 };
 ```
 
+> **💡 Important note 💡**
+>
+> Sometimes, you will have issues at some points with elements not properly registered spatially.
+> We'd like to mention it right now because you will not understand once you get the issue (if you ever do).
+>
+> The symptom is that the elements order can be messed up when trying to navigate. It happens usually when dealing with **asynchronous data** and **conditional rendering**.
+> _Workaround is simple_, but we'd recommend to be aware of it 😉
+>
+> [Read it here!](https://github.com/bamlab/react-tv-space-navigation/blob/main/docs/pitfalls.md)
+
 ### Add behaviour when you select an element
 
 Simply add an `onSelect` props to a node, very similarly as if you were adding a `onPress` props.
