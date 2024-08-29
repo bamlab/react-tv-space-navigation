@@ -1,3 +1,5 @@
+import { ScrollBehavior } from '../VirtualizedList';
+
 const positiveValueOrZero = (x: number): number => Math.max(x, 0);
 
 /**
@@ -20,11 +22,13 @@ const getRangeWithoutFloatHandling = ({
   currentlyFocusedItemIndex,
   numberOfRenderedItems = 8,
   numberOfItemsVisibleOnScreen,
+  scrollBehavior,
 }: {
   data: Array<unknown>;
   currentlyFocusedItemIndex: number;
   numberOfRenderedItems?: number;
   numberOfItemsVisibleOnScreen: number;
+  scrollBehavior: ScrollBehavior;
 }) => {
   const numberOfItemsNotVisible = numberOfRenderedItems - numberOfItemsVisibleOnScreen;
 
@@ -37,12 +41,22 @@ const getRangeWithoutFloatHandling = ({
     );
   }
 
+  if (
+    scrollBehavior === 'jump-on-scroll' &&
+    numberOfRenderedItems < 2 * numberOfItemsVisibleOnScreen + 1
+  ) {
+    throw new Error(
+      'You have set a numberOfRenderedItems inferior to 2 * numberOfItemsVisibleOnScreen + 1 in your SpatialNavigationVirtualizedList with the jump-on-scroll scroll behavior. You must change it.',
+    );
+  }
+
   const lastDataIndex = data.length - 1;
 
   const { rawStartIndex, rawEndIndex } = getRawStartAndEndIndexes({
     currentlyFocusedItemIndex,
     numberOfItemsVisibleOnScreen,
     numberOfItemsNotVisible,
+    scrollBehavior,
   });
 
   /*
@@ -53,11 +67,13 @@ const getRangeWithoutFloatHandling = ({
    */
   if (rawStartIndex < 0) {
     const finalEndIndex = numberOfRenderedItems - 1;
+
     return { start: 0, end: positiveValueOrZero(Math.min(finalEndIndex, lastDataIndex)) };
   }
 
   if (rawEndIndex > data.length - 1) {
     const finalStartIndex = lastDataIndex - numberOfRenderedItems + 1;
+
     return { start: positiveValueOrZero(finalStartIndex), end: positiveValueOrZero(lastDataIndex) };
   }
 
@@ -68,16 +84,36 @@ const getRawStartAndEndIndexes = ({
   currentlyFocusedItemIndex,
   numberOfItemsVisibleOnScreen,
   numberOfItemsNotVisible,
+  scrollBehavior,
 }: {
   currentlyFocusedItemIndex: number;
   numberOfItemsVisibleOnScreen: number;
   numberOfItemsNotVisible: number;
+  scrollBehavior: ScrollBehavior;
 }) => {
   const halfNumberOfItemsNotVisible = numberOfItemsNotVisible / 2;
 
-  const rawStartIndex = currentlyFocusedItemIndex - halfNumberOfItemsNotVisible;
-  const rawEndIndex =
-    currentlyFocusedItemIndex + numberOfItemsVisibleOnScreen - 1 + halfNumberOfItemsNotVisible;
+  let rawStartIndex: number;
+  let rawEndIndex: number;
+
+  switch (scrollBehavior) {
+    case 'stick-to-start':
+      rawStartIndex = currentlyFocusedItemIndex - halfNumberOfItemsNotVisible;
+      rawEndIndex =
+        currentlyFocusedItemIndex + numberOfItemsVisibleOnScreen - 1 + halfNumberOfItemsNotVisible;
+      break;
+    case 'stick-to-end':
+      rawStartIndex =
+        currentlyFocusedItemIndex - numberOfItemsVisibleOnScreen + 1 - halfNumberOfItemsNotVisible;
+      rawEndIndex = currentlyFocusedItemIndex + halfNumberOfItemsNotVisible;
+      break;
+    case 'jump-on-scroll':
+      rawStartIndex = currentlyFocusedItemIndex - numberOfItemsVisibleOnScreen;
+      rawEndIndex = currentlyFocusedItemIndex + numberOfItemsVisibleOnScreen;
+      break;
+    default:
+      throw new Error(`Unknown scroll behavior: ${scrollBehavior}`);
+  }
 
   return { rawStartIndex, rawEndIndex };
 };
@@ -94,11 +130,13 @@ export const getRange = ({
   currentlyFocusedItemIndex,
   numberOfRenderedItems = 8,
   numberOfItemsVisibleOnScreen,
+  scrollBehavior,
 }: {
   data: Array<unknown>;
   currentlyFocusedItemIndex: number;
   numberOfRenderedItems?: number;
   numberOfItemsVisibleOnScreen: number;
+  scrollBehavior: ScrollBehavior;
 }): { start: number; end: number } => {
   if (numberOfRenderedItems <= 0) {
     console.error(
@@ -112,6 +150,7 @@ export const getRange = ({
     currentlyFocusedItemIndex,
     numberOfRenderedItems,
     numberOfItemsVisibleOnScreen,
+    scrollBehavior,
   });
 
   return { start: Math.ceil(result.start), end: Math.ceil(result.end) };
