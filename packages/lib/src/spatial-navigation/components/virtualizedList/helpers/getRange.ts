@@ -42,7 +42,7 @@ const getRangeWithoutFloatHandling = ({
 
   const rawStartIndex = currentlyFocusedItemIndex - halfNumberOfItemsNotVisible;
   const rawEndIndex =
-    currentlyFocusedItemIndex + halfNumberOfItemsNotVisible - 1 + numberOfItemsVisibleOnScreen;
+    currentlyFocusedItemIndex + numberOfItemsVisibleOnScreen - 1 + halfNumberOfItemsNotVisible;
 
   /*
    * if sum does not fit the window size, then we are in of these cases:
