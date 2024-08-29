@@ -93,29 +93,33 @@ const getRawStartAndEndIndexes = ({
 }) => {
   const halfNumberOfItemsNotVisible = numberOfItemsNotVisible / 2;
 
-  let rawStartIndex: number;
-  let rawEndIndex: number;
-
   switch (scrollBehavior) {
     case 'stick-to-start':
-      rawStartIndex = currentlyFocusedItemIndex - halfNumberOfItemsNotVisible;
-      rawEndIndex =
-        currentlyFocusedItemIndex + numberOfItemsVisibleOnScreen - 1 + halfNumberOfItemsNotVisible;
-      break;
+      return {
+        rawStartIndex: currentlyFocusedItemIndex - halfNumberOfItemsNotVisible,
+        rawEndIndex:
+          currentlyFocusedItemIndex +
+          numberOfItemsVisibleOnScreen -
+          1 +
+          halfNumberOfItemsNotVisible,
+      };
     case 'stick-to-end':
-      rawStartIndex =
-        currentlyFocusedItemIndex - numberOfItemsVisibleOnScreen + 1 - halfNumberOfItemsNotVisible;
-      rawEndIndex = currentlyFocusedItemIndex + halfNumberOfItemsNotVisible;
-      break;
+      return {
+        rawStartIndex:
+          currentlyFocusedItemIndex -
+          numberOfItemsVisibleOnScreen +
+          1 -
+          halfNumberOfItemsNotVisible,
+        rawEndIndex: currentlyFocusedItemIndex + halfNumberOfItemsNotVisible,
+      };
     case 'jump-on-scroll':
-      rawStartIndex = currentlyFocusedItemIndex - numberOfItemsVisibleOnScreen;
-      rawEndIndex = currentlyFocusedItemIndex + numberOfItemsVisibleOnScreen;
-      break;
+      return {
+        rawStartIndex: currentlyFocusedItemIndex - numberOfItemsVisibleOnScreen,
+        rawEndIndex: currentlyFocusedItemIndex + numberOfItemsVisibleOnScreen,
+      };
     default:
       throw new Error(`Unknown scroll behavior: ${scrollBehavior}`);
   }
-
-  return { rawStartIndex, rawEndIndex };
 };
 
 /**
