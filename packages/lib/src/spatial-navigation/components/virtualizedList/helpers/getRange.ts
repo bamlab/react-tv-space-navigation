@@ -37,12 +37,13 @@ const getRangeWithoutFloatHandling = ({
     );
   }
 
-  const halfNumberOfItemsNotVisible = numberOfItemsNotVisible / 2;
   const lastDataIndex = data.length - 1;
 
-  const rawStartIndex = currentlyFocusedItemIndex - halfNumberOfItemsNotVisible;
-  const rawEndIndex =
-    currentlyFocusedItemIndex + numberOfItemsVisibleOnScreen - 1 + halfNumberOfItemsNotVisible;
+  const { rawStartIndex, rawEndIndex } = getRawStartAndEndIndexes({
+    currentlyFocusedItemIndex,
+    numberOfItemsVisibleOnScreen,
+    numberOfItemsNotVisible,
+  });
 
   /*
    * if sum does not fit the window size, then we are in of these cases:
@@ -61,6 +62,24 @@ const getRangeWithoutFloatHandling = ({
   }
 
   return { start: rawStartIndex, end: rawEndIndex };
+};
+
+const getRawStartAndEndIndexes = ({
+  currentlyFocusedItemIndex,
+  numberOfItemsVisibleOnScreen,
+  numberOfItemsNotVisible,
+}: {
+  currentlyFocusedItemIndex: number;
+  numberOfItemsVisibleOnScreen: number;
+  numberOfItemsNotVisible: number;
+}) => {
+  const halfNumberOfItemsNotVisible = numberOfItemsNotVisible / 2;
+
+  const rawStartIndex = currentlyFocusedItemIndex - halfNumberOfItemsNotVisible;
+  const rawEndIndex =
+    currentlyFocusedItemIndex + numberOfItemsVisibleOnScreen - 1 + halfNumberOfItemsNotVisible;
+
+  return { rawStartIndex, rawEndIndex };
 };
 
 /**
