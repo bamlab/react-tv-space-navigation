@@ -80,6 +80,11 @@ const getRangeWithoutFloatHandling = ({
   return { start: rawStartIndex, end: rawEndIndex };
 };
 
+/**
+ * Computes the raw start and end indexes for the virtualization.
+ * "raw" means that the indexes are subject to be out of bounds
+ * which will be handled in the getRange function.
+ */
 const getRawStartAndEndIndexes = ({
   currentlyFocusedItemIndex,
   numberOfItemsVisibleOnScreen,
