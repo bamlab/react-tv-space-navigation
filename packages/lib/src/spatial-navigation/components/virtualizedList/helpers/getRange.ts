@@ -119,8 +119,8 @@ const getRawStartAndEndIndexes = ({
       };
     case 'jump-on-scroll':
       return {
-        rawStartIndex: currentlyFocusedItemIndex - numberOfItemsVisibleOnScreen,
-        rawEndIndex: currentlyFocusedItemIndex + numberOfItemsVisibleOnScreen,
+        rawStartIndex: currentlyFocusedItemIndex - (halfNumberOfItemsNotVisible + 1),
+        rawEndIndex: currentlyFocusedItemIndex + (halfNumberOfItemsNotVisible + 1),
       };
     default:
       throw new Error(`Unknown scroll behavior: ${scrollBehavior}`);

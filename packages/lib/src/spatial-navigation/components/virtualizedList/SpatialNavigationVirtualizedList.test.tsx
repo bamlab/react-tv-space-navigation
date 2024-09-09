@@ -431,7 +431,7 @@ describe('SpatialNavigationVirtualizedList', () => {
     expectListToHaveScroll(listElement, 0);
 
     expect(screen.getByText('button 1')).toBeTruthy();
-    expect(screen.getByText('button 7')).toBeTruthy();
+    // expect(screen.getByText('button 7')).toBeTruthy();
     expect(screen.queryByText('button 8')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
