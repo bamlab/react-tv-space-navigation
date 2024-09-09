@@ -36,6 +36,7 @@ describe('getRange for custom virtualized list', () => {
         currentlyFocusedItemIndex: focusIndex,
         numberOfRenderedItems,
         numberOfItemsVisibleOnScreen,
+        scrollBehavior: 'stick-to-start',
       });
 
       expect(expectedResult).toEqual(result);
@@ -51,6 +52,7 @@ describe('getRange for custom virtualized list', () => {
       currentlyFocusedItemIndex: 5,
       numberOfRenderedItems: -1,
       numberOfItemsVisibleOnScreen: defaultNumberOfItemsVisibleOnScreen,
+      scrollBehavior: 'stick-to-start',
     });
 
     expect(expectedResult).toEqual(result);
@@ -66,6 +68,7 @@ describe('getRange for custom virtualized list', () => {
         currentlyFocusedItemIndex: 5,
         numberOfRenderedItems: 6,
         numberOfItemsVisibleOnScreen: 8,
+        scrollBehavior: 'stick-to-start',
       }),
     ).toThrowError();
   });

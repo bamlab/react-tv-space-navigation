@@ -146,6 +146,7 @@ export const VirtualizedList = typedMemo(
       currentlyFocusedItemIndex,
       numberOfRenderedItems,
       numberOfItemsVisibleOnScreen,
+      scrollBehavior,
     });
 
     const vertical = orientation === 'vertical';

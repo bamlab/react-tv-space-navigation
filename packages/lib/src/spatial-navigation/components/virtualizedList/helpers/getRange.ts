@@ -1,3 +1,5 @@
+import { ScrollBehavior } from '../VirtualizedList';
+
 const positiveValueOrZero = (x: number): number => Math.max(x, 0);
 
 /**
@@ -20,11 +22,13 @@ const getRangeWithoutFloatHandling = ({
   currentlyFocusedItemIndex,
   numberOfRenderedItems = 8,
   numberOfItemsVisibleOnScreen,
+  scrollBehavior,
 }: {
   data: Array<unknown>;
   currentlyFocusedItemIndex: number;
   numberOfRenderedItems?: number;
   numberOfItemsVisibleOnScreen: number;
+  scrollBehavior: ScrollBehavior;
 }) => {
   const numberOfItemsNotVisible = numberOfRenderedItems - numberOfItemsVisibleOnScreen;
 
@@ -37,12 +41,23 @@ const getRangeWithoutFloatHandling = ({
     );
   }
 
-  const halfNumberOfItemsNotVisible = numberOfItemsNotVisible / 2;
+  if (
+    scrollBehavior === 'jump-on-scroll' &&
+    numberOfRenderedItems < 2 * numberOfItemsVisibleOnScreen + 1
+  ) {
+    console.error(
+      'You have set a numberOfRenderedItems inferior to 2 * numberOfItemsVisibleOnScreen + 1 in your SpatialNavigationVirtualizedList with the jump-on-scroll scroll behavior. You must change it.',
+    );
+  }
+
   const lastDataIndex = data.length - 1;
 
-  const rawStartIndex = currentlyFocusedItemIndex - halfNumberOfItemsNotVisible;
-  const rawEndIndex =
-    currentlyFocusedItemIndex + halfNumberOfItemsNotVisible - 1 + numberOfItemsVisibleOnScreen;
+  const { rawStartIndex, rawEndIndex } = getRawStartAndEndIndexes({
+    currentlyFocusedItemIndex,
+    numberOfItemsVisibleOnScreen,
+    numberOfItemsNotVisible,
+    scrollBehavior,
+  });
 
   /*
    * if sum does not fit the window size, then we are in of these cases:
@@ -52,15 +67,64 @@ const getRangeWithoutFloatHandling = ({
    */
   if (rawStartIndex < 0) {
     const finalEndIndex = numberOfRenderedItems - 1;
+
     return { start: 0, end: positiveValueOrZero(Math.min(finalEndIndex, lastDataIndex)) };
   }
 
   if (rawEndIndex > data.length - 1) {
     const finalStartIndex = lastDataIndex - numberOfRenderedItems + 1;
+
     return { start: positiveValueOrZero(finalStartIndex), end: positiveValueOrZero(lastDataIndex) };
   }
 
   return { start: rawStartIndex, end: rawEndIndex };
+};
+
+/**
+ * Computes the raw start and end indexes for the virtualization.
+ * "raw" means that the indexes are subject to be out of bounds
+ * which will be handled in the getRange function.
+ */
+const getRawStartAndEndIndexes = ({
+  currentlyFocusedItemIndex,
+  numberOfItemsVisibleOnScreen,
+  numberOfItemsNotVisible,
+  scrollBehavior,
+}: {
+  currentlyFocusedItemIndex: number;
+  numberOfItemsVisibleOnScreen: number;
+  numberOfItemsNotVisible: number;
+  scrollBehavior: ScrollBehavior;
+}) => {
+  const halfNumberOfItemsNotVisible = numberOfItemsNotVisible / 2;
+
+  switch (scrollBehavior) {
+    case 'stick-to-start':
+      return {
+        rawStartIndex: currentlyFocusedItemIndex - halfNumberOfItemsNotVisible,
+        rawEndIndex:
+          currentlyFocusedItemIndex +
+          numberOfItemsVisibleOnScreen -
+          1 +
+          halfNumberOfItemsNotVisible,
+      };
+    case 'stick-to-end':
+      return {
+        rawStartIndex:
+          currentlyFocusedItemIndex -
+          numberOfItemsVisibleOnScreen +
+          1 -
+          halfNumberOfItemsNotVisible,
+        rawEndIndex: currentlyFocusedItemIndex + halfNumberOfItemsNotVisible,
+      };
+    case 'jump-on-scroll':
+      return {
+        rawStartIndex: currentlyFocusedItemIndex - (halfNumberOfItemsNotVisible + 1),
+        rawEndIndex: currentlyFocusedItemIndex + (halfNumberOfItemsNotVisible + 1),
+      };
+    default:
+      throw new Error(`Unknown scroll behavior: ${scrollBehavior}`);
+  }
 };
 
 /**
@@ -75,11 +139,13 @@ export const getRange = ({
   currentlyFocusedItemIndex,
   numberOfRenderedItems = 8,
   numberOfItemsVisibleOnScreen,
+  scrollBehavior,
 }: {
   data: Array<unknown>;
   currentlyFocusedItemIndex: number;
   numberOfRenderedItems?: number;
   numberOfItemsVisibleOnScreen: number;
+  scrollBehavior: ScrollBehavior;
 }): { start: number; end: number } => {
   if (numberOfRenderedItems <= 0) {
     console.error(
@@ -93,6 +159,7 @@ export const getRange = ({
     currentlyFocusedItemIndex,
     numberOfRenderedItems,
     numberOfItemsVisibleOnScreen,
+    scrollBehavior,
   });
 
   return { start: Math.ceil(result.start), end: Math.ceil(result.end) };
