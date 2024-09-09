@@ -45,7 +45,7 @@ const getRangeWithoutFloatHandling = ({
     scrollBehavior === 'jump-on-scroll' &&
     numberOfRenderedItems < 2 * numberOfItemsVisibleOnScreen + 1
   ) {
-    throw new Error(
+    console.error(
       'You have set a numberOfRenderedItems inferior to 2 * numberOfItemsVisibleOnScreen + 1 in your SpatialNavigationVirtualizedList with the jump-on-scroll scroll behavior. You must change it.',
     );
   }
