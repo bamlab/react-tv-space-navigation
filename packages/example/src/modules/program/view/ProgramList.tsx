@@ -14,10 +14,11 @@ import { getPrograms } from '../infra/programInfos';
 import { ProgramNode } from './ProgramNode';
 import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
 import { LeftArrow, RightArrow } from '../../../design-system/components/Arrows';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { theme } from '../../../design-system/theme/theme';
 import { SupportedKeys } from '../../../components/remote-control/SupportedKeys';
 import { useKey } from '../../../hooks/useKey';
+import React from 'react';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
@@ -40,88 +41,83 @@ const isItemLarge = (item: { id: string }) => {
   return parseInt(item.id, 10) % 2 === 0; // Arbitrary condition to decide size
 };
 
-export const ProgramList = ({
-  orientation = 'horizontal',
-  containerStyle,
-  data,
-  variant = 'normal',
-  listSize = 1000,
-  parentRef,
-  isActive,
-}: ProgramListProps) => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const theme = useTheme();
-  const listRef = useRef<SpatialNavigationVirtualizedListRef>(null);
+export const ProgramList = React.forwardRef<View, ProgramListProps>(
+  ({ orientation, containerStyle, data, parentRef, isActive, variant, listSize = 1000 }, ref) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const theme = useTheme();
+    const listRef = useRef<SpatialNavigationVirtualizedListRef>(null);
 
-  const renderItem = useCallback(
-    ({ item, index }: { item: ProgramInfo; index: number }) => (
-      <ProgramNode
-        programInfo={item}
-        onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
-        label={index.toString()}
-        variant={variant === 'variable-size' && isItemLarge(item) ? 'landscape' : 'portrait'}
-      />
-    ),
-    [navigation, variant],
-  );
-  const isScreenFocused = useIsFocused();
+    const renderItem = useCallback(
+      ({ item, index }: { item: ProgramInfo; index: number }) => (
+        <ProgramNode
+          programInfo={item}
+          onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
+          label={index.toString()}
+          variant={variant === 'variable-size' && isItemLarge(item) ? 'landscape' : 'portrait'}
+        />
+      ),
+      [navigation, variant],
+    );
+    const isScreenFocused = useIsFocused();
 
-  const programInfos = useMemo(() => data ?? getPrograms(listSize), [data, listSize]);
+    const programInfos = useMemo(() => data ?? getPrograms(listSize), [data, listSize]);
 
-  const itemSize = useMemo(
-    () => {
-      if (variant === 'normal') {
-        return theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS;
-      }
+    const itemSize = useMemo(
+      () => {
+        if (variant === 'normal') {
+          return theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS;
+        }
 
-      return (item: ProgramInfo) =>
-        isItemLarge(item)
-          ? theme.sizes.program.landscape.width + GAP_BETWEEN_ELEMENTS
-          : theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS;
-    }, // Default item size for "normal"
-    [theme.sizes.program.landscape.width, theme.sizes.program.portrait.width, variant],
-  );
+        return (item: ProgramInfo) =>
+          isItemLarge(item)
+            ? theme.sizes.program.landscape.width + GAP_BETWEEN_ELEMENTS
+            : theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS;
+      }, // Default item size for "normal"
+      [theme.sizes.program.landscape.width, theme.sizes.program.portrait.width, variant],
+    );
 
-  const goToFirstItem = useCallback(
-    (pressedKey: SupportedKeys) => {
-      const isBackKey = pressedKey === SupportedKeys.Back;
-      const isRowActive = isActive && isScreenFocused;
-      const isFirstElementFocused = listRef.current.currentlyFocusedItemIndex === 0;
+    const goToFirstItem = useCallback(
+      (pressedKey: SupportedKeys) => {
+        const isBackKey = pressedKey === SupportedKeys.Back;
+        const isRowActive = isActive && isScreenFocused;
+        const isFirstElementFocused = listRef.current.currentlyFocusedItemIndex === 0;
 
-      if (!isBackKey || !isRowActive || isFirstElementFocused) {
-        return false;
-      }
+        if (!isBackKey || !isRowActive || isFirstElementFocused) {
+          return false;
+        }
 
-      listRef.current.focus(0);
-      return true;
-    },
-    [isActive, isScreenFocused, listRef],
-  );
+        listRef.current.focus(0);
+        return true;
+      },
+      [isActive, isScreenFocused, listRef],
+    );
 
-  useKey(SupportedKeys.Back, goToFirstItem);
+    useKey(SupportedKeys.Back, goToFirstItem);
 
-  return (
-    <Container isActive={isActive} style={containerStyle}>
-      <SpatialNavigationVirtualizedList
-        orientation={orientation}
-        data={programInfos}
-        renderItem={renderItem}
-        itemSize={itemSize}
-        numberOfRenderedItems={WINDOW_SIZE}
-        numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-        onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
-        descendingArrow={isActive ? <LeftArrow /> : null}
-        descendingArrowContainerStyle={styles.leftArrowContainer}
-        ascendingArrow={isActive ? <RightArrow /> : null}
-        ascendingArrowContainerStyle={styles.rightArrowContainer}
-        ref={(elementRef) => {
-          if (parentRef) parentRef.current = elementRef;
-          listRef.current = elementRef;
-        }}
-      />
-    </Container>
-  );
-};
+    return (
+      <Container isActive={isActive} style={containerStyle} ref={ref}>
+        <SpatialNavigationVirtualizedList
+          orientation={orientation}
+          data={programInfos}
+          renderItem={renderItem}
+          itemSize={itemSize}
+          numberOfRenderedItems={WINDOW_SIZE}
+          numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+          onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+          descendingArrow={isActive ? <LeftArrow /> : null}
+          descendingArrowContainerStyle={styles.leftArrowContainer}
+          ascendingArrow={isActive ? <RightArrow /> : null}
+          ascendingArrowContainerStyle={styles.rightArrowContainer}
+          ref={(elementRef) => {
+            if (parentRef) parentRef.current = elementRef;
+            listRef.current = elementRef;
+          }}
+        />
+      </Container>
+    );
+  },
+);
+ProgramList.displayName = 'ProgramList';
 
 export const ProgramsRow = ({
   containerStyle,
