@@ -1,13 +1,21 @@
 import { useNavigation } from '@react-navigation/native';
 import { SupportedKeys } from './remote-control/SupportedKeys';
 import { useKey } from '../hooks/useKey';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { BackHandler } from 'react-native';
 
 export const GoBackConfiguration = () => {
   const navigation = useNavigation();
 
-  BackHandler.addEventListener('hardwareBackPress', () => true);
+  useEffect(() => {
+    const event = BackHandler.addEventListener('hardwareBackPress', () => {
+      return true;
+    });
+
+    return () => {
+      event.remove();
+    };
+  }, []);
 
   const goBackOnBackPress = useCallback(
     (pressedKey: SupportedKeys) => {
