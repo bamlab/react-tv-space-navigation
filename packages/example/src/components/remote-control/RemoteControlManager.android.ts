@@ -19,6 +19,7 @@ class RemoteControlManager implements RemoteControlManagerInterface {
       66: SupportedKeys.Enter,
       23: SupportedKeys.Enter,
       67: SupportedKeys.Back,
+      4: SupportedKeys.Back,
     }[keyEvent.keyCode];
 
     if (!mappedKey) {

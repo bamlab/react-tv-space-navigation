@@ -19,6 +19,9 @@ export const GoBackConfiguration = () => {
 
   const goBackOnBackPress = useCallback(
     (pressedKey: SupportedKeys) => {
+      if (!navigation.isFocused) {
+        return false;
+      }
       if (pressedKey !== SupportedKeys.Back) return false;
       if (navigation.canGoBack()) {
         navigation.goBack();
