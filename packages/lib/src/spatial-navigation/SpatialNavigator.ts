@@ -120,7 +120,7 @@ export default class SpatialNavigator {
    *
    * Still, I want to queue it, because the element might not be registered yet (example: in the case of virtualized lists)
    */
-  public deferredFocus = (id: string) => {
+  public grabFocusDeferred = (id: string) => {
     try {
       if (this.lrud.getNode(id)) {
         this.lrud.assignFocus(id);
