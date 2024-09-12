@@ -1,4 +1,5 @@
 import { Direction, Lrud } from '@bam.tech/lrud';
+import { isError } from './helpers/isError';
 
 export type OnDirectionHandledWithoutMovement = (direction: Direction) => void;
 type OnDirectionHandledWithoutMovementRef = { current: OnDirectionHandledWithoutMovement };
@@ -86,6 +87,15 @@ export default class SpatialNavigator {
   private focusQueue: string | null = null;
 
   /**
+   * In the case of virtualized lists, we have some race condition issues when trying
+   * to imperatively assign focus.
+   * Indeed, we need the list to scroll to the element and then focus it. But the element
+   * needs to exist to be focused, so we need first to scroll then wait for the element to render
+   * then focus it.
+   */
+  private virtualNodeFocusQueue: string | null = null;
+
+  /**
    * To handle the default focus, we want to queue the element to be focused.
    * We queue it because it might not be registered yet when it asks for focus.
    *
@@ -110,13 +120,19 @@ export default class SpatialNavigator {
    *
    * Still, I want to queue it, because the element might not be registered yet (example: in the case of virtualized lists)
    */
-  public deferredFocus = (id: string) => {
-    setTimeout(() => {
+  public grabFocusDeferred = (id: string) => {
+    try {
       if (this.lrud.getNode(id)) {
         this.lrud.assignFocus(id);
         return;
       }
-    }, 0);
+    } catch (error) {
+      // If the element exists but is not focusable, it is very likely that it will
+      // have a focusable child soon. This is the case for imperative focus on virtualized lists.
+      if (isError(error) && error.message === 'trying to assign focus to a non focusable node') {
+        this.virtualNodeFocusQueue = id;
+      }
+    }
   };
 
   /**
@@ -127,10 +143,24 @@ export default class SpatialNavigator {
    * when the element is finally registered.
    */
   private handleQueuedFocus = () => {
+    // Handle focus queue
     if (this.focusQueue && this.lrud.getNode(this.focusQueue)) {
       try {
         this.lrud.assignFocus(this.focusQueue);
         this.focusQueue = null;
+      } catch (e) {
+        // pass
+      }
+    }
+
+    // Handle virtual nodes (for virtualized lists) focus queue
+    if (
+      this.virtualNodeFocusQueue &&
+      this.lrud.getNode(this.virtualNodeFocusQueue)?.children?.length !== 0
+    ) {
+      try {
+        this.lrud.assignFocus(this.virtualNodeFocusQueue);
+        this.virtualNodeFocusQueue = null;
       } catch (e) {
         // pass
       }

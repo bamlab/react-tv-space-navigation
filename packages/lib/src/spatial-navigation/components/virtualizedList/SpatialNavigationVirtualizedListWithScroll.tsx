@@ -204,7 +204,7 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
             setCurrentlyFocusedItemIndex(index);
             if (idRef.current) {
               const newId = idRef.current.getNthVirtualNodeID(index);
-              spatialNavigator.deferredFocus(newId);
+              spatialNavigator.grabFocusDeferred(newId);
             }
           },
         }),

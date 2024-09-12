@@ -7,7 +7,7 @@ import { SpatialNavigationVirtualizedList } from './SpatialNavigationVirtualized
 import { DefaultFocus } from '../../context/DefaultFocusContext';
 import testRemoteControlManager from '../tests/helpers/testRemoteControlManager';
 import { setComponentLayoutSize } from '../../../testing/setComponentLayoutSize';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { SpatialNavigationVirtualizedListRef } from '../../types/SpatialNavigationVirtualizedListRef';
 import { SpatialNavigationNode } from '../Node';
 
@@ -26,10 +26,13 @@ describe('SpatialNavigationVirtualizedList', () => {
     <TestButton title={`button ${index + 1}`} onSelect={item.onSelect} />
   );
 
-  const data = Array.from({ length: 10 }, (_, index) => ({
-    onSelect: () => undefined,
-    currentItemSize: index % 2 === 0 ? 100 : 200,
-  }));
+  const generateData = (size = 10) =>
+    Array.from({ length: size }, (_, index) => ({
+      onSelect: () => undefined,
+      currentItemSize: index % 2 === 0 ? 100 : 200,
+    }));
+
+  const data = generateData();
 
   const dataWithVariableSizes = Array.from({ length: 10 }, (_, index) => ({
     onSelect: () => undefined,
@@ -56,8 +59,15 @@ describe('SpatialNavigationVirtualizedList', () => {
       </SpatialNavigationRoot>,
     );
 
-  const VirtualizedListWithNavigationButtons = () => {
-    const listRef = useRef<SpatialNavigationVirtualizedListRef>(null);
+  // This is bad practice but easiest way to access the ref from outside the component for testing
+  let currentListRef: React.RefObject<SpatialNavigationVirtualizedListRef>;
+  const VirtualizedListWithNavigationButtons = ({ listSize = 10 }) => {
+    currentListRef = useRef<SpatialNavigationVirtualizedListRef>(null);
+
+    const data = useMemo(() => {
+      return generateData(listSize);
+    }, [listSize]);
+
     return (
       <SpatialNavigationRoot>
         <SpatialNavigationNode orientation="vertical">
@@ -70,19 +80,19 @@ describe('SpatialNavigationVirtualizedList', () => {
                 itemSize={100}
                 numberOfRenderedItems={5}
                 numberOfItemsVisibleOnScreen={3}
-                ref={listRef}
+                ref={currentListRef}
               />
             </DefaultFocus>
-            <TestButton title="Go to first" onSelect={() => listRef.current?.focus(0)} />
-            <TestButton title="Go to last" onSelect={() => listRef.current?.focus(9)} />
+            <TestButton title="Go to first" onSelect={() => currentListRef.current?.focus(0)} />
+            <TestButton title="Go to last" onSelect={() => currentListRef.current?.focus(9)} />
           </>
         </SpatialNavigationNode>
       </SpatialNavigationRoot>
     );
   };
 
-  const renderVirtualizedListWithNavigationButtons = () =>
-    render(<VirtualizedListWithNavigationButtons />);
+  const renderVirtualizedListWithNavigationButtons = (size = 10) =>
+    render(<VirtualizedListWithNavigationButtons listSize={size} />);
 
   it('renders the correct number of item', async () => {
     const component = renderList();
@@ -625,5 +635,27 @@ describe('SpatialNavigationVirtualizedList', () => {
 
     expectButtonToHaveFocus(component, 'button 10');
     expectListToHaveScroll(listElement, -700);
+  });
+
+  it('jumps to first and last element for a huge list, even while focus is still on the list', async () => {
+    const component = renderVirtualizedListWithNavigationButtons(1000);
+    act(() => jest.runAllTimers());
+
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+    const listElement = await component.findByTestId(listTestId);
+
+    testRemoteControlManager.handleRight();
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 3');
+    expectListToHaveScroll(listElement, -200);
+
+    act(() => {
+      currentListRef?.current?.focus(999);
+    });
+    expectButtonToHaveFocus(component, 'button 1000');
+    act(() => {
+      currentListRef?.current?.focus(0);
+    });
+    expectButtonToHaveFocus(component, 'button 1');
   });
 });
