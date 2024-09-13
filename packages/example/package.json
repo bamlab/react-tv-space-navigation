@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "expo start",
+    "start": "EXPO_NO_CLIENT_ENV_VARS=1 EXPO_TV=1 expo start",
     "android": "EXPO_NO_CLIENT_ENV_VARS=1 EXPO_TV=1 expo run:android",
     "ios": "EXPO_NO_CLIENT_ENV_VARS=1 EXPO_TV=1 expo run:ios",
     "web": "EXPO_NO_CLIENT_ENV_VARS=1 expo start --web",
