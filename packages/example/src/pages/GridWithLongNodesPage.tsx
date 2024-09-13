@@ -10,7 +10,7 @@ import '../components/configureRemoteControl';
 import { programInfos } from '../modules/program/infra/programInfos';
 import styled from '@emotion/native';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';
-import { LongProgramNode, ProgramNode } from '../modules/program/view/ProgramNode';
+import { ProgramNode } from '../modules/program/view/ProgramNode';
 import { theme } from '../design-system/theme/theme';
 import { MutableRefObject, forwardRef, useRef } from 'react';
 import { StyleSheet } from 'react-native';
@@ -19,6 +19,7 @@ import { SpatialNavigationNodeRef } from '../../../lib/src/spatial-navigation/ty
 import { Spacer } from '../design-system/components/Spacer';
 import { ProgramListWithTitle } from '../modules/program/view/ProgramListWithTitle';
 import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
+import { ProgramNodeLandscape } from '../modules/program/view/ProgramNodeLandscape';
 
 const HEADER_SIZE = scaledPixels(400);
 
@@ -76,10 +77,10 @@ const FirstRow = forwardRef<SpatialNavigationNodeRef>((_, ref) => {
   return (
     <SpatialNavigationNode orientation="horizontal">
       <ListContainer>
-        <LongProgramNode programInfo={programInfos[0]} indexRange={[0, 1]} ref={ref} />
+        <ProgramNodeLandscape programInfo={programInfos[0]} indexRange={[0, 1]} ref={ref} />
         <ProgramNode programInfo={programInfos[1]} indexRange={[2, 2]} />
         <ProgramNode programInfo={programInfos[2]} indexRange={[3, 3]} />
-        <LongProgramNode programInfo={programInfos[3]} indexRange={[4, 5]} />
+        <ProgramNodeLandscape programInfo={programInfos[3]} indexRange={[4, 5]} />
         <ProgramNode programInfo={programInfos[4]} indexRange={[6, 6]} />
       </ListContainer>
     </SpatialNavigationNode>
