@@ -10,7 +10,8 @@ import { typedMemo } from '../../helpers/TypedMemo';
 import { getLastLeftItemIndex, getLastRightItemIndex } from './helpers/getLastItemIndex';
 import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneItemToAnother';
 import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
-import { getNumberOfItemsVisibleOnScreen } from './getNumberOfItemsVisibleOnScreen';
+import { getNumberOfItemsVisibleOnScreen } from './helpers/getNumberOfItemsVisibleOnScreen';
+import { getAdditionalNumberOfItemsRendered } from './helpers/getAdditionalNumberOfItemsRendered';
 
 export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
@@ -297,16 +298,3 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
-
-const getAdditionalNumberOfItemsRendered = (
-  scrollBehavior: ScrollBehavior,
-  numberOfElementsVisibleOnScreen: number,
-) => {
-  switch (scrollBehavior) {
-    case 'stick-to-start':
-    case 'stick-to-end':
-      return 4 + numberOfElementsVisibleOnScreen;
-    case 'jump-on-scroll':
-      return 2 * numberOfElementsVisibleOnScreen + 1;
-  }
-};
