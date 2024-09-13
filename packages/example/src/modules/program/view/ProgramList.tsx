@@ -31,6 +31,10 @@ type ProgramListProps = {
   variant?: 'normal' | 'variable-size';
 };
 
+const isItemLarge = (item: { id: string }) => {
+  return parseInt(item.id, 10) % 2 === 0; // Arbitrary condition to decide size
+};
+
 export const ProgramList = ({
   orientation = 'horizontal',
   containerStyle,
@@ -41,10 +45,6 @@ export const ProgramList = ({
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
 
-  const isItemLarge = useCallback((item: ProgramInfo) => {
-    return parseInt(item.id, 10) % 2 === 0; // Arbitrary condition to decide size
-  }, []);
-
   const renderItem = useCallback(
     ({ item, index }: { item: ProgramInfo; index: number }) => (
       <ProgramNode
@@ -54,7 +54,7 @@ export const ProgramList = ({
         variant={variant === 'variable-size' && isItemLarge(item) ? 'landscape' : 'portrait'}
       />
     ),
-    [navigation, isItemLarge, variant],
+    [navigation, variant],
   );
 
   const programInfos = useMemo(
@@ -72,7 +72,7 @@ export const ProgramList = ({
             renderItem={renderItem}
             itemSize={
               variant === 'variable-size'
-                ? (item: ProgramInfo) =>
+                ? (item) =>
                     isItemLarge(item)
                       ? theme.sizes.program.landscape.width + GAP_BETWEEN_ELEMENTS
                       : theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS
