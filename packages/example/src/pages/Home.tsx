@@ -35,9 +35,15 @@ export const Home = () => {
             <Spacer gap="$6" />
             <ProgramListWithTitle title="You may also like..." />
             <Spacer gap="$6" />
-            <ProgramListWithTitleAndVariableSizes title="Our selection"></ProgramListWithTitleAndVariableSizes>
+            <ProgramListWithTitleAndVariableSizes
+              listSize={10}
+              title="Our selection"
+            ></ProgramListWithTitleAndVariableSizes>
             <Spacer gap="$6" />
-            <ProgramListWithTitleAndVariableSizes title="Oscar Winners"></ProgramListWithTitleAndVariableSizes>
+            <ProgramListWithTitleAndVariableSizes
+              listSize={100}
+              title="Oscar Winners"
+            ></ProgramListWithTitleAndVariableSizes>
             <Spacer gap="$6" />
             <ProgramListWithTitleAndVariableSizes title="Child section"></ProgramListWithTitleAndVariableSizes>
           </Box>

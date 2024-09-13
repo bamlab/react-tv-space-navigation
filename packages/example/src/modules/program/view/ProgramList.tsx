@@ -21,12 +21,19 @@ const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 const ROW_PADDING = scaledPixels(70);
 
+const GAP_BETWEEN_ELEMENTS = scaledPixels(30);
+
 type ProgramListProps = {
   orientation?: 'vertical' | 'horizontal';
   containerStyle?: object;
   listRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
   data?: ProgramInfo[];
+  listSize?: number;
   variant?: 'normal' | 'variable-size';
+};
+
+const isItemLarge = (item: { id: string }) => {
+  return parseInt(item.id, 10) % 2 === 0; // Arbitrary condition to decide size
 };
 
 export const ProgramList = ({
@@ -35,13 +42,10 @@ export const ProgramList = ({
   listRef,
   data,
   variant = 'normal',
+  listSize = 1000,
 }: ProgramListProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
-
-  const isItemLarge = useCallback((item: ProgramInfo) => {
-    return parseInt(item.id, 10) % 2 === 0; // Arbitrary condition to decide size
-  }, []);
 
   const renderItem = useCallback(
     ({ item, index }: { item: ProgramInfo; index: number }) => (
@@ -52,12 +56,23 @@ export const ProgramList = ({
         variant={variant === 'variable-size' && isItemLarge(item) ? 'landscape' : 'portrait'}
       />
     ),
-    [navigation, isItemLarge, variant],
+    [navigation, variant],
   );
 
-  const programInfos = useMemo(
-    () => data ?? getPrograms(variant === 'variable-size' ? 10 : 1000),
-    [data, variant],
+  const programInfos = useMemo(() => data ?? getPrograms(listSize), [data, listSize]);
+
+  const itemSize = useMemo(
+    () => {
+      if (variant === 'normal') {
+        return theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS;
+      }
+
+      return (item: ProgramInfo) =>
+        isItemLarge(item)
+          ? theme.sizes.program.landscape.width + GAP_BETWEEN_ELEMENTS
+          : theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS;
+    }, // Default item size for "normal"
+    [theme.sizes.program.landscape.width, theme.sizes.program.portrait.width, variant],
   );
 
   return (
@@ -68,14 +83,7 @@ export const ProgramList = ({
             orientation={orientation}
             data={programInfos}
             renderItem={renderItem}
-            itemSize={
-              variant === 'variable-size'
-                ? (item: ProgramInfo) =>
-                    isItemLarge(item)
-                      ? theme.sizes.program.landscape.width * 2 + 45
-                      : theme.sizes.program.portrait.width + 30
-                : theme.sizes.program.portrait.width + 30 // Default item size for "normal"
-            }
+            itemSize={itemSize}
             numberOfRenderedItems={WINDOW_SIZE}
             numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
             onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
@@ -95,10 +103,12 @@ export const ProgramsRow = ({
   containerStyle,
   listRef,
   variant = 'normal',
+  listSize,
 }: {
   containerStyle?: object;
   listRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
   variant?: 'normal' | 'variable-size';
+  listSize?: number;
 }) => {
   const theme = useTheme();
   return (
@@ -109,6 +119,7 @@ export const ProgramsRow = ({
       }}
       listRef={listRef}
       variant={variant}
+      listSize={listSize}
     />
   );
 };
