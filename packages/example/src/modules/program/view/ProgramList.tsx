@@ -21,7 +21,6 @@ import { useKey } from '../../../hooks/useKey';
 import React from 'react';
 
 const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
-const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 const ROW_PADDING = scaledPixels(70);
 
 const GAP_BETWEEN_ELEMENTS = scaledPixels(30);
@@ -101,8 +100,6 @@ export const ProgramList = React.forwardRef<View, ProgramListProps>(
           data={programInfos}
           renderItem={renderItem}
           itemSize={itemSize}
-          numberOfRenderedItems={WINDOW_SIZE}
-          numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
           onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
           // @ts-expect-error TODO change the type from ReactElement to ReactNode in the core
           descendingArrow={isActive ? <LeftArrow /> : null}

@@ -52,8 +52,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={data}
             itemSize={100}
-            numberOfRenderedItems={5}
-            numberOfItemsVisibleOnScreen={3}
           />
         </DefaultFocus>
       </SpatialNavigationRoot>,
@@ -78,8 +76,6 @@ describe('SpatialNavigationVirtualizedList', () => {
                 renderItem={renderItem}
                 data={data}
                 itemSize={100}
-                numberOfRenderedItems={5}
-                numberOfItemsVisibleOnScreen={3}
                 ref={currentListRef}
               />
             </DefaultFocus>
@@ -200,8 +196,6 @@ describe('SpatialNavigationVirtualizedList', () => {
               renderItem={renderItem}
               data={data}
               itemSize={100}
-              numberOfRenderedItems={5}
-              numberOfItemsVisibleOnScreen={3}
               scrollBehavior="stick-to-start"
             />
           </DefaultFocus>
@@ -276,8 +270,6 @@ describe('SpatialNavigationVirtualizedList', () => {
               renderItem={renderItem}
               data={data.slice(0, 3)}
               itemSize={100}
-              numberOfRenderedItems={5}
-              numberOfItemsVisibleOnScreen={3}
               scrollBehavior="stick-to-start"
             />
           </DefaultFocus>
@@ -333,8 +325,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={data}
             itemSize={100}
-            numberOfRenderedItems={5}
-            numberOfItemsVisibleOnScreen={3}
             scrollBehavior="stick-to-end"
           />
         </DefaultFocus>
@@ -412,8 +402,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={data}
             itemSize={100}
-            numberOfRenderedItems={7}
-            numberOfItemsVisibleOnScreen={3}
             scrollBehavior="jump-on-scroll"
           />
         </DefaultFocus>
@@ -495,8 +483,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={dataWithVariableSizes}
             itemSize={itemSize}
-            numberOfRenderedItems={5}
-            numberOfItemsVisibleOnScreen={3}
           />
         </DefaultFocus>
       </SpatialNavigationRoot>,
@@ -545,8 +531,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={dataWithVariableSizes}
             itemSize={itemSize}
-            numberOfRenderedItems={5}
-            numberOfItemsVisibleOnScreen={3}
             scrollBehavior="stick-to-end"
           />
         </DefaultFocus>

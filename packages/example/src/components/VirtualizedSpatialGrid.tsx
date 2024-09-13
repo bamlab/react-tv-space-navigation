@@ -10,8 +10,6 @@ import { Header } from '../modules/header/view/Header';
 import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
 import { ProgramInfo } from '../modules/program/domain/programInfo';
 
-const NUMBER_OF_ROWS_VISIBLE_ON_SCREEN = 2;
-const NUMBER_OF_RENDERED_ROWS = NUMBER_OF_ROWS_VISIBLE_ON_SCREEN + 5;
 const NUMBER_OF_COLUMNS = 7;
 const INFINITE_SCROLL_ROW_THRESHOLD = 2;
 
@@ -44,8 +42,6 @@ export const VirtualizedSpatialGrid = ({ containerStyle }: { containerStyle?: Vi
         renderItem={renderItem}
         itemHeight={theme.sizes.program.portrait.height * 1.1}
         numberOfColumns={NUMBER_OF_COLUMNS}
-        numberOfRenderedRows={NUMBER_OF_RENDERED_ROWS}
-        numberOfRowsVisibleOnScreen={NUMBER_OF_ROWS_VISIBLE_ON_SCREEN}
         onEndReachedThresholdRowsNumber={INFINITE_SCROLL_ROW_THRESHOLD}
         rowContainerStyle={styles.rowStyle}
         ascendingArrow={<BottomArrow />}
