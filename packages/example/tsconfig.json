@@ -4,5 +4,9 @@
       "react-tv-space-navigation": ["../lib/src/index"]
     }
   },
-  "extends": "expo/tsconfig.base"
+  "include": [
+    "../lib/src/**/*",
+    "../example/src/**/*"
+  ],
+  "extends": "../../tsconfig.base"
 }
