@@ -1,22 +1,38 @@
 import { useNavigation } from '@react-navigation/native';
-import { useEffect } from 'react';
-import RemoteControlManager from './remote-control/RemoteControlManager';
 import { SupportedKeys } from './remote-control/SupportedKeys';
+import { useKey } from '../hooks/useKey';
+import { useCallback, useEffect } from 'react';
+import { BackHandler } from 'react-native';
 
 export const GoBackConfiguration = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const remoteControlListener = (pressedKey: SupportedKeys) => {
-      if (pressedKey !== SupportedKeys.Back) return;
+    const event = BackHandler.addEventListener('hardwareBackPress', () => {
+      return true;
+    });
+
+    return () => {
+      event.remove();
+    };
+  }, []);
+
+  const goBackOnBackPress = useCallback(
+    (pressedKey: SupportedKeys) => {
+      if (!navigation.isFocused) {
+        return false;
+      }
+      if (pressedKey !== SupportedKeys.Back) return false;
       if (navigation.canGoBack()) {
         navigation.goBack();
+        return true;
       }
-    };
-    RemoteControlManager.addKeydownListener(remoteControlListener);
+      return false;
+    },
+    [navigation],
+  );
 
-    return () => RemoteControlManager.removeKeydownListener(remoteControlListener);
-  }, [navigation]);
+  useKey(SupportedKeys.Back, goBackOnBackPress);
 
   return <></>;
 };

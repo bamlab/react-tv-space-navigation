@@ -56,12 +56,12 @@ class TestRemoteControlManager {
     act(() => jest.runAllTimers());
   };
 
-  addKeydownListener = (listener: (event: SupportedKeys) => void) => {
+  addKeydownListener = (listener: (event: SupportedKeys) => boolean) => {
     this.eventEmitter.on('keyDown', listener);
     return listener;
   };
 
-  removeKeydownListener = (listener: (event: SupportedKeys) => void) => {
+  removeKeydownListener = (listener: (event: SupportedKeys) => boolean) => {
     this.eventEmitter.off('keyDown', listener);
   };
 }

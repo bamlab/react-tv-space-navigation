@@ -1,7 +1,6 @@
 import { ThemeProvider } from '@emotion/react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useWindowDimensions } from 'react-native';
-import { GoBackConfiguration } from './src/components/GoBackConfiguration';
 import { theme } from './src/design-system/theme/theme';
 import { Home } from './src/pages/Home';
 import { ProgramGridPage } from './src/pages/ProgramGridPage';
@@ -78,8 +77,6 @@ function App(): JSX.Element {
     <NavigationContainer>
       <ThemeProvider theme={theme}>
         <SpatialNavigationDeviceTypeProvider>
-          <GoBackConfiguration />
-
           <Container width={width} height={height}>
             <Stack.Navigator
               screenOptions={{

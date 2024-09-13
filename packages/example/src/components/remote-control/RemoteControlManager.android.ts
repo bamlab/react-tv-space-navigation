@@ -1,14 +1,14 @@
-import mitt from 'mitt';
 import { SupportedKeys } from './SupportedKeys';
 import KeyEvent from 'react-native-keyevent';
 import { RemoteControlManagerInterface } from './RemoteControlManager.interface';
+import CustomEventEmitter from './CustomEventEmitter';
 
 class RemoteControlManager implements RemoteControlManagerInterface {
   constructor() {
     KeyEvent.onKeyDownListener(this.handleKeyDown);
   }
 
-  private eventEmitter = mitt<{ keyDown: SupportedKeys }>();
+  private eventEmitter = new CustomEventEmitter<{ keyDown: SupportedKeys }>();
 
   private handleKeyDown = (keyEvent: { keyCode: number }) => {
     const mappedKey = {
@@ -19,6 +19,7 @@ class RemoteControlManager implements RemoteControlManagerInterface {
       66: SupportedKeys.Enter,
       23: SupportedKeys.Enter,
       67: SupportedKeys.Back,
+      4: SupportedKeys.Back,
     }[keyEvent.keyCode];
 
     if (!mappedKey) {
@@ -28,12 +29,12 @@ class RemoteControlManager implements RemoteControlManagerInterface {
     this.eventEmitter.emit('keyDown', mappedKey);
   };
 
-  addKeydownListener = (listener: (event: SupportedKeys) => void) => {
+  addKeydownListener = (listener: (event: SupportedKeys) => boolean) => {
     this.eventEmitter.on('keyDown', listener);
     return listener;
   };
 
-  removeKeydownListener = (listener: (event: SupportedKeys) => void) => {
+  removeKeydownListener = (listener: (event: SupportedKeys) => boolean) => {
     this.eventEmitter.off('keyDown', listener);
   };
 
