@@ -19,7 +19,6 @@ import { SpatialNavigationNodeRef } from '../../../lib/src/spatial-navigation/ty
 import { Spacer } from '../design-system/components/Spacer';
 import { ProgramListWithTitle } from '../modules/program/view/ProgramListWithTitle';
 import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
-import { ProgramNodeLandscape } from '../modules/program/view/ProgramNodeLandscape';
 
 const HEADER_SIZE = scaledPixels(400);
 
@@ -76,10 +75,15 @@ const FirstRow = forwardRef<SpatialNavigationNodeRef>((_, ref) => {
   return (
     <SpatialNavigationNode orientation="horizontal">
       <ListContainer>
-        <ProgramNodeLandscape programInfo={programInfos[0]} indexRange={[0, 1]} ref={ref} />
+        <ProgramNode
+          variant="landscape"
+          programInfo={programInfos[0]}
+          indexRange={[0, 1]}
+          ref={ref}
+        />
         <ProgramNode programInfo={programInfos[1]} indexRange={[2, 2]} />
         <ProgramNode programInfo={programInfos[2]} indexRange={[3, 3]} />
-        <ProgramNodeLandscape programInfo={programInfos[3]} indexRange={[4, 5]} />
+        <ProgramNode variant="landscape" programInfo={programInfos[3]} indexRange={[4, 5]} />
         <ProgramNode programInfo={programInfos[4]} indexRange={[6, 6]} />
       </ListContainer>
     </SpatialNavigationNode>

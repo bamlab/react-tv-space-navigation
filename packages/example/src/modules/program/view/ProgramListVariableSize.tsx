@@ -7,7 +7,6 @@ import { SpatialNavigationNode, SpatialNavigationVirtualizedList } from 'react-t
 import { RootStackParamList } from '../../../../App';
 import { ProgramNode } from './ProgramNode';
 import { scaledPixels } from '../../../design-system/helpers/scaledPixels';
-import { ProgramNodeLandscape } from './ProgramNodeLandscape';
 import { getPrograms } from '../infra/programInfos';
 import { ProgramInfo } from '../domain/programInfo';
 import { LeftArrow, RightArrow } from '../../../design-system/components/Arrows';
@@ -32,20 +31,14 @@ export const ProgramList = ({
   };
 
   const renderItem = useCallback(
-    ({ item, index }: { item: ProgramInfo; index: number }) =>
-      isItemLarge(item) ? (
-        <ProgramNode
-          programInfo={item}
-          onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
-          label={index.toString()}
-        />
-      ) : (
-        <ProgramNodeLandscape
-          programInfo={item}
-          onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
-          label={index.toString()}
-        />
-      ),
+    ({ item, index }: { item: ProgramInfo; index: number }) => (
+      <ProgramNode
+        programInfo={item}
+        onSelect={() => navigation.push('ProgramDetail', { programInfo: item })}
+        label={index.toString()}
+        variant={isItemLarge(item) ? 'portrait' : 'landscape'}
+      />
+    ),
     [navigation],
   );
   const theme = useTheme();
