@@ -1,4 +1,12 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v4.0.0...v) (2024-08-01)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v4.0.1...v) (2024-09-13)
+
+## [4.0.1](https://github.com/bamlab/react-tv-space-navigation/compare/v4.0.0...v4.0.1) (2024-09-13)
+
+
+### Bug Fixes
+
+* **lists:** fix imperative focus not working properly on android ([#149](https://github.com/bamlab/react-tv-space-navigation/issues/149)) ([e7a38ef](https://github.com/bamlab/react-tv-space-navigation/commit/e7a38efed930ab1f9e459307acf3466c052d6477))
+* **lists:** range rendered in jump-on-scroll and stick-to-end ([#148](https://github.com/bamlab/react-tv-space-navigation/issues/148)) ([d9509dc](https://github.com/bamlab/react-tv-space-navigation/commit/d9509dc539018ff179d301615171e1d159dd2f54))
 
 ## [4.0.0](https://github.com/bamlab/react-tv-space-navigation/compare/v3.6.1...v4.0.0) (2024-08-01)
 
