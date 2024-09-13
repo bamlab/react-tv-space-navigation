@@ -9,6 +9,7 @@ type ProgramProps = {
   isFocused?: boolean;
   programInfo: ProgramInfo;
   label?: string;
+  variant?: 'portrait' | 'landscape';
 };
 
 const Label = React.memo(({ label }: { label: string }) => {
@@ -17,33 +18,41 @@ const Label = React.memo(({ label }: { label: string }) => {
 Label.displayName = 'Label';
 
 export const Program = React.memo(
-  React.forwardRef<View, ProgramProps>(({ isFocused = false, programInfo, label }, ref) => {
-    const imageSource = programInfo.image;
+  React.forwardRef<View, ProgramProps>(
+    ({ isFocused = false, programInfo, label, variant = 'portrait' }, ref) => {
+      const imageSource = programInfo.image;
+      const scaleAnimation = useFocusAnimation(isFocused);
 
-    const scaleAnimation = useFocusAnimation(isFocused);
-
-    return (
-      <ProgramContainer
-        style={scaleAnimation} // Apply the animated scale transform
-        ref={ref}
-        isFocused={isFocused}
-      >
-        <ProgramImage source={imageSource} accessible />
-        {label ? (
-          <Overlay>
-            <Label label={label} />
-          </Overlay>
-        ) : null}
-      </ProgramContainer>
-    );
-  }),
+      return (
+        <ProgramContainer
+          style={scaleAnimation} // Apply the animated scale transform
+          ref={ref}
+          isFocused={isFocused}
+          variant={variant}
+        >
+          <ProgramImage source={imageSource} accessible />
+          {label ? (
+            <Overlay>
+              <Label label={label} />
+            </Overlay>
+          ) : null}
+        </ProgramContainer>
+      );
+    },
+  ),
 );
 
 Program.displayName = 'Program';
 
-const ProgramContainer = styled(Animated.View)<{ isFocused: boolean }>(({ isFocused, theme }) => ({
-  height: theme.sizes.program.portrait.height,
-  width: theme.sizes.program.portrait.width,
+const ProgramContainer = styled(Animated.View)<{
+  isFocused: boolean;
+  variant: 'portrait' | 'landscape';
+}>(({ isFocused, variant, theme }) => ({
+  height: theme.sizes.program.portrait.height, // Height is the same for both variants
+  width:
+    variant === 'landscape'
+      ? theme.sizes.program.landscape.width * 2
+      : theme.sizes.program.portrait.width,
   overflow: 'hidden',
   borderRadius: 20,
   borderColor: isFocused ? theme.colors.primary.light : 'transparent',
