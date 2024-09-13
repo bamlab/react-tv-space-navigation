@@ -28,6 +28,7 @@ type ProgramListProps = {
   containerStyle?: object;
   listRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
   data?: ProgramInfo[];
+  listSize?: number;
   variant?: 'normal' | 'variable-size';
 };
 
@@ -41,6 +42,7 @@ export const ProgramList = ({
   listRef,
   data,
   variant = 'normal',
+  listSize = 1000,
 }: ProgramListProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
@@ -57,10 +59,7 @@ export const ProgramList = ({
     [navigation, variant],
   );
 
-  const programInfos = useMemo(
-    () => data ?? getPrograms(variant === 'variable-size' ? 10 : 1000),
-    [data, variant],
-  );
+  const programInfos = useMemo(() => data ?? getPrograms(listSize), [data, listSize]);
 
   const itemSize = useMemo(
     () => {
@@ -104,10 +103,12 @@ export const ProgramsRow = ({
   containerStyle,
   listRef,
   variant = 'normal',
+  listSize,
 }: {
   containerStyle?: object;
   listRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
   variant?: 'normal' | 'variable-size';
+  listSize?: number;
 }) => {
   const theme = useTheme();
   return (
@@ -118,6 +119,7 @@ export const ProgramsRow = ({
       }}
       listRef={listRef}
       variant={variant}
+      listSize={listSize}
     />
   );
 };
