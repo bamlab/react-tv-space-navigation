@@ -33,7 +33,7 @@ type ProgramListProps = {
   data?: ProgramInfo[];
   listSize?: number;
   variant?: 'normal' | 'variable-size';
-  parentRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
+  parentRef?: MutableRefObject<SpatialNavigationVirtualizedListRef | null>;
   isActive: boolean;
 };
 
@@ -45,7 +45,7 @@ export const ProgramList = React.forwardRef<View, ProgramListProps>(
   ({ orientation, containerStyle, data, parentRef, isActive, variant, listSize = 1000 }, ref) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const theme = useTheme();
-    const listRef = useRef<SpatialNavigationVirtualizedListRef>(null);
+    const listRef = useRef<SpatialNavigationVirtualizedListRef | null>(null);
 
     const renderItem = useCallback(
       ({ item, index }: { item: ProgramInfo; index: number }) => (
@@ -80,13 +80,13 @@ export const ProgramList = React.forwardRef<View, ProgramListProps>(
       (pressedKey: SupportedKeys) => {
         const isBackKey = pressedKey === SupportedKeys.Back;
         const isRowActive = isActive && isScreenFocused;
-        const isFirstElementFocused = listRef.current.currentlyFocusedItemIndex === 0;
+        const isFirstElementFocused = listRef.current?.currentlyFocusedItemIndex === 0;
 
         if (!isBackKey || !isRowActive || isFirstElementFocused) {
           return false;
         }
 
-        listRef.current.focus(0);
+        listRef.current?.focus(0);
         return true;
       },
       [isActive, isScreenFocused, listRef],
@@ -104,8 +104,10 @@ export const ProgramList = React.forwardRef<View, ProgramListProps>(
           numberOfRenderedItems={WINDOW_SIZE}
           numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
           onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+          // @ts-expect-error TODO change the type from ReactElement to ReactNode in the core
           descendingArrow={isActive ? <LeftArrow /> : null}
           descendingArrowContainerStyle={styles.leftArrowContainer}
+          // @ts-expect-error TODO change the type from ReactElement to ReactNode in the core
           ascendingArrow={isActive ? <RightArrow /> : null}
           ascendingArrowContainerStyle={styles.rightArrowContainer}
           ref={(elementRef) => {
@@ -124,11 +126,13 @@ export const ProgramsRow = ({
   variant = 'normal',
   listSize,
   parentRef,
+  data,
 }: {
   containerStyle?: object;
   variant?: 'normal' | 'variable-size';
   listSize?: number;
-  parentRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
+  parentRef?: MutableRefObject<SpatialNavigationVirtualizedListRef | null>;
+  data?: ProgramInfo[];
 }) => {
   const theme = useTheme();
   return (
@@ -143,6 +147,7 @@ export const ProgramsRow = ({
           listSize={listSize}
           parentRef={parentRef}
           isActive={isActive}
+          data={data}
         />
       )}
     </SpatialNavigationNode>

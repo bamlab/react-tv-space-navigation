@@ -8629,6 +8629,7 @@ __metadata:
     react-native-screens: 3.31.1
     react-native-svg: 15.2.0
     react-test-renderer: ^18.2.0
+    typescript: ^5.6.2
   languageName: unknown
   linkType: soft
 
@@ -14974,6 +14975,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:^5.6.2":
+  version: 5.6.2
+  resolution: "typescript@npm:5.6.2"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 48777e1dabd9044519f56cd012b0296e3b72bafe12b7e8e34222751d45c67e0eba5387ecdaa6c14a53871a29361127798df6dc8d1d35643a0a47cb0b1c65a33a
+  languageName: node
+  linkType: hard
+
 "typescript@npm:~5.3.3":
   version: 5.3.3
   resolution: "typescript@npm:5.3.3"
@@ -14991,6 +15002,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 2373c693f3b328f3b2387c3efafe6d257b057a142f9a79291854b14ff4d5367d3d730810aee981726b677ae0fd8329b23309da3b6aaab8263dbdccf1da07a3ba
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^5.6.2#~builtin<compat/typescript>":
+  version: 5.6.2
+  resolution: "typescript@patch:typescript@npm%3A5.6.2#~builtin<compat/typescript>::version=5.6.2&hash=77c9e2"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: c084ee1ab865f108c787e6233a5f63c126c482c0c8e87ec998ac5288a2ad54b603e1ea8b8b272355823b833eb31b9fabb99e8c6152283e1cb47e3a76bd6faf6c
   languageName: node
   linkType: hard
 

@@ -1,7 +1,10 @@
-export const throttle = (callback, delay) => {
+export const throttle = (
+  callback: { (): void; (...arg0: unknown[]): void },
+  delay: number | undefined,
+) => {
   let wait = false;
 
-  return (...args) => {
+  return (...args: unknown[]) => {
     if (wait) {
       return;
     }

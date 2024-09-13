@@ -8,7 +8,7 @@ import { SpatialNavigationNode } from '../../../lib/src/spatial-navigation/compo
 import { Spacer } from '../design-system/components/Spacer';
 import { Button } from '../design-system/components/Button';
 import { useState } from 'react';
-import { ProgramList } from '../modules/program/view/ProgramList';
+import { ProgramsRow } from '../modules/program/view/ProgramList';
 import { useTheme } from '@emotion/react';
 
 const ROW_PADDING = scaledPixels(70);
@@ -48,9 +48,8 @@ export const ListWithVariableSize = () => {
         <Container>
           <SpatialNavigationNode orientation="horizontal">
             <ListContainer>
-              <ProgramList
+              <ProgramsRow
                 data={programs}
-                listRef={null}
                 containerStyle={{ height: theme.sizes.program.portrait.height + ROW_PADDING }}
               />
             </ListContainer>

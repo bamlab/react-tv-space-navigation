@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import styled from '@emotion/native';
 
-function sleep(ms) {
+function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
@@ -49,7 +49,7 @@ export const AsynchronousContent = () => {
         <StyledNavigationRow direction="horizontal">
           <Button label="First button" />
           <SpatialNavigationNode>
-            {shouldShow && <Button label="Second button (asynchronously showed)" />}
+            {shouldShow ? <Button label="Second button (asynchronously showed)" /> : <></>}
           </SpatialNavigationNode>
           <Button label="Third button" />
         </StyledNavigationRow>

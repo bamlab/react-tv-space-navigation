@@ -23,9 +23,9 @@ import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
 const HEADER_SIZE = scaledPixels(400);
 
 export const GridWithLongNodesPage = () => {
-  const firstItemRef = useRef<SpatialNavigationNodeRef>(null);
-  const lastItemRef = useRef<SpatialNavigationNodeRef>(null);
-  const parentRef = useRef<SpatialNavigationVirtualizedListRef>(null);
+  const firstItemRef = useRef<SpatialNavigationNodeRef | null>(null);
+  const lastItemRef = useRef<SpatialNavigationNodeRef | null>(null);
+  const parentRef = useRef<SpatialNavigationVirtualizedListRef | null>(null);
 
   return (
     <Page>
@@ -56,13 +56,13 @@ export const GridWithLongNodesPage = () => {
               <Button
                 label="Go to first"
                 onSelect={() => {
-                  parentRef.current.focus(0);
+                  parentRef.current?.focus(0);
                 }}
               />
               <Button
                 label="Go to last"
                 onSelect={() => {
-                  parentRef.current.focus(999);
+                  parentRef.current?.focus(999);
                 }}
               />
             </Row>
@@ -118,14 +118,14 @@ const ButtonRow = ({
   firstItemRef,
   lastItemRef,
 }: {
-  firstItemRef: MutableRefObject<SpatialNavigationNodeRef>;
-  lastItemRef: MutableRefObject<SpatialNavigationNodeRef>;
+  firstItemRef: MutableRefObject<SpatialNavigationNodeRef | null>;
+  lastItemRef: MutableRefObject<SpatialNavigationNodeRef | null>;
 }) => {
   return (
     <SpatialNavigationNode orientation="horizontal">
       <ListContainer>
-        <Button label="Go to first item" onSelect={() => firstItemRef.current.focus()} />
-        <Button label="Go to last item" onSelect={() => lastItemRef.current.focus()} />
+        <Button label="Go to first item" onSelect={() => firstItemRef.current?.focus()} />
+        <Button label="Go to last item" onSelect={() => lastItemRef.current?.focus()} />
       </ListContainer>
     </SpatialNavigationNode>
   );
