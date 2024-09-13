@@ -62,6 +62,20 @@ export const ProgramList = ({
     [data, variant],
   );
 
+  const itemSize = useMemo(
+    () => {
+      if (variant === 'normal') {
+        return theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS;
+      }
+
+      return (item: ProgramInfo) =>
+        isItemLarge(item)
+          ? theme.sizes.program.landscape.width + GAP_BETWEEN_ELEMENTS
+          : theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS;
+    }, // Default item size for "normal"
+    [theme.sizes.program.landscape.width, theme.sizes.program.portrait.width, variant],
+  );
+
   return (
     <SpatialNavigationNode>
       {({ isActive }) => (
@@ -70,14 +84,7 @@ export const ProgramList = ({
             orientation={orientation}
             data={programInfos}
             renderItem={renderItem}
-            itemSize={
-              variant === 'variable-size'
-                ? (item) =>
-                    isItemLarge(item)
-                      ? theme.sizes.program.landscape.width + GAP_BETWEEN_ELEMENTS
-                      : theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS
-                : theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS // Default item size for "normal"
-            }
+            itemSize={itemSize}
             numberOfRenderedItems={WINDOW_SIZE}
             numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
             onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
