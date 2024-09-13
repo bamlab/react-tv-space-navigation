@@ -8,6 +8,7 @@ import { scaledPixels } from '../design-system/helpers/scaledPixels';
 import { theme } from '../design-system/theme/theme';
 import { Header } from '../modules/header/view/Header';
 import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
+import { ProgramInfo } from '../modules/program/domain/programInfo';
 
 const NUMBER_OF_ROWS_VISIBLE_ON_SCREEN = 2;
 const NUMBER_OF_RENDERED_ROWS = NUMBER_OF_ROWS_VISIBLE_ON_SCREEN + 5;
@@ -16,7 +17,9 @@ const INFINITE_SCROLL_ROW_THRESHOLD = 2;
 
 export const VirtualizedSpatialGrid = ({ containerStyle }: { containerStyle?: ViewStyle }) => {
   const renderItem = useCallback(
-    ({ item, index }) => <ProgramNode programInfo={item} label={index?.toString?.()} />,
+    ({ item, index }: { item: ProgramInfo; index: number }) => (
+      <ProgramNode programInfo={item} label={index?.toString?.()} />
+    ),
     [],
   );
 

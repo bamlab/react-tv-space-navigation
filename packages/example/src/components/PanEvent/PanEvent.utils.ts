@@ -4,7 +4,11 @@ import { SupportedKeys } from '../remote-control/SupportedKeys';
 import PanEvent from './PanEvent';
 import { EMIT_KEY_DOWN_INTERVAL, GRID_SIZE, NUMBER_OF_COLUMNS } from './PanEvent.constants';
 
-export const getGridCoordinates = (x: number, y: number, panEvent: PanEvent): number => {
+export const getGridCoordinates = (
+  x: number,
+  y: number,
+  panEvent: PanEvent,
+): number | undefined => {
   const gridElementSize = GRID_SIZE / NUMBER_OF_COLUMNS;
 
   const xIndex = Math.floor((x + gridElementSize / 2) / gridElementSize);

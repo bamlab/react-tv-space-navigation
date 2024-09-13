@@ -25,6 +25,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ title, description, verticalSize }: HeaderProps) => {
+  // @ts-expect-error TODO fix type error
   const imageSource = images[Math.floor(Math.random() * 9)];
   return (
     <SpatialNavigationNode orientation="horizontal">

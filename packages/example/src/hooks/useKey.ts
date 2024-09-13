@@ -13,7 +13,9 @@ export const useKey = (key: SupportedKeys, callback: (pressedKey: SupportedKeys)
       if (actualKey !== key) return;
       return callback(key);
     };
+    // @ts-expect-error TODO fix the type error
     RemoteControlManager.addKeydownListener(remoteControlListener);
+    // @ts-expect-error TODO fix the type error
     return () => RemoteControlManager.removeKeydownListener(remoteControlListener);
   }, [key, callback]);
 };

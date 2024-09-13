@@ -64,7 +64,7 @@ const TabNavigator = () => {
   );
 };
 
-function App(): JSX.Element {
+function App() {
   useTVPanEvent();
   const { height, width } = useWindowDimensions();
   const areFontsLoaded = useFonts();

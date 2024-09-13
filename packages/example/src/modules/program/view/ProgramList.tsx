@@ -104,8 +104,10 @@ export const ProgramList = React.forwardRef<View, ProgramListProps>(
           numberOfRenderedItems={WINDOW_SIZE}
           numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
           onEndReachedThresholdItemsNumber={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}
+          // @ts-expect-error TODO change the type from ReactElement to ReactNode in the core
           descendingArrow={isActive ? <LeftArrow /> : null}
           descendingArrowContainerStyle={styles.leftArrowContainer}
+          // @ts-expect-error TODO change the type from ReactElement to ReactNode in the core
           ascendingArrow={isActive ? <RightArrow /> : null}
           ascendingArrowContainerStyle={styles.rightArrowContainer}
           ref={(elementRef) => {
@@ -129,7 +131,7 @@ export const ProgramsRow = ({
   containerStyle?: object;
   variant?: 'normal' | 'variable-size';
   listSize?: number;
-  parentRef?: MutableRefObject<SpatialNavigationVirtualizedListRef>;
+  parentRef?: MutableRefObject<SpatialNavigationVirtualizedListRef | null>;
   data?: ProgramInfo[];
 }) => {
   const theme = useTheme();

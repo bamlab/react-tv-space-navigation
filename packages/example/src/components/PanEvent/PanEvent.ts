@@ -1,7 +1,7 @@
 import { getGridCoordinates, moveFocus } from './PanEvent.utils';
 
 class PanEvent {
-  private orientation = undefined;
+  private orientation: string | undefined = undefined;
   private lastIndex = 0;
 
   reset = () => {
