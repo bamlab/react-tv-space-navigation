@@ -10,6 +10,7 @@ import { typedMemo } from '../../helpers/TypedMemo';
 import { getLastLeftItemIndex, getLastRightItemIndex } from './helpers/getLastItemIndex';
 import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneItemToAnother';
 import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
+import { getNumberOfItemsVisibleOnScreen } from './getNumberOfItemsVisibleOnScreen';
 
 export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
@@ -20,8 +21,6 @@ export interface VirtualizedListProps<T> {
   currentlyFocusedItemIndex: number;
   /** How many items are RENDERED (virtualization size) */
   numberOfRenderedItems: number;
-  /** How many items are visible on screen (helps with knowing how to slice our data and to stop the scroll at the end of the list) */
-  numberOfItemsVisibleOnScreen: number;
   onEndReached?: () => void;
   /** Number of items left to display before triggering onEndReached */
   onEndReachedThresholdItemsNumber?: number;
@@ -129,7 +128,6 @@ export const VirtualizedList = typedMemo(
     itemSize,
     currentlyFocusedItemIndex,
     numberOfRenderedItems,
-    numberOfItemsVisibleOnScreen,
     onEndReached,
     onEndReachedThresholdItemsNumber = 3,
     style,
@@ -141,6 +139,12 @@ export const VirtualizedList = typedMemo(
     scrollBehavior = 'stick-to-start',
     testID,
   }: VirtualizedListProps<T>) => {
+    const numberOfItemsVisibleOnScreen = getNumberOfItemsVisibleOnScreen(
+      data,
+      listSizeInPx,
+      itemSize,
+    );
+
     const range = getRange({
       data,
       currentlyFocusedItemIndex,

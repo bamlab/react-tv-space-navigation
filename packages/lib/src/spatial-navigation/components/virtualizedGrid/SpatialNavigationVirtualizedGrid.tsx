@@ -29,8 +29,6 @@ type SpatialNavigationVirtualizedGridProps<T> = Pick<
     headerSize?: number;
     /** How many rows are RENDERED (virtualization size) */
     numberOfRenderedRows: number;
-    /** How many rows are visible on screen (helps with knowing how to slice our data and to stop the scroll at the end of the list) */
-    numberOfRowsVisibleOnScreen: number;
     /** Number of rows left to display before triggering onEndReached */
     onEndReachedThresholdRowsNumber?: number;
     /** Number of columns in the grid OR number of items per rows */
@@ -193,7 +191,6 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
     header,
     headerSize,
     numberOfRenderedRows,
-    numberOfRowsVisibleOnScreen,
     onEndReachedThresholdRowsNumber,
     nbMaxOfItems,
     rowContainerStyle,
@@ -253,7 +250,6 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
         data={gridRowsWithHeaderIfProvided}
         itemSize={itemSize}
         numberOfRenderedItems={numberOfRenderedRows}
-        numberOfItemsVisibleOnScreen={numberOfRowsVisibleOnScreen}
         onEndReachedThresholdItemsNumber={onEndReachedThresholdRowsNumber}
         orientation="vertical"
         nbMaxOfItems={nbMaxOfItems ? Math.ceil(nbMaxOfItems / numberOfColumns) : undefined}
