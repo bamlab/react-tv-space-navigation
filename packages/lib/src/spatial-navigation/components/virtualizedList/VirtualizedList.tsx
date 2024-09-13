@@ -19,8 +19,8 @@ export interface VirtualizedListProps<T> {
   /** If vertical the height of an item, otherwise the width */
   itemSize: number | ((item: T) => number);
   currentlyFocusedItemIndex: number;
-  /** How many items are RENDERED (virtualization size) */
-  numberOfRenderedItems: number;
+  /** How many items are RENDERED ADDITIONALLY to those already visible (impacts virtualization size). Defaults to 4 for stick-to-start & stick-to-end scrolls, and twice the number of elements visible + 1 for jump-on-scroll. */
+  additionalItemsRendered?: number;
   onEndReached?: () => void;
   /** Number of items left to display before triggering onEndReached */
   onEndReachedThresholdItemsNumber?: number;
@@ -127,7 +127,7 @@ export const VirtualizedList = typedMemo(
     renderItem,
     itemSize,
     currentlyFocusedItemIndex,
-    numberOfRenderedItems,
+    additionalItemsRendered,
     onEndReached,
     onEndReachedThresholdItemsNumber = 3,
     style,
@@ -145,10 +145,14 @@ export const VirtualizedList = typedMemo(
       itemSize,
     );
 
+    const numberOfItemsToRender = additionalItemsRendered
+      ? additionalItemsRendered + numberOfItemsVisibleOnScreen
+      : getAdditionalNumberOfItemsRendered(scrollBehavior, numberOfItemsVisibleOnScreen);
+
     const range = getRange({
       data,
       currentlyFocusedItemIndex,
-      numberOfRenderedItems,
+      numberOfRenderedItems: numberOfItemsToRender,
       numberOfItemsVisibleOnScreen,
       scrollBehavior,
     });
@@ -220,8 +224,8 @@ export const VirtualizedList = typedMemo(
      * But with recycling, the first element won't be unmounted : it is moved to the end and its props are updated.
      * See https://medium.com/@moshe_31114/building-our-recycle-list-solution-in-react-17a21a9605a0  */
     const recycledKeyExtractor = useCallback(
-      (index: number) => `recycled_item_${index % numberOfRenderedItems}`,
-      [numberOfRenderedItems],
+      (index: number) => `recycled_item_${index % numberOfItemsToRender}`,
+      [numberOfItemsToRender],
     );
 
     const directionStyle = useMemo(
@@ -293,3 +297,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+
+const getAdditionalNumberOfItemsRendered = (
+  scrollBehavior: ScrollBehavior,
+  numberOfElementsVisibleOnScreen: number,
+) => {
+  switch (scrollBehavior) {
+    case 'stick-to-start':
+    case 'stick-to-end':
+      return 4 + numberOfElementsVisibleOnScreen;
+    case 'jump-on-scroll':
+      return 2 * numberOfElementsVisibleOnScreen + 1;
+  }
+};
