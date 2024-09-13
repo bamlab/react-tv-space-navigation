@@ -21,6 +21,8 @@ const NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN = 7;
 const WINDOW_SIZE = NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN + 8;
 const ROW_PADDING = scaledPixels(70);
 
+const GAP_BETWEEN_ELEMENTS = scaledPixels(30);
+
 type ProgramListProps = {
   orientation?: 'vertical' | 'horizontal';
   containerStyle?: object;
@@ -72,9 +74,9 @@ export const ProgramList = ({
               variant === 'variable-size'
                 ? (item: ProgramInfo) =>
                     isItemLarge(item)
-                      ? theme.sizes.program.landscape.width * 2 + 45
-                      : theme.sizes.program.portrait.width + 30
-                : theme.sizes.program.portrait.width + 30 // Default item size for "normal"
+                      ? theme.sizes.program.landscape.width + GAP_BETWEEN_ELEMENTS
+                      : theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS
+                : theme.sizes.program.portrait.width + GAP_BETWEEN_ELEMENTS // Default item size for "normal"
             }
             numberOfRenderedItems={WINDOW_SIZE}
             numberOfItemsVisibleOnScreen={NUMBER_OF_ITEMS_VISIBLE_ON_SCREEN}

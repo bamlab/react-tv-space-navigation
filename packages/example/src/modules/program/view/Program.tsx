@@ -51,7 +51,7 @@ const ProgramContainer = styled(Animated.View)<{
   height: theme.sizes.program.portrait.height, // Height is the same for both variants
   width:
     variant === 'landscape'
-      ? theme.sizes.program.landscape.width * 2
+      ? theme.sizes.program.landscape.width
       : theme.sizes.program.portrait.width,
   overflow: 'hidden',
   borderRadius: 20,
