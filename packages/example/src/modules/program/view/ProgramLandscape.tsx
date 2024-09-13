@@ -11,9 +11,10 @@ type ProgramProps = {
   label?: string;
 };
 
-const Label = ({ label }: { label: string }) => {
+const Label = React.memo(({ label }: { label: string }) => {
   return <Typography>{label}</Typography>;
-};
+});
+Label.displayName = 'Label';
 
 export const ProgramLandscape = React.forwardRef<View, ProgramProps>(
   ({ isFocused = false, programInfo, label }, ref) => {
