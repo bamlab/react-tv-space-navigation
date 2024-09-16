@@ -32,24 +32,6 @@ const getRangeWithoutFloatHandling = ({
 }) => {
   const numberOfItemsNotVisible = numberOfRenderedItems - numberOfItemsVisibleOnScreen;
 
-  /**
-   * NumberOfItemsNotVisible should be > 2 in order to be sure to have an element mounted on the left in order to go left
-   */
-  if (numberOfItemsNotVisible < 2) {
-    throw new Error(
-      'You have set a numberOfRenderedItems inferior to the numberOfItemsVisibleOnScreen + 2 in your SpatialNavigationVirtualizedList. You must change it.',
-    );
-  }
-
-  if (
-    scrollBehavior === 'jump-on-scroll' &&
-    numberOfRenderedItems < 2 * numberOfItemsVisibleOnScreen + 1
-  ) {
-    console.error(
-      'You have set a numberOfRenderedItems inferior to 2 * numberOfItemsVisibleOnScreen + 1 in your SpatialNavigationVirtualizedList with the jump-on-scroll scroll behavior. You must change it.',
-    );
-  }
-
   const lastDataIndex = data.length - 1;
 
   const { rawStartIndex, rawEndIndex } = getRawStartAndEndIndexes({
