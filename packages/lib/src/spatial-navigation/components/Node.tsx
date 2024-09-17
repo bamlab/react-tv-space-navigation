@@ -1,6 +1,9 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { View } from 'react-native';
-import { useSpatialNavigatorDefaultFocus } from '../context/DefaultFocusContext';
+import {
+  SpatialNavigatorDefaultFocusContext,
+  useSpatialNavigatorDefaultFocus,
+} from '../context/DefaultFocusContext';
 import { ParentIdContext, useParentId } from '../context/ParentIdContext';
 import { useSpatialNavigatorParentScroll } from '../context/ParentScrollContext';
 import { useSpatialNavigator } from '../context/SpatialNavigatorContext';
@@ -192,10 +195,21 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     }, [parentId]);
 
     useEffect(() => {
-      if (shouldHaveDefaultFocus && isFocusable && !spatialNavigator.hasOneNodeFocused()) {
+      if (shouldHaveDefaultFocus && !spatialNavigator.hasOneNodeFocused()) {
         spatialNavigator.handleOrQueueDefaultFocus(id);
       }
     }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
+    if (shouldHaveDefaultFocus) {
+      return (
+        <SpatialNavigatorDefaultFocusContext.Provider value={false}>
+          <ParentIdContext.Provider value={id}>
+            {typeof children === 'function'
+              ? bindRefToChild(children({ isFocused, isActive, isRootActive }))
+              : children}
+          </ParentIdContext.Provider>
+        </SpatialNavigatorDefaultFocusContext.Provider>
+      );
+    }
 
     return (
       <ParentIdContext.Provider value={id}>

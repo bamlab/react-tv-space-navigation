@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-const SpatialNavigatorDefaultFocusContext = createContext<boolean>(false);
+export const SpatialNavigatorDefaultFocusContext = createContext<boolean>(false);
 
 export const useSpatialNavigatorDefaultFocus = () => {
   const spatialNavigatorDefaultFocus = useContext(SpatialNavigatorDefaultFocusContext);
