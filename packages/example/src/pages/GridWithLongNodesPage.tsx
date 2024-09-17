@@ -6,7 +6,6 @@ import {
   SpatialNavigationVirtualizedListRef,
 } from 'react-tv-space-navigation';
 import { Page } from '../components/Page';
-import '../components/configureRemoteControl';
 import { programInfos } from '../modules/program/infra/programInfos';
 import styled from '@emotion/native';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';

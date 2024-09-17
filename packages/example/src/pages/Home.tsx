@@ -1,7 +1,6 @@
 import styled from '@emotion/native';
 import { DefaultFocus, SpatialNavigationScrollView } from 'react-tv-space-navigation';
 import { Page } from '../components/Page';
-import '../components/configureRemoteControl';
 import { Box } from '../design-system/components/Box';
 import { Spacer } from '../design-system/components/Spacer';
 import { Typography } from '../design-system/components/Typography';

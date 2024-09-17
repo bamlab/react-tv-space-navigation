@@ -2,7 +2,6 @@ import { StyleSheet, View } from 'react-native';
 import { DefaultFocus } from 'react-tv-space-navigation';
 import { Page } from '../components/Page';
 import { VirtualizedSpatialGrid } from '../components/VirtualizedSpatialGrid';
-import '../components/configureRemoteControl';
 import { scaledPixels } from '../design-system/helpers/scaledPixels';
 
 export const ProgramGridPage = () => {
