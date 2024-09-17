@@ -19,9 +19,15 @@ class RemoteControlManager implements RemoteControlManagerInterface {
       up: SupportedKeys.Up,
       down: SupportedKeys.Down,
       select: SupportedKeys.Enter,
+      longSelect: SupportedKeys.LongEnter,
     }[evt.eventType];
 
     if (!mappedKey) {
+      return;
+    }
+
+    // We only want to handle keydown fon long select
+    if (mappedKey === SupportedKeys.LongEnter && evt.eventKeyAction === 1) {
       return;
     }
 
