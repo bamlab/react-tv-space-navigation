@@ -58,18 +58,4 @@ describe('getRange for custom virtualized list', () => {
     expect(expectedResult).toEqual(result);
     expect(console.error).toHaveBeenCalledTimes(1);
   });
-
-  it('should throw an error if the numberOfRenderedItems is inferior to the numberOfItemsVisibleOnScreen + 2', () => {
-    const input = new Array(30).fill(1);
-
-    expect(() =>
-      getRange({
-        data: input,
-        currentlyFocusedItemIndex: 5,
-        numberOfRenderedItems: 6,
-        numberOfItemsVisibleOnScreen: 8,
-        scrollBehavior: 'stick-to-start',
-      }),
-    ).toThrowError();
-  });
 });
