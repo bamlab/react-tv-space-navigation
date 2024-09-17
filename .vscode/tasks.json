@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "command": "yarn test:lint",
+      "problemMatcher": ["$eslint-stylish"],
+      "group": "test",
+      "label": "Lint"
+    },
+    {
+      "type": "typescript",
+      "label": "Typescript example",
+      "tsconfig": "packages/example/tsconfig.json",
+      "problemMatcher": ["$tsc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "typescript",
+      "label": "Typescript lib",
+      "tsconfig": "packages/lib/tsconfig.json",
+      "problemMatcher": ["$tsc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
