@@ -161,6 +161,7 @@ const Container = styled.View<{ isActive: boolean }>(({ isActive, theme }) => ({
   padding: theme.spacings.$8,
   borderRadius: scaledPixels(20),
   overflow: 'hidden',
+  width: '100%',
 }));
 
 const styles = StyleSheet.create({
