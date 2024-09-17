@@ -1,8 +1,4 @@
 const getMinSizeOfItems = <T>(data: T[], itemSize: number | ((item: T) => number)) => {
-  if (data.length === 0) {
-    throw new Error('The data array is empty.');
-  }
-
   if (typeof itemSize === 'number') {
     return itemSize;
   }
