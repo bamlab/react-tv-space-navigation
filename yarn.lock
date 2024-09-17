@@ -1731,12 +1731,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bam.tech/lrud@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "@bam.tech/lrud@npm:8.0.1"
+"@bam.tech/lrud@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "@bam.tech/lrud@npm:8.0.2"
   dependencies:
     mitt: 3.0.1
-  checksum: ff20f533a021ca795e091542e2fde66dded14e651a64f857d0281ec7cc660ac9ea149652f39d7ec7997300e68383d915bc41d04c902d5911d99e1e06d2babdbd
+  checksum: 699dde408a801521e34a7721e520a4178c824abb9ea525d16939cb0d0acae9ffc4024b0d0492259558bcf22dc6bd62f5387af3d776135565949fd020a380b4e9
   languageName: node
   linkType: hard
 
@@ -13001,7 +13001,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "react-tv-space-navigation@workspace:packages/lib"
   dependencies:
-    "@bam.tech/lrud": ^8.0.1
+    "@bam.tech/lrud": ^8.0.2
     "@testing-library/react-hooks": ^8.0.1
     "@testing-library/react-native": ^12.3.1
     "@types/jest": ^29.5.3

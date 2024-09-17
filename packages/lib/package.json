@@ -29,7 +29,7 @@
     "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@bam.tech/lrud": "^8.0.1",
+    "@bam.tech/lrud": "^8.0.2",
     "lodash.uniqueid": "^4.0.1"
   }
 }
