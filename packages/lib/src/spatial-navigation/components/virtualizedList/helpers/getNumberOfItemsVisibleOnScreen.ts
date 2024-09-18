@@ -9,17 +9,21 @@ const getMinSizeOfItems = <T>({
     return itemSize;
   }
 
-  let minSize = itemSize(data[0]); // Initialize with the size of the first item
+  let minSize: number | undefined = undefined;
 
-  for (let i = 1; i < data.length; i++) {
-    const currentSize = itemSize(data[i]);
-    if (currentSize < minSize) {
-      minSize = currentSize;
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i];
+    if (item !== undefined) {
+      const currentSize = itemSize(item);
+      if (minSize === undefined || currentSize < minSize) {
+        minSize = currentSize;
+      }
     }
   }
 
   return minSize;
 };
+
 export const getNumberOfItemsVisibleOnScreen = <T>({
   data,
   listSizeInPx,
@@ -30,5 +34,10 @@ export const getNumberOfItemsVisibleOnScreen = <T>({
   itemSize: number | ((item: T) => number);
 }) => {
   const itemSizeToComputeRanges = getMinSizeOfItems({ data, itemSize });
+
+  if (!itemSizeToComputeRanges) {
+    return 0;
+  }
+
   return Math.floor(listSizeInPx / itemSizeToComputeRanges);
 };
