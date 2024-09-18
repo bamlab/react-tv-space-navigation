@@ -140,11 +140,11 @@ export const VirtualizedList = typedMemo(
     scrollBehavior = 'stick-to-start',
     testID,
   }: VirtualizedListProps<T>) => {
-    const numberOfItemsVisibleOnScreen = getNumberOfItemsVisibleOnScreen(
+    const numberOfItemsVisibleOnScreen = getNumberOfItemsVisibleOnScreen({
       data,
       listSizeInPx,
       itemSize,
-    );
+    });
 
     const numberOfItemsToRender = additionalItemsRendered
       ? additionalItemsRendered + numberOfItemsVisibleOnScreen

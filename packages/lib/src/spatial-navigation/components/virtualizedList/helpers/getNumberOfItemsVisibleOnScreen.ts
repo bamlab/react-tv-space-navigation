@@ -1,4 +1,10 @@
-const getMinSizeOfItems = <T>(data: T[], itemSize: number | ((item: T) => number)) => {
+const getMinSizeOfItems = <T>({
+  data,
+  itemSize,
+}: {
+  data: T[];
+  itemSize: number | ((item: T) => number);
+}) => {
   if (typeof itemSize === 'number') {
     return itemSize;
   }
@@ -14,11 +20,15 @@ const getMinSizeOfItems = <T>(data: T[], itemSize: number | ((item: T) => number
 
   return minSize;
 };
-export const getNumberOfItemsVisibleOnScreen = <T>(
-  data: T[],
-  listSizeInPx: number,
-  itemSize: number | ((item: T) => number),
-) => {
-  const itemSizeToComputeRanges = getMinSizeOfItems(data, itemSize);
+export const getNumberOfItemsVisibleOnScreen = <T>({
+  data,
+  listSizeInPx,
+  itemSize,
+}: {
+  data: T[];
+  listSizeInPx: number;
+  itemSize: number | ((item: T) => number);
+}) => {
+  const itemSizeToComputeRanges = getMinSizeOfItems({ data, itemSize });
   return Math.floor(listSizeInPx / itemSizeToComputeRanges);
 };
