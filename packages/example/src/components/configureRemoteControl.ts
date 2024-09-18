@@ -10,6 +10,7 @@ SpatialNavigation.configureRemoteControl({
       [SupportedKeys.Up]: Directions.UP,
       [SupportedKeys.Down]: Directions.DOWN,
       [SupportedKeys.Enter]: Directions.ENTER,
+      [SupportedKeys.LongEnter]: Directions.LONG_ENTER,
       [SupportedKeys.Back]: null,
     };
 

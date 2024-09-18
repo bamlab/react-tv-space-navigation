@@ -1,3 +1,4 @@
+import './src/components/configureRemoteControl';
 import { ThemeProvider } from '@emotion/react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useWindowDimensions } from 'react-native';

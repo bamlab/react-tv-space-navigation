@@ -40,6 +40,7 @@ type DefaultProps = {
   onFocus?: () => void;
   onBlur?: () => void;
   onSelect?: () => void;
+  onLongSelect?: () => void;
   onActive?: () => void;
   onInactive?: () => void;
   orientation?: NodeOrientation;
@@ -101,6 +102,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       onFocus,
       onBlur,
       onSelect,
+      onLongSelect = onSelect,
       onActive,
       onInactive,
       orientation = 'vertical',
@@ -144,6 +146,9 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     const currentOnSelect = useRef<() => void>();
     currentOnSelect.current = onSelect;
 
+    const currentOnLongSelect = useRef<() => void>();
+    currentOnLongSelect.current = onLongSelect;
+
     const currentOnFocus = useRef<() => void>();
     currentOnFocus.current = () => {
       onFocus?.();
@@ -174,6 +179,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
           setIsFocused(true);
         },
         onSelect: () => currentOnSelect.current?.(),
+        onLongSelect: () => currentOnLongSelect.current?.(),
         orientation,
         isIndexAlign: alignInGrid,
         indexRange,
