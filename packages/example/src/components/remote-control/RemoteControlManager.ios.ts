@@ -26,7 +26,7 @@ class RemoteControlManager implements RemoteControlManagerInterface {
       return;
     }
 
-    // We only want to handle keydown fon long select
+    // We only want to handle keydown for long select to avoid triggering the event twice
     if (mappedKey === SupportedKeys.LongEnter && evt.eventKeyAction === 1) {
       return;
     }
