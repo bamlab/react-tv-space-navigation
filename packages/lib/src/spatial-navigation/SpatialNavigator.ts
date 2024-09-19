@@ -31,9 +31,6 @@ export default class SpatialNavigator {
       if (parent === undefined || this.lrud.getNode(parent)) {
         this.lrud.registerNode(...params);
 
-        // After we successfully register a node, we need to check whether it needs to grab the focus or not.
-        this.handleQueuedFocus();
-
         // OK, we successfully registered an element.
         // Now, we check if some other elements were depending on us to be registered.
         // ...and we do it recursively.
@@ -43,6 +40,10 @@ export default class SpatialNavigator {
         potentialNodesToRegister.forEach((node) => {
           this.registerNode(...node);
         });
+
+        // After we successfully register a node, we need to check whether it needs to grab the focus or not.
+        this.handleQueuedFocus();
+
         delete this.registerMap[id];
       } else {
         // If the parent is not registered yet, we queue the node for later registration.
