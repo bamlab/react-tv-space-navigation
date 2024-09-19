@@ -1,4 +1,4 @@
-import { Direction, Lrud } from '@bam.tech/lrud';
+import { Direction, Lrud, NodeConfig, NodeId } from '@bam.tech/lrud';
 import { isError } from './helpers/isError';
 
 export type OnDirectionHandledWithoutMovement = (direction: Direction) => void;
@@ -7,6 +7,8 @@ type OnDirectionHandledWithoutMovementRef = { current: OnDirectionHandledWithout
 type SpatialNavigatorParams = {
   onDirectionHandledWithoutMovementRef: OnDirectionHandledWithoutMovementRef;
 };
+
+type AdditionalNodeConfig = { isDefaultActive: boolean };
 
 export default class SpatialNavigator {
   private lrud: Lrud;
@@ -18,39 +20,47 @@ export default class SpatialNavigator {
     this.lrud = new Lrud();
     this.onDirectionHandledWithoutMovementRef = onDirectionHandledWithoutMovementRef;
   }
+  private registerMap: {
+    [key: string]: Array<[NodeId, NodeConfig, AdditionalNodeConfig | undefined]>;
+  } = {};
 
-  private registerMap: { [key: string]: Array<Parameters<Lrud['registerNode']>> } = {};
-
-  public registerNode(...params: Parameters<Lrud['registerNode']>) {
+  public registerNode(
+    nodeId: NodeId,
+    nodeConfig: NodeConfig,
+    additionalConfig?: AdditionalNodeConfig,
+  ) {
     try {
-      const parent = params[1]?.parent;
-      const id = params[0];
+      const parent = nodeConfig.parent;
 
       // If no parent is given, we are talking about a root node. We want to register it.
       // If a parent is given, we need the node to exist. Otherwise, we'll pass and queue the node for later registration.
       if (parent === undefined || this.lrud.getNode(parent)) {
-        this.lrud.registerNode(...params);
+        this.lrud.registerNode(nodeId, nodeConfig);
 
         // OK, we successfully registered an element.
         // Now, we check if some other elements were depending on us to be registered.
         // ...and we do it recursively.
-        const potentialNodesToRegister = this.registerMap[id];
+        const potentialNodesToRegister = this.registerMap[nodeId];
         if (!potentialNodesToRegister || potentialNodesToRegister.length === 0) return;
 
         potentialNodesToRegister.forEach((node) => {
           this.registerNode(...node);
         });
 
+        // Need to handle active children assignement
+        if (additionalConfig && parent) {
+          this.lrud.setActiveChild(parent, nodeId);
+        }
         // After we successfully register a node, we need to check whether it needs to grab the focus or not.
         this.handleQueuedFocus();
 
-        delete this.registerMap[id];
+        delete this.registerMap[nodeId];
       } else {
         // If the parent is not registered yet, we queue the node for later registration.
         if (!this.registerMap[parent]) {
           this.registerMap[parent] = [];
         }
-        this.registerMap[parent].push(params);
+        this.registerMap[parent].push([nodeId, nodeConfig, additionalConfig]);
       }
     } catch (e) {
       console.error(e);

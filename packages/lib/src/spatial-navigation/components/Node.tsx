@@ -199,7 +199,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
         spatialNavigator.handleOrQueueDefaultFocus(id);
       }
     }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
-    if (shouldHaveDefaultFocus) {
+    if (shouldHaveDefaultFocus && !spatialNavigator.hasOneNodeFocused()) {
       return (
         <SpatialNavigatorDefaultFocusContext.Provider value={false}>
           <ParentIdContext.Provider value={id}>

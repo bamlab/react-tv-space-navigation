@@ -91,11 +91,18 @@ const useRegisterVirtualNodes = <T,>({
 
   const registerNthVirtualNode = useCallback(
     (index: number) => {
-      return spatialNavigator.registerNode(getNthVirtualNodeID(index), {
-        parent: parentId,
-        orientation: nodeOrientation,
-        isFocusable: false,
-      });
+      const node = getNthVirtualNodeID(index);
+      //TODO: TO REMOVE
+      const isDefaultActive = index === 2;
+      return spatialNavigator.registerNode(
+        node,
+        {
+          parent: parentId,
+          orientation: nodeOrientation,
+          isFocusable: false,
+        },
+        { isDefaultActive },
+      );
     },
     [getNthVirtualNodeID, parentId, spatialNavigator, nodeOrientation],
   );

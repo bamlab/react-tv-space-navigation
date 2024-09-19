@@ -18,6 +18,7 @@ export interface VirtualizedListProps<T> {
   /** If vertical the height of an item, otherwise the width */
   itemSize: number | ((item: T) => number);
   currentlyFocusedItemIndex: number;
+  defaultFocusIndex?: number;
   /** How many items are RENDERED (virtualization size) */
   numberOfRenderedItems: number;
   /** How many items are visible on screen (helps with knowing how to slice our data and to stop the scroll at the end of the list) */
