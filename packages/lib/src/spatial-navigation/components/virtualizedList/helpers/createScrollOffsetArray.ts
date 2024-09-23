@@ -1,5 +1,6 @@
 import { ScrollBehavior } from '../VirtualizedList';
 import { computeTranslation } from './computeTranslation';
+import { getLastLeftItemIndex, getLastRightItemIndex } from './getLastItemIndex';
 
 /**
  * This function precomputes all scroll offsets
@@ -12,8 +13,6 @@ export const computeAllScrollOffsets = <T>({
   scrollBehavior,
   data,
   listSizeInPx,
-  maxPossibleLeftAlignedIndex,
-  maxPossibleRightAlignedIndex,
 }: {
   itemSize: number | ((item: T) => number);
   nbMaxOfItems: number;
@@ -21,9 +20,10 @@ export const computeAllScrollOffsets = <T>({
   scrollBehavior: ScrollBehavior;
   data: T[];
   listSizeInPx: number;
-  maxPossibleLeftAlignedIndex: number;
-  maxPossibleRightAlignedIndex: number;
 }) => {
+  const maxPossibleLeftAlignedIndex = getLastLeftItemIndex<T>(data, itemSize, listSizeInPx);
+  const maxPossibleRightAlignedIndex = getLastRightItemIndex<T>(data, itemSize, listSizeInPx);
+
   const scrollOffsets = data.map((_, index) =>
     computeTranslation({
       currentlyFocusedItemIndex: index,
