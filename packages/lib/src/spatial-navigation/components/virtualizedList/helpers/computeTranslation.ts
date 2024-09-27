@@ -19,6 +19,48 @@ const computeStickToStartTranslation = <T>({
   return -scrollOffset;
 };
 
+const computeStickToCenterTranslation = <T>({
+  currentlyFocusedItemIndex,
+  itemSizeInPx,
+  data,
+  listSizeInPx,
+}: {
+  currentlyFocusedItemIndex: number;
+  itemSizeInPx: number | ((item: T) => number);
+  data: T[];
+  listSizeInPx: number;
+}) => {
+  const currentlyFocusedItemSize =
+    typeof itemSizeInPx === 'function'
+      ? itemSizeInPx(data[currentlyFocusedItemIndex])
+      : itemSizeInPx;
+
+  const sizeOfListFromStartToCurrentlyFocusedItem = getSizeInPxFromOneItemToAnother(
+    data,
+    itemSizeInPx,
+    0,
+    currentlyFocusedItemIndex,
+  );
+  const sizeOfListFromEndToCurrentlyFocusedItem = getSizeInPxFromOneItemToAnother(
+    data,
+    itemSizeInPx,
+    data.length - 1,
+    currentlyFocusedItemIndex,
+  );
+
+  if (sizeOfListFromStartToCurrentlyFocusedItem < listSizeInPx / 2) {
+    return 0;
+  }
+  
+  if (sizeOfListFromEndToCurrentlyFocusedItem < listSizeInPx / 2) {
+    return -sizeOfListFromStartToCurrentlyFocusedItem + listSizeInPx - sizeOfListFromEndToCurrentlyFocusedItem - currentlyFocusedItemSize;
+  }
+
+  const scrollOffset =
+    sizeOfListFromStartToCurrentlyFocusedItem - (listSizeInPx / 2) + (currentlyFocusedItemSize / 2);
+  return -scrollOffset;
+};
+
 const computeStickToEndTranslation = <T>({
   currentlyFocusedItemIndex,
   itemSizeInPx,
@@ -101,6 +143,13 @@ export const computeTranslation = <T>({
         itemSizeInPx,
         data,
         maxPossibleLeftAlignedIndex,
+      });
+    case 'stick-to-center':
+      return computeStickToCenterTranslation({
+        currentlyFocusedItemIndex,
+        itemSizeInPx,
+        data,
+        listSizeInPx,
       });
     case 'stick-to-end':
       return computeStickToEndTranslation({

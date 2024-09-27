@@ -11,7 +11,7 @@ import { getLastLeftItemIndex, getLastRightItemIndex } from './helpers/getLastIt
 import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneItemToAnother';
 import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
 
-export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
+export type ScrollBehavior = 'stick-to-start' | 'stick-to-center' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
   data: T[];
   renderItem: (args: { item: T; index: number }) => JSX.Element;
