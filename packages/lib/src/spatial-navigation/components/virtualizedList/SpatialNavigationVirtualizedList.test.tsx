@@ -325,7 +325,6 @@ describe('SpatialNavigationVirtualizedList', () => {
     });
   });
 
-
   describe('stick-to-center', () => {
     it('handles correctly stick-to-center lists', async () => {
       const component = render(
@@ -351,9 +350,6 @@ describe('SpatialNavigationVirtualizedList', () => {
       expectListToHaveScroll(listElement, 0);
       // The size of the list should be the sum of the item sizes (virtualized or not)
       expect(listElement).toHaveStyle({ width: 1000 });
-
-      // x x x X x x x x x x
-      //|x[x x x]x|x x x x x
 
       testRemoteControlManager.handleRight();
       expectButtonToHaveFocus(component, 'button 2');
