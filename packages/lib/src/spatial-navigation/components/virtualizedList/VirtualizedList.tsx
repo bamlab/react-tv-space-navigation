@@ -7,7 +7,6 @@ import {
 } from './hooks/useVirtualizedListAnimation';
 import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
-import { getLastLeftItemIndex, getLastRightItemIndex } from './helpers/getLastItemIndex';
 import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneItemToAnother';
 import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
 
@@ -158,9 +157,6 @@ export const VirtualizedList = typedMemo(
 
     const dataSliceToRender = data.slice(range.start, range.end + 1);
 
-    const maxPossibleLeftAlignedIndex = getLastLeftItemIndex<T>(data, itemSize, listSizeInPx);
-    const maxPossibleRightAlignedIndex = getLastRightItemIndex<T>(data, itemSize, listSizeInPx);
-
     const allScrollOffsets = useMemo(
       () =>
         computeAllScrollOffsets({
@@ -170,19 +166,8 @@ export const VirtualizedList = typedMemo(
           scrollBehavior: scrollBehavior,
           data: data,
           listSizeInPx: listSizeInPx,
-          maxPossibleLeftAlignedIndex: maxPossibleLeftAlignedIndex,
-          maxPossibleRightAlignedIndex: maxPossibleRightAlignedIndex,
         }),
-      [
-        data,
-        itemSize,
-        listSizeInPx,
-        maxPossibleLeftAlignedIndex,
-        maxPossibleRightAlignedIndex,
-        nbMaxOfItems,
-        numberOfItemsVisibleOnScreen,
-        scrollBehavior,
-      ],
+      [data, itemSize, listSizeInPx, nbMaxOfItems, numberOfItemsVisibleOnScreen, scrollBehavior],
     );
 
     useOnEndReached({
