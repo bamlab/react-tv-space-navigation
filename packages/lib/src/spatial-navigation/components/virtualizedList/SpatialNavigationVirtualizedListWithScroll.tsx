@@ -197,19 +197,24 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
         [deviceTypeRef],
       );
 
+      const scrollTo = useCallback((index: number) => {
+        if (idRef.current) {
+          const newId = idRef.current.getNthVirtualNodeID(index);
+          spatialNavigator.grabFocusDeferred(newId);
+        }
+      }, [idRef, spatialNavigator]);
+
       useImperativeHandle(
         ref,
         () => ({
-          focus: async (index: number) => {
+          focus: (index: number) => {
             setCurrentlyFocusedItemIndex(index);
-            if (idRef.current) {
-              const newId = idRef.current.getNthVirtualNodeID(index);
-              spatialNavigator.grabFocusDeferred(newId);
-            }
+            scrollTo(index);
           },
+          scrollTo,
           currentlyFocusedItemIndex,
         }),
-        [currentlyFocusedItemIndex, idRef, spatialNavigator],
+        [currentlyFocusedItemIndex, scrollTo],
       );
 
       const renderWrappedItem: typeof props.renderItem = useCallback(

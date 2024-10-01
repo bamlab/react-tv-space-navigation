@@ -658,4 +658,21 @@ describe('SpatialNavigationVirtualizedList', () => {
     });
     expectButtonToHaveFocus(component, 'button 1');
   });
+
+  it('scroll to index in the list, without applying focus', async () => {
+    const component = renderVirtualizedListWithNavigationButtons(10);
+    act(() => jest.runAllTimers());
+
+    setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+    const listElement = await component.findByTestId(listTestId);
+
+    expectButtonToHaveFocus(component, 'button 1');
+    expectListToHaveScroll(listElement, 0);
+
+    act(() => {
+      currentListRef?.current?.scrollTo(8);
+    });
+    expectButtonToHaveFocus(component, 'button 1');
+    expectListToHaveScroll(listElement, 0);
+  });
 });
