@@ -258,9 +258,10 @@ It also ensures that the scroll event is propagated properly to parent ScrollVie
 
 The `SpatialNavigationVirtualizedList` component ref expose the following methods:
 
-| Name    | Type                      | Description                                               |
-| ------- | ------------------------- | --------------------------------------------------------- |
-| `focus` | `(index: number) => void` | Give the focus to the selected node and scroll if needed. |
+| Name       | Type                      | Description                                                    |
+| ---------- | ------------------------- | -------------------------------------------------------------- |
+| `focus`    | `(index: number) => void` | Give the focus to the selected node and scroll if needed.      |
+| `scrollTo` | `(index: number) => void` | Scroll to the selected node if needed, without appyling focus. |
 
 ## Usage
 
