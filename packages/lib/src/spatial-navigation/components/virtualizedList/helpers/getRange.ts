@@ -90,6 +90,11 @@ const getRawStartAndEndIndexes = ({
           1 +
           halfNumberOfItemsNotVisible,
       };
+    case 'stick-to-center':
+      return {
+        rawStartIndex: currentlyFocusedItemIndex - (halfNumberOfItemsNotVisible + 1),
+        rawEndIndex: currentlyFocusedItemIndex + (halfNumberOfItemsNotVisible + 1),
+      };
     case 'stick-to-end':
       return {
         rawStartIndex:
