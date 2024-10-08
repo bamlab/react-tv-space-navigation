@@ -1,4 +1,16 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v4.0.1...v) (2024-09-13)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v5.0.0...v) (2024-10-08)
+
+## [5.0.0](https://github.com/bamlab/react-tv-space-navigation/compare/v4.0.1...v5.0.0) (2024-10-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **VirtualizedList:** remove numberOfElementsVisibleOnScreen and numberOfElementsRendered props (#153)
+
+### Features
+
+* add onLongSelect prop to Node ([7dfae9a](https://github.com/bamlab/react-tv-space-navigation/commit/7dfae9ae8e2c09c25c2d9f994506ec5c31b7be3a))
+* **VirtualizedList:** remove numberOfElementsVisibleOnScreen and numberOfElementsRendered props ([#153](https://github.com/bamlab/react-tv-space-navigation/issues/153)) ([2268059](https://github.com/bamlab/react-tv-space-navigation/commit/22680599117c1e8874d7342ecfaa1f8f9e9691c8))
 
 ## [4.0.1](https://github.com/bamlab/react-tv-space-navigation/compare/v4.0.0...v4.0.1) (2024-09-13)
 
