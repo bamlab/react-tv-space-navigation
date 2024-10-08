@@ -32,7 +32,7 @@ export const VirtualizedListWithSize = typedMemo(
         }}
         testID={props.testID ? props.testID + '-size-giver' : undefined}
       >
-        {listSizeInPx ? <VirtualizedList {...props} listSizeInPx={listSizeInPx} /> : null}
+        <VirtualizedList {...props} listSizeInPx={listSizeInPx} />
       </View>
     );
   },

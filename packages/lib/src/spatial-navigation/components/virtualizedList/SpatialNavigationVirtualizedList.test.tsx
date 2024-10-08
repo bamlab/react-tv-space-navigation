@@ -52,8 +52,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={data}
             itemSize={100}
-            numberOfRenderedItems={5}
-            numberOfItemsVisibleOnScreen={3}
           />
         </DefaultFocus>
       </SpatialNavigationRoot>,
@@ -78,8 +76,6 @@ describe('SpatialNavigationVirtualizedList', () => {
                 renderItem={renderItem}
                 data={data}
                 itemSize={100}
-                numberOfRenderedItems={5}
-                numberOfItemsVisibleOnScreen={3}
                 ref={currentListRef}
               />
             </DefaultFocus>
@@ -123,7 +119,13 @@ describe('SpatialNavigationVirtualizedList', () => {
     expect(button5).toBeTruthy();
 
     const button6 = screen.queryByText('button 6');
-    expect(button6).toBeFalsy();
+    expect(button6).toBeTruthy();
+
+    const button7 = screen.queryByText('button 7');
+    expect(button7).toBeTruthy();
+
+    const button8 = screen.queryByText('button 8');
+    expect(button8).toBeFalsy();
   });
 
   it('handles correctly RIGHT and RENDERS new elements accordingly while deleting elements that are too far from scroll', async () => {
@@ -142,17 +144,17 @@ describe('SpatialNavigationVirtualizedList', () => {
     expectListToHaveScroll(listElement, -100);
 
     expect(screen.getByText('button 1')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.queryByText('button 6')).toBeFalsy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 3');
     expectListToHaveScroll(listElement, -200);
 
-    expect(screen.queryByText('button 1')).toBeFalsy();
+    expect(screen.getByText('button 1')).toBeTruthy();
     expect(screen.getByText('button 2')).toBeTruthy();
-    expect(screen.getByText('button 6')).toBeTruthy();
-    expect(screen.queryByText('button 7')).toBeFalsy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
 
     expect(screen).toMatchSnapshot();
 
@@ -160,10 +162,11 @@ describe('SpatialNavigationVirtualizedList', () => {
     expectButtonToHaveFocus(component, 'button 4');
     expectListToHaveScroll(listElement, -300);
 
-    expect(screen.queryByText('button 2')).toBeFalsy();
+    expect(screen.queryByText('button 1')).toBeFalsy();
+    expect(screen.getByText('button 2')).toBeTruthy();
     expect(screen.getByText('button 3')).toBeTruthy();
-    expect(screen.getByText('button 7')).toBeTruthy();
-    expect(screen.queryByText('button 8')).toBeFalsy();
+    expect(screen.getByText('button 8')).toBeTruthy();
+    expect(screen.queryByText('button 9')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 5');
@@ -200,8 +203,6 @@ describe('SpatialNavigationVirtualizedList', () => {
               renderItem={renderItem}
               data={data}
               itemSize={100}
-              numberOfRenderedItems={5}
-              numberOfItemsVisibleOnScreen={3}
               scrollBehavior="stick-to-start"
             />
           </DefaultFocus>
@@ -221,26 +222,28 @@ describe('SpatialNavigationVirtualizedList', () => {
       expectListToHaveScroll(listElement, -100);
 
       expect(screen.getByText('button 1')).toBeTruthy();
-      expect(screen.getByText('button 5')).toBeTruthy();
-      expect(screen.queryByText('button 6')).toBeFalsy();
+      expect(screen.getByText('button 7')).toBeTruthy();
+      expect(screen.queryByText('button 8')).toBeFalsy();
 
       testRemoteControlManager.handleRight();
       expectButtonToHaveFocus(component, 'button 3');
       expectListToHaveScroll(listElement, -200);
 
-      expect(screen.queryByText('button 1')).toBeFalsy();
+      expect(screen.getByText('button 1')).toBeTruthy();
       expect(screen.getByText('button 2')).toBeTruthy();
-      expect(screen.getByText('button 6')).toBeTruthy();
-      expect(screen.queryByText('button 7')).toBeFalsy();
+      expect(screen.getByText('button 7')).toBeTruthy();
+      expect(screen.queryByText('button 8')).toBeFalsy();
 
       testRemoteControlManager.handleRight();
       expectButtonToHaveFocus(component, 'button 4');
       expectListToHaveScroll(listElement, -300);
 
-      expect(screen.queryByText('button 2')).toBeFalsy();
+      expect(screen.queryByText('button 1')).toBeFalsy();
+      expect(screen.getByText('button 2')).toBeTruthy();
       expect(screen.getByText('button 3')).toBeTruthy();
       expect(screen.getByText('button 7')).toBeTruthy();
-      expect(screen.queryByText('button 8')).toBeFalsy();
+      expect(screen.getByText('button 8')).toBeTruthy();
+      expect(screen.queryByText('button 9')).toBeFalsy();
 
       testRemoteControlManager.handleRight();
       expectButtonToHaveFocus(component, 'button 5');
@@ -276,8 +279,6 @@ describe('SpatialNavigationVirtualizedList', () => {
               renderItem={renderItem}
               data={data.slice(0, 3)}
               itemSize={100}
-              numberOfRenderedItems={5}
-              numberOfItemsVisibleOnScreen={3}
               scrollBehavior="stick-to-start"
             />
           </DefaultFocus>
@@ -333,8 +334,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={data}
             itemSize={100}
-            numberOfRenderedItems={5}
-            numberOfItemsVisibleOnScreen={3}
             scrollBehavior="stick-to-end"
           />
         </DefaultFocus>
@@ -354,33 +353,33 @@ describe('SpatialNavigationVirtualizedList', () => {
     expectListToHaveScroll(listElement, 0);
 
     expect(screen.getByText('button 1')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.queryByText('button 6')).toBeFalsy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 3');
     expectListToHaveScroll(listElement, 0);
 
     expect(screen.getByText('button 1')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.queryByText('button 6')).toBeFalsy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 4');
     expectListToHaveScroll(listElement, -100);
 
     expect(screen.getByText('button 1')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.queryByText('button 6')).toBeFalsy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 5');
     expectListToHaveScroll(listElement, -200);
 
-    expect(screen.queryByText('button 1')).toBeFalsy();
+    expect(screen.getByText('button 1')).toBeTruthy();
     expect(screen.getByText('button 2')).toBeTruthy();
-    expect(screen.getByText('button 6')).toBeTruthy();
-    expect(screen.queryByText('button 7')).toBeFalsy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 6');
@@ -412,8 +411,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={data}
             itemSize={100}
-            numberOfRenderedItems={7}
-            numberOfItemsVisibleOnScreen={3}
             scrollBehavior="jump-on-scroll"
           />
         </DefaultFocus>
@@ -495,8 +492,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={dataWithVariableSizes}
             itemSize={itemSize}
-            numberOfRenderedItems={5}
-            numberOfItemsVisibleOnScreen={3}
           />
         </DefaultFocus>
       </SpatialNavigationRoot>,
@@ -514,26 +509,25 @@ describe('SpatialNavigationVirtualizedList', () => {
     expectListToHaveScroll(listElement, -100);
 
     expect(screen.getByText('button 1')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.queryByText('button 6')).toBeFalsy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 3');
     expectListToHaveScroll(listElement, -300);
 
-    expect(screen.queryByText('button 1')).toBeFalsy();
-    expect(screen.getByText('button 2')).toBeTruthy();
-    expect(screen.getByText('button 6')).toBeTruthy();
-    expect(screen.queryByText('button 7')).toBeFalsy();
+    expect(screen.getByText('button 1')).toBeTruthy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 4');
     expectListToHaveScroll(listElement, -400);
 
-    expect(screen.queryByText('button 2')).toBeFalsy();
-    expect(screen.getByText('button 3')).toBeTruthy();
-    expect(screen.getByText('button 7')).toBeTruthy();
-    expect(screen.queryByText('button 8')).toBeFalsy();
+    expect(screen.queryByText('button 1')).toBeFalsy();
+    expect(screen.getByText('button 2')).toBeTruthy();
+    expect(screen.getByText('button 8')).toBeTruthy();
+    expect(screen.queryByText('button 9')).toBeFalsy();
   });
 
   it('handles correctly different item sizes on stick to end scroll', async () => {
@@ -545,8 +539,6 @@ describe('SpatialNavigationVirtualizedList', () => {
             renderItem={renderItem}
             data={dataWithVariableSizes}
             itemSize={itemSize}
-            numberOfRenderedItems={5}
-            numberOfItemsVisibleOnScreen={3}
             scrollBehavior="stick-to-end"
           />
         </DefaultFocus>
@@ -565,33 +557,33 @@ describe('SpatialNavigationVirtualizedList', () => {
     expectListToHaveScroll(listElement, 0);
 
     expect(screen.getByText('button 1')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.queryByText('button 6')).toBeFalsy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 3');
     expectListToHaveScroll(listElement, -100);
 
-    expect(screen.getByText('button 1')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.queryByText('button 6')).toBeFalsy();
-
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 4');
     expectListToHaveScroll(listElement, -300);
-
-    expect(screen.getByText('button 1')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.queryByText('button 6')).toBeFalsy();
 
     testRemoteControlManager.handleRight();
     expectButtonToHaveFocus(component, 'button 5');
     expectListToHaveScroll(listElement, -400);
 
+    expect(screen.getByText('button 1')).toBeTruthy();
+    expect(screen.getByText('button 7')).toBeTruthy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
+
+    testRemoteControlManager.handleRight();
+    expectButtonToHaveFocus(component, 'button 6');
+    expectListToHaveScroll(listElement, -600);
+
     expect(screen.queryByText('button 1')).toBeFalsy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.queryByText('button 7')).toBeFalsy();
+    expect(screen.getByText('button 2')).toBeTruthy();
+    expect(screen.getByText('button 8')).toBeTruthy();
+    expect(screen.queryByText('button 9')).toBeFalsy();
   });
 
   it('jumps to first element on go to first button press', async () => {

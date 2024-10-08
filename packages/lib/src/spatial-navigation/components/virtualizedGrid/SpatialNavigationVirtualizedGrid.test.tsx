@@ -38,10 +38,8 @@ describe('SpatialNavigationVirtualizedGrid', () => {
         <DefaultFocus>
           <SpatialNavigationVirtualizedGrid
             renderItem={renderItem}
-            data={createDataArray(19)}
+            data={createDataArray(28)}
             itemHeight={100}
-            numberOfRenderedRows={5}
-            numberOfRowsVisibleOnScreen={3}
             numberOfColumns={3}
             testID="test-grid"
           />
@@ -56,7 +54,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(screen).toMatchSnapshot();
 
     const listElement = component.getByTestId(gridTestId);
-    expect(listElement).toHaveStyle({ height: 700 });
+    expect(listElement).toHaveStyle({ height: 1000 });
 
     expect(screen.getByText('button 1')).toBeTruthy();
     expectButtonToHaveFocus(component, 'button 1');
@@ -74,7 +72,13 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(screen.getByText('button 13')).toBeTruthy();
     expect(screen.getByText('button 14')).toBeTruthy();
     expect(screen.getByText('button 15')).toBeTruthy();
-    expect(screen.queryByText('button 16')).toBeFalsy();
+    expect(screen.getByText('button 16')).toBeTruthy();
+    expect(screen.getByText('button 17')).toBeTruthy();
+    expect(screen.getByText('button 18')).toBeTruthy();
+    expect(screen.getByText('button 19')).toBeTruthy();
+    expect(screen.getByText('button 20')).toBeTruthy();
+    expect(screen.getByText('button 21')).toBeTruthy();
+    expect(screen.queryByText('button 22')).toBeFalsy();
   });
 
   it('handles correctly RIGHT & DOWN and RENDERS new elements accordingly while deleting elements that are too far from scroll when on stick to start scroll', () => {
@@ -84,7 +88,7 @@ describe('SpatialNavigationVirtualizedGrid', () => {
 
     const listElement = component.getByTestId(gridTestId);
     expectListToHaveScroll(listElement, 0);
-    expect(listElement).toHaveStyle({ height: 700 });
+    expect(listElement).toHaveStyle({ height: 1000 });
 
     testRemoteControlManager.handleRight();
 
@@ -104,70 +108,69 @@ describe('SpatialNavigationVirtualizedGrid', () => {
     expect(screen.getByText('button 13')).toBeTruthy();
     expect(screen.getByText('button 14')).toBeTruthy();
     expect(screen.getByText('button 15')).toBeTruthy();
-    expect(screen.queryByText('button 16')).toBeFalsy();
-
-    testRemoteControlManager.handleDown();
-    expectListToHaveScroll(listElement, -100);
-
-    expect(screen.getByText('button 1')).toBeTruthy();
-    expect(screen.getByText('button 2')).toBeTruthy();
-    expect(screen.getByText('button 3')).toBeTruthy();
-    expect(screen.getByText('button 4')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expectButtonToHaveFocus(component, 'button 5');
-    expect(screen.getByText('button 6')).toBeTruthy();
-    expect(screen.getByText('button 7')).toBeTruthy();
-    expect(screen.getByText('button 8')).toBeTruthy();
-    expect(screen.getByText('button 9')).toBeTruthy();
-    expect(screen.getByText('button 10')).toBeTruthy();
-    expect(screen.getByText('button 11')).toBeTruthy();
-    expect(screen.getByText('button 12')).toBeTruthy();
-    expect(screen.getByText('button 13')).toBeTruthy();
-    expect(screen.getByText('button 14')).toBeTruthy();
-    expect(screen.getByText('button 15')).toBeTruthy();
-    expect(screen.queryByText('button 16')).toBeFalsy();
-
-    testRemoteControlManager.handleDown();
-    expectListToHaveScroll(listElement, -200);
-
-    expect(screen.queryByText('button 1')).toBeFalsy();
-    expect(screen.queryByText('button 2')).toBeFalsy();
-    expect(screen.queryByText('button 3')).toBeFalsy();
-    expect(screen.getByText('button 4')).toBeTruthy();
-    expect(screen.getByText('button 5')).toBeTruthy();
-    expect(screen.getByText('button 6')).toBeTruthy();
-    expect(screen.getByText('button 7')).toBeTruthy();
-    expect(screen.getByText('button 8')).toBeTruthy();
-    expectButtonToHaveFocus(component, 'button 8');
-    expect(screen.getByText('button 9')).toBeTruthy();
-    expect(screen.getByText('button 10')).toBeTruthy();
-    expect(screen.getByText('button 11')).toBeTruthy();
-    expect(screen.getByText('button 12')).toBeTruthy();
-    expect(screen.getByText('button 13')).toBeTruthy();
-    expect(screen.getByText('button 14')).toBeTruthy();
-    expect(screen.getByText('button 15')).toBeTruthy();
     expect(screen.getByText('button 16')).toBeTruthy();
     expect(screen.getByText('button 17')).toBeTruthy();
     expect(screen.getByText('button 18')).toBeTruthy();
-    expect(screen.queryByText('button 19')).toBeFalsy();
+    expect(screen.getByText('button 19')).toBeTruthy();
+    expect(screen.getByText('button 20')).toBeTruthy();
+    expect(screen.getByText('button 21')).toBeTruthy();
+    expect(screen.queryByText('button 22')).toBeFalsy();
 
-    expect(screen).toMatchSnapshot();
+    testRemoteControlManager.handleDown();
+    expectListToHaveScroll(listElement, -100);
+    expectButtonToHaveFocus(component, 'button 5');
+
+    testRemoteControlManager.handleDown();
+    expectListToHaveScroll(listElement, -200);
+    expectButtonToHaveFocus(component, 'button 8');
 
     testRemoteControlManager.handleDown();
     expectListToHaveScroll(listElement, -300);
     expectButtonToHaveFocus(component, 'button 11');
 
+    expect(screen.queryByText('button 1')).toBeFalsy();
+    expect(screen.queryByText('button 2')).toBeFalsy();
+    expect(screen.queryByText('button 3')).toBeFalsy();
+    expect(screen.getByText('button 4')).toBeTruthy();
+
     testRemoteControlManager.handleDown();
     expectListToHaveScroll(listElement, -400);
     expectButtonToHaveFocus(component, 'button 14');
 
-    testRemoteControlManager.handleDown();
-    expectListToHaveScroll(listElement, -400);
-    expectButtonToHaveFocus(component, 'button 17');
+    expect(screen.queryByText('button 4')).toBeFalsy();
+    expect(screen.queryByText('button 5')).toBeFalsy();
+    expect(screen.queryByText('button 6')).toBeFalsy();
+    expect(screen.getByText('button 7')).toBeTruthy();
 
     testRemoteControlManager.handleDown();
-    expectListToHaveScroll(listElement, -400);
-    expectButtonToHaveFocus(component, 'button 19');
+    expectListToHaveScroll(listElement, -500);
+    expectButtonToHaveFocus(component, 'button 17');
+
+    expect(screen.queryByText('button 7')).toBeFalsy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
+    expect(screen.queryByText('button 9')).toBeFalsy();
+    expect(screen.getByText('button 10')).toBeTruthy();
+
+    testRemoteControlManager.handleDown();
+    expectListToHaveScroll(listElement, -600);
+    expectButtonToHaveFocus(component, 'button 20');
+
+    expect(screen.queryByText('button 7')).toBeFalsy();
+    expect(screen.queryByText('button 8')).toBeFalsy();
+    expect(screen.queryByText('button 9')).toBeFalsy();
+    expect(screen.getByText('button 10')).toBeTruthy();
+
+    testRemoteControlManager.handleDown();
+    expectListToHaveScroll(listElement, -700);
+    expectButtonToHaveFocus(component, 'button 23');
+
+    testRemoteControlManager.handleDown();
+    expectListToHaveScroll(listElement, -700);
+    expectButtonToHaveFocus(component, 'button 26');
+
+    testRemoteControlManager.handleDown();
+    expectListToHaveScroll(listElement, -700);
+    expectButtonToHaveFocus(component, 'button 28');
   });
 
   it('handles correctly RIGHT & DOWN and RENDERS new elements accordingly while deleting elements that are too far from scroll when on stick to end scroll', () => {
@@ -178,8 +181,6 @@ describe('SpatialNavigationVirtualizedGrid', () => {
             renderItem={renderItem}
             data={createDataArray(19)}
             itemHeight={100}
-            numberOfRenderedRows={5}
-            numberOfRowsVisibleOnScreen={3}
             numberOfColumns={3}
             testID="test-grid"
             scrollBehavior="stick-to-end"
@@ -231,8 +232,6 @@ describe('SpatialNavigationVirtualizedGrid', () => {
             renderItem={renderItem}
             data={createDataArray(19)}
             itemHeight={100}
-            numberOfRenderedRows={7}
-            numberOfRowsVisibleOnScreen={3}
             numberOfColumns={3}
             testID="test-grid"
             scrollBehavior="jump-on-scroll"

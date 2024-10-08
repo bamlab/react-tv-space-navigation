@@ -9,6 +9,8 @@ import { NodeOrientation } from '../../types/orientation';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneItemToAnother';
 import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
+import { getNumberOfItemsVisibleOnScreen } from './helpers/getNumberOfItemsVisibleOnScreen';
+import { getAdditionalNumberOfItemsRendered } from './helpers/getAdditionalNumberOfItemsRendered';
 
 export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
@@ -17,10 +19,8 @@ export interface VirtualizedListProps<T> {
   /** If vertical the height of an item, otherwise the width */
   itemSize: number | ((item: T) => number);
   currentlyFocusedItemIndex: number;
-  /** How many items are RENDERED (virtualization size) */
-  numberOfRenderedItems: number;
-  /** How many items are visible on screen (helps with knowing how to slice our data and to stop the scroll at the end of the list) */
-  numberOfItemsVisibleOnScreen: number;
+  /** How many items are RENDERED ADDITIONALLY to those already visible (impacts virtualization size). Defaults to 4 for stick-to-start & stick-to-end scrolls, and twice the number of elements visible + 1 for jump-on-scroll. */
+  additionalItemsRendered?: number;
   onEndReached?: () => void;
   /** Number of items left to display before triggering onEndReached */
   onEndReachedThresholdItemsNumber?: number;
@@ -127,8 +127,7 @@ export const VirtualizedList = typedMemo(
     renderItem,
     itemSize,
     currentlyFocusedItemIndex,
-    numberOfRenderedItems,
-    numberOfItemsVisibleOnScreen,
+    additionalItemsRendered,
     onEndReached,
     onEndReachedThresholdItemsNumber = 3,
     style,
@@ -140,10 +139,20 @@ export const VirtualizedList = typedMemo(
     scrollBehavior = 'stick-to-start',
     testID,
   }: VirtualizedListProps<T>) => {
+    const numberOfItemsVisibleOnScreen = getNumberOfItemsVisibleOnScreen({
+      data,
+      listSizeInPx,
+      itemSize,
+    });
+
+    const numberOfItemsToRender = additionalItemsRendered
+      ? additionalItemsRendered + numberOfItemsVisibleOnScreen
+      : getAdditionalNumberOfItemsRendered(scrollBehavior, numberOfItemsVisibleOnScreen);
+
     const range = getRange({
       data,
       currentlyFocusedItemIndex,
-      numberOfRenderedItems,
+      numberOfRenderedItems: numberOfItemsToRender,
       numberOfItemsVisibleOnScreen,
       scrollBehavior,
     });
@@ -201,8 +210,8 @@ export const VirtualizedList = typedMemo(
      * But with recycling, the first element won't be unmounted : it is moved to the end and its props are updated.
      * See https://medium.com/@moshe_31114/building-our-recycle-list-solution-in-react-17a21a9605a0  */
     const recycledKeyExtractor = useCallback(
-      (index: number) => `recycled_item_${index % numberOfRenderedItems}`,
-      [numberOfRenderedItems],
+      (index: number) => `recycled_item_${index % numberOfItemsToRender}`,
+      [numberOfItemsToRender],
     );
 
     const directionStyle = useMemo(
