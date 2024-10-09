@@ -1,4 +1,8 @@
-import { SpatialNavigationNode, SpatialNavigationNodeDefaultProps } from './Node';
+import {
+  FocusableNodeState,
+  SpatialNavigationNode,
+  SpatialNavigationNodeDefaultProps,
+} from './Node';
 import { Platform, View, ViewStyle, ViewProps } from 'react-native';
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
@@ -7,18 +11,7 @@ import { useSpatialNavigatorFocusableAccessibilityProps } from '../hooks/useSpat
 
 type FocusableViewProps = {
   style?: ViewStyle;
-  children:
-    | React.ReactElement
-    | ((props: {
-        /** Returns whether the root is focused or not. */
-        isFocused: boolean;
-        /** Returns whether the root is active or not. An active node is active if one of its children is focused. */
-        isActive: boolean;
-        /** Returns whether the root is active or not.
-         * This is very handy if you want to hide the focus on your page elements when
-         * the side-menu is focused (since it is a different root navigator) */
-        isRootActive: boolean;
-      }) => React.ReactElement);
+  children: React.ReactElement | ((props: FocusableNodeState) => React.ReactElement);
   viewProps?: ViewProps & {
     onMouseEnter?: () => void;
   };
@@ -58,14 +51,12 @@ export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRe
 
     return (
       <SpatialNavigationNode isFocusable {...props} ref={nodeRef}>
-        {({ isFocused, isActive, isRootActive }) => (
+        {(nodeState) => (
           <InnerFocusableView
             viewProps={viewProps}
             webProps={webProps}
             style={style}
-            isActive={isActive}
-            isFocused={isFocused}
-            isRootActive={isRootActive}
+            nodeState={nodeState}
           >
             {children}
           </InnerFocusableView>
@@ -86,15 +77,16 @@ type InnerFocusableViewProps = FocusableViewProps & {
         onMouseEnter?: undefined;
         onClick?: undefined;
       };
-  isActive: boolean;
-  isFocused: boolean;
-  isRootActive: boolean;
+  nodeState: FocusableNodeState;
 };
 
 const InnerFocusableView = forwardRef<View, InnerFocusableViewProps>(
-  ({ viewProps, webProps, children, isActive, isFocused, isRootActive, style }, ref) => {
+  ({ viewProps, webProps, children, nodeState, style }, ref) => {
     const accessibilityProps = useSpatialNavigatorFocusableAccessibilityProps();
-    const accessibilityState = useMemo(() => ({ selected: isFocused }), [isFocused]);
+    const accessibilityState = useMemo(
+      () => ({ selected: nodeState.isFocused }),
+      [nodeState.isFocused],
+    );
 
     return (
       <View
@@ -105,9 +97,7 @@ const InnerFocusableView = forwardRef<View, InnerFocusableViewProps>(
         {...viewProps}
         {...webProps}
       >
-        {typeof children === 'function'
-          ? children({ isFocused, isActive, isRootActive })
-          : children}
+        {typeof children === 'function' ? children(nodeState) : children}
       </View>
     );
   },
