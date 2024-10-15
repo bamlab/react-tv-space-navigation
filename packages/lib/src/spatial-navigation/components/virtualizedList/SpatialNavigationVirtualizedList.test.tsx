@@ -412,6 +412,7 @@ describe('SpatialNavigationVirtualizedList', () => {
             data={data}
             itemSize={100}
             scrollBehavior="jump-on-scroll"
+            additionalItemsRendered={0}
           />
         </DefaultFocus>
       </SpatialNavigationRoot>,
