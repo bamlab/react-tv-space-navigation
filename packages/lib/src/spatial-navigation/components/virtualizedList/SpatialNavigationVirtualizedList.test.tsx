@@ -335,15 +335,17 @@ describe('SpatialNavigationVirtualizedList', () => {
               renderItem={renderItem}
               data={data}
               itemSize={100}
-              numberOfRenderedItems={5}
-              numberOfItemsVisibleOnScreen={3}
               scrollBehavior="stick-to-center"
+              additionalItemsRendered={0}
             />
           </DefaultFocus>
         </SpatialNavigationRoot>,
       );
       act(() => jest.runAllTimers());
 
+      // Given this layout size, this item size, and the additional items rendered parameter:
+      //   - number of visible items on screen = 3
+      //   - total amount of items rendered = 5
       setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
 
       const listElement = await component.findByTestId(listTestId);
@@ -410,9 +412,8 @@ describe('SpatialNavigationVirtualizedList', () => {
               renderItem={renderItem}
               data={data.slice(0, 3)}
               itemSize={100}
-              numberOfRenderedItems={5}
-              numberOfItemsVisibleOnScreen={3}
               scrollBehavior="stick-to-center"
+              additionalItemsRendered={0}
             />
           </DefaultFocus>
         </SpatialNavigationRoot>,

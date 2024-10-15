@@ -12,7 +12,11 @@ import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
 import { getNumberOfItemsVisibleOnScreen } from './helpers/getNumberOfItemsVisibleOnScreen';
 import { getAdditionalNumberOfItemsRendered } from './helpers/getAdditionalNumberOfItemsRendered';
 
-export type ScrollBehavior = 'stick-to-start' | 'stick-to-center' | 'stick-to-end' | 'jump-on-scroll';
+export type ScrollBehavior =
+  | 'stick-to-start'
+  | 'stick-to-center'
+  | 'stick-to-end'
+  | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
   data: T[];
   renderItem: (args: { item: T; index: number }) => JSX.Element;
