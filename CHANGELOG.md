@@ -1,4 +1,15 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v5.0.0...v) (2024-10-08)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.0...v) (2024-10-15)
+
+## [5.1.0](https://github.com/bamlab/react-tv-space-navigation/compare/v5.0.0...v5.1.0) (2024-10-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **lists:** make additionally rendered items less error prone (#163)
+
+### Bug Fixes
+
+* **lists:** make additionally rendered items less error prone ([#163](https://github.com/bamlab/react-tv-space-navigation/issues/163)) ([7b3f7ea](https://github.com/bamlab/react-tv-space-navigation/commit/7b3f7ead70f84112869d5a8e8273ff2bb3949a82))
 
 ## [5.0.0](https://github.com/bamlab/react-tv-space-navigation/compare/v4.0.1...v5.0.0) (2024-10-08)
 
