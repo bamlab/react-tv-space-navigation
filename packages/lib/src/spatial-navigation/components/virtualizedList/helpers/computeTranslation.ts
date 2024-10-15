@@ -19,6 +19,74 @@ const computeStickToStartTranslation = <T>({
   return -scrollOffset;
 };
 
+const computeStickToCenterTranslation = <T>({
+  currentlyFocusedItemIndex,
+  itemSizeInPx,
+  data,
+  listSizeInPx,
+  maxPossibleRightAlignedIndex,
+  maxPossibleLeftAlignedIndex,
+}: {
+  currentlyFocusedItemIndex: number;
+  itemSizeInPx: number | ((item: T) => number);
+  data: T[];
+  listSizeInPx: number;
+  maxPossibleRightAlignedIndex: number;
+  maxPossibleLeftAlignedIndex: number;
+}) => {
+  const currentlyFocusedItemSize =
+    typeof itemSizeInPx === 'function'
+      ? itemSizeInPx(data[currentlyFocusedItemIndex])
+      : itemSizeInPx;
+
+  const sizeOfListFromStartToCurrentlyFocusedItem = getSizeInPxFromOneItemToAnother(
+    data,
+    itemSizeInPx,
+    0,
+    currentlyFocusedItemIndex,
+  );
+  const sizeOfListFromEndToCurrentlyFocusedItem = getSizeInPxFromOneItemToAnother(
+    data,
+    itemSizeInPx,
+    data.length - 1,
+    currentlyFocusedItemIndex,
+  );
+
+  if (sizeOfListFromStartToCurrentlyFocusedItem < listSizeInPx / 2) {
+    return 0;
+  }
+
+  if (currentlyFocusedItemIndex > maxPossibleLeftAlignedIndex) {
+    console.log('currentlyFocusedItemIndex', currentlyFocusedItemIndex);
+  }
+
+  // if (sizeOfListFromEndToCurrentlyFocusedItem < listSizeInPx / 2) {
+  //   console.log('-----------');
+  //   console.log('currentlyFocusedItemIndex', currentlyFocusedItemIndex);
+  //   const result =
+  //     sizeOfListFromStartToCurrentlyFocusedItem -
+  //     listSizeInPx +
+  //     sizeOfListFromEndToCurrentlyFocusedItem +
+  //     currentlyFocusedItemSize;
+  //   console.log('list END inferior to half list size in px', result);
+  //   console.log(
+  //     'sizeOfListFromStartToCurrentlyFocusedItem',
+  //     sizeOfListFromStartToCurrentlyFocusedItem,
+  //   );
+  //   console.log('listSizeInPx', listSizeInPx);
+  //   console.log('sizeOfListFromEndToCurrentlyFocusedItem', sizeOfListFromEndToCurrentlyFocusedItem);
+  //   console.log('currentlyFocusedItemSize', currentlyFocusedItemSize);
+  //   console.log('-----------');
+
+  //   return -result;
+  // }
+
+  const scrollOffset =
+    sizeOfListFromStartToCurrentlyFocusedItem - listSizeInPx / 2 + currentlyFocusedItemSize / 2;
+
+  return -scrollOffset;
+};
+
 const computeStickToEndTranslation = <T>({
   currentlyFocusedItemIndex,
   itemSizeInPx,
@@ -101,6 +169,15 @@ export const computeTranslation = <T>({
         itemSizeInPx,
         data,
         maxPossibleLeftAlignedIndex,
+      });
+    case 'stick-to-center':
+      return computeStickToCenterTranslation({
+        currentlyFocusedItemIndex,
+        itemSizeInPx,
+        data,
+        listSizeInPx,
+        maxPossibleLeftAlignedIndex,
+        maxPossibleRightAlignedIndex,
       });
     case 'stick-to-end':
       return computeStickToEndTranslation({
