@@ -19,7 +19,17 @@ export interface VirtualizedListProps<T> {
   /** If vertical the height of an item, otherwise the width */
   itemSize: number | ((item: T) => number);
   currentlyFocusedItemIndex: number;
-  /** How many items are RENDERED ADDITIONALLY to those already visible (impacts virtualization size). Defaults to 4 for stick-to-start & stick-to-end scrolls, and twice the number of elements visible + 1 for jump-on-scroll. */
+  /**
+   * How many items are RENDERED ADDITIONALLY to the minimum amount possible. It impacts virtualization size.
+   * Defaults to 2.
+   *
+   * Should be a POSITIVE number.
+   *
+   * Minimal amount possible is 2N + 1 for jump-on-scroll, and N + 2 for the other behaviours, N being the number
+   * of visible elements on the screen.
+   *
+   * By default, you will then have N + 2 + 2 elements rendered for stick-to-* behaviours.
+   */
   additionalItemsRendered?: number;
   onEndReached?: () => void;
   /** Number of items left to display before triggering onEndReached */
@@ -127,7 +137,7 @@ export const VirtualizedList = typedMemo(
     renderItem,
     itemSize,
     currentlyFocusedItemIndex,
-    additionalItemsRendered,
+    additionalItemsRendered = 2,
     onEndReached,
     onEndReachedThresholdItemsNumber = 3,
     style,
@@ -145,9 +155,11 @@ export const VirtualizedList = typedMemo(
       itemSize,
     });
 
-    const numberOfItemsToRender = additionalItemsRendered
-      ? additionalItemsRendered + numberOfItemsVisibleOnScreen
-      : getAdditionalNumberOfItemsRendered(scrollBehavior, numberOfItemsVisibleOnScreen);
+    const numberOfItemsToRender = getAdditionalNumberOfItemsRendered(
+      scrollBehavior,
+      numberOfItemsVisibleOnScreen,
+      additionalItemsRendered,
+    );
 
     const range = getRange({
       data,
