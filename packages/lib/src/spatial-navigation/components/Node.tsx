@@ -10,31 +10,27 @@ import { NodeIndexRange } from '@bam.tech/lrud';
 import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
 import { useIsRootActive } from '../context/IsRootActiveContext';
 
+type NonFocusableNodeState = {
+  /** Returns whether the root is active or not. An active node is active if one of its children is focused. */
+  isActive: boolean;
+  /** Returns whether the root is active or not.
+   * This is very handy if you want to hide the focus on your page elements when
+   * the side-menu is focused (since it is a different root navigator) */
+  isRootActive: boolean;
+};
+
+export type FocusableNodeState = NonFocusableNodeState & {
+  /** Returns whether the root is focused or not. */
+  isFocused: boolean;
+};
+
 type FocusableProps = {
   isFocusable: true;
-  children: (props: {
-    /** Returns whether the root is focused or not. */
-    isFocused: boolean;
-    /** Returns whether the root is active or not. An active node is active if one of its children is focused. */
-    isActive: boolean;
-    /** Returns whether the root is active or not.
-     * This is very handy if you want to hide the focus on your page elements when
-     * the side-menu is focused (since it is a different root navigator) */
-    isRootActive: boolean;
-  }) => React.ReactElement;
+  children: (props: FocusableNodeState) => React.ReactElement;
 };
 type NonFocusableProps = {
   isFocusable?: false;
-  children:
-    | React.ReactElement
-    | ((props: {
-        /** Returns whether the root is active or not. An active node is active if one of its children is focused. */
-        isActive: boolean;
-        /** Returns whether the root is active or not.
-         * This is very handy if you want to hide the focus on your page elements when
-         * the side-menu is focused (since it is a different root navigator) */
-        isRootActive: boolean;
-      }) => React.ReactElement);
+  children: React.ReactElement | ((props: NonFocusableNodeState) => React.ReactElement);
 };
 type DefaultProps = {
   onFocus?: () => void;
@@ -166,17 +162,23 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
 
     const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
 
+    const accessedPropertiesRef = useRef<Set<keyof FocusableNodeState>>(new Set());
+
     useEffect(() => {
       spatialNavigator.registerNode(id, {
         parent: parentId,
         isFocusable,
         onBlur: () => {
           currentOnBlur.current?.();
-          setIsFocused(false);
+          if (accessedPropertiesRef.current.has('isFocused')) {
+            setIsFocused(false);
+          }
         },
         onFocus: () => {
           currentOnFocus.current?.();
-          setIsFocused(true);
+          if (accessedPropertiesRef.current.has('isFocused')) {
+            setIsFocused(true);
+          }
         },
         onSelect: () => currentOnSelect.current?.(),
         onLongSelect: () => currentOnLongSelect.current?.(),
@@ -185,11 +187,15 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
         indexRange,
         onActive: () => {
           currentOnActive.current?.();
-          setIsActive(true);
+          if (accessedPropertiesRef.current.has('isActive')) {
+            setIsActive(true);
+          }
         },
         onInactive: () => {
           currentOnInactive.current?.();
-          setIsActive(false);
+          if (accessedPropertiesRef.current.has('isActive')) {
+            setIsActive(false);
+          }
         },
       });
 
@@ -203,11 +209,21 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       }
     }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
 
+    // This proxy allows to track whether a property is used or not
+    // hence allowing to ignore re-renders for unused properties
+    const proxyObject = new Proxy(
+      { isFocused, isActive, isRootActive },
+      {
+        get(target, prop: keyof FocusableNodeState) {
+          accessedPropertiesRef.current.add(prop);
+          return target[prop];
+        },
+      },
+    );
+
     return (
       <ParentIdContext.Provider value={id}>
-        {typeof children === 'function'
-          ? bindRefToChild(children({ isFocused, isActive, isRootActive }))
-          : children}
+        {typeof children === 'function' ? bindRefToChild(children(proxyObject)) : children}
       </ParentIdContext.Provider>
     );
   },
