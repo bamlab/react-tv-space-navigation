@@ -12,10 +12,15 @@ import { useCallback, useRef } from 'react';
  * @param nthElementConstructor a callback that returns what we want the Nth element to be.
  * @returns a callback to get the Nth memoized element.
  */
-export const useCachedValues = <T>(nthElementConstructor: (n: number) => T): ((n: number) => T) => {
+export const useCachedValues = <T>(
+  nthElementConstructor: (n: number) => T,
+  deps: string[] = [],
+): ((n: number) => T) => {
   const memoizedElements = useRef<{ [n: number]: T }>({});
 
   return useCallback((n: number) => {
+    console.log({ n, cache: memoizedElements.current[n] });
+
     if (memoizedElements.current[n]) return memoizedElements.current[n] as T;
 
     const newElement = nthElementConstructor(n);
@@ -24,5 +29,5 @@ export const useCachedValues = <T>(nthElementConstructor: (n: number) => T): ((n
     /** We purposefully dont put `nthElementConstructor` as a dependency because, if it changed,
      *  we would have to re-construct the whole cache. This use-case is not supported yet. */
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, deps);
 };

@@ -2,7 +2,7 @@ import { SpatialNavigationFocusableView } from 'react-tv-space-navigation';
 
 import { ProgramInfo } from '../domain/programInfo';
 import { Program } from './Program';
-import { forwardRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { SpatialNavigationNodeRef } from '../../../../../lib/src/spatial-navigation/types/SpatialNavigationNodeRef';
 
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
@@ -28,6 +28,14 @@ export const ProgramNode = forwardRef<SpatialNavigationNodeRef, Props>(
         transform: [{ rotateZ: `${rotationZ.value}deg` }],
       };
     });
+
+    useEffect(() => {
+      console.log('MOUNTING PROGRAM NODE');
+    }, []);
+
+    useEffect(() => {
+      console.log('UPDATGING PROGRAM NODE');
+    }, [programInfo]);
 
     return (
       <SpatialNavigationFocusableView

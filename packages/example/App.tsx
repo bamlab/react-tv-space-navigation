@@ -19,6 +19,7 @@ import { useTVPanEvent } from './src/components/PanEvent/useTVPanEvent';
 import { SpatialNavigationDeviceTypeProvider } from '../lib/src/spatial-navigation/context/DeviceContext';
 import { ListWithVariableSize } from './src/pages/ListWithVariableSize';
 import { AsynchronousContent } from './src/pages/AsynchronousContent';
+import { Test } from './src/pages/Test';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -54,7 +55,7 @@ const TabNavigator = () => {
           backgroundColor: theme.colors.background.main,
         }}
       >
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Home" component={Test} />
         <Tab.Screen name="ProgramGridPage" component={ProgramGridPage} />
         <Tab.Screen name="NonVirtualizedGridPage" component={NonVirtualizedGridPage} />
         <Tab.Screen name="GridWithLongNodesPage" component={GridWithLongNodesPage} />
@@ -79,18 +80,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <SpatialNavigationDeviceTypeProvider>
           <Container width={width} height={height}>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-                contentStyle: {
-                  backgroundColor: theme.colors.background.main,
-                },
-              }}
-              initialRouteName="TabNavigator"
-            >
-              <Stack.Screen name="TabNavigator" component={TabNavigator} />
-              <Stack.Screen name="ProgramDetail" component={ProgramDetail} />
-            </Stack.Navigator>
+            <Test />
           </Container>
         </SpatialNavigationDeviceTypeProvider>
       </ThemeProvider>

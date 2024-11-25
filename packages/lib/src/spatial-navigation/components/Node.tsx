@@ -52,6 +52,7 @@ type DefaultProps = {
    * This is an additional offset useful only for the scrollview. It adds up to the offsetFromStart of the scrollview.
    */
   additionalOffset?: number;
+  customId?: string;
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
@@ -111,6 +112,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       indexRange,
       children,
       additionalOffset = 0,
+      customId,
     }: Props,
     ref,
   ) => {
@@ -120,7 +122,17 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     const [isFocused, setIsFocused] = useState(false);
     const [isActive, setIsActive] = useState(false);
     // If parent changes, we have to re-register the Node + all children -> adding the parentId to the nodeId makes the children re-register.
-    const id = useUniqueId({ prefix: `${parentId}_node_` });
+    const id = useUniqueId({ prefix: `${parentId}_${customId ?? 'node'}_` });
+    // const id = useUniqueId({ prefix: `${parentId}_node_` });
+    // const id = customId;
+
+    useEffect(() => {
+      console.log('NEW PARENT', parentId);
+    }, [parentId]);
+
+    useEffect(() => {
+      console.log('NOUVEAU NOEUD');
+    }, []);
 
     useImperativeHandle(
       ref,

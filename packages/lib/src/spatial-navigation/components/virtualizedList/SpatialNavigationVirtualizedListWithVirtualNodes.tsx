@@ -11,7 +11,7 @@ import { invertOrientation } from '../virtualizedGrid/helpers/convertToGrid';
 import { VirtualizedListWithSize } from './VirtualizedListWithSize';
 
 const useCreateVirtualParentsIds = (parentId: string) =>
-  useCachedValues(() => uniqueId(`${parentId}_virtual_`));
+  useCachedValues(() => uniqueId(`${parentId}_virtual_`), [parentId]);
 
 /**
  * Hook which will :
@@ -91,6 +91,10 @@ const useRegisterVirtualNodes = <T,>({
 
   const registerNthVirtualNode = useCallback(
     (index: number) => {
+      console.log({
+        parentId,
+        nth: getNthVirtualNodeID(index),
+      });
       return spatialNavigator.registerNode(getNthVirtualNodeID(index), {
         parent: parentId,
         orientation: nodeOrientation,
@@ -190,6 +194,10 @@ export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
       }),
       [getNthVirtualNodeID],
     );
+
+    useEffect(() => {
+      console.log('CHANGE GET NTH');
+    }, [getNthVirtualNodeID]);
 
     const { renderItem } = props;
     const renderWrappedItem: typeof props.renderItem = useCallback(
