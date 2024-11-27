@@ -79,6 +79,7 @@ const getRawStartAndEndIndexes = ({
   scrollBehavior: ScrollBehavior;
 }) => {
   const halfNumberOfItemsNotVisible = numberOfItemsNotVisible / 2;
+  const stickToCenterBoundaries = (numberOfItemsVisibleOnScreen + numberOfItemsNotVisible - 1) / 2;
 
   switch (scrollBehavior) {
     case 'stick-to-start':
@@ -89,6 +90,11 @@ const getRawStartAndEndIndexes = ({
           numberOfItemsVisibleOnScreen -
           1 +
           halfNumberOfItemsNotVisible,
+      };
+    case 'stick-to-center':
+      return {
+        rawStartIndex: currentlyFocusedItemIndex - stickToCenterBoundaries,
+        rawEndIndex: currentlyFocusedItemIndex + stickToCenterBoundaries,
       };
     case 'stick-to-end':
       return {
