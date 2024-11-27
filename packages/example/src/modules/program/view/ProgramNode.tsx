@@ -4,8 +4,8 @@ import { ProgramInfo } from '../domain/programInfo';
 import { Program } from './Program';
 import { forwardRef } from 'react';
 import { SpatialNavigationNodeRef } from '../../../../../lib/src/spatial-navigation/types/SpatialNavigationNodeRef';
-
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useRotateAnimation } from './useRotateAnimation';
+import { Animated } from 'react-native';
 
 type Props = {
   programInfo: ProgramInfo;
@@ -17,17 +17,7 @@ type Props = {
 
 export const ProgramNode = forwardRef<SpatialNavigationNodeRef, Props>(
   ({ programInfo, onSelect, indexRange, label, variant }: Props, ref) => {
-    const rotationZ = useSharedValue(0);
-
-    const rotate360 = () => {
-      rotationZ.value = withTiming(rotationZ.value + 360);
-    };
-
-    const animatedStyle = useAnimatedStyle(() => {
-      return {
-        transform: [{ rotateZ: `${rotationZ.value}deg` }],
-      };
-    });
+    const { rotate360, animatedStyle } = useRotateAnimation();
 
     return (
       <SpatialNavigationFocusableView
