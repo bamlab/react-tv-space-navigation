@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "App de leonardo",
-    "slug": "appdeleonardo",
+    "name": "App de miqueline",
+    "slug": "appdemiqueline",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,14 +14,14 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.reactTvSpaceNavigation.appdeleonardo"
+      "bundleIdentifier": "com.reactTvSpaceNavigation.appdemiqueline"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.reactTvSpaceNavigation.appdeleonardo"
+      "package": "com.reactTvSpaceNavigation.appdemiqueline"
     },
     "web": {
       "favicon": "./assets/favicon.png"
