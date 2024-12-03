@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hoppixTv",
-    "slug": "hoppixTv",
+    "name": "App de leonardo",
+    "slug": "appdeleonardo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,14 +14,14 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.reactTvSpaceNavigation.hoppixTv"
+      "bundleIdentifier": "com.reactTvSpaceNavigation.appdeleonardo"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.reactTvSpaceNavigation.hoppixTv"
+      "package": "com.reactTvSpaceNavigation.appdeleonardo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
