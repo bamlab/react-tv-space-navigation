@@ -16,7 +16,9 @@
 Spatial navigation is a hard problem on a TV app. Many solutions exist. React Native TV even has a core solution for it.
 But most existing solutions are not 100% cross-platform.
 
-If you want to develop a TV app for AndroidTV + tvOS + web TV devices, then this package will be helpful.
+If you’re looking to develop a TV app for AndroidTV, tvOS, and web-based TV devices, this package can be a valuable tool.
+However, if you don’t require web support, using the native react-native-tvos solution might be a better fit.
+The primary objective of this package is to provide consistent support across all platforms, though this comes with some trade-offs (see the pitfalls below).
 
 The library is based on LRUD, which is a UI-agnostic lib that represents spatial navigation. The library is a React wrapper around
 the core logic of LRUD.
