@@ -325,6 +325,140 @@ describe('SpatialNavigationVirtualizedList', () => {
     });
   });
 
+  describe('stick-to-center', () => {
+    it('handles correctly stick-to-center lists', async () => {
+      const component = render(
+        <SpatialNavigationRoot>
+          <DefaultFocus>
+            <SpatialNavigationVirtualizedList
+              testID="test-list"
+              renderItem={renderItem}
+              data={data}
+              itemSize={100}
+              scrollBehavior="stick-to-center"
+              additionalItemsRendered={0}
+            />
+          </DefaultFocus>
+        </SpatialNavigationRoot>,
+      );
+      act(() => jest.runAllTimers());
+
+      // Given this layout size, this item size, and the additional items rendered parameter:
+      //   - number of visible items on screen = 3
+      //   - total amount of items rendered = 5
+      setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+
+      const listElement = await component.findByTestId(listTestId);
+      expectListToHaveScroll(listElement, 0);
+      // The size of the list should be the sum of the item sizes (virtualized or not)
+      expect(listElement).toHaveStyle({ width: 1000 });
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 2');
+      expectListToHaveScroll(listElement, 0);
+
+      expect(screen.getByText('button 1')).toBeTruthy();
+      expect(screen.getByText('button 5')).toBeTruthy();
+      expect(screen.queryByText('button 6')).toBeFalsy();
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 3');
+      expectListToHaveScroll(listElement, -100);
+
+      expect(screen.getByText('button 1')).toBeTruthy();
+      expect(screen.getByText('button 5')).toBeTruthy();
+      expect(screen.queryByText('button 6')).toBeFalsy();
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 4');
+      expectListToHaveScroll(listElement, -200);
+
+      expect(screen.queryByText('button 1')).toBeFalsy();
+      expect(screen.getByText('button 2')).toBeTruthy();
+      expect(screen.getByText('button 6')).toBeTruthy();
+      expect(screen.queryByText('button 7')).toBeFalsy();
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 5');
+      expectListToHaveScroll(listElement, -300);
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 6');
+      expectListToHaveScroll(listElement, -400);
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 7');
+      expectListToHaveScroll(listElement, -500);
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 8');
+      expectListToHaveScroll(listElement, -600);
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 9');
+      expectListToHaveScroll(listElement, -700);
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 10');
+      expectListToHaveScroll(listElement, -700);
+    });
+
+    it('handles correctly stick-to-center lists with elements < visible on screen', async () => {
+      const component = render(
+        <SpatialNavigationRoot>
+          <DefaultFocus>
+            <SpatialNavigationVirtualizedList
+              testID="test-list"
+              renderItem={renderItem}
+              data={data.slice(0, 3)}
+              itemSize={100}
+              scrollBehavior="stick-to-center"
+              additionalItemsRendered={0}
+            />
+          </DefaultFocus>
+        </SpatialNavigationRoot>,
+      );
+      act(() => jest.runAllTimers());
+
+      setComponentLayoutSize(listTestId, component, { width: 300, height: 300 });
+
+      const listElement = await component.findByTestId(listTestId);
+      expectListToHaveScroll(listElement, 0);
+      // The size of the list should be the sum of the item sizes (virtualized or not)
+      expect(listElement).toHaveStyle({ width: 300 });
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 2');
+      expectListToHaveScroll(listElement, 0);
+
+      expect(screen.queryByText('button 1')).toBeTruthy();
+      expect(screen.getByText('button 2')).toBeTruthy();
+      expect(screen.getByText('button 3')).toBeTruthy();
+
+      testRemoteControlManager.handleRight();
+      expectButtonToHaveFocus(component, 'button 3');
+      expectListToHaveScroll(listElement, 0);
+
+      expect(screen.queryByText('button 1')).toBeTruthy();
+      expect(screen.getByText('button 2')).toBeTruthy();
+      expect(screen.getByText('button 3')).toBeTruthy();
+
+      testRemoteControlManager.handleRight();
+      expectListToHaveScroll(listElement, 0);
+
+      expect(screen.queryByText('button 1')).toBeTruthy();
+      expect(screen.getByText('button 2')).toBeTruthy();
+      expect(screen.getByText('button 3')).toBeTruthy();
+
+      // We just reached the max of the list
+      testRemoteControlManager.handleRight();
+      testRemoteControlManager.handleRight();
+      testRemoteControlManager.handleRight();
+      testRemoteControlManager.handleRight();
+      expectListToHaveScroll(listElement, 0);
+    });
+  });
+
   it('handles correctly RIGHT and RENDERS new elements accordingly while deleting elements that are too far from scroll when on stick to end scroll', async () => {
     const component = render(
       <SpatialNavigationRoot>

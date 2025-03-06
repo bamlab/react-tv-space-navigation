@@ -58,4 +58,39 @@ describe('getRange for custom virtualized list', () => {
     expect(expectedResult).toEqual(result);
     expect(console.error).toHaveBeenCalledTimes(1);
   });
+
+  describe('stick-to-center', () => {
+    it.each`
+      description                                                            | arraySize | focusIndex | result
+      ${'empty array'}                                                       | ${0}      | ${0}       | ${{ start: 0, end: 0 }}
+      ${'empty array and out of bounds focus'}                               | ${0}      | ${3}       | ${{ start: 0, end: 0 }}
+      ${'one element focused'}                                               | ${1}      | ${0}       | ${{ start: 0, end: 0 }}
+      ${'one element and out of bounds focus'}                               | ${1}      | ${12}      | ${{ start: 0, end: 0 }}
+      ${'small array with focus in the middle'}                              | ${5}      | ${3}       | ${{ start: 0, end: 4 }}
+      ${'bigger number of rendered items than data with range out of bound'} | ${5}      | ${12}      | ${{ start: 0, end: 4 }}
+      ${'focus at the beginning of big array focus 0'}                       | ${30}     | ${0}       | ${{ start: 0, end: 7 }}
+      ${'focus at the beginning of big array focus 1'}                       | ${30}     | ${1}       | ${{ start: 0, end: 7 }}
+      ${'focus at the beginning of big array focus 2'}                       | ${30}     | ${2}       | ${{ start: 0, end: 7 }}
+      ${'focus at the beginning of big array focus 3'}                       | ${30}     | ${3}       | ${{ start: 0, end: 7 }}
+      ${'focus at the beginning of big array focus 4, starts scrolling'}     | ${30}     | ${4}       | ${{ start: 1, end: 8 }}
+      ${'focus at the beginning of big array focus 5, scrolls'}              | ${30}     | ${5}       | ${{ start: 2, end: 9 }}
+      ${'focus in the middle of big array, must scroll'}                     | ${30}     | ${12}      | ${{ start: 9, end: 16 }}
+      ${'focus at the end of big array'}                                     | ${30}     | ${29}      | ${{ start: 22, end: 29 }}
+      ${'big array and focus out of bounds'}                                 | ${30}     | ${31}      | ${{ start: 22, end: 29 }}
+    `(
+      'should return proper range for array size $arraySize at index $focusIndex (case description: "$description")',
+      ({ arraySize, focusIndex, result }) => {
+        const input = new Array(arraySize).fill(1);
+        const expectedResult = getRange({
+          data: input,
+          currentlyFocusedItemIndex: focusIndex,
+          numberOfRenderedItems: 8,
+          numberOfItemsVisibleOnScreen: 4,
+          scrollBehavior: 'stick-to-center',
+        });
+
+        expect(expectedResult).toEqual(result);
+      },
+    );
+  });
 });
