@@ -1,4 +1,16 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.0...v) (2024-10-15)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.1...v) (2025-03-06)
+
+## [5.1.1](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.0...v5.1.1) (2025-03-06)
+
+
+### Features
+
+* **VirtualizedList:** provide a way to scroll without applying focus ([#160](https://github.com/bamlab/react-tv-space-navigation/issues/160)) ([0f49e1f](https://github.com/bamlab/react-tv-space-navigation/commit/0f49e1f917373bb1304de74a28e5400794df2e7e))
+
+
+### Performance Improvements
+
+* remove unnecessary state changes for isActive if not used ([#161](https://github.com/bamlab/react-tv-space-navigation/issues/161)) ([3c53f44](https://github.com/bamlab/react-tv-space-navigation/commit/3c53f44f0b91e06146df0b7c3a9d46f945d8a86b))
 
 ## [5.1.0](https://github.com/bamlab/react-tv-space-navigation/compare/v5.0.0...v5.1.0) (2024-10-15)
 
