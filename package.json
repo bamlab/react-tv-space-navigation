@@ -6,7 +6,7 @@
   "private": true,
   "packageManager": "yarn@3.5.1",
   "devDependencies": {
-    "@babel/core": "^7.22.5",
+    "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.22.5",
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
@@ -34,7 +34,7 @@
     "prettier": "^2.8.8",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.4.4",
-    "typescript": "~5.3.3",
+    "typescript": "~5.8.3",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
@@ -45,7 +45,7 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native-modal": "^13.0.1",
-    "react-native-web": "^0.19.6"
+    "react-native-web": "^0.20.0"
   },
   "resolutions": {
     "@typescript-eslint/typescript-estree": "5.61.0"
