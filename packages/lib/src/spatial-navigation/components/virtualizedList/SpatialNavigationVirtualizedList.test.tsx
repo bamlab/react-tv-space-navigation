@@ -58,7 +58,7 @@ describe('SpatialNavigationVirtualizedList', () => {
     );
 
   // This is bad practice but easiest way to access the ref from outside the component for testing
-  let currentListRef: React.RefObject<SpatialNavigationVirtualizedListRef>;
+  let currentListRef: React.RefObject<SpatialNavigationVirtualizedListRef | null>;
   const VirtualizedListWithNavigationButtons = ({ listSize = 10 }) => {
     currentListRef = useRef<SpatialNavigationVirtualizedListRef>(null);
 
