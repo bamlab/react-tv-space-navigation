@@ -6,7 +6,7 @@ export type Props = {
   newlyFocusedElementDistanceToTopRelativeToLayout: number;
   horizontal?: boolean;
   offsetFromStart: number;
-  scrollViewRef: RefObject<CustomScrollViewRef>;
+  scrollViewRef: RefObject<CustomScrollViewRef | null>;
 };
 
 export const scrollToNewlyFocusedElement = ({

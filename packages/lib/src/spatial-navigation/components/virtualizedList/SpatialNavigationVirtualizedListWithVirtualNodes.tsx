@@ -54,7 +54,7 @@ const useUpdateRegistration = <T,>({
   registerNthVirtualNode: (index: number) => void;
   unregisterNthVirtualNode: (index: number) => void;
 }) => {
-  const previousAllItems = useRef<Array<T>>();
+  const previousAllItems = useRef<Array<T>>(allItems);
 
   // useBeforeMountEffect done every time allItems is changing to change the way the allItems is register in the spatialNavigator
   useEffect(() => {

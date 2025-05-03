@@ -7,5 +7,6 @@ import { ForwardedRef, ReactElement, RefAttributes, forwardRef } from 'react';
 export function typedForwardRef<T, P = unknown>(
   render: (props: P, ref: ForwardedRef<T>) => ReactElement | null,
 ): (props: P & RefAttributes<T>) => ReactElement | null {
+  // @ts-ignore
   return forwardRef(render) as (props: P & RefAttributes<T>) => ReactElement | null;
 }

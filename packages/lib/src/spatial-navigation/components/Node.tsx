@@ -61,7 +61,7 @@ const useScrollToNodeIfNeeded = ({
   additionalOffset?: number;
 }) => {
   const { scrollToNodeIfNeeded } = useSpatialNavigatorParentScroll();
-
+  // @ts-ignore
   return () => scrollToNodeIfNeeded(childRef, additionalOffset);
 };
 
@@ -70,6 +70,7 @@ const useBindRefToChild = () => {
 
   const bindRefToChild = (child: React.ReactElement) => {
     return React.cloneElement(child, {
+      // @ts-ignore
       ...child.props,
       ref: (node: View) => {
         // We need the reference for our scroll handling
@@ -139,25 +140,25 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
      * Since we want the functions to always be up to date, we use a reference to them.
      */
 
-    const currentOnSelect = useRef<() => void>();
+    const currentOnSelect = useRef<() => void>(undefined);
     currentOnSelect.current = onSelect;
 
-    const currentOnLongSelect = useRef<() => void>();
+    const currentOnLongSelect = useRef<() => void>(undefined);
     currentOnLongSelect.current = onLongSelect;
 
-    const currentOnFocus = useRef<() => void>();
+    const currentOnFocus = useRef<() => void>(undefined);
     currentOnFocus.current = () => {
       onFocus?.();
       scrollToNodeIfNeeded();
     };
 
-    const currentOnBlur = useRef<() => void>();
+    const currentOnBlur = useRef<() => void>(undefined);
     currentOnBlur.current = onBlur;
 
-    const currentOnActive = useRef<() => void>();
+    const currentOnActive = useRef<() => void>(undefined);
     currentOnActive.current = onActive;
 
-    const currentOnInactive = useRef<() => void>();
+    const currentOnInactive = useRef<() => void>(undefined);
     currentOnInactive.current = onInactive;
 
     const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
