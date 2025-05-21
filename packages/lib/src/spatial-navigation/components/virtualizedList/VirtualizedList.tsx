@@ -70,8 +70,7 @@ const useOnEndReached = ({
     }
 
     if (
-      currentlyFocusedItemIndex ===
-      Math.max(numberOfItems - 1 - onEndReachedThresholdItemsNumber, 0)
+      currentlyFocusedItemIndex >= Math.max(numberOfItems - 1 - onEndReachedThresholdItemsNumber, 0)
     ) {
       onEndReached?.();
     }
