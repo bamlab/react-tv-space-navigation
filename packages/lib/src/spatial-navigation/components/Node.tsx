@@ -11,16 +11,11 @@ import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
 import { useIsRootActive } from '../context/IsRootActiveContext';
 
 type NonFocusableNodeState = {
-  /** Returns whether the root is active or not. An active node is active if one of its children is focused. */
   isActive: boolean;
-  /** Returns whether the root is active or not.
-   * This is very handy if you want to hide the focus on your page elements when
-   * the side-menu is focused (since it is a different root navigator) */
   isRootActive: boolean;
 };
 
 export type FocusableNodeState = NonFocusableNodeState & {
-  /** Returns whether the root is focused or not. */
   isFocused: boolean;
 };
 
@@ -40,13 +35,8 @@ type DefaultProps = {
   onActive?: () => void;
   onInactive?: () => void;
   orientation?: NodeOrientation;
-  /** Use this for grid alignment.
-   * @see LRUD docs */
   alignInGrid?: boolean;
   indexRange?: NodeIndexRange;
-  /**
-   * This is an additional offset useful only for the scrollview. It adds up to the offsetFromStart of the scrollview.
-   */
   additionalOffset?: number;
 };
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
@@ -57,11 +47,10 @@ const useScrollToNodeIfNeeded = ({
   childRef,
   additionalOffset,
 }: {
-  childRef: React.MutableRefObject<View | null>;
+  childRef: React.RefObject<View>;
   additionalOffset?: number;
 }) => {
   const { scrollToNodeIfNeeded } = useSpatialNavigatorParentScroll();
-  // @ts-ignore
   return () => scrollToNodeIfNeeded(childRef, additionalOffset);
 };
 
@@ -69,20 +58,16 @@ const useBindRefToChild = () => {
   const childRef = useRef<View | null>(null);
 
   const bindRefToChild = (child: React.ReactElement) => {
-    return React.cloneElement(child, {
-      // @ts-ignore
-      ...child.props,
+    return React.cloneElement(child as React.ReactElement<any>, {
+      ...((child.props as object) || {}),
       ref: (node: View) => {
-        // We need the reference for our scroll handling
         childRef.current = node;
 
-        // @ts-expect-error @fixme This works at runtime but we couldn't find how to type it properly.
-        // Let's check if a ref was given (not by us)
+        // @ts-expect-error This works at runtime but we couldn't find how to type it properly.
         const { ref } = child;
         if (typeof ref === 'function') {
           ref(node);
         }
-
         if (ref?.current !== undefined) {
           ref.current = node;
         }
@@ -90,7 +75,7 @@ const useBindRefToChild = () => {
     });
   };
 
-  return { bindRefToChild, childRef };
+  return { bindRefToChild, childRef: childRef as React.RefObject<View> };
 };
 
 export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>(
@@ -116,7 +101,6 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     const isRootActive = useIsRootActive();
     const [isFocused, setIsFocused] = useState(false);
     const [isActive, setIsActive] = useState(false);
-    // If parent changes, we have to re-register the Node + all children -> adding the parentId to the nodeId makes the children re-register.
     const id = useUniqueId({ prefix: `${parentId}_node_` });
 
     useImperativeHandle(
@@ -133,12 +117,6 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       childRef,
       additionalOffset,
     });
-
-    /*
-     * We don't re-register in LRUD on each render, because LRUD does not allow updating the nodes.
-     * Therefore, the SpatialNavigator Node callbacks are registered at 1st render but can change (ie. if props change) afterwards.
-     * Since we want the functions to always be up to date, we use a reference to them.
-     */
 
     const currentOnSelect = useRef<() => void>(undefined);
     currentOnSelect.current = onSelect;
@@ -201,7 +179,6 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       });
 
       return () => spatialNavigator.unregisterNode(id);
-      // eslint-disable-next-line react-hooks/exhaustive-deps -- unfortunately, we can't have clean effects with lrud for now
     }, [parentId]);
 
     useEffect(() => {
@@ -210,8 +187,6 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
       }
     }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
 
-    // This proxy allows to track whether a property is used or not
-    // hence allowing to ignore re-renders for unused properties
     const proxyObject = new Proxy(
       { isFocused, isActive, isRootActive },
       {
