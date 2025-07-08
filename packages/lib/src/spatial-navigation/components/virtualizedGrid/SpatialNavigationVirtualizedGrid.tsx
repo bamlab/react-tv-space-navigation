@@ -11,6 +11,7 @@ import { useSpatialNavigator } from '../../context/SpatialNavigatorContext';
 import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { convertToGrid } from './helpers/convertToGrid';
+import { SpatialNavigationVirtualizedGridRef } from '../../types/SpatialNavigationVirtualizedGridRef';
 
 type SpatialNavigationVirtualizedGridProps<T> = Pick<
   SpatialNavigationVirtualizedListWithScrollProps<T>,
@@ -35,6 +36,7 @@ type SpatialNavigationVirtualizedGridProps<T> = Pick<
     numberOfColumns: number;
     /** Used to modify every row style */
     rowContainerStyle?: ViewStyle;
+    ref?: React.LegacyRef<SpatialNavigationVirtualizedGridRef>;
   };
 
 export type GridRowType<T> = {
@@ -194,6 +196,7 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
     onEndReachedThresholdRowsNumber,
     nbMaxOfItems,
     rowContainerStyle,
+    ref,
     ...props
   }: SpatialNavigationVirtualizedGridProps<T>) => {
     if (header && !headerSize) throw new Error('You must provide a headerSize when using a header');
@@ -247,6 +250,7 @@ export const SpatialNavigationVirtualizedGrid = typedMemo(
 
     return (
       <SpatialNavigationVirtualizedList
+        ref={ref}
         data={gridRowsWithHeaderIfProvided}
         itemSize={itemSize}
         additionalItemsRendered={additionalRenderedRows}
