@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useMemo } from 'react';
+import React, { ForwardedRef, ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { View, ViewStyle, StyleSheet } from 'react-native';
 import range from 'lodash/range';
 
@@ -12,6 +12,7 @@ import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { convertToGrid } from './helpers/convertToGrid';
 import { SpatialNavigationVirtualizedGridRef } from '../../types/SpatialNavigationVirtualizedGridRef';
+import { typedForwardRef } from '../../helpers/TypedForwardRef';
 
 type SpatialNavigationVirtualizedGridProps<T> = Pick<
   SpatialNavigationVirtualizedListWithScrollProps<T>,
@@ -36,7 +37,7 @@ type SpatialNavigationVirtualizedGridProps<T> = Pick<
     numberOfColumns: number;
     /** Used to modify every row style */
     rowContainerStyle?: ViewStyle;
-    ref?: React.LegacyRef<SpatialNavigationVirtualizedGridRef>;
+    ref?: React.RefObject<SpatialNavigationVirtualizedGridRef>;
   };
 
 export type GridRowType<T> = {
@@ -185,84 +186,90 @@ const GridRow = <T,>({
  */
 
 export const SpatialNavigationVirtualizedGrid = typedMemo(
-  <T,>({
-    renderItem,
-    data,
-    numberOfColumns,
-    itemHeight,
-    header,
-    headerSize,
-    additionalRenderedRows,
-    onEndReachedThresholdRowsNumber,
-    nbMaxOfItems,
-    rowContainerStyle,
-    ref,
-    ...props
-  }: SpatialNavigationVirtualizedGridProps<T>) => {
-    if (header && !headerSize) throw new Error('You must provide a headerSize when using a header');
-    if (headerSize && !header) throw new Error('You must provide a header when using a headerSize');
-    const hasHeader = !!header && !!headerSize;
+  typedForwardRef(
+    <T,>(
+      {
+        renderItem,
+        data,
+        numberOfColumns,
+        itemHeight,
+        header,
+        headerSize,
+        additionalRenderedRows,
+        onEndReachedThresholdRowsNumber,
+        nbMaxOfItems,
+        rowContainerStyle,
+        ...props
+      }: SpatialNavigationVirtualizedGridProps<T>,
+      ref: ForwardedRef<SpatialNavigationVirtualizedGridRef>,
+    ) => {
+      if (header && !headerSize)
+        throw new Error('You must provide a headerSize when using a header');
+      if (headerSize && !header)
+        throw new Error('You must provide a header when using a headerSize');
+      const hasHeader = !!header && !!headerSize;
 
-    const gridRows = useMemo(
-      () => convertToGrid(data, numberOfColumns, header),
-      [data, header, numberOfColumns],
-    );
-    const gridRowsWithHeaderIfProvided = useMemo(
-      () => (hasHeader ? [header, ...gridRows] : gridRows),
-      [hasHeader, header, gridRows],
-    );
+      const gridRows = useMemo(
+        () => convertToGrid(data, numberOfColumns, header),
+        [data, header, numberOfColumns],
+      );
+      const gridRowsWithHeaderIfProvided = useMemo(
+        () => (hasHeader ? [header, ...gridRows] : gridRows),
+        [hasHeader, header, gridRows],
+      );
 
-    const itemSizeAsAFunction = useCallback(
-      (item: GridRowType<T> | JSX.Element) => {
-        if (hasHeader && React.isValidElement(item)) {
-          return headerSize;
-        }
-        return itemHeight;
-      },
-      [hasHeader, headerSize, itemHeight],
-    );
+      const itemSizeAsAFunction = useCallback(
+        (item: GridRowType<T> | JSX.Element) => {
+          if (hasHeader && React.isValidElement(item)) {
+            return headerSize;
+          }
+          return itemHeight;
+        },
+        [hasHeader, headerSize, itemHeight],
+      );
 
-    const itemSize = hasHeader ? itemSizeAsAFunction : itemHeight;
+      const itemSize = hasHeader ? itemSizeAsAFunction : itemHeight;
 
-    const renderRow = useCallback(
-      ({ item: row, index }: { item: GridRowType<T>; index: number }) => (
-        <GridRow
-          renderItem={renderItem}
-          numberOfColumns={numberOfColumns}
-          row={row}
-          rowIndex={index}
-          rowContainerStyle={rowContainerStyle}
+      const renderRow = useCallback(
+        ({ item: row, index }: { item: GridRowType<T>; index: number }) => (
+          <GridRow
+            renderItem={renderItem}
+            numberOfColumns={numberOfColumns}
+            row={row}
+            rowIndex={index}
+            rowContainerStyle={rowContainerStyle}
+          />
+        ),
+        [renderItem, numberOfColumns, rowContainerStyle],
+      );
+      const renderHeaderThenRows = useCallback(
+        ({ item, index }: { item: GridRowType<T> | JSX.Element; index: number }) => {
+          if (React.isValidElement(item)) {
+            return item;
+          }
+          //We do this to have index taking into account the header
+          const computedIndex = hasHeader ? index - 1 : index;
+          return renderRow({ item: item as GridRowType<T>, index: computedIndex });
+        },
+        [hasHeader, renderRow],
+      );
+
+      return (
+        <SpatialNavigationVirtualizedList
+          ref={ref}
+          data={gridRowsWithHeaderIfProvided}
+          itemSize={itemSize}
+          additionalItemsRendered={additionalRenderedRows}
+          onEndReachedThresholdItemsNumber={onEndReachedThresholdRowsNumber}
+          orientation="vertical"
+          nbMaxOfItems={nbMaxOfItems ? Math.ceil(nbMaxOfItems / numberOfColumns) : undefined}
+          renderItem={renderHeaderThenRows}
+          isGrid
+          {...props}
         />
-      ),
-      [renderItem, numberOfColumns, rowContainerStyle],
-    );
-    const renderHeaderThenRows = useCallback(
-      ({ item, index }: { item: GridRowType<T> | JSX.Element; index: number }) => {
-        if (React.isValidElement(item)) {
-          return item;
-        }
-        //We do this to have index taking into account the header
-        const computedIndex = hasHeader ? index - 1 : index;
-        return renderRow({ item: item as GridRowType<T>, index: computedIndex });
-      },
-      [hasHeader, renderRow],
-    );
-
-    return (
-      <SpatialNavigationVirtualizedList
-        ref={ref}
-        data={gridRowsWithHeaderIfProvided}
-        itemSize={itemSize}
-        additionalItemsRendered={additionalRenderedRows}
-        onEndReachedThresholdItemsNumber={onEndReachedThresholdRowsNumber}
-        orientation="vertical"
-        nbMaxOfItems={nbMaxOfItems ? Math.ceil(nbMaxOfItems / numberOfColumns) : undefined}
-        renderItem={renderHeaderThenRows}
-        isGrid
-        {...props}
-      />
-    );
-  },
+      );
+    },
+  ),
 );
 SpatialNavigationVirtualizedGrid.displayName = 'SpatialNavigationVirtualizedGrid';
 
