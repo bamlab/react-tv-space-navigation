@@ -1,4 +1,11 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.1...v) (2025-03-06)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.2...v) (2025-07-10)
+
+## [5.1.2](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.1...v5.1.2) (2025-07-10)
+
+
+### Bug Fixes
+
+* onEndReached does not fire in SpatialNavigationVirtualizedList. ([#190](https://github.com/bamlab/react-tv-space-navigation/issues/190)) ([b8344d1](https://github.com/bamlab/react-tv-space-navigation/commit/b8344d1655e7d984ec8605e7bcaf7979ac3c0a5b)), closes [#189](https://github.com/bamlab/react-tv-space-navigation/issues/189)
 
 ## [5.1.1](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.0...v5.1.1) (2025-03-06)
 
