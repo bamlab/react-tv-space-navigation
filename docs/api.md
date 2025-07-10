@@ -340,7 +340,7 @@ The `SpatialNavigationVirtualizedGrid` component ref expose the following method
 | Name       | Type                      | Description                                                    |
 | ---------- | ------------------------- | -------------------------------------------------------------- |
 | `focus`    | `(index: number) => void` | Give the focus to the selected node and scroll if needed.      |
-| `scrollTo` | `(index: number) => void` | Scroll to the selected node if needed, without appyling focus. |
+| `scrollTo` | `(index: number) => void` | ❌ does not work properly in the case of a grid.               |
 
 ## Example Usage
 
