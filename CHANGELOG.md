@@ -1,4 +1,11 @@
-## [](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.2...v) (2025-07-10)
+## [](https://github.com/bamlab/react-tv-space-navigation/compare/v5.2.0...v) (2025-07-10)
+
+## [5.2.0](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.2...v5.2.0) (2025-07-10)
+
+
+### Features
+
+* **VirtualizedGrid:** expose virtualized list ref in the virtualized grid (follow-up) ([#199](https://github.com/bamlab/react-tv-space-navigation/issues/199)) ([0815fb5](https://github.com/bamlab/react-tv-space-navigation/commit/0815fb567ad57de033717a585dde737108af06b7))
 
 ## [5.1.2](https://github.com/bamlab/react-tv-space-navigation/compare/v5.1.1...v5.1.2) (2025-07-10)
 
