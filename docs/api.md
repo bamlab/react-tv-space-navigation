@@ -335,6 +335,13 @@ VirtualizedGrids only support vertical orientation (vertically scrollable), but 
 | `descendingArrowContainerStyle`   | `ViewStyle`                                              | For web TVs cursor handling. Style of the view which wraps the descending arrow. Hover this view will trigger the scroll.                                                                                                                                                                                                  |
 | `scrollInterval`                  | `number`                                                 | For web TVs cursor handling. Speed of the pointer scroll. It represents the interval in ms between every item scrolled. Default value is set to 100.                                                                                                                                                                       |
 
+The `SpatialNavigationVirtualizedGrid` component ref expose the following methods:
+
+| Name       | Type                      | Description                                                    |
+| ---------- | ------------------------- | -------------------------------------------------------------- |
+| `focus`    | `(index: number) => void` | Give the focus to the selected node and scroll if needed.      |
+| `scrollTo` | `(index: number) => void` | ❌ does not work properly in the case of a grid.               |
+
 ## Example Usage
 
 ```jsx
