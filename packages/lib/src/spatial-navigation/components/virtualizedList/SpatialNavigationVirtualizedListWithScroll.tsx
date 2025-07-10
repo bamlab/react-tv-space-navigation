@@ -197,12 +197,15 @@ export const SpatialNavigationVirtualizedListWithScroll = typedMemo(
         [deviceTypeRef],
       );
 
-      const scrollTo = useCallback((index: number) => {
-        if (idRef.current) {
-          const newId = idRef.current.getNthVirtualNodeID(index);
-          spatialNavigator.grabFocusDeferred(newId);
-        }
-      }, [idRef, spatialNavigator]);
+      const scrollTo = useCallback(
+        (index: number) => {
+          if (idRef.current) {
+            const newId = idRef.current.getNthVirtualNodeID(index);
+            spatialNavigator.grabFocusDeferred(newId);
+          }
+        },
+        [idRef, spatialNavigator],
+      );
 
       useImperativeHandle(
         ref,
