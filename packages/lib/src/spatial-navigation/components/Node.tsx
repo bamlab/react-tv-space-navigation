@@ -68,16 +68,20 @@ const useBindRefToChild = () => {
   const childRef = useRef<View | null>(null);
 
   const bindRefToChild = (child: React.ReactElement) => {
-    return React.cloneElement(child as React.ReactElement<any>, {
-      ...((child.props as object) || {}),
+    return React.cloneElement(child, {
+      // @ts-expect-error @fixme can't find how to type this properly -- new error since react 19
+      ...child.props,
       ref: (node: View) => {
         // We need the reference for our scroll handling
         childRef.current = node;
-        // This works at runtime but we couldn't find how to type it properly.
-        const ref = (child.props as any).ref;
+
+        // @ts-expect-error @fixme This works at runtime but we couldn't find how to type it properly.
+        // Let's check if a ref was given (not by us)
+        const { ref } = child;
         if (typeof ref === 'function') {
           ref(node);
         }
+
         if (ref?.current !== undefined) {
           ref.current = node;
         }
@@ -85,7 +89,7 @@ const useBindRefToChild = () => {
     });
   };
 
-  return { bindRefToChild, childRef: childRef as React.RefObject<View> };
+  return { bindRefToChild, childRef };
 };
 
 export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>(
@@ -193,8 +197,9 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
           }
         },
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps -- unfortunately, we can't have clean effects with lrud for now
+
       return () => spatialNavigator.unregisterNode(id);
+      // eslint-disable-next-line react-hooks/exhaustive-deps -- unfortunately, we can't have clean effects with lrud for now
     }, [parentId]);
 
     useEffect(() => {
