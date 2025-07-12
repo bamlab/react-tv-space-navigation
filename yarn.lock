@@ -7043,7 +7043,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo@npm:^53.0.9, expo@npm:~53.0.9":
+"expo@npm:~53.0.9":
   version: 53.0.9
   resolution: "expo@npm:53.0.9"
   dependencies:
@@ -11957,7 +11957,6 @@ __metadata:
     eslint-plugin-react: ^7.32.2
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-react-native: ^4.0.0
-    expo: ^53.0.9
     html-webpack-plugin: ^5.5.3
     metro-react-native-babel-preset: ^0.76.7
     patch-package: ^8.0.0
