@@ -75,7 +75,7 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
       useRemotePointerScrollviewScrollProps({ pointerScrollSpeed, scrollY, scrollViewRef });
 
     const scrollToNode = useCallback(
-      (newlyFocusedElementRef: RefObject<View>, additionalOffset = 0) => {
+      (newlyFocusedElementRef: RefObject<View | null>, additionalOffset = 0) => {
         try {
           if (deviceTypeRef.current === 'remoteKeys') {
             newlyFocusedElementRef?.current?.measureLayout(
