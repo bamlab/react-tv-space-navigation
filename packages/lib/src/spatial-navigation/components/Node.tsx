@@ -57,7 +57,7 @@ const useScrollToNodeIfNeeded = ({
   childRef,
   additionalOffset,
 }: {
-  childRef: React.RefObject<View>;
+  childRef: React.RefObject<View | null>;
   additionalOffset?: number;
 }) => {
   const { scrollToNodeIfNeeded } = useSpatialNavigatorParentScroll();
