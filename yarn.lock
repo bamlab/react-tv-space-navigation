@@ -3093,7 +3093,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react-native@npm:^12.3.1, @testing-library/react-native@npm:^12.4.3":
+"@testing-library/react-native@npm:^12.3.1":
   version: 12.9.0
   resolution: "@testing-library/react-native@npm:12.9.0"
   dependencies:
@@ -3109,6 +3109,26 @@ __metadata:
     jest:
       optional: true
   checksum: 88115b22c127f39b2e1e8098dc1c93ea9c7393800a24f4f380bed64425cc685f98cad5b56b9cb48d85f0dbed1f0f208d0de44137c6e789c98161ff2715f70646
+  languageName: node
+  linkType: hard
+
+"@testing-library/react-native@npm:^13.2.0":
+  version: 13.2.0
+  resolution: "@testing-library/react-native@npm:13.2.0"
+  dependencies:
+    chalk: ^4.1.2
+    jest-matcher-utils: ^29.7.0
+    pretty-format: ^29.7.0
+    redent: ^3.0.0
+  peerDependencies:
+    jest: ">=29.0.0"
+    react: ">=18.2.0"
+    react-native: ">=0.71"
+    react-test-renderer: ">=18.2.0"
+  peerDependenciesMeta:
+    jest:
+      optional: true
+  checksum: fa2f59353b27a5afea72c04296e94e597b7e20f09f7e69d5dd1693da15bdeabfdd1ba655b1e194dbf5727b9dfa92de5af06ec77484b3392aab96dab4f7c05e44
   languageName: node
   linkType: hard
 
@@ -7984,7 +8004,6 @@ __metadata:
     react-native-safe-area-context: 5.4.0
     react-native-screens: ~4.10.0
     react-native-svg: 15.11.2
-    react-test-renderer: ^18.2.0
     typescript: ~5.8.3
   languageName: unknown
   linkType: soft
@@ -9879,7 +9898,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.0.0, loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.0.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -11717,17 +11736,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.12.0 || ^17.0.0 || ^18.0.0, react-is@npm:^18.0.0, react-is@npm:^18.3.1":
+"react-is@npm:^16.13.0, react-is@npm:^16.13.1, react-is@npm:^16.7.0":
+  version: 16.13.1
+  resolution: "react-is@npm:16.13.1"
+  checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
+  languageName: node
+  linkType: hard
+
+"react-is@npm:^18.0.0":
   version: 18.3.1
   resolution: "react-is@npm:18.3.1"
   checksum: e20fe84c86ff172fc8d898251b7cc2c43645d108bf96d0b8edf39b98f9a2cae97b40520ee7ed8ee0085ccc94736c4886294456033304151c3f94978cec03df21
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.13.0, react-is@npm:^16.13.1, react-is@npm:^16.7.0":
-  version: 16.13.1
-  resolution: "react-is@npm:16.13.1"
-  checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
+"react-is@npm:^19.1.0":
+  version: 19.1.0
+  resolution: "react-is@npm:19.1.0"
+  checksum: 3eb4eac7f09bf178bdc6fa98d384f5f243b85de7c99679a88b0154ead4d818ad94386ccb00ea31ec52409ffd13299057f5ec6ca2eaec06f9f7eddc1ad4832332
   languageName: node
   linkType: hard
 
@@ -11904,28 +11930,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-shallow-renderer@npm:^16.15.0":
-  version: 16.15.0
-  resolution: "react-shallow-renderer@npm:16.15.0"
+"react-test-renderer@npm:^19.1.0":
+  version: 19.1.0
+  resolution: "react-test-renderer@npm:19.1.0"
   dependencies:
-    object-assign: ^4.1.1
-    react-is: ^16.12.0 || ^17.0.0 || ^18.0.0
+    react-is: ^19.1.0
+    scheduler: ^0.26.0
   peerDependencies:
-    react: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 6052c7e3e9627485120ebd8257f128aad8f56386fe8d42374b7743eac1be457c33506d153c7886b4e32923c0c352d402ab805ef9ca02dbcd8393b2bdeb6e5af8
-  languageName: node
-  linkType: hard
-
-"react-test-renderer@npm:^18.2.0":
-  version: 18.3.1
-  resolution: "react-test-renderer@npm:18.3.1"
-  dependencies:
-    react-is: ^18.3.1
-    react-shallow-renderer: ^16.15.0
-    scheduler: ^0.23.2
-  peerDependencies:
-    react: ^18.3.1
-  checksum: e8e58e738835fab3801afb63f6bfe0fcf6e68ea39619fae5bdf47feefc36b1e4acb48c9dd139c7533611466eff1dfce6ffdda4b317e06aee663dda7d91438f26
+    react: ^19.1.0
+  checksum: e060239f8fbfbe54c2fa0e1d7a9eb1ee77787b0b29fd75ba6170dc22cd637c3a9052a82285db6be5a269309a65b8e8c40ddc8103620fbe1652cce693fd608acc
   languageName: node
   linkType: hard
 
@@ -11940,7 +11953,7 @@ __metadata:
     "@react-native-community/eslint-config": ^3.2.0
     "@react-native-tvos/config-tv": ^0.0.4
     "@react-navigation/bottom-tabs": ^6.5.11
-    "@testing-library/react-native": ^12.4.3
+    "@testing-library/react-native": ^13.2.0
     "@types/react": ~19.0.0
     "@types/react-dom": ~19.0.0
     "@typescript-eslint/eslint-plugin": ^5.60.1
@@ -11965,6 +11978,7 @@ __metadata:
     react-dom: 19.0.0
     react-native-modal: ^13.0.1
     react-native-web: ^0.20.0
+    react-test-renderer: ^19.1.0
     style-loader: ^3.3.3
     ts-loader: ^9.4.4
     typescript: ~5.8.3
@@ -12484,12 +12498,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.23.2":
-  version: 0.23.2
-  resolution: "scheduler@npm:0.23.2"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: 3e82d1f419e240ef6219d794ff29c7ee415fbdc19e038f680a10c067108e06284f1847450a210b29bbaf97b9d8a97ced5f624c31c681248ac84c80d56ad5a2c4
+"scheduler@npm:^0.26.0":
+  version: 0.26.0
+  resolution: "scheduler@npm:0.26.0"
+  checksum: c63a9f1c0e5089b537231cff6c11f75455b5c8625ae09535c1d7cd0a1b0c77ceecdd9f1074e5e063da5d8dc11e73e8033dcac3361791088be08a6e60c0283ed9
   languageName: node
   linkType: hard
 
