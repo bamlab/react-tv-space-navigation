@@ -57,11 +57,10 @@ const useScrollToNodeIfNeeded = ({
   childRef,
   additionalOffset,
 }: {
-  childRef: React.MutableRefObject<View | null>;
+  childRef: React.RefObject<View | null>;
   additionalOffset?: number;
 }) => {
   const { scrollToNodeIfNeeded } = useSpatialNavigatorParentScroll();
-
   return () => scrollToNodeIfNeeded(childRef, additionalOffset);
 };
 
@@ -70,6 +69,7 @@ const useBindRefToChild = () => {
 
   const bindRefToChild = (child: React.ReactElement) => {
     return React.cloneElement(child, {
+      // @ts-expect-error @fixme can't find how to type this properly -- new error since react 19
       ...child.props,
       ref: (node: View) => {
         // We need the reference for our scroll handling
@@ -138,26 +138,25 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
      * Therefore, the SpatialNavigator Node callbacks are registered at 1st render but can change (ie. if props change) afterwards.
      * Since we want the functions to always be up to date, we use a reference to them.
      */
-
-    const currentOnSelect = useRef<() => void>();
+    const currentOnSelect = useRef<() => void>(undefined);
     currentOnSelect.current = onSelect;
 
-    const currentOnLongSelect = useRef<() => void>();
+    const currentOnLongSelect = useRef<() => void>(undefined);
     currentOnLongSelect.current = onLongSelect;
 
-    const currentOnFocus = useRef<() => void>();
+    const currentOnFocus = useRef<() => void>(undefined);
     currentOnFocus.current = () => {
       onFocus?.();
       scrollToNodeIfNeeded();
     };
 
-    const currentOnBlur = useRef<() => void>();
+    const currentOnBlur = useRef<() => void>(undefined);
     currentOnBlur.current = onBlur;
 
-    const currentOnActive = useRef<() => void>();
+    const currentOnActive = useRef<() => void>(undefined);
     currentOnActive.current = onActive;
 
-    const currentOnInactive = useRef<() => void>();
+    const currentOnInactive = useRef<() => void>(undefined);
     currentOnInactive.current = onInactive;
 
     const shouldHaveDefaultFocus = useSpatialNavigatorDefaultFocus();
@@ -210,7 +209,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
     }, [id, isFocusable, shouldHaveDefaultFocus, spatialNavigator]);
 
     // This proxy allows to track whether a property is used or not
-    // hence allowing to ignore re-renders for unused properties
+    // hence allowing to ignore re-renders for unused pr
     const proxyObject = new Proxy(
       { isFocused, isActive, isRootActive },
       {

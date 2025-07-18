@@ -22,7 +22,7 @@ const packagesToTransform = [
 
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
-  preset: '@testing-library/react-native',
+  preset: 'react-native',
   /*
    * What the preset provides:
    * - a transformer to handle media assets (png, video)
