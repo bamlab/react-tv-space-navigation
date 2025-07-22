@@ -8,14 +8,12 @@ export interface RemoteControlConfiguration {
   remoteControlUnsubscriber: (subscriber: SubscriberType) => void;
 }
 
-export let remoteControlSubscriber:
-  | RemoteControlConfiguration['remoteControlSubscriber']
-  | undefined = undefined;
-export let remoteControlUnsubscriber:
-  | RemoteControlConfiguration['remoteControlUnsubscriber']
-  | undefined = undefined;
+const config: Partial<RemoteControlConfiguration> = {};
 
 export const configureRemoteControl = (options: RemoteControlConfiguration) => {
-  remoteControlSubscriber = options.remoteControlSubscriber;
-  remoteControlUnsubscriber = options.remoteControlUnsubscriber;
+  config.remoteControlSubscriber = options.remoteControlSubscriber;
+  config.remoteControlUnsubscriber = options.remoteControlUnsubscriber;
 };
+
+export const getRemoteControlSubscriber = () => config.remoteControlSubscriber;
+export const getRemoteControlUnsubscriber = () => config.remoteControlUnsubscriber;
