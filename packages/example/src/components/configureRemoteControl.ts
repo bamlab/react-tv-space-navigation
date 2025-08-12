@@ -1,6 +1,6 @@
 import { Directions, SpatialNavigation } from 'react-tv-space-navigation-rtl';
 import { SupportedKeys } from './remote-control/SupportedKeys';
-import RemoteControlManager from './remote-control/RemoteControlManager.android';
+import RemoteControlManager from './RemoteControlManager';
 import { I18nManager } from 'react-native';
 
 SpatialNavigation.configureRemoteControl({
