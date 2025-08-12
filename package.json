@@ -55,12 +55,12 @@
     "changelog": "conventional-changelog -p conventionalcommits -r 0 -o CHANGELOG.md",
     "start:example": "yarn workspace hoppixtv start",
     "build:example:web": "yarn workspace hoppixtv build:web",
-    "test:core": "yarn workspace react-tv-space-navigation jest",
+    "test:core": "yarn workspace react-tv-space-navigation-rtl jest",
     "test:example": "yarn workspace hoppixtv jest",
     "test:types": "yarn workspaces foreach run test:types",
     "test:lint": "eslint . --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --max-warnings 0 --cache --cache-strategy content --cache-location .cache/eslint.json",
     "test": "yarn test:lint && yarn test:types && yarn test:core && yarn test:example",
-    "build:core": "yarn workspace react-tv-space-navigation build",
+    "build:core": "yarn workspace react-tv-space-navigation-rtl build",
     "postinstall": "patch-package"
   }
 }

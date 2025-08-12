@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "paths": {
-      "react-tv-space-navigation": ["../lib/src/index"]
+      "react-tv-space-navigation-rtl": ["../lib/src/index"]
     }
   },
   "include": [

@@ -1807,6 +1807,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@epic-web/invariant@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@epic-web/invariant@npm:1.0.0"
+  checksum: 58e2029bd3362751f5afac2b3bdb6b4f6e38f888af7ee93a0d76e18c879586b130bf3b14588364fcf04a1423b5b917eacad5717d61224daac64350c7ae5fc95e
+  languageName: node
+  linkType: hard
+
 "@eslint-community/eslint-utils@npm:^4.2.0":
   version: 4.7.0
   resolution: "@eslint-community/eslint-utils@npm:4.7.0"
@@ -5710,6 +5717,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cross-env@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "cross-env@npm:10.0.0"
+  dependencies:
+    "@epic-web/invariant": ^1.0.0
+    cross-spawn: ^7.0.6
+  bin:
+    cross-env: dist/bin/cross-env.js
+    cross-env-shell: dist/bin/cross-env-shell.js
+  checksum: 3ab63968e015e5de56e1a411aff34e4c94536574be85666fa173ffd4bda899891acfd5bd4fd8dfedcb107220908b88c79565df35fd6c848c87ab623ec9888982
+  languageName: node
+  linkType: hard
+
 "cross-fetch@npm:^3.1.5":
   version: 3.2.0
   resolution: "cross-fetch@npm:3.2.0"
@@ -7992,6 +8012,7 @@ __metadata:
     "@types/react-test-renderer": ^18.0.7
     babel-jest: ^29.7.0
     babel-plugin-module-resolver: ^5.0.0
+    cross-env: ^10.0.0
     expo: ~53.0.9
     expo-status-bar: ~2.2.3
     jest: ^29.7.0
@@ -11988,9 +12009,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-tv-space-navigation@workspace:packages/lib":
+"react-tv-space-navigation-rtl@workspace:packages/lib":
   version: 0.0.0-use.local
-  resolution: "react-tv-space-navigation@workspace:packages/lib"
+  resolution: "react-tv-space-navigation-rtl@workspace:packages/lib"
   dependencies:
     "@bam.tech/lrud": ^8.0.2
     "@testing-library/react-hooks": ^8.0.1

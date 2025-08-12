@@ -1,4 +1,4 @@
-import { SpatialNavigationFocusableView } from 'react-tv-space-navigation';
+import { SpatialNavigationFocusableView } from 'react-tv-space-navigation-rtl';
 
 import { ProgramInfo } from '../domain/programInfo';
 import { Program } from './Program';

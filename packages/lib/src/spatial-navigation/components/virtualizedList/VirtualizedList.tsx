@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { Animated, StyleSheet, View, ViewStyle, Platform } from 'react-native';
+import { Animated, StyleSheet, View, ViewStyle, Platform, I18nManager } from 'react-native';
 import { getRange } from './helpers/getRange';
 import {
   useVirtualizedListAnimation,
@@ -113,7 +113,7 @@ const ItemContainerWithAnimatedStyle = typedMemo(
           styles.item,
           vertical
             ? { transform: [{ translateY: computeOffset(item, index) }] }
-            : { transform: [{ translateX: computeOffset(item, index) }] },
+            : { transform: [{ translateX: (I18nManager.isRTL? -1: 1) * computeOffset(item, index) }] },
         ]),
       [computeOffset, item, index, vertical],
     );

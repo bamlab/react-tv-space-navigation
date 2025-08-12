@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.reactTvSpaceNavigation.hoppixTv"
@@ -27,7 +29,7 @@
       "favicon": "./assets/favicon.png"
     },
     "experiments": {
-      "baseUrl": "/react-tv-space-navigation"
+      "baseUrl": "/react-tv-space-navigation-rtl"
     },
     "plugins": [
       "@bam.tech/react-native-keyevent-expo-config-plugin",
@@ -48,6 +50,13 @@
           ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "supportsRTL": true,
+      "forcesRTL": true,
+      "eas": {
+        "projectId": "65597d4f-0e3b-40b1-9f99-c20859df256f"
+      }
+    }
   }
 }

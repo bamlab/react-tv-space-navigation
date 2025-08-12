@@ -7,7 +7,7 @@ module.exports = {
       'module-resolver',
       {
         alias: {
-          'react-tv-space-navigation': '../lib/src/index.ts',
+          'react-tv-space-navigation-rtl': '../lib/src/index.ts',
         },
       },
     ],

@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import { DefaultFocus, SpatialNavigationScrollView } from 'react-tv-space-navigation';
+import { DefaultFocus, SpatialNavigationScrollView } from 'react-tv-space-navigation-rtl';
 import { Page } from '../components/Page';
 import { Box } from '../design-system/components/Box';
 import { Spacer } from '../design-system/components/Spacer';
