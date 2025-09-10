@@ -1,5 +1,5 @@
 import React, { useCallback, RefObject, useRef, ReactElement, forwardRef } from 'react';
-import { ScrollView, View, ViewStyle, Platform } from 'react-native';
+import { ScrollView, View, ViewStyle, Platform, ScrollViewProps, NativeSyntheticEvent, NativeScrollEvent, StyleSheet } from 'react-native';
 import {
   SpatialNavigatorParentScrollContext,
   useSpatialNavigatorParentScroll,
@@ -35,6 +35,7 @@ type Props = {
   useNativeScroll?: boolean;
   /** Configures the scroll duration in the case of CSS scroll */
   scrollDuration?: number;
+  nativeScrollViewProps?: Omit<ScrollViewProps, 'onScroll'|'scrollEnabled'|'testID'> & {onScroll: (event: { nativeEvent: { contentOffset: { y: number; x: number } } }) => void},
   testID?: string;
 };
 
@@ -61,6 +62,7 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
       contentContainerStyle,
       useNativeScroll = false,
       scrollDuration = 200,
+      nativeScrollViewProps,
       testID,
     },
     ref,
@@ -106,17 +108,28 @@ export const SpatialNavigationScrollView = forwardRef<ScrollView, Props>(
       [scrollY],
     );
 
+    const scrollViewProps = {
+      ...nativeScrollViewProps,
+      onScroll: (e: { nativeEvent: { contentOffset: { y: number; x: number } } }) => {
+        onScroll(e);
+        nativeScrollViewProps?.onScroll?.(e); // Call the user-provided onScroll if it exists
+      },
+      contentContainerStyle: StyleSheet.flatten([
+        nativeScrollViewProps?.contentContainerStyle,
+        contentContainerStyle,
+      ]),
+      style: StyleSheet.flatten([nativeScrollViewProps?.style, style]),
+      horizontal,
+      scrollDuration,
+      testID,
+    }
+
     return (
       <SpatialNavigatorParentScrollContext.Provider value={scrollToNode}>
         <AnyScrollView
           useNativeScroll={useNativeScroll}
-          scrollDuration={scrollDuration}
+          {...scrollViewProps}
           ref={mergeRefs([ref, scrollViewRef])}
-          horizontal={horizontal}
-          style={style}
-          contentContainerStyle={contentContainerStyle}
-          onScroll={onScroll}
-          testID={testID}
         >
           {children}
         </AnyScrollView>
