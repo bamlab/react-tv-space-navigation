@@ -19,6 +19,11 @@ import { useTVPanEvent } from './src/components/PanEvent/useTVPanEvent';
 import { SpatialNavigationDeviceTypeProvider } from '../lib/src/spatial-navigation/context/DeviceContext';
 import { ListWithVariableSize } from './src/pages/ListWithVariableSize';
 import { AsynchronousContent } from './src/pages/AsynchronousContent';
+import { I18nManager } from 'react-native';
+
+// Enable RTL layout globally
+I18nManager.allowRTL(true);
+I18nManager.forceRTL(true); // For Apple TV/Android TV
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

@@ -1,4 +1,4 @@
-import { SpatialNavigationNode, SpatialNavigationView } from 'react-tv-space-navigation';
+import { SpatialNavigationNode, SpatialNavigationView } from 'react-tv-space-navigation-rtl';
 import { Page } from '../components/Page';
 import { Button } from '../design-system/components/Button';
 import { Typography } from '../design-system/components/Typography';

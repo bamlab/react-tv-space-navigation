@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import RemoteControlManager from '../components/remote-control/RemoteControlManager';
+import RemoteControlManager from '../components/RemoteControlManager';
 import { SupportedKeys } from '../components/remote-control/SupportedKeys';
 
 /**

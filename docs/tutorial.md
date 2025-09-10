@@ -3,9 +3,9 @@
 First, you should install the npm package. There should be no other dependencies.
 
 ```
-npm install react-tv-space-navigation
+npm install react-tv-space-navigation-rtl
 # or
-yarn add react-tv-space-navigation
+yarn add react-tv-space-navigation-rtl
 ```
 
 ### Configure the remote control
@@ -18,7 +18,7 @@ Here's an example for the web platform. You can check out more platforms
 in the repo example.
 
 ```tsx
-import { Directions, SpatialNavigation } from 'react-tv-space-navigation';
+import { Directions, SpatialNavigation } from 'react-tv-space-navigation-rtl';
 
 SpatialNavigation.configureRemoteControl({
   remoteControlSubscriber: (callback) => {

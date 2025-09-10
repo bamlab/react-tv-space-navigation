@@ -42,10 +42,10 @@ If you get the error
 
 ```
 CommandError: Failed to build iOS project. "xcodebuild" exited with error code 65.
-To view more error logs, try building the app with Xcode directly, by opening /Users/thomasrenaud/Desktop/SpaceNavigation/react-tv-space-navigation/packages/example/ios/hoppixTv.xcworkspace.
+To view more error logs, try building the app with Xcode directly, by opening /Users/thomasrenaud/Desktop/SpaceNavigation/react-tv-space-navigation-rtl/packages/example/ios/hoppixTv.xcworkspace.
 
 Command line invocation:
-    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace /Users/thomasrenaud/Desktop/SpaceNavigation/react-tv-space-navigation/packages/example/ios/hoppixTv.xcworkspace -configuration Debug -scheme hoppixTv -destination id=B14D0E77-99C4-486F-8096-6584A23C9476
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace /Users/thomasrenaud/Desktop/SpaceNavigation/react-tv-space-navigation-rtl/packages/example/ios/hoppixTv.xcworkspace -configuration Debug -scheme hoppixTv -destination id=B14D0E77-99C4-486F-8096-6584A23C9476
 
 User defaults from command line:
     IDEPackageSupportUseBuiltinSCM = YES

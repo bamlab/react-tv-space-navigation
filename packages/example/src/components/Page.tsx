@@ -1,7 +1,7 @@
 import { Direction } from '@bam.tech/lrud';
 import { useIsFocused } from '@react-navigation/native';
 import { ReactNode, useCallback, useEffect } from 'react';
-import { SpatialNavigationRoot, useLockSpatialNavigation } from 'react-tv-space-navigation';
+import { SpatialNavigationRoot, useLockSpatialNavigation } from 'react-tv-space-navigation-rtl';
 import { useMenuContext } from './Menu/MenuContext';
 import { Keyboard } from 'react-native';
 import { GoBackConfiguration } from './GoBackConfiguration';

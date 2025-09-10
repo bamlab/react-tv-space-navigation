@@ -1,10 +1,10 @@
 {
-  "name": "react-tv-space-navigation",
+  "name": "react-tv-space-navigation-rtl",
   "version": "5.2.0",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bamlab/react-tv-space-navigation.git"
+    "url": "git+https://github.com/YahyaHosainy/react-tv-space-navigation-rtl.git"
   },
   "license": "MIT",
   "devDependencies": {

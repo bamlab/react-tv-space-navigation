@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import { SpatialNavigationNode } from 'react-tv-space-navigation';
+import { SpatialNavigationNode } from 'react-tv-space-navigation-rtl';
 import { TextInput as RNTextInput } from 'react-native';
 import { useRef } from 'react';
 import { Typography } from './Typography';

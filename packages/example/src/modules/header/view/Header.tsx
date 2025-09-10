@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Button } from '../../../design-system/components/Button';
 import { Typography } from '../../../design-system/components/Typography';
-import { SpatialNavigationNode } from 'react-tv-space-navigation';
+import { SpatialNavigationNode } from 'react-tv-space-navigation-rtl';
 import { Spacer } from '../../../design-system/components/Spacer';
 import { Image } from 'react-native';
 import styled from '@emotion/native';

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated, Easing, I18nManager } from 'react-native';
 import { TypeVirtualizedListAnimation } from '../../../types/TypeVirtualizedListAnimation';
 
 export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
@@ -13,7 +13,7 @@ export const useVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
 
   useEffect(() => {
     Animated.timing(translation, {
-      toValue: newTranslationValue,
+      toValue: ((!vertical && I18nManager.isRTL)? -1: 1) * newTranslationValue,
       duration: scrollDuration,
       useNativeDriver: true,
       easing: Easing.out(Easing.sin),
@@ -39,7 +39,7 @@ export const useWebVirtualizedListAnimation: TypeVirtualizedListAnimation = ({
     transitionProperty: 'transform',
     transitionTimingFunction: 'ease-out',
     transform: [
-      vertical ? { translateY: newTranslationValue } : { translateX: newTranslationValue },
+      vertical ? { translateY: newTranslationValue } : { translateX: (I18nManager.isRTL? -1: 1) * newTranslationValue },
     ],
   };
 };

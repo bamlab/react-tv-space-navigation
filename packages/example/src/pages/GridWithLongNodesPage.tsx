@@ -4,7 +4,7 @@ import {
   SpatialNavigationScrollView,
   SpatialNavigationView,
   SpatialNavigationVirtualizedListRef,
-} from 'react-tv-space-navigation';
+} from 'react-tv-space-navigation-rtl';
 import { Page } from '../components/Page';
 import { programInfos } from '../modules/program/infra/programInfos';
 import styled from '@emotion/native';

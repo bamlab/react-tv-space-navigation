@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native';
 import { theme } from '../../../design-system/theme/theme';
 import { ThemeProvider } from '@emotion/react';
-import { SpatialNavigationRoot, DefaultFocus } from 'react-tv-space-navigation';
+import { SpatialNavigationRoot, DefaultFocus } from 'react-tv-space-navigation-rtl';
 import testRemoteControlManager from '../../../components/tests/helpers/testRemoteControlManager';
 import '../../../components/tests/helpers/configureTestRemoteControl';
 import { ProgramList } from './ProgramList';

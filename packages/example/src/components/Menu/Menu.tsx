@@ -3,7 +3,7 @@ import {
   DefaultFocus,
   SpatialNavigationRoot,
   SpatialNavigationView,
-} from 'react-tv-space-navigation';
+} from 'react-tv-space-navigation-rtl';
 import { useMenuContext } from './MenuContext';
 import { Fragment, useCallback, useEffect, useRef } from 'react';
 import { Animated, Dimensions, Platform, View } from 'react-native';

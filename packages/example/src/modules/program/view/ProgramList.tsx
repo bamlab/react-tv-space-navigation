@@ -7,7 +7,7 @@ import {
   SpatialNavigationNode,
   SpatialNavigationVirtualizedList,
   SpatialNavigationVirtualizedListRef,
-} from 'react-tv-space-navigation';
+} from 'react-tv-space-navigation-rtl';
 import { RootStackParamList } from '../../../../App';
 import { ProgramInfo } from '../domain/programInfo';
 import { getPrograms } from '../infra/programInfos';
