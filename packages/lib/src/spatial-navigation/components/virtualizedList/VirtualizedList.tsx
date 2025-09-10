@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { Animated, StyleSheet, View, ViewStyle, Platform, I18nManager } from 'react-native';
+import { Animated, StyleSheet, View, ViewStyle, Platform } from 'react-native';
 import { getRange } from './helpers/getRange';
 import {
   useVirtualizedListAnimation,
@@ -11,6 +11,7 @@ import { getSizeInPxFromOneItemToAnother } from './helpers/getSizeInPxFromOneIte
 import { computeAllScrollOffsets } from './helpers/createScrollOffsetArray';
 import { getNumberOfItemsVisibleOnScreen } from './helpers/getNumberOfItemsVisibleOnScreen';
 import { getAdditionalNumberOfItemsRendered } from './helpers/getAdditionalNumberOfItemsRendered';
+import config from './config';
 
 export type ScrollBehavior = 'stick-to-start' | 'stick-to-end' | 'jump-on-scroll';
 export interface VirtualizedListProps<T> {
@@ -113,7 +114,7 @@ const ItemContainerWithAnimatedStyle = typedMemo(
           styles.item,
           vertical
             ? { transform: [{ translateY: computeOffset(item, index) }] }
-            : { transform: [{ translateX: (I18nManager.isRTL? -1: 1) * computeOffset(item, index) }] },
+            : { transform: [{ translateX: (config.useRTL? -1: 1) * computeOffset(item, index) }] },
         ]),
       [computeOffset, item, index, vertical],
     );
