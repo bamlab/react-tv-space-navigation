@@ -437,7 +437,7 @@ The Remote Control Configuration API is used to configure the remote control int
 
 ## Parameters
 
-This object has two methods:
+This object has two properties:
 
 - `remoteControlSubscriber: (direction: Direction) => TSubscriber`: A function that takes a callback as an argument. This callback is meant to be invoked with a `Direction` enum value whenever a remoteControl event that should change the focus occurs. The function should return a subscriber identifier that can be used to unsubscribe the event listener.
 - `remoteControlUnsubscriber: (subscriber: TSubscriber) => void`: A function that takes the subscriber identifier returned by `remoteControlSubscriber` as an argument. This function is meant to remove the remoteControl event listener associated with the given identifier.
