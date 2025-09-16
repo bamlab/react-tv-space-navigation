@@ -17,7 +17,7 @@ Spatial navigation is a hard problem on a TV app. Many solutions exist. React Na
 But most existing solutions are not 100% cross-platform.
 
 If you’re looking to develop a TV app for AndroidTV, tvOS, and web-based TV devices, this package can be a valuable tool.
-However, if you don’t require web support, using the native react-native-tvos solution might be a better fit.
+However, if you don’t require web support, **using the native react-native-tvos solution might be a better fit**.
 The primary objective of this package is to provide consistent support across all platforms, though this comes with some trade-offs (see the pitfalls below).
 
 The library is based on LRUD, which is a UI-agnostic lib that represents spatial navigation. The library is a React wrapper around
@@ -79,6 +79,12 @@ const Page = () => (
   </SpatialNavigationRoot>
 );
 ```
+
+# ⚠️ Known limitations
+
+
+- Right now, React 19 support with Expo is still work-in-progress.
+- Also, there is a pending issue that is critical for some apps: virtualizing rows does not work well for now. Virtualization inside rows (having 10000 elements) works well, but if you have hundreds of rows, then you will face a bug. This will be fixed in the future but we have no ETA yet.
 
 # How to use
 
