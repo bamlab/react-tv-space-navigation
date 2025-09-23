@@ -1,12 +1,13 @@
-import { StyleSheet, View, ViewStyle } from 'react-native';
-import { SpatialNavigationNode } from './Node';
 import { forwardRef } from 'react';
+import { StyleSheet, View, ViewStyle } from 'react-native';
+import { NodeOrientation } from '../types/orientation';
 import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
+import { SpatialNavigationNode } from './Node';
 
 type Props = {
   children: React.ReactNode;
   style?: ViewStyle;
-  direction: 'horizontal' | 'vertical';
+  direction: NodeOrientation;
   alignInGrid?: boolean;
 };
 
@@ -15,7 +16,7 @@ export const SpatialNavigationView = forwardRef<SpatialNavigationNodeRef, Props>
     return (
       <SpatialNavigationNode orientation={direction} alignInGrid={alignInGrid} ref={ref}>
         <View
-          style={[style, direction === 'horizontal' ? styles.viewHorizontal : styles.viewVertical]}
+          style={[style, stylesByDirection[direction]]}
         >
           {children}
         </View>
@@ -34,4 +35,19 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  viewVerticalReverse: {
+    display: 'flex',
+    flexDirection: 'column-reverse',
+  },
+  viewHorizontalReverse: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+  },
 });
+
+const stylesByDirection = {
+  'horizontal':  styles.viewHorizontal,
+  'vertical':  styles.viewVertical,
+  'horizontal-reverse':  styles.viewHorizontalReverse,
+  'vertical-reverse':  styles.viewVerticalReverse,
+} as const;

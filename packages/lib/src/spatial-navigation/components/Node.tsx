@@ -1,14 +1,14 @@
+import { NodeIndexRange, Orientations } from '@bam.tech/lrud';
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { useSpatialNavigatorDefaultFocus } from '../context/DefaultFocusContext';
+import { useIsRootActive } from '../context/IsRootActiveContext';
 import { ParentIdContext, useParentId } from '../context/ParentIdContext';
 import { useSpatialNavigatorParentScroll } from '../context/ParentScrollContext';
 import { useSpatialNavigator } from '../context/SpatialNavigatorContext';
 import { useUniqueId } from '../hooks/useUniqueId';
 import { NodeOrientation } from '../types/orientation';
-import { NodeIndexRange } from '@bam.tech/lrud';
 import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
-import { useIsRootActive } from '../context/IsRootActiveContext';
 
 type NonFocusableNodeState = {
   /** Returns whether the root is active or not. An active node is active if one of its children is focused. */
@@ -52,6 +52,13 @@ type DefaultProps = {
 type Props = DefaultProps & (FocusableProps | NonFocusableProps);
 
 export type SpatialNavigationNodeDefaultProps = DefaultProps;
+
+const nodeOrientationToLrudOrientation = {
+  'vertical': Orientations.VERTICAL,
+  'horizontal': Orientations.HORIZONTAL,
+  'vertical-reverse': Orientations.VERTICAL,
+  'horizontal-reverse': Orientations.HORIZONTAL,
+} as const;
 
 const useScrollToNodeIfNeeded = ({
   childRef,
@@ -181,7 +188,7 @@ export const SpatialNavigationNode = forwardRef<SpatialNavigationNodeRef, Props>
         },
         onSelect: () => currentOnSelect.current?.(),
         onLongSelect: () => currentOnLongSelect.current?.(),
-        orientation,
+        orientation: nodeOrientationToLrudOrientation[orientation],
         isIndexAlign: alignInGrid,
         indexRange,
         onActive: () => {

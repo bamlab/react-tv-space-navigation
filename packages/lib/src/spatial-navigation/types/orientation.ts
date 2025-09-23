@@ -1,1 +1,1 @@
-export type NodeOrientation = 'horizontal' | 'vertical';
+export type NodeOrientation = 'horizontal' | 'vertical' | 'horizontal-reverse' | 'vertical-reverse';
