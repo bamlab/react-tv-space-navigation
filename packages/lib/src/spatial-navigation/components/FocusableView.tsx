@@ -6,6 +6,7 @@ import {
 import { Platform, View, ViewStyle, ViewProps } from 'react-native';
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { SpatialNavigationNodeRef } from '../types/SpatialNavigationNodeRef';
+import { SpatialNavigationFocusableViewRef } from '../types/SpatialNavigationFocusableViewRef';
 import { useSpatialNavigationDeviceType } from '../context/DeviceContext';
 import { useSpatialNavigatorFocusableAccessibilityProps } from '../hooks/useSpatialNavigatorFocusableAccessibilityProps';
 
@@ -19,15 +20,17 @@ type FocusableViewProps = {
 
 type Props = SpatialNavigationNodeDefaultProps & FocusableViewProps;
 
-export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRef, Props>(
+export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationFocusableViewRef, Props>(
   ({ children, style, viewProps, ...props }, ref) => {
     const { deviceTypeRef } = useSpatialNavigationDeviceType();
     const nodeRef = useRef<SpatialNavigationNodeRef>(null);
+    const viewRef = useRef<View>(null);
 
     useImperativeHandle(
       ref,
       () => ({
         focus: () => nodeRef.current?.focus(),
+        viewRef,
       }),
       [nodeRef],
     );
@@ -53,6 +56,7 @@ export const SpatialNavigationFocusableView = forwardRef<SpatialNavigationNodeRe
       <SpatialNavigationNode isFocusable {...props} ref={nodeRef}>
         {(nodeState) => (
           <InnerFocusableView
+            ref={viewRef}
             viewProps={viewProps}
             webProps={webProps}
             style={style}
