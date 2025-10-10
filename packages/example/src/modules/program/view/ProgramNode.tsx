@@ -1,9 +1,11 @@
-import { SpatialNavigationFocusableView } from 'react-tv-space-navigation';
+import {
+  SpatialNavigationFocusableView,
+  SpatialNavigationFocusableViewRef,
+} from 'react-tv-space-navigation';
 
 import { ProgramInfo } from '../domain/programInfo';
 import { Program } from './Program';
 import { forwardRef } from 'react';
-import { SpatialNavigationNodeRef } from '../../../../../lib/src/spatial-navigation/types/SpatialNavigationNodeRef';
 import { useRotateAnimation } from './useRotateAnimation';
 import { Animated } from 'react-native';
 
@@ -15,7 +17,7 @@ type Props = {
   variant?: 'portrait' | 'landscape';
 };
 
-export const ProgramNode = forwardRef<SpatialNavigationNodeRef, Props>(
+export const ProgramNode = forwardRef<SpatialNavigationFocusableViewRef, Props>(
   ({ programInfo, onSelect, indexRange, label, variant }: Props, ref) => {
     const { rotate360, animatedStyle } = useRotateAnimation();
 
