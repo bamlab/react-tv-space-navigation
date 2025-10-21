@@ -2,10 +2,8 @@
   "name": "react-tv-space-navigation",
   "version": "5.2.0",
   "main": "dist/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bamlab/react-tv-space-navigation.git"
-  },
+  "description": "A React Native module to handle spatial navigation for a TV application in a 100% cross-platform way",
+  "repository": "github:bamlab/react-tv-space-navigation",
   "license": "MIT",
   "devDependencies": {
     "@testing-library/react-hooks": "^8.0.1",
