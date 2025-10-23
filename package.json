@@ -41,7 +41,6 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "@react-native-tvos/config-tv": "^0.0.4",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "react": "19.0.0",
     "react-dom": "19.0.0",
