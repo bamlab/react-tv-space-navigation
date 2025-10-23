@@ -1,6 +1,8 @@
 import {
   DefaultFocus,
+  SpatialNavigationFocusableViewRef,
   SpatialNavigationNode,
+  SpatialNavigationNodeRef,
   SpatialNavigationScrollView,
   SpatialNavigationView,
   SpatialNavigationVirtualizedListRef,
@@ -14,7 +16,6 @@ import { theme } from '../design-system/theme/theme';
 import { MutableRefObject, forwardRef, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from '../design-system/components/Button';
-import { SpatialNavigationNodeRef } from '../../../lib/src/spatial-navigation/types/SpatialNavigationNodeRef';
 import { Spacer } from '../design-system/components/Spacer';
 import { ProgramListWithTitle } from '../modules/program/view/ProgramListWithTitle';
 import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
@@ -22,8 +23,8 @@ import { BottomArrow, TopArrow } from '../design-system/components/Arrows';
 const HEADER_SIZE = scaledPixels(400);
 
 export const GridWithLongNodesPage = () => {
-  const firstItemRef = useRef<SpatialNavigationNodeRef | null>(null);
-  const lastItemRef = useRef<SpatialNavigationNodeRef | null>(null);
+  const firstItemRef = useRef<SpatialNavigationFocusableViewRef | null>(null);
+  const lastItemRef = useRef<SpatialNavigationFocusableViewRef | null>(null);
   const parentRef = useRef<SpatialNavigationVirtualizedListRef | null>(null);
 
   return (
@@ -73,7 +74,7 @@ export const GridWithLongNodesPage = () => {
   );
 };
 
-const FirstRow = forwardRef<SpatialNavigationNodeRef>((_, ref) => {
+const FirstRow = forwardRef<SpatialNavigationFocusableViewRef>((_, ref) => {
   return (
     <SpatialNavigationNode orientation="horizontal">
       <ListContainer>
@@ -93,7 +94,7 @@ const FirstRow = forwardRef<SpatialNavigationNodeRef>((_, ref) => {
 });
 FirstRow.displayName = 'FirstRow';
 
-const SecondRow = forwardRef<SpatialNavigationNodeRef>((_, ref) => {
+const SecondRow = forwardRef<SpatialNavigationFocusableViewRef>((_, ref) => {
   const programs = programInfos.slice(6, 13);
   return (
     <SpatialNavigationNode orientation="horizontal">
