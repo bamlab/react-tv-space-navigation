@@ -3,6 +3,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": ">=20"
+  },
   "private": true,
   "packageManager": "yarn@3.5.1",
   "devDependencies": {
