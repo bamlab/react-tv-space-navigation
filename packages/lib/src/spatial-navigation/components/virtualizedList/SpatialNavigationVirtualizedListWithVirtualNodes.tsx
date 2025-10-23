@@ -6,12 +6,12 @@ import { ParentIdContext, useParentId } from '../../context/ParentIdContext';
 import { updateVirtualNodeRegistration } from './helpers/updateVirtualNodeRegistration';
 import { typedMemo } from '../../helpers/TypedMemo';
 import { useCachedValues } from './hooks/useCachedValues';
-import { NodeOrientation } from '../../types/orientation';
-import { invertOrientation } from '../virtualizedGrid/helpers/convertToGrid';
 import { VirtualizedListWithSize } from './VirtualizedListWithSize';
 
-const useCreateVirtualParentsIds = (parentId: string) =>
-  useCachedValues(() => uniqueId(`${parentId}_virtual_`));
+const useCreateVirtualParentsIds = (parentId: string) => {
+  console.log('[useCreateVirtualParentsIds] parentId:', parentId);
+  return useCachedValues(() => uniqueId(`${parentId}_virtual_`));
+};
 
 /**
  * Hook which will :
@@ -24,11 +24,13 @@ const useRegisterInitialAndUnregisterFinalVirtualNodes = <T,>({
   parentId,
   registerNthVirtualNode,
   unregisterNthVirtualNode,
+  debug,
 }: {
   allItems: Array<T>;
   parentId: string;
   registerNthVirtualNode: (index: number) => void;
   unregisterNthVirtualNode: (index: number) => void;
+  debug: boolean;
 }) => {
   /** We don't unregister the nodes on each render because we want to update them instead (add new ones, move existing ones...).
    * We register each item in allItems at 1st render, and unregister all the registered nodes on unmount.
@@ -38,6 +40,12 @@ const useRegisterInitialAndUnregisterFinalVirtualNodes = <T,>({
   currentAllItems.current = allItems;
 
   useEffect(() => {
+    if (debug) {
+      console.log(
+        '[useRegisterInitialAndUnregisterFinalVirtualNodes] parentId changed to:',
+        parentId,
+      );
+    }
     currentAllItems.current.forEach((_, n) => registerNthVirtualNode(n));
 
     return () => currentAllItems.current.forEach((_, n) => unregisterNthVirtualNode(n));
@@ -49,15 +57,23 @@ const useUpdateRegistration = <T,>({
   allItems,
   registerNthVirtualNode,
   unregisterNthVirtualNode,
+  debug,
 }: {
   allItems: Array<T>;
   registerNthVirtualNode: (index: number) => void;
   unregisterNthVirtualNode: (index: number) => void;
+  debug: boolean;
 }) => {
   const previousAllItems = useRef<Array<T>>(allItems);
 
-  // useBeforeMountEffect done every time allItems is changing to change the way the allItems is register in the spatialNavigator
+  // done every time allItems is changing to change the way allItems are registered in the spatial navigation tree
   useEffect(() => {
+    if (debug) {
+      console.log(
+        '[useUpdateRegistration] allItems changed, updating virtual nodes registration. New length:',
+        allItems.length,
+      );
+    }
     const previousAllItemsList = previousAllItems.current;
     const isFirstRender = previousAllItemsList === undefined;
     if (!isFirstRender) {
@@ -75,28 +91,25 @@ const useUpdateRegistration = <T,>({
 
 const useRegisterVirtualNodes = <T,>({
   allItems,
-  orientation,
-  isGrid,
+  debug,
 }: {
   allItems: Array<T>;
-  orientation: NodeOrientation;
-  isGrid: boolean;
+  debug: boolean;
 }) => {
   const spatialNavigator = useSpatialNavigator();
   const parentId = useParentId();
   const getNthVirtualNodeID = useCreateVirtualParentsIds(parentId);
 
   // invert the orientation of children in grids so we can register rows in columns in rows, etc...
-  const nodeOrientation = isGrid ? invertOrientation(orientation) : 'vertical';
+  const nodeOrientation = 'vertical';
 
   const registerNthVirtualNode = useCallback(
-    (index: number) => {
-      return spatialNavigator.registerNode(getNthVirtualNodeID(index), {
+    (index: number) =>
+      spatialNavigator.registerNode(getNthVirtualNodeID(index), {
         parent: parentId,
         orientation: nodeOrientation,
         isFocusable: false,
-      });
-    },
+      }),
     [getNthVirtualNodeID, parentId, spatialNavigator, nodeOrientation],
   );
 
@@ -110,9 +123,10 @@ const useRegisterVirtualNodes = <T,>({
     parentId,
     registerNthVirtualNode,
     unregisterNthVirtualNode,
+    debug,
   });
 
-  useUpdateRegistration({ allItems, registerNthVirtualNode, unregisterNthVirtualNode });
+  useUpdateRegistration({ allItems, registerNthVirtualNode, unregisterNthVirtualNode, debug });
 
   return { getNthVirtualNodeID };
 };
@@ -179,8 +193,7 @@ export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
   ) => {
     const { getNthVirtualNodeID } = useRegisterVirtualNodes({
       allItems: props.data,
-      orientation: props.orientation ?? 'horizontal',
-      isGrid: props.isGrid ?? false,
+      debug: props.debug,
     });
 
     useImperativeHandle(
@@ -195,7 +208,17 @@ export const SpatialNavigationVirtualizedListWithVirtualNodes = typedMemo(
     const renderWrappedItem: typeof props.renderItem = useCallback(
       ({ item, index }) => (
         <ItemWrapperWithVirtualParentContext
-          virtualParentID={getNthVirtualNodeID(index)}
+          virtualParentID={
+            (props.debug
+              ? console.log(
+                  '[ItemWrapperWithVirtualParentContext] Rendering rail index',
+                  index,
+                  ', with virtualParentID:',
+                  getNthVirtualNodeID(index),
+                )
+              : void 0,
+            getNthVirtualNodeID(index))
+          }
           renderItem={renderItem}
           item={item}
           index={index}

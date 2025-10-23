@@ -49,6 +49,7 @@ export interface VirtualizedListProps<T> {
   listSizeInPx: number;
   scrollBehavior?: ScrollBehavior;
   testID?: string;
+  debug: boolean;
 }
 
 const useOnEndReached = ({
@@ -147,6 +148,7 @@ export const VirtualizedList = typedMemo(
     listSizeInPx,
     scrollBehavior = 'stick-to-start',
     testID,
+    debug,
   }: VirtualizedListProps<T>) => {
     const numberOfItemsVisibleOnScreen = getNumberOfItemsVisibleOnScreen({
       data,
@@ -221,7 +223,9 @@ export const VirtualizedList = typedMemo(
      * But with recycling, the first element won't be unmounted : it is moved to the end and its props are updated.
      * See https://medium.com/@moshe_31114/building-our-recycle-list-solution-in-react-17a21a9605a0  */
     const recycledKeyExtractor = useCallback(
-      (index: number) => `recycled_item_${index % numberOfItemsToRender}`,
+      (index: number) => {
+        return `recycled_item_${index % numberOfItemsToRender}`;
+      },
       [numberOfItemsToRender],
     );
 
@@ -266,9 +270,13 @@ export const VirtualizedList = typedMemo(
         <View>
           {dataSliceToRender.map((item, virtualIndex) => {
             const index = range.start + virtualIndex;
+            const computedKey = keyExtractor ? keyExtractor(index) : recycledKeyExtractor(index);
+            if (debug) {
+              console.log('Rendering item index:', index, 'with key:', computedKey);
+            }
             return (
               <ItemContainerWithAnimatedStyle<T>
-                key={keyExtractor ? keyExtractor(index) : recycledKeyExtractor(index)}
+                key={computedKey}
                 renderItem={renderItem}
                 item={item}
                 index={index}

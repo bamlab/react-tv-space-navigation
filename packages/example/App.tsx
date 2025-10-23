@@ -20,6 +20,7 @@ import { SpatialNavigationDeviceTypeProvider } from '../lib/src/spatial-navigati
 import { ListWithVariableSize } from './src/pages/ListWithVariableSize';
 import { AsynchronousContent } from './src/pages/AsynchronousContent';
 import { NestedVirtualizedListsPage } from './src/pages/NestedVirtualizedListsPage';
+import { SimpleVirtualizedListPage } from './src/pages/SimpleVirtualizedList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -27,6 +28,7 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export type RootTabParamList = {
   Home: undefined;
+  SimpleVirtualizedListPage: undefined;
   NestedVirtualizedListsPage: undefined;
   ProgramGridPage: undefined;
   NonVirtualizedGridPage: undefined;
@@ -57,6 +59,7 @@ const TabNavigator = () => {
         }}
       >
         <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="SimpleVirtualizedListPage" component={SimpleVirtualizedListPage} />
         <Tab.Screen name="NestedVirtualizedListsPage" component={NestedVirtualizedListsPage} />
         <Tab.Screen name="ProgramGridPage" component={ProgramGridPage} />
         <Tab.Screen name="NonVirtualizedGridPage" component={NonVirtualizedGridPage} />

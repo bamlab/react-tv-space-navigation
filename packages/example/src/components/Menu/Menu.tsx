@@ -52,6 +52,7 @@ interface MenuItems {
 
 const menuItems: Record<keyof RootTabParamList, MenuItems> = {
   Home: { label: 'Homepage', icon: 'Home' },
+  SimpleVirtualizedListPage: { label: 'Simple Virtualized List', icon: 'LayoutDashboard' },
   NestedVirtualizedListsPage: { label: 'Nested Virtualized Lists', icon: 'LayoutDashboard' },
   ProgramGridPage: { label: 'Virtualized Grid', icon: 'Grid3X3' },
   NonVirtualizedGridPage: { label: 'Non-virtualized Grid', icon: 'LayoutGrid' },

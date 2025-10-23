@@ -8,13 +8,12 @@ import {
 } from 'react-tv-space-navigation';
 import { useParentId } from '../../../lib/src/spatial-navigation/context/ParentIdContext';
 
-const AMOUNT_OF_RAILS = 30;
 const AMOUNT_OF_ITEMS = 2000;
 
-const rails = new Array(AMOUNT_OF_RAILS).fill(0).map((_, r) => ({
-  id: `rail-${r}`,
-  items: new Array(AMOUNT_OF_ITEMS).fill(0).map((__, i) => ({ id: `r${r}-i${i}` })),
-}));
+const rails = {
+  id: `rail-0`,
+  items: new Array(AMOUNT_OF_ITEMS).fill(0).map((__, i) => ({ id: `r0-i${i}` })),
+};
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
@@ -26,27 +25,20 @@ const TILE_W = responsiveSize(225);
 const GAP = responsiveSize(24);
 const ITEM_SIZE = TILE_W + GAP;
 
-export const NestedVirtualizedListsPage = () => {
+export const SimpleVirtualizedListPage = () => {
   const data = useMemo(() => rails, []);
 
   return (
     <Page>
       {/* Rails area (nested SNVL) */}
       <View style={{ height: '100%', width: '100%' }}>
-        <SpatialNavigationVirtualizedList
-          orientation="vertical"
-          data={data}
-          itemSize={ROW_HEIGHT}
-          scrollBehavior="jump-on-scroll"
-          keyExtractor={(index) => `${index}`}
-          debug
-          renderItem={({ item: rail }) => Row(rail)}
-        />
+        <Row rail={data} />
       </View>
     </Page>
   );
 };
-function Row(rail: { id: string; items: { id: string }[] }): JSX.Element {
+
+function Row({ rail }: { rail: { id: string; items: { id: string }[] } }): JSX.Element {
   const id = useParentId();
   return (
     <View style={{ height: ROW_HEIGHT, width: SCREEN_W }}>
