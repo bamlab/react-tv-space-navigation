@@ -9,7 +9,7 @@ type SpatialNavigatorParams = {
 };
 
 export default class SpatialNavigator {
-  private lrud: Lrud;
+  public lrud: Lrud;
   private onDirectionHandledWithoutMovementRef: OnDirectionHandledWithoutMovementRef;
 
   constructor({

@@ -57,7 +57,7 @@ export const SpatialNavigationDeviceTypeProvider = ({ children }: DeviceProvider
     if (deviceType === 'remotePointer' || Platform.OS !== 'web') return;
 
     const callback = () => {
-      setDeviceType('remotePointer');
+      // setDeviceType('remotePointer');
     };
 
     window.addEventListener('mousemove', callback);

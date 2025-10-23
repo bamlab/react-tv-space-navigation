@@ -19,6 +19,7 @@ import { useTVPanEvent } from './src/components/PanEvent/useTVPanEvent';
 import { SpatialNavigationDeviceTypeProvider } from '../lib/src/spatial-navigation/context/DeviceContext';
 import { ListWithVariableSize } from './src/pages/ListWithVariableSize';
 import { AsynchronousContent } from './src/pages/AsynchronousContent';
+import { NestedVirtualizedListsPage } from './src/pages/NestedVirtualizedListsPage';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -26,6 +27,7 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export type RootTabParamList = {
   Home: undefined;
+  NestedVirtualizedListsPage: undefined;
   ProgramGridPage: undefined;
   NonVirtualizedGridPage: undefined;
   GridWithLongNodesPage: undefined;
@@ -47,7 +49,7 @@ const TabNavigator = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Home"
+        initialRouteName="NestedVirtualizedListsPage"
         tabBar={RenderMenu}
         sceneContainerStyle={{
           marginLeft: theme.sizes.menu.closed,
@@ -55,6 +57,7 @@ const TabNavigator = () => {
         }}
       >
         <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="NestedVirtualizedListsPage" component={NestedVirtualizedListsPage} />
         <Tab.Screen name="ProgramGridPage" component={ProgramGridPage} />
         <Tab.Screen name="NonVirtualizedGridPage" component={NonVirtualizedGridPage} />
         <Tab.Screen name="GridWithLongNodesPage" component={GridWithLongNodesPage} />
