@@ -290,6 +290,138 @@ describe('computeTranslation for virtualized list with stick-to-end scroll behav
   });
 });
 
+describe('computeTranslation for virtualized list with stick-to-center scroll behavior', () => {
+  const scrollBehavior = 'stick-to-center';
+
+  it('should not scroll if currentlyFocusedItemIndex < numberOfItemsVisibleOnScreen', () => {
+    const expectedResult = computeTranslation({
+      itemSizeInPx,
+      currentlyFocusedItemIndex: 3,
+      numberOfItemsVisibleOnScreen: 4,
+      nbMaxOfItems: 11,
+      scrollBehavior: scrollBehavior,
+      data,
+      listSizeInPx: 40,
+      maxPossibleLeftAlignedIndex: 7,
+      maxPossibleRightAlignedIndex: 3,
+    });
+
+    expect(expectedResult).toEqual(-0);
+  });
+
+  it('should not scroll if currentlyFocusedItemIndex < numberOfItemsVisibleOnScreen with dynamic sizes', () => {
+    const expectedResult = computeTranslation({
+      itemSizeInPx: itemSizeInPxFunction,
+      currentlyFocusedItemIndex: 3,
+      numberOfItemsVisibleOnScreen: 4,
+      nbMaxOfItems: 11,
+      scrollBehavior: scrollBehavior,
+      data,
+      listSizeInPx: 40,
+      maxPossibleLeftAlignedIndex: 7,
+      maxPossibleRightAlignedIndex: 3,
+    });
+
+    expect(expectedResult).toEqual(-0);
+  });
+
+  it('should end-align focused item', () => {
+    const expectedResult = computeTranslation({
+      itemSizeInPx,
+      currentlyFocusedItemIndex: 6,
+      numberOfItemsVisibleOnScreen: 4,
+      nbMaxOfItems: 11,
+      scrollBehavior: scrollBehavior,
+      data,
+      listSizeInPx: 40,
+      maxPossibleLeftAlignedIndex: 7,
+      maxPossibleRightAlignedIndex: 3,
+    });
+
+    expect(expectedResult).toEqual(-30);
+  });
+
+  it('should end-align focused item with dynamic sizes', () => {
+    const expectedResult = computeTranslation({
+      itemSizeInPx: itemSizeInPxFunction,
+      currentlyFocusedItemIndex: 6,
+      numberOfItemsVisibleOnScreen: 4,
+      nbMaxOfItems: 11,
+      scrollBehavior: scrollBehavior,
+      data,
+      listSizeInPx: 40,
+      maxPossibleLeftAlignedIndex: 7,
+      maxPossibleRightAlignedIndex: 3,
+    });
+
+    expect(expectedResult).toEqual(-60);
+  });
+
+  it('should end-align last element if focused', () => {
+    const expectedResult = computeTranslation({
+      itemSizeInPx,
+      currentlyFocusedItemIndex: 10,
+      numberOfItemsVisibleOnScreen: 4,
+      nbMaxOfItems: 11,
+      scrollBehavior: scrollBehavior,
+      data,
+      listSizeInPx: 40,
+      maxPossibleLeftAlignedIndex: 7,
+      maxPossibleRightAlignedIndex: 3,
+    });
+
+    expect(expectedResult).toEqual(-70);
+  });
+
+  it('should end-align last element if focused with dynamic sizes', () => {
+    const expectedResult = computeTranslation({
+      itemSizeInPx: itemSizeInPxFunction,
+      currentlyFocusedItemIndex: 10,
+      numberOfItemsVisibleOnScreen: 4,
+      nbMaxOfItems: 11,
+      scrollBehavior: scrollBehavior,
+      data,
+      listSizeInPx: 40,
+      maxPossibleLeftAlignedIndex: 7,
+      maxPossibleRightAlignedIndex: 3,
+    });
+
+    expect(expectedResult).toEqual(-120);
+  });
+
+  it('should start-align first element if numberOfItems <= numberOfVisibleItemsOnScreen', () => {
+    const expectedResult = computeTranslation({
+      itemSizeInPx,
+      currentlyFocusedItemIndex: 1,
+      numberOfItemsVisibleOnScreen: 4,
+      nbMaxOfItems: 3,
+      scrollBehavior: scrollBehavior,
+      data,
+      listSizeInPx: 40,
+      maxPossibleLeftAlignedIndex: 7,
+      maxPossibleRightAlignedIndex: 3,
+    });
+
+    expect(expectedResult).toEqual(-0);
+  });
+
+  it('should start-align first element if numberOfItems <= numberOfVisibleItemsOnScreen with dynamic sizes', () => {
+    const expectedResult = computeTranslation({
+      itemSizeInPx: itemSizeInPxFunction,
+      currentlyFocusedItemIndex: 1,
+      numberOfItemsVisibleOnScreen: 4,
+      nbMaxOfItems: 3,
+      scrollBehavior: scrollBehavior,
+      data: data.slice(0, 2),
+      listSizeInPx: 40,
+      maxPossibleLeftAlignedIndex: 0,
+      maxPossibleRightAlignedIndex: 2,
+    });
+
+    expect(expectedResult).toEqual(-0);
+  });
+});
+
 describe('computeTranslation for virtualized list with jumping scroll behavior', () => {
   const scrollBehavior = 'jump-on-scroll';
 
