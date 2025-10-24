@@ -12,7 +12,6 @@
     "prebuild": "EXPO_TV=1 expo prebuild --clean"
   },
   "dependencies": {
-    "@bam.tech/react-native-keyevent-expo-config-plugin": "^1.0.52",
     "@emotion/native": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@expo/metro-runtime": "~6.1.2",
@@ -30,7 +29,6 @@
     "lucide-react-native": "^0.335.0",
     "react": "19.1.0",
     "react-native": "npm:react-native-tvos@0.81.4-0",
-    "react-native-keyevent": "^0.3.2",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
     "react-native-svg": "15.12.1",

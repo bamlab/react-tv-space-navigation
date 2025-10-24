@@ -1659,17 +1659,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bam.tech/react-native-keyevent-expo-config-plugin@npm:^1.0.52":
-  version: 1.0.52
-  resolution: "@bam.tech/react-native-keyevent-expo-config-plugin@npm:1.0.52"
-  dependencies:
-    "@expo/config-plugins": ~8.0.0
-  peerDependencies:
-    expo: ^51.0.9
-  checksum: 1285ce20bc445b385025e2a5367a8660e578e53621b967f74d94c6735169d6b13b683221ca3cd783dd4a052f71d43692d53a536974eaa698cdee8e9e1e60fea5
-  languageName: node
-  linkType: hard
-
 "@bcoe/v8-coverage@npm:^0.2.3":
   version: 0.2.3
   resolution: "@bcoe/v8-coverage@npm:0.2.3"
@@ -1981,36 +1970,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config-plugins@npm:~8.0.0":
-  version: 8.0.11
-  resolution: "@expo/config-plugins@npm:8.0.11"
-  dependencies:
-    "@expo/config-types": ^51.0.3
-    "@expo/json-file": ~8.3.0
-    "@expo/plist": ^0.1.0
-    "@expo/sdk-runtime-versions": ^1.0.0
-    chalk: ^4.1.2
-    debug: ^4.3.1
-    find-up: ~5.0.0
-    getenv: ^1.0.0
-    glob: 7.1.6
-    resolve-from: ^5.0.0
-    semver: ^7.5.4
-    slash: ^3.0.0
-    slugify: ^1.6.6
-    xcode: ^3.0.1
-    xml2js: 0.6.0
-  checksum: 084b20f6254d28644fbfde13cbf4b155c9d965a7ea44c25e67d1ee8d3675570593e8233291948813c0832e03a26ee600676fe39d78f11e388b62555c537d8463
-  languageName: node
-  linkType: hard
-
-"@expo/config-types@npm:^51.0.3":
-  version: 51.0.3
-  resolution: "@expo/config-types@npm:51.0.3"
-  checksum: c46def814a5e0d6c8358b9767a89f51239f4f1c3b4a5305ffcfa1a86e4360ac40de54a65f7c6e787be7656e4144c99a050e98b600a1edd3d6e8e20c83d8e107b
-  languageName: node
-  linkType: hard
-
 "@expo/config-types@npm:^54.0.8":
   version: 54.0.8
   resolution: "@expo/config-types@npm:54.0.8"
@@ -2129,17 +2088,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/json-file@npm:~8.3.0":
-  version: 8.3.3
-  resolution: "@expo/json-file@npm:8.3.3"
-  dependencies:
-    "@babel/code-frame": ~7.10.4
-    json5: ^2.2.2
-    write-file-atomic: ^2.3.0
-  checksum: 49fcb3581ac21c1c223459f32e9e931149b56a7587318f666303a62e719e3d0f122ff56a60d47ee31fac937c297a66400a00fcee63a17bebbf4b8cd30c5138c1
-  languageName: node
-  linkType: hard
-
 "@expo/mcp-tunnel@npm:~0.0.7":
   version: 0.0.8
   resolution: "@expo/mcp-tunnel@npm:0.0.8"
@@ -2251,17 +2199,6 @@ __metadata:
     ora: ^3.4.0
     resolve-workspace-root: ^2.0.0
   checksum: 5cf20840416aa9c9ce477a0bcdd74ec42dcdce193079d8a32eb2d8493149fec4b233426f16fd232d630ddd94bfa1b13636e1b21432dcefa46db6736f4aeebec2
-  languageName: node
-  linkType: hard
-
-"@expo/plist@npm:^0.1.0":
-  version: 0.1.3
-  resolution: "@expo/plist@npm:0.1.3"
-  dependencies:
-    "@xmldom/xmldom": ~0.7.7
-    base64-js: ^1.2.3
-    xmlbuilder: ^14.0.0
-  checksum: 8abe78bed4d1849f2cddddd1a238c6fe5c2549a9dee40158224ff70112f31503db3f17a522b6e21f16eea66b5f4b46cc49d22f2b369067d00a88ef6d301a50cd
   languageName: node
   linkType: hard
 
@@ -4054,13 +3991,6 @@ __metadata:
   version: 0.8.10
   resolution: "@xmldom/xmldom@npm:0.8.10"
   checksum: 4c136aec31fb3b49aaa53b6fcbfe524d02a1dc0d8e17ee35bd3bf35e9ce1344560481cd1efd086ad1a4821541482528672306d5e37cdbd187f33d7fadd3e2cf0
-  languageName: node
-  linkType: hard
-
-"@xmldom/xmldom@npm:~0.7.7":
-  version: 0.7.13
-  resolution: "@xmldom/xmldom@npm:0.7.13"
-  checksum: b4054078530e5fa8ede9677425deff0fce6d965f4c477ca73f8490d8a089e60b8498a15560425a1335f5ff99ecb851ed2c734b0a9a879299a5694302f212f37a
   languageName: node
   linkType: hard
 
@@ -7510,7 +7440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-up@npm:^5.0.0, find-up@npm:~5.0.0":
+"find-up@npm:^5.0.0":
   version: 5.0.0
   resolution: "find-up@npm:5.0.0"
   dependencies:
@@ -7855,20 +7785,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:7.1.6":
-  version: 7.1.6
-  resolution: "glob@npm:7.1.6"
-  dependencies:
-    fs.realpath: ^1.0.0
-    inflight: ^1.0.4
-    inherits: 2
-    minimatch: ^3.0.4
-    once: ^1.3.0
-    path-is-absolute: ^1.0.0
-  checksum: 351d549dd90553b87c2d3f90ce11aed9e1093c74130440e7ae0592e11bbcd2ce7f0ebb8ba6bfe63aaf9b62166a7f4c80cb84490ae5d78408bb2572bf7d4ee0a6
-  languageName: node
-  linkType: hard
-
 "glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.4.2":
   version: 10.4.5
   resolution: "glob@npm:10.4.5"
@@ -8141,7 +8057,6 @@ __metadata:
   resolution: "hoppixtv@workspace:packages/example"
   dependencies:
     "@babel/core": ^7.26.0
-    "@bam.tech/react-native-keyevent-expo-config-plugin": ^1.0.52
     "@emotion/native": ^11.11.0
     "@emotion/react": ^11.11.3
     "@expo/metro-runtime": ~6.1.2
@@ -8160,7 +8075,6 @@ __metadata:
     lucide-react-native: ^0.335.0
     react: 19.1.0
     react-native: "npm:react-native-tvos@0.81.4-0"
-    react-native-keyevent: ^0.3.2
     react-native-safe-area-context: ~5.6.0
     react-native-screens: ~4.16.0
     react-native-svg: 15.12.1
@@ -9696,7 +9610,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:^2.2.2, json5@npm:^2.2.3":
+"json5@npm:^2.2.3":
   version: 2.2.3
   resolution: "json5@npm:2.2.3"
   bin:
@@ -12150,15 +12064,6 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 8fb6d8ab7b953c7d7cec8c987cef24f1c5348a293a85cb49c7c53b54ef110c0ca746736ae730e297603c8c76020df912e93915fb17518c4f2f91143757177aba
-  languageName: node
-  linkType: hard
-
-"react-native-keyevent@npm:^0.3.2":
-  version: 0.3.2
-  resolution: "react-native-keyevent@npm:0.3.2"
-  peerDependencies:
-    react-native: ">=0.30"
-  checksum: 6d7184ed8321292d54caaab510b9d5b34c022e059580c9dda52c97c68df15ade0a0b05b4adabcb4bff6864dafe26f41db7b5c91b140a63ffe5a0039c55b0f88e
   languageName: node
   linkType: hard
 
@@ -14885,17 +14790,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"write-file-atomic@npm:^2.3.0":
-  version: 2.4.3
-  resolution: "write-file-atomic@npm:2.4.3"
-  dependencies:
-    graceful-fs: ^4.1.11
-    imurmurhash: ^0.1.4
-    signal-exit: ^3.0.2
-  checksum: 2db81f92ae974fd87ab4a5e7932feacaca626679a7c98fcc73ad8fcea5a1950eab32fa831f79e9391ac99b562ca091ad49be37a79045bd65f595efbb8f4596ae
-  languageName: node
-  linkType: hard
-
 "write-file-atomic@npm:^4.0.2":
   version: 4.0.2
   resolution: "write-file-atomic@npm:4.0.2"
@@ -14984,13 +14878,6 @@ __metadata:
     sax: ">=0.6.0"
     xmlbuilder: ~11.0.0
   checksum: 437f353fd66d367bf158e9555a0625df9965d944e499728a5c6bc92a54a2763179b144f14b7e1c725040f56bbd22b0fa6cfcb09ec4faf39c45ce01efe631f40b
-  languageName: node
-  linkType: hard
-
-"xmlbuilder@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "xmlbuilder@npm:14.0.0"
-  checksum: 9e93d3c73957dbb21acde63afa5d241b19057bdbdca9d53534d8351e70f1d5c9db154e3ca19bd3e9ea84c082539ab6e7845591c8778a663e8b5d3470d5427a8b
   languageName: node
   linkType: hard
 

@@ -30,7 +30,6 @@
       "baseUrl": "/react-tv-space-navigation"
     },
     "plugins": [
-      "@bam.tech/react-native-keyevent-expo-config-plugin",
       [
         "@react-native-tvos/config-tv",
         {
