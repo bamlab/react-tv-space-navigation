@@ -9,6 +9,11 @@ export const GoBackConfiguration = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
+    /**
+     * 1) Catch native back button presses
+     * 2) Emit a custom 'Back' key event to be handled by useKey
+     * 3) Prevent default back button behavior
+     */
     const event = BackHandler.addEventListener('hardwareBackPress', () => {
       RemoteControlManager.emitKeyDown(SupportedKeys.Back);
       return true;
