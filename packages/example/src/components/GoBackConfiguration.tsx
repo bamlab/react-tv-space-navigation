@@ -3,12 +3,14 @@ import { SupportedKeys } from './remote-control/SupportedKeys';
 import { useKey } from '../hooks/useKey';
 import { useCallback, useEffect } from 'react';
 import { BackHandler } from 'react-native';
+import RemoteControlManager from './remote-control/RemoteControlManager';
 
 export const GoBackConfiguration = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
     const event = BackHandler.addEventListener('hardwareBackPress', () => {
+      RemoteControlManager.emitKeyDown(SupportedKeys.Back);
       return true;
     });
 
