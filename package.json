@@ -3,6 +3,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": ">=20"
+  },
   "private": true,
   "packageManager": "yarn@3.5.1",
   "devDependencies": {
@@ -12,8 +15,8 @@
     "@babel/preset-typescript": "^7.22.5",
     "@react-native-community/eslint-config": "^3.2.0",
     "@testing-library/react-native": "^13.2.0",
-    "@types/react": "~19.0.0",
-    "@types/react-dom": "~19.0.0",
+    "@types/react": "~19.1.0",
+    "@types/react-dom": "~19.1.0",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "@typescript-eslint/typescript-estree": "^5.61.0",
@@ -32,7 +35,7 @@
     "metro-react-native-babel-preset": "^0.76.7",
     "patch-package": "^8.0.0",
     "prettier": "^2.8.8",
-    "react-test-renderer": "19.0.0",
+    "react-test-renderer": "19.1.0",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.4.4",
     "typescript": "~5.8.3",
@@ -41,10 +44,9 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "@react-native-tvos/config-tv": "^0.0.4",
     "@react-navigation/bottom-tabs": "^6.5.11",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-native-modal": "^13.0.1",
     "react-native-web": "^0.20.0"
   },

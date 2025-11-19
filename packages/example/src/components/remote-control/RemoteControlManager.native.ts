@@ -2,10 +2,21 @@ import { SupportedKeys } from './SupportedKeys';
 import { HWEvent, TVEventHandler } from 'react-native';
 import { RemoteControlManagerInterface } from './RemoteControlManager.interface';
 import CustomEventEmitter from './CustomEventEmitter';
+import { BackHandler } from 'react-native';
 
 class RemoteControlManager implements RemoteControlManagerInterface {
   constructor() {
     TVEventHandler.addListener(this.handleKeyDown);
+    /**
+     * TVEventHandler does not catch native back button presses on Native side
+     * 1) Catch native back button presses
+     * 2) Emit a custom 'Back' key event to be handled by useKey
+     * 3) Prevent default back button behavior
+     */
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.emitKeyDown(SupportedKeys.Back);
+      return true;
+    });
   }
 
   private eventEmitter = new CustomEventEmitter<{ keyDown: SupportedKeys }>();
@@ -20,6 +31,7 @@ class RemoteControlManager implements RemoteControlManagerInterface {
       down: SupportedKeys.Down,
       select: SupportedKeys.Enter,
       longSelect: SupportedKeys.LongEnter,
+      back: SupportedKeys.Back,
     }[evt.eventType];
 
     if (!mappedKey) {
