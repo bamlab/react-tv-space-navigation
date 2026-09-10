@@ -106,6 +106,10 @@ You should have a look at [the pitfalls and troubleshooting](./docs/pitfalls.md)
 
 Read the [state of accessibility](./docs/accessibility.md).
 
+# Right-to-left layouts
+
+Read [right-to-left layouts](./docs/rtl.md) for Arabic, Hebrew, Farsi or Urdu apps.
+
 # Contributing
 
 ## Publishing the package
