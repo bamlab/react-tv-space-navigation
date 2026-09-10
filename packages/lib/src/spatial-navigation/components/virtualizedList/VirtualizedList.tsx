@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { Animated, StyleSheet, View, ViewStyle, Platform } from 'react-native';
+import { Animated, I18nManager, StyleSheet, View, ViewStyle, Platform } from 'react-native';
 import { getRange } from './helpers/getRange';
 import {
   useVirtualizedListAnimation,
@@ -49,6 +49,23 @@ export interface VirtualizedListProps<T> {
   listSizeInPx: number;
   scrollBehavior?: ScrollBehavior;
   testID?: string;
+  /**
+   * Lay a horizontal list out for a mirrored layout: the first item sits at the
+   * right edge and the list scrolls leftwards.
+   *
+   * Defaults to `I18nManager.isRTL` on native. On react-native-web the layout
+   * direction comes from the DOM and `I18nManager` exposes no `isRTL`, so the
+   * default there is left-to-right: pass this prop explicitly to mirror a list
+   * on the web.
+   *
+   * Pass `false` for a horizontal list that must stay left-to-right inside a
+   * mirrored app (a time axis, playback controls, anything pinned with
+   * `direction: 'ltr'`), since React Native keeps the `left: 0` anchor of the
+   * items on the left inside such a subtree.
+   *
+   * Ignored on a vertical list, which translates on the Y axis.
+   */
+  rtl?: boolean;
 }
 
 const useOnEndReached = ({
@@ -90,6 +107,7 @@ const ItemContainerWithAnimatedStyle = typedMemo(
     renderItem,
     itemSize,
     vertical,
+    mirrored,
     data,
   }: {
     item: T;
@@ -97,6 +115,8 @@ const ItemContainerWithAnimatedStyle = typedMemo(
     renderItem: VirtualizedListProps<T>['renderItem'];
     itemSize: number | ((item: T) => number);
     vertical: boolean;
+    /** Horizontal list laid out for a mirrored layout. */
+    mirrored: boolean;
     data: T[];
   }) => {
     const computeOffset = useCallback(
@@ -107,15 +127,26 @@ const ItemContainerWithAnimatedStyle = typedMemo(
       [data, itemSize],
     );
 
+    // On a mirrored tree React Native rewrites the `left: 0` anchor of
+    // `styles.item` into `right: 0` on its own, but this translation is
+    // geometric: it would push every item rightwards from that anchor, off
+    // screen. Stack the items leftwards instead. Horizontal lists only, the
+    // non-mirrored path being unchanged.
     const style = useMemo(
       () =>
         StyleSheet.flatten([
           styles.item,
           vertical
             ? { transform: [{ translateY: computeOffset(item, index) }] }
-            : { transform: [{ translateX: computeOffset(item, index) }] },
+            : {
+                transform: [
+                  {
+                    translateX: mirrored ? -computeOffset(item, index) : computeOffset(item, index),
+                  },
+                ],
+              },
         ]),
-      [computeOffset, item, index, vertical],
+      [computeOffset, item, index, vertical, mirrored],
     );
     return <View style={style}>{renderItem({ item, index })}</View>;
   },
@@ -147,6 +178,7 @@ export const VirtualizedList = typedMemo(
     listSizeInPx,
     scrollBehavior = 'stick-to-start',
     testID,
+    rtl,
   }: VirtualizedListProps<T>) => {
     const numberOfItemsVisibleOnScreen = getNumberOfItemsVisibleOnScreen({
       data,
@@ -169,6 +201,12 @@ export const VirtualizedList = typedMemo(
     });
 
     const vertical = orientation === 'vertical';
+    // The one place the reading direction is decided for this list. The item
+    // containers and the scroll animation only receive it.
+    // `I18nManager.isRTL` is undefined on react-native-web, where the direction
+    // comes from the DOM rather than from a native flag, so the default there is
+    // left-to-right and the app has to pass `rtl` explicitly.
+    const mirrored = !vertical && (rtl ?? Boolean(I18nManager.isRTL));
 
     const totalVirtualizedListSize = useMemo(
       () => getSizeInPxFromOneItemToAnother(data, itemSize, 0, data.length),
@@ -203,12 +241,14 @@ export const VirtualizedList = typedMemo(
         ? useWebVirtualizedListAnimation({
             currentlyFocusedItemIndex,
             vertical,
+            mirrored,
             scrollDuration,
             scrollOffsetsArray: allScrollOffsets,
           })
         : useVirtualizedListAnimation({
             currentlyFocusedItemIndex,
             vertical,
+            mirrored,
             scrollDuration,
             scrollOffsetsArray: allScrollOffsets,
           });
@@ -274,6 +314,7 @@ export const VirtualizedList = typedMemo(
                 index={index}
                 itemSize={itemSize}
                 vertical={vertical}
+                mirrored={mirrored}
                 data={data}
               />
             );
