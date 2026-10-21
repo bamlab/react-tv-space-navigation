@@ -25,6 +25,7 @@ The `SpatialNavigationRoot` component receives the following props:
 | ----------------------------------- | -------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `isActive`                          | `boolean`                        | `true`      | Determines if the spatial navigation is active. If `false`, the spatial navigation will be locked, and no nodes can be focused. This is useful to handle a multi page app: you can disable the non-focused pages' spatial navigation roots.                                                                                       |
 | `onDirectionHandledWithoutMovement` | `(direction: Direction) => void` | `undefined` | Called when you're reaching a border of the navigator. A use case for this would be the implementation of a side menu that's shared between pages. You can have a separate navigator for your side menu, which would be common across pages, and you'd make this menu active when you reach the left side of your page navigator. |
+| `restoreFocus`                      | `boolean`                        | `false`     | Gives the focus back to the element that was focused when the root was deactivated. A root is deactivated when `isActive` becomes `false`, or when the spatial navigation is locked (for instance when a modal is opened). When the root becomes active again, the focus goes back to the element the user was on, instead of falling back to the first element of the screen. This is what you want in a multi-screen app: when the user comes back to a screen, the focus should be where they left it. It also makes the "select" button work right away, because the select event is sent to the focused element. |
 | `children`                          | `ReactNode`                      | `null`      |                                                                                                                                                                                                                                                                                                                                   |
 
 ## Usage
@@ -36,6 +37,41 @@ The `SpatialNavigationRoot` component receives the following props:
   </SpatialNavigationNode>
 </SpatialNavigationRoot>
 ```
+
+### Restoring the focus when the user comes back to a screen
+
+In a multi-screen app, every screen usually has its own `SpatialNavigationRoot`, and only the
+active one is enabled. When the user navigates to another screen and comes back, the focus should
+be on the element they left, and not on the first element of the screen:
+
+```jsx
+const [activeScreen, setActiveScreen] = useState('home');
+
+return (
+  <>
+    <SpatialNavigationRoot isActive={activeScreen === 'home'} restoreFocus>
+      {/* ... */}
+    </SpatialNavigationRoot>
+
+    <SpatialNavigationRoot isActive={activeScreen === 'details'} restoreFocus>
+      {/* ... */}
+    </SpatialNavigationRoot>
+  </>
+);
+```
+
+The same applies when a modal locks the spatial navigation: the focus of the screen behind the
+modal is restored when the modal is closed.
+
+The focus is restored to the element that was focused, even if the content of the screen was
+re-rendered in the meantime (the position of the element in the tree is used to find it back).
+If that element is not there anymore, the focus is left where it is.
+
+> The position of the nodes in the tree is used to find the element back, so it has to be stable.
+> This is the same constraint as the one described in the
+> [pitfalls about conditional rendering](./pitfalls.md#conditional-rendering--dynamic-ordering):
+> wrap your conditionally rendered elements with a `<SpatialNavigationNode/>` that you never remove
+> from the tree, and the focus will be restored to the right element.
 
 # SpatialNavigationNode
 

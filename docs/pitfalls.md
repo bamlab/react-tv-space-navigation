@@ -68,6 +68,33 @@ You simply need to wrap your conditionally rendered elements with a `<SpatialNav
 You remove its children only.
 Once you do that, there is always an LRUD node living at the place of your button, and there won’t be any confusion order once your button comes back!
 
+## The focus is lost when the content of a screen is re-rendered
+
+### TLDR
+
+Use the `restoreFocus` prop of the `SpatialNavigationRoot` if you want the focus to go back to the
+element the user was on when they come back to a screen.
+
+### Explanations
+
+The nodes are registered in LRUD when they are mounted, and unregistered when they are unmounted.
+When the focused node is unregistered, LRUD forgets where the focus was: the focus is lost, and
+another element takes it.
+
+This is a problem in a multi-screen app: the user is on the third item of a list, they navigate to
+another screen, the content of the first screen is re-rendered, and they come back: the focus is
+on the first item of the list, and not on the third one. The "select" button is then sent to the
+wrong element, because the select event is sent to the focused element.
+
+With `restoreFocus`, the root remembers where the focus was when it was deactivated, and gives it
+back when it becomes active again:
+
+```jsx
+<SpatialNavigationRoot isActive={activeScreen === 'home'} restoreFocus>
+  {/* ... */}
+</SpatialNavigationRoot>
+```
+
 ## Accessibility
 
 As mentioned in [accessibility](./accessibility.md), support is experimental. And help is welcome 🙂

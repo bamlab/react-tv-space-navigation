@@ -1,4 +1,4 @@
-import { Direction, Lrud } from '@bam.tech/lrud';
+import { Direction, Lrud, Node } from '@bam.tech/lrud';
 import { isError } from './helpers/isError';
 
 export type OnDirectionHandledWithoutMovement = (direction: Direction) => void;
@@ -174,6 +174,99 @@ export default class SpatialNavigator {
   public getCurrentFocusNode = () => {
     return this.lrud.currentFocusNode;
   };
+
+  /**
+   * The path of the currently focused node: the list of the indexes of its
+   * children, from the root of the tree down to the node itself.
+   *
+   * We remember the path rather than the id of the node because the ids are
+   * generated when a node is mounted. When the content of a screen is
+   * re-rendered, the focused node is unregistered and registered again with a
+   * new id, but it stays at the same place in the tree.
+   */
+  private getFocusedNodePath = (): number[] | null => {
+    let node = this.lrud.getCurrentFocusNode();
+
+    if (!node) return null;
+
+    const path: number[] = [];
+
+    while (node.parent) {
+      const index = node.parent.children?.indexOf(node) ?? -1;
+
+      // The node is not in the children of its parent: we can't build a path.
+      if (index === -1) return null;
+
+      path.unshift(index);
+      node = node.parent;
+    }
+
+    return path;
+  };
+
+  /**
+   * Returns the node sitting at the given path in the tree, if any.
+   */
+  private getNodeAtPath = (path: number[]): Node | undefined => {
+    let node: Node | undefined;
+
+    try {
+      node = this.lrud.getRootNode();
+    } catch (e) {
+      return undefined;
+    }
+
+    for (const index of path) {
+      node = node?.children?.[index];
+
+      if (!node) return undefined;
+    }
+
+    return node;
+  };
+
+  /**
+   * Remembers where the focus is, so that it can be given back later.
+   *
+   * @see restoreFocus
+   */
+  public saveFocus = () => {
+    this.focusedNodePath = this.getFocusedNodePath();
+  };
+
+  /**
+   * Gives the focus back to the node that was focused when saveFocus was
+   * called.
+   *
+   * This is used when a screen becomes active again (after the user came back
+   * to it, or after a modal was closed): the focus should go back to the
+   * element the user was on, and not to the first element of the screen.
+   *
+   * Returns true if the focus was restored.
+   */
+  public restoreFocus = (): boolean => {
+    const path = this.focusedNodePath;
+
+    if (!path) return false;
+
+    const node = this.getNodeAtPath(path);
+
+    if (!node) return false;
+
+    // The node is not focusable anymore: we don't want to move the focus to
+    // an arbitrary element.
+    if (!node.isFocusable && !this.lrud.doesNodeHaveFocusableChildren(node)) return false;
+
+    try {
+      this.lrud.assignFocus(node);
+    } catch (e) {
+      return false;
+    }
+
+    return true;
+  };
+
+  private focusedNodePath: number[] | null = null;
 
   private get hasRootNode(): boolean {
     try {

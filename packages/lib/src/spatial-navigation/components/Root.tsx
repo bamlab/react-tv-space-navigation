@@ -26,12 +26,30 @@ type Props = {
    * make this menu active when you reach the left side of your page navigator.
    */
   onDirectionHandledWithoutMovement?: OnDirectionHandledWithoutMovement;
+  /**
+   * Gives the focus back to the element that was focused when the root was
+   * deactivated.
+   *
+   * A root is deactivated when `isActive` becomes false, or when the spatial
+   * navigation is locked (for instance when a modal is opened). When the root
+   * becomes active again, the focus is restored to the element the user was on
+   * instead of falling back to the first element of the screen.
+   *
+   * This is what you want in a multi-screen app: when the user comes back to a
+   * screen, the focus should be where they left it. It also makes the "select"
+   * button work right away, because the select event is sent to the focused
+   * element.
+   *
+   * @default false
+   */
+  restoreFocus?: boolean;
   children: ReactNode;
 };
 
 export const SpatialNavigationRoot = ({
   isActive = true,
   onDirectionHandledWithoutMovement = () => undefined,
+  restoreFocus = false,
   children,
 }: Props) => {
   // We can't follow the react philosophy here: we can't recreate a navigator if this function changes
@@ -50,6 +68,24 @@ export const SpatialNavigationRoot = ({
 
   const isRootActive = isActive && !isLocked;
   useRemoteControl({ spatialNavigator, isActive: isRootActive });
+
+  // Focus restoration: when the root is deactivated, we remember where the
+  // focus was. When it becomes active again, we give the focus back to that
+  // element.
+  const wasRootActiveRef = useRef(isRootActive);
+
+  useEffect(() => {
+    if (wasRootActiveRef.current === isRootActive) return;
+    wasRootActiveRef.current = isRootActive;
+
+    if (!restoreFocus) return;
+
+    if (isRootActive) {
+      spatialNavigator.restoreFocus();
+    } else {
+      spatialNavigator.saveFocus();
+    }
+  }, [isRootActive, restoreFocus, spatialNavigator]);
 
   useEffect(() => {
     spatialNavigator.registerNode(ROOT_ID, { orientation: 'vertical' });
